@@ -1,7 +1,7 @@
 # NativeAppTemplate-Free-iOS
 
-This iOS app is a free version of  [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team).  
-NativeAppTemplate-Free-iOS is a versatile native iOS REST client app.
+NativeAppTemplate-Free-iOS is a modern and comprehensive native iOS app with user authentication.  
+This iOS app is a free version of  [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team).
 
 ## Overview
 
