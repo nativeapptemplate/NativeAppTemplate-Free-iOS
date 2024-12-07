@@ -1,0 +1,22 @@
+name: SwiftLint
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/swiftlint.yml'
+      - 'NativeAppTemplate/.swiftlint.yml'
+      - 'NativeAppTemplate/**/*.swift'
+
+jobs:
+  SwiftLint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: GitHub Action for SwiftLint (Only files changed in the PR)
+        uses: norio-nomura/action-swiftlint@3.2.1
+        with:
+          args: --strict
+        env:
+          SWIFTLINT: true
