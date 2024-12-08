@@ -1,6 +1,6 @@
 # NativeAppTemplate-Free-iOS
 
-NativeAppTemplate-Free-iOS is a modern and comprehensive native iOS app with user authentication.  
+NativeAppTemplate-Free-iOS is a modern, comprehensive, and production-ready native iOS app with user authentication.  
 This iOS app is a free version of  [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team).
 
 ## Overview
@@ -19,7 +19,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - **99% SwiftUI** (UIKit is only used for the contact email screen.)
 - **[@Observable](https://developer.apple.com/documentation/swiftui/migrating-from-the-observable-object-protocol-to-the-observable-macro)** (iOS 17: streamlined Swift state management)
 - **[SwiftLint](https://github.com/realm/SwiftLint)**
-- References from [emitron-iOS](https://github.com/razeware/emitron-iOS)
+- Inspired by [emitron-iOS](https://github.com/razeware/emitron-iOS)
 
 #### Included Features
 
