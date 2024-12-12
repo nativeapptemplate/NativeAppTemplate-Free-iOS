@@ -13,6 +13,10 @@ You can purchase the source code for the backend server APIs that power `api.nat
 - [NativeAppTemplate-API (Solo)](https://nativeapptemplate.com/products/api-solo)  
 - [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)
 
+### Screenshots
+
+![Screenshot showing Sign in screen, Shops screen and Settings screen](docs/images/screenshots.png "Screenshot showing Sign in screen, Shops screen and Settings screen")
+
 ### Features
 
 NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, including:
