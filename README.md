@@ -8,7 +8,7 @@ The Android version is available here: [NativeAppTemplate-Free-Android](https://
 ## Overview
 
 NativeAppTemplate-Free-iOS is configured to connect to `api.nativeapptemplate.com`.  
-You can purchase the source code for the backend server APIs that power `api.nativeapptemplate.com`:
+You can purchase the source code for the backend server APIs ,made with Ruby on Rails, that power `api.nativeapptemplate.com`:
 
 - [NativeAppTemplate-API (Solo)](https://nativeapptemplate.com/products/api-solo)  
 - [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)
