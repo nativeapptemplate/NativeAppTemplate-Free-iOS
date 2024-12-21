@@ -45,6 +45,24 @@ The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/
 - User Invitation to Organizations
 - Role-Based Permissions and Access Control
 
+## Supported Devices
+
+- **iPhone**  
+  - SDK: iOS  
+  - Orientation: Portrait mode only  
+  - Screen: Requires full screen  
+
+- **iPad**  
+  - SDK: iOS  
+  - Orientation: Portrait mode only  
+  - Screen: Requires full screen  
+
+- **Mac**  
+  - SDK: iOS  
+  - Orientation: Portrait mode only  
+  - Screen: Requires full screen  
+  - Notes: Designed for iPad  
+
 ## Getting Started
 
 To get started, clone this repository:
