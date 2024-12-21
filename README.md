@@ -45,7 +45,7 @@ The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/
 - User Invitation to Organizations
 - Role-Based Permissions and Access Control
 
-## Supported Devices
+### Supported Devices
 
 - **iPhone**  
   - SDK: iOS  
