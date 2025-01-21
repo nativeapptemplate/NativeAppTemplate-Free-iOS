@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Shopkeeper: Hashable, Codable {
+public struct Shopkeeper: Hashable, Codable, Sendable {
 
   // MARK: - Properties
   var id: String

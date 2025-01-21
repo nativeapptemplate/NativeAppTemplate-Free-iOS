@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@Observable class DataManager {
+@MainActor @Observable class DataManager {
 
   // MARK: - Properties
   // Initialiser Arguments

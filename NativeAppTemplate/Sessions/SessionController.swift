@@ -30,7 +30,7 @@ import Foundation
 import Network
 import Observation
 
-@Observable class SessionController {
+@MainActor @Observable class SessionController {
   // Managing the state of the current session
   private(set) var sessionState: SessionState = .unknown
   private(set) var userState: UserState = .notLoggedIn
@@ -98,7 +98,7 @@ import Observation
     prepareConnectionMonitor()
   }
   
-  @MainActor func login(email: String, password: String) async throws {
+  func login(email: String, password: String) async throws {
     guard userState != .loggingIn else { return }
     
     userState = .loggingIn
@@ -127,7 +127,7 @@ import Observation
     }
   }
   
-  @MainActor func logout() async throws {
+  func logout() async throws {
     do {
       shouldPopToRootView = true
       try await loginRepository.logout(networkClient: client)
@@ -169,7 +169,7 @@ import Observation
     
     permissionState = .loading
     
-    Task { @MainActor in
+    Task {
       do {
         let prmissionsResponse = try await permissionsService.allPermissions()
         
@@ -228,18 +228,20 @@ import Observation
   
   private func prepareConnectionMonitor() {
     connectionMonitor.pathUpdateHandler = { [weak self] path in
-      guard let self = self else { return }
-      
-      let newState: SessionState = path.status == .satisfied ? .online : .offline
-      
-      if newState != self.sessionState {
-        self.sessionState = newState
-      }
-      
-      if didFetchPermissions {
-        self.fetchPermissionsIfNeeded()
-      } else {
-        self.fetchPermissions()
+      Task { @MainActor in
+        guard let self = self else { return }
+        
+        let newState: SessionState = path.status == .satisfied ? .online : .offline
+        
+        if newState != self.sessionState {
+          self.sessionState = newState
+        }
+        
+        if self.didFetchPermissions {
+          self.fetchPermissionsIfNeeded()
+        } else {
+          self.fetchPermissions()
+        }
       }
     }
     connectionMonitor.start(queue: .main)

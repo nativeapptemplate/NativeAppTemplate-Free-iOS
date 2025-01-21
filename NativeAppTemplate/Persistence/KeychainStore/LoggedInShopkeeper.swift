@@ -119,5 +119,5 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
     )
   }
   
-  public static var supportsSecureCoding = true
+  public static let supportsSecureCoding = true
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Shop: Codable, Identifiable {
+struct Shop: Codable, Identifiable, Sendable {
   var id: String
   var name: String
   var description: String

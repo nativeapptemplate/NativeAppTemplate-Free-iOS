@@ -7,7 +7,7 @@
 
 import Foundation
 
-@Observable public class LoginRepository {
+@MainActor @Observable public class LoginRepository {
   // MARK: - Properties
   private var _currentShopkeeper: Shopkeeper?
   

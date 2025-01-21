@@ -95,7 +95,7 @@ struct AppTabView_Previews: PreviewProvider {
 }
 
 // MARK: - private
-private func tab<Content: View>(
+@MainActor private func tab<Content: View>(
   content: @escaping () -> Content,
   navigationPath: Binding<NavigationPath>?,
   text: String,

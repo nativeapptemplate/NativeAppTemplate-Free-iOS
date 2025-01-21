@@ -23,18 +23,13 @@ struct App {
   private var dataManager: DataManager
   private var messageBus: MessageBus
 
-  init() {
+  @MainActor init() {
     // setup objects
     let nativeAppTemplateObjects = App.objects
     loginRepository = nativeAppTemplateObjects.loginRepository
     sessionController = nativeAppTemplateObjects.sessionController
     dataManager = nativeAppTemplateObjects.dataManager
     messageBus = nativeAppTemplateObjects.messageBus
-    
-    // configure ui
-    customizeNavigationBar()
-    customizeTableView()
-    customizeControls()
     
     try? Tips.configure()
   }
@@ -62,7 +57,7 @@ extension App: SwiftUI.App {
 // MARK: - internal
 extension App {
   // Initialise the database
-  static var objects: Objects {
+  @MainActor static var objects: Objects {
     let loginRepository = LoginRepository()
     let sessionController = SessionController(loginRepository: loginRepository)
     let messageBus = MessageBus()
@@ -75,32 +70,5 @@ extension App {
       ),
       messageBus: messageBus
     )
-  }
-}
-
-// MARK: - private
-private extension App {
-  func customizeNavigationBar() {
-    UINavigationBar.appearance().backgroundColor = .backgroundUiColor
-
-    UINavigationBar.appearance().largeTitleTextAttributes = [
-      .foregroundColor: UIColor(named: "titleText")!,
-      .font: UIFont.uiLargeTitle
-    ]
-    UINavigationBar.appearance().titleTextAttributes = [
-      .foregroundColor: UIColor(named: "titleText")!,
-      .font: UIFont.uiHeadline
-    ]
-  }
-
-  func customizeTableView() {
-    UITableView.appearance().separatorColor = .clear
-    UITableViewCell.appearance().backgroundColor = .backgroundUiColor
-    UITableViewCell.appearance().selectionStyle = .none
-    UITableView.appearance().backgroundColor = .backgroundUiColor
-  }
-
-  func customizeControls() {
-    UISwitch.appearance().onTintColor = .accent
   }
 }
