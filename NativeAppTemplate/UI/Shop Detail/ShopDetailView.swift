@@ -8,7 +8,7 @@
 import SwiftUI
 import TipKit
 
-struct ShopDetailView {
+struct ShopDetailView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.mainTab) private var mainTab
   @Environment(TabViewModel.self) private var tabViewModel
@@ -35,7 +35,7 @@ struct ShopDetailView {
 }
 
 // MARK: - View
-extension ShopDetailView: View {
+extension ShopDetailView {
   var body: some View {
     contentView
       .onAppear {
@@ -97,7 +97,7 @@ private extension ShopDetailView {
   }
   
   private func fetchShopDetail() {
-    Task { @MainActor in
+    Task {
       isFetching = true
       
       do {

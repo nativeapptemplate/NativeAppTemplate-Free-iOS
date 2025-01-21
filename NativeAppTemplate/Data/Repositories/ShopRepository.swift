@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@Observable class ShopRepository {
+@MainActor @Observable class ShopRepository {
   let shopsService: ShopsService
   
   var shops: [Shop] = []

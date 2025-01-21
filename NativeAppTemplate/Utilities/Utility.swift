@@ -42,7 +42,7 @@ enum Utility {
     var utsnameInstance = utsname()
     uname(&utsnameInstance)
     let optionalString: String? = withUnsafePointer(to: &utsnameInstance.machine) {
-      $0.withMemoryRebound(to: CChar.self, capacity: 1) { ptr in String(validatingUTF8: ptr) }
+      $0.withMemoryRebound(to: CChar.self, capacity: 1) { ptr in String(validatingCString: ptr) }
     }
     return optionalString ?? "N/A"
   }

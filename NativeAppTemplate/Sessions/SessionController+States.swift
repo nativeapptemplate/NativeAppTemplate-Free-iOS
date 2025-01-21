@@ -29,19 +29,19 @@
 import struct Foundation.Date
 
 extension SessionController {
-  enum UserState {
+  enum UserState: Sendable {
     case loggedIn
     case loggingIn
     case notLoggedIn
   }
   
-  enum SessionState {
+  enum SessionState: Sendable {
     case unknown
     case online
     case offline
   }
   
-  enum PermissionState: Equatable {
+  enum PermissionState: Equatable, Sendable {
     case notLoaded
     case loading
     case loaded

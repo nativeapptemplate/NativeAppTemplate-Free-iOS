@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ShopSettingsView {
+struct ShopSettingsView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(MessageBus.self) private var messageBus
   @Environment(SessionController.self) private var sessionController
@@ -34,7 +34,7 @@ struct ShopSettingsView {
 }
 
 // MARK: - View
-extension ShopSettingsView: View {
+extension ShopSettingsView {
   var body: some View {
     contentView
       .task {

@@ -5,7 +5,7 @@
 //  Created by Daisuke Adachi on 2023/02/25.
 //
 
-class AccountPasswordRepository {
+@MainActor class AccountPasswordRepository {
   let accountPasswordService: AccountPasswordService
       
   init(

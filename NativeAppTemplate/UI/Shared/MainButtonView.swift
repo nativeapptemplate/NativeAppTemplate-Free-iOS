@@ -106,7 +106,9 @@ struct MainButtonView: View {
             .stroke(type.color, lineWidth: 2)
         )
         .onPreferenceChange(SizeKey.self) { size in
-          height = size?.height
+          Task { @MainActor in
+            height = size?.height
+          }
         }
       }
     }
@@ -163,7 +165,9 @@ struct MainButtonImageView: View {
           .stroke(type.color, lineWidth: 2)
       )
       .onPreferenceChange(SizeKey.self) { size in
-        height = size?.height
+        Task { @MainActor in
+          height = size?.height
+        }
       }
     }
   }
