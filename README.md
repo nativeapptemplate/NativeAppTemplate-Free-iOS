@@ -25,6 +25,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - **99% SwiftUI** (UIKit is only used for the contact email screen.)
 - **[@Observable](https://developer.apple.com/documentation/swiftui/migrating-from-the-observable-object-protocol-to-the-observable-macro)** (iOS 17: streamlined Swift state management)
 - **[SwiftLint](https://github.com/realm/SwiftLint)**
+- Test (Swift Testing)
 - Inspired by [emitron-iOS](https://github.com/razeware/emitron-iOS)
 
 #### Included Features
