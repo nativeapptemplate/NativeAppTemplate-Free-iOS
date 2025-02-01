@@ -56,13 +56,13 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
   init?(dictionary: [String: String]) {
     guard
       let id = dictionary["id"],
-      let accountId = dictionary["accountId"],
-      let personalAccountId = dictionary["personalAccountId"],
-      let accountOwnerId = dictionary["accountOwnerId"],
-      let accountName = dictionary["accountName"],
+      let accountId = dictionary["account_id"],
+      let personalAccountId = dictionary["personal_account_id"],
+      let accountOwnerId = dictionary["account_owner_id"],
+      let accountName = dictionary["account_name"],
       let email = dictionary["email"],
       let name = dictionary["name"],
-      let timeZone = dictionary["timeZone"],
+      let timeZone = dictionary["time_zone"],
       let uid = dictionary["uid"],
       let token = dictionary["token"],
       let client = dictionary["client"],
