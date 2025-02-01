@@ -71,7 +71,7 @@ struct ShopAdapterTest {
     }
   }
 
-  @Test func missingnNmeThrows() throws {
+  @Test func missingnNameThrows() throws {
     var sample = sampleResource
     sample["attributes"].dictionaryObject?.removeValue(forKey: "name")
 
