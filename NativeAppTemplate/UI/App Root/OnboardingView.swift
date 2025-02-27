@@ -59,8 +59,8 @@ private extension OnboardingView {
       Image(image)
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .frame(maxHeight: 640, alignment: .top)
         .padding(.top, 24)
+        .padding(.bottom, 192)
 
       ZStack(alignment: .top) {
         VStack {
