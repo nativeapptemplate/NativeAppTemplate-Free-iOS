@@ -68,6 +68,7 @@ extension String {
   // MARK: Settings View
   static let supportMail: String = "support@nativeapptemplate.com"
   static let supportWebsiteUrl: String = "https://nativeapptemplate.com"
+  static let howToUseUrl: String = "https://myturntag.com/how"
   static let discussionsUrl: String = "https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/discussions"
   static let privacyPolicyUrl: String = "https://nativeapptemplate.com/privacy"
   static let termsOfUseUrl: String = "https://nativeapptemplate.com/terms"
@@ -76,6 +77,7 @@ extension String {
   static let profile = "Profile"
   static let information = "Information"
   static let supportWebsite = "Support Website"
+  static let howToUse = "How To Use"
   static let faqs = "FAQs"
   static let discussions = "Discussions"
   static let rateApp = "Rate or Review the App"
@@ -139,10 +141,20 @@ extension String {
   static let email = "Email"
   static let password = "Password"
   
-  static let onboardingDescription1 = "Onboarding description1"
-  static let onboardingDescription2 = "Onboarding description2"
-  static let onboardingDescription3 = "Onboarding description3"
-  
+  static let onboardingDescription1 = String(localized: "A **Server Tag** and a **Customer Tag** are NFCs.")
+  static let onboardingDescription2 = String(localized: "The staff gives the **Customer Tag** to the customer.")
+  static let onboardingDescription3 = String(localized: "The customer scans the **Customer Tag** or the **Customer QR code**.")
+  static let onboardingDescription4 = String(localized: "The customer can view the **Number Tags Webpage** on his mobile browser.")
+  static let onboardingDescription5 = String(localized: "The staff is cooking KILITANPOs.")
+  static let onboardingDescription6 = String(localized: "The staff completed cooking KILITANPOs. The staff scans the **Server Tag**.")
+  static let onboardingDescription7 = String(localized: "Tag completed with Background Tag Reading.")
+  static let onboardingDescription8 = String(localized: "If you do not want to scan, you can complete the tag by swiping the tag(Shops > [Shop]).")
+  static let onboardingDescription9 = String(localized: "**Number Tags Webpage** displays the completed number tag.")
+  static let onboardingDescription10 = String(localized: "The customer's **Number Tags Webpage** updated.")
+  static let onboardingDescription11 = String(localized: "The customer\'s **Number Tags Webpage** displays the completed **Customer Tag**(A07).")
+  static let onboardingDescription12 = String(localized: "The customer returns the **Customer Tag**.")
+  static let onboardingDescription13 = String(localized: "The customer finally got the delicious KILITANPO!")
+
   static let unauthorized = "You are not authorized to perform this action."
 
   // MARK: Other

@@ -73,6 +73,8 @@
 		0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172051925AAF6BF008FD63B /* SessionsService.swift */; };
 		0172052525AAFA43008FD63B /* Shopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052425AAFA43008FD63B /* Shopkeeper.swift */; };
 		0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052E25AC41A7008FD63B /* SessionRequest.swift */; };
+		017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278062D7D4F5800CE424F /* OnboardingRepository.swift */; };
+		017278092D7D4F7400CE424F /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278082D7D4F7400CE424F /* Onboarding.swift */; };
 		0182D37025B258A7001E881D /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0182D36F25B258A7001E881D /* KeychainAccess */; };
 		0182D37825B277FA001E881D /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D37625B277D6001E881D /* KeychainStore.swift */; };
 		0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */; };
@@ -183,6 +185,8 @@
 		0172051925AAF6BF008FD63B /* SessionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsService.swift; sourceTree = "<group>"; };
 		0172052425AAFA43008FD63B /* Shopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopkeeper.swift; sourceTree = "<group>"; };
 		0172052E25AC41A7008FD63B /* SessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequest.swift; sourceTree = "<group>"; };
+		017278062D7D4F5800CE424F /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
+		017278082D7D4F7400CE424F /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		0182D37625B277D6001E881D /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperAdapter.swift; sourceTree = "<group>"; };
 		0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeperKeychainStore.swift; sourceTree = "<group>"; };
@@ -425,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				01B526532AF4E36400655131 /* MainTab.swift */,
+				017278082D7D4F7400CE424F /* Onboarding.swift */,
 				01B526552AF4E82A00655131 /* ScrollToTopID.swift */,
 				0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */,
 				0150A36529B14BB300907F96 /* SendResetPassword.swift */,
@@ -468,6 +473,7 @@
 			isa = PBXGroup;
 			children = (
 				017203F525AA675E008FD63B /* LoginRepository.swift */,
+				017278062D7D4F5800CE424F /* OnboardingRepository.swift */,
 				0172052E25AC41A7008FD63B /* SessionRequest.swift */,
 				0172051925AAF6BF008FD63B /* SessionsService.swift */,
 				011DDC20287669EA00C6C21F /* SignUpRepository.swift */,
@@ -817,6 +823,7 @@
 				017204D925AA847E008FD63B /* ShopRepository.swift in Sources */,
 				0172046625AA82BF008FD63B /* MessageBarView.swift in Sources */,
 				01E0A63025BD53FD00298D35 /* Shop.swift in Sources */,
+				017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */,
 				013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */,
 				0172035825A9642E008FD63B /* ShopsService.swift in Sources */,
 				018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */,
@@ -833,6 +840,7 @@
 				010F86AE2621A2A900B6C62A /* ShopDetailView.swift in Sources */,
 				011F6DF1259EF16400BED22E /* App.swift in Sources */,
 				01FA23A12B00CE5700F1D446 /* MailView.swift in Sources */,
+				017278092D7D4F7400CE424F /* Onboarding.swift in Sources */,
 				01467357299902230005423D /* ShopSettingsView.swift in Sources */,
 				0172048125AA8343008FD63B /* Color+Extensions.swift in Sources */,
 				011DDC2528766CEC00C6C21F /* SignUpRequest.swift in Sources */,
