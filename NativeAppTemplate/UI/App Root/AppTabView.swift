@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppTabView<
   ShopListView: View,
+  ScanView: View,
   SettingsView: View
 > {
   
@@ -18,13 +19,16 @@ struct AppTabView<
   @State var navigationPathShops = NavigationPath()
   @State var navigationPathStats = NavigationPath()
   private let shopListView: () -> ShopListView
+  private let scanView: () -> ScanView
   private let settingsView: () -> SettingsView
 
   init(
     shopListView: @escaping () -> ShopListView,
+    scanView: @escaping () -> ScanView,
     settingsView: @escaping () -> SettingsView
   ) {
     self.shopListView = shopListView
+    self.scanView = scanView
     self.settingsView = settingsView
   }
 }
@@ -60,7 +64,15 @@ extension AppTabView: View {
           imageName: "storefront.fill",
           tab: .shops
         )
-        
+ 
+        tab(
+          content: scanView,
+          navigationPath: nil,
+          text: .scan,
+          imageName: "platter.filled.bottom.iphone",
+          tab: .scan
+        )
+
         tab(
           content: settingsView,
           navigationPath: nil,
@@ -89,6 +101,7 @@ struct AppTabView_Previews: PreviewProvider {
   static var previews: some View {
     AppTabView(
       shopListView: { Text(verbatim: "SHOPS") },
+      scanView: { Text(verbatim: "SCAN") },
       settingsView: { Text(verbatim: "SETTINGS") }
     ).environment(TabViewModel())
   }

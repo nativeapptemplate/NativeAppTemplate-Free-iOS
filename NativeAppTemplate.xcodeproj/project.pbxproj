@@ -29,6 +29,9 @@
 		012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 012009FB299F1E190078A1F9 /* OrderedCollections */; };
 		012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012643362B3554AD00D4E9BD /* AcceptTermsView.swift */; };
 		013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */; };
+		0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */; };
+		0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */; };
+		0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7162D7E33F9004AD8FA /* ScanView.swift */; };
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
@@ -174,6 +177,9 @@
 		011F6DF9259EF16600BED22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		012643362B3554AD00D4E9BD /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
 		013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeper.swift; sourceTree = "<group>"; };
+		0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteScanResultView.swift; sourceTree = "<group>"; };
+		0135E7162D7E33F9004AD8FA /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagInfoScanResultView.swift; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
 		01467356299902230005423D /* ShopSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsView.swift; sourceTree = "<group>"; };
 		01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyView.swift; sourceTree = "<group>"; };
@@ -389,6 +395,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0135E7182D7E33F9004AD8FA /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */,
+				0135E7162D7E33F9004AD8FA /* ScanView.swift */,
+				0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
 		01467355299901E50005423D /* Shop Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,6 +600,7 @@
 			children = (
 				0172045625AA8275008FD63B /* App Root */,
 				01E0A5B125BD0FC600298D35 /* Empty States */,
+				0135E7182D7E33F9004AD8FA /* Scan */,
 				01E0A59025BD087E00298D35 /* Settings */,
 				01E0A5DF25BD148800298D35 /* Shared */,
 				01011B542864434900B70D04 /* Shop Detail */,
@@ -967,6 +984,9 @@
 				0172046625AA82BF008FD63B /* MessageBarView.swift in Sources */,
 				01E0A63025BD53FD00298D35 /* Shop.swift in Sources */,
 				017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */,
+				0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */,
+				0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */,
+				0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */,
 				013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */,
 				0172035825A9642E008FD63B /* ShopsService.swift in Sources */,
 				018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */,

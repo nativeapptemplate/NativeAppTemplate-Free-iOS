@@ -86,6 +86,7 @@ private extension MainView {
       if dataManager.isRebuildingRepositories {
         AppTabView(
           shopListView: LoadingView.init,
+          scanView: LoadingView.init,
           settingsView: LoadingView.init
         )
         .environment(tabViewModel)
@@ -93,12 +94,14 @@ private extension MainView {
         if sessionController.shouldUpdateApp {
           AppTabView(
             shopListView: NeedAppUpdatesView.init,
+            scanView: NeedAppUpdatesView.init,
             settingsView: NeedAppUpdatesView.init
           )
           .environment(tabViewModel)
         } else {
           AppTabView(
             shopListView: shopListView,
+            scanView: scanView,
             settingsView: settingsView
           )
           .environment(tabViewModel)
@@ -119,6 +122,7 @@ private extension MainView {
     case .offline:
       AppTabView(
         shopListView: OfflineView.init,
+        scanView: OfflineView.init,
         settingsView: OfflineView.init
       )
       .environment(tabViewModel)
@@ -134,6 +138,12 @@ private extension MainView {
     )
   }
   
+  func scanView() -> ScanView {
+    .init(
+      itemTagRepository: dataManager.itemTagRepository
+    )
+  }
+
   func settingsView() -> SettingsView {
     .init(accountPasswordRepository: dataManager.accountPasswordRepository)
   }
