@@ -32,6 +32,10 @@ enum MainButtonType {
   case primary(withArrow: Bool)
   case secondary(withArrow: Bool)
   case destructive(withArrow: Bool)
+  case coloredPrimary(withArrow: Bool)
+  case coloredSecondary(withArrow: Bool)
+  case server(withArrow: Bool)
+  case customer(withArrow: Bool)
   
   var color: Color {
     switch self {
@@ -39,8 +43,16 @@ enum MainButtonType {
       return .primaryButtonForeground
     case .secondary:
       return .secondaryButtonForeground
+    case .coloredPrimary:
+      return .coloredPrimaryButtonForeground
+    case .coloredSecondary:
+      return .coloredSecondaryButtonForeground
     case .destructive:
       return .destructiveButtonForeground
+    case .server:
+      return .serverForeground
+    case .customer:
+      return .customerForeground
     }
   }
   
@@ -49,7 +61,11 @@ enum MainButtonType {
     case
         .primary(let hasArrow),
         .secondary(let hasArrow),
-        .destructive(let hasArrow):
+        .coloredPrimary(let hasArrow),
+        .coloredSecondary(let hasArrow),
+        .destructive(let hasArrow),
+        .server(let hasArrow),
+        .customer(let hasArrow):
       return hasArrow
     }
   }
@@ -80,6 +96,10 @@ struct MainButtonView: View {
               .font(.uiButtonLabelLarge)
               .foregroundStyle(type.color)
               .padding(16)
+// If commenting out below and select max large font size on settings accessibility, you will not be enable to tap Scan button on Scan tab.
+//              .background(GeometryReader { proxy in
+//                Color.clear.preference(key: SizeKey.self, value: proxy.size)
+//              })
             
             Spacer()
           }

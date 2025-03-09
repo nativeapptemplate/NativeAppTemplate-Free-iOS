@@ -14,7 +14,7 @@ import SwiftUI
   private(set) var state: DataState = .initial
   private(set) var limitCount = 0
   private(set) var createdShopsCount = 0
-
+  
   init(
     shopsService: ShopsService
   ) {
@@ -32,7 +32,7 @@ import SwiftUI
     if Task.isCancelled {
       return
     }
-
+    
     if state == .loading {
       return
     }
@@ -101,6 +101,17 @@ import SwiftUI
   func destroy(id: String) async throws {
     do {
       try await shopsService.destroyShop(id: id)
+    } catch {
+      Failure
+        .destroy(from: Self.self, reason: error.localizedDescription)
+        .log()
+      throw error
+    }
+  }
+  
+  func reset(id: String) async throws {
+    do {
+      try await shopsService.resetShop(id: id)
     } catch {
       Failure
         .destroy(from: Self.self, reason: error.localizedDescription)

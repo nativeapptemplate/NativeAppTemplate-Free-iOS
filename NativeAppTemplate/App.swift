@@ -31,6 +31,8 @@ struct App {
     dataManager = nativeAppTemplateObjects.dataManager
     messageBus = nativeAppTemplateObjects.messageBus
     
+//    Tips.showAllTipsForTesting()
+    
     try? Tips.configure()
   }
 }

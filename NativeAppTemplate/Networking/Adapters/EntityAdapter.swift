@@ -38,7 +38,8 @@ enum EntityType {
   case shop
   case shopkeeper
   case shopkeeperSignIn
-
+  case itemTag
+  
   init?(from string: String) {
     switch string {
     case "shop":
@@ -47,6 +48,8 @@ enum EntityType {
       self = .shopkeeper
     case "shopkeeper_sign_in":
       self = .shopkeeperSignIn
+    case "item_tag":
+      self = .itemTag
     default:
       return nil
     }
