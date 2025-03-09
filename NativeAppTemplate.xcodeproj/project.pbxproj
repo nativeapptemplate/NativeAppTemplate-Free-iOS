@@ -32,6 +32,7 @@
 		0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */; };
 		0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */; };
 		0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7162D7E33F9004AD8FA /* ScanView.swift */; };
+		0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */; };
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
@@ -180,6 +181,7 @@
 		0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteScanResultView.swift; sourceTree = "<group>"; };
 		0135E7162D7E33F9004AD8FA /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagInfoScanResultView.swift; sourceTree = "<group>"; };
+		0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SampleCode.xcconfig; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
 		01467356299902230005423D /* ShopSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsView.swift; sourceTree = "<group>"; };
 		01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyView.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				011F6DEF259EF16400BED22E /* NativeAppTemplate */,
 				01D19B442D4DE33500BDEAB7 /* NativeAppTemplateTests */,
 				011F6DEE259EF16400BED22E /* Products */,
+				0135E8E32D7E4478004AD8FA /* Configuration */,
 				012D037429DF805400C58977 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -403,6 +406,14 @@
 				0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */,
 			);
 			path = Scan;
+			sourceTree = "<group>";
+		};
+		0135E8E32D7E4478004AD8FA /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */,
+			);
+			name = Configuration;
 			sourceTree = "<group>";
 		};
 		01467355299901E50005423D /* Shop Settings */ = {
@@ -874,6 +885,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,10 +1218,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree2.ios--BUNDLE-ID-SUFFIX-";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.nativeapptemplate.NativeAppTemplateFree2.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1242,10 +1255,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree2.ios--BUNDLE-ID-SUFFIX-";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.nativeapptemplate.NativeAppTemplateFree2.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1339,8 +1353,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree2.ios--BUNDLE-ID-SUFFIX-";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = NativeAppTemplate;
+				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
