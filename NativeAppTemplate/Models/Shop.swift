@@ -12,9 +12,17 @@ struct Shop: Codable, Identifiable, Sendable {
   var name: String
   var description: String
   var timeZone: String
+  var itemTagsCount: Int = 0
+  var scannedItemTagsCount: Int = 0
+  var completedItemTagsCount: Int = 0
+  var displayShopServerPath: String = ""
 }
 
 extension Shop {
+  var displayShopServerUrl: URL {
+    URL(string: "\(NativeAppTemplateEnvironment.prod.baseURL.absoluteString)\(displayShopServerPath)")!
+  }
+  
   func toJsonForCreate() -> [String: Any] {
     [
       "shop": [
@@ -24,7 +32,7 @@ extension Shop {
       ] as [String: Any]
     ]
   }
-
+  
   func toJsonForUpdate() -> [String: Any] {
     [
       "shop": [
@@ -39,8 +47,12 @@ extension Shop {
 extension Shop: Hashable {
   static func == (lhs: Shop, rhs: Shop) -> Bool {
     lhs.id == rhs.id &&
-      lhs.name == rhs.name &&
-      lhs.description == rhs.description &&
-      lhs.timeZone == rhs.timeZone
+    lhs.name == rhs.name &&
+    lhs.description == rhs.description &&
+    lhs.timeZone == rhs.timeZone &&
+    lhs.itemTagsCount == rhs.itemTagsCount &&
+    lhs.scannedItemTagsCount == rhs.scannedItemTagsCount &&
+    lhs.completedItemTagsCount == rhs.completedItemTagsCount &&
+    lhs.displayShopServerPath == rhs.displayShopServerPath
   }
 }

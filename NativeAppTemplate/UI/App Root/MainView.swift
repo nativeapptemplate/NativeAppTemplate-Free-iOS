@@ -129,7 +129,8 @@ private extension MainView {
   
   func shopListView() -> ShopListView {
     .init(
-      shopRepository: dataManager.shopRepository
+      shopRepository: dataManager.shopRepository,
+      itemTagRepository: dataManager.itemTagRepository
     )
   }
   

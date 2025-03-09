@@ -27,18 +27,36 @@
 // THE SOFTWARE.
 
 import SwiftUI
+import TipKit
+
+struct TapShopBelowTip: Tip {
+  var title: Text {
+    Text(String.tapShopBelow)
+  }
+  
+  var message: Text? {
+    Text(String.haveFun)
+  }
+  
+  var image: Image? {
+    Image(systemName: "info.circle")
+  }
+}
 
 struct ShopListView: View {
   @Environment(\.mainTab) private var mainTab
   @Environment(TabViewModel.self) private var tabViewModel
   @Environment(SessionController.self) private var sessionController
   private var shopRepository: ShopRepository
+  private var itemTagRepository: ItemTagRepository
   @State private var isShowingCreateSheet = false
   
   init(
-    shopRepository: ShopRepository
+    shopRepository: ShopRepository,
+    itemTagRepository: ItemTagRepository
   ) {
     self.shopRepository = shopRepository
+    self.itemTagRepository = itemTagRepository
   }
 }
 
@@ -56,7 +74,7 @@ extension ShopListView {
           reload()
         }
       }
-      // Avoid showing deleted shop.
+    // Avoid showing deleted shop.
       .onChange(of: sessionController.shouldPopToRootView) {
         Task {
           try await Task.sleep(nanoseconds: 2_000_000_000)
@@ -107,6 +125,10 @@ private extension ShopListView {
           Section {
             cardsView
           } header: {
+            let tip = TapShopBelowTip()
+            TipView(tip, arrowEdge: .bottom)
+              .tint(.alarm)
+            
             EmptyView()
               .id(ScrollToTopID(mainTab: mainTab, detail: false))
           } footer: {
@@ -114,7 +136,7 @@ private extension ShopListView {
               HStack(alignment: .firstTextBaseline) {
                 Text(String(leftInShopSlots))
                   .font(.uiLabelBold)
-                Text(verbatim: "left in shop slots.")
+                Text(verbatim: "left in shop slots(across all organizations).")
                   .font(.uiFootnote)
               }
             }
@@ -123,10 +145,11 @@ private extension ShopListView {
         .navigationDestination(for: Shop.self) { shop in
           ShopDetailView(
             shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
             shopId: shop.id
           )
         }
-       .accessibility(identifier: "shopListView")
+        .accessibility(identifier: "shopListView")
         .refreshable {
           reload()
         }
@@ -183,15 +206,15 @@ private extension ShopListView {
           .aspectRatio(contentMode: .fit)
           .frame(width: 96)
           .padding()
-  
+        
         HStack(alignment: .firstTextBaseline) {
           Text(String(leftInShopSlots))
             .font(.uiTitle3)
-          Text(verbatim: "left in shop slots.")
+          Text(verbatim: "left in shop slots(across all organizations).")
             .foregroundStyle(.contentText)
         }
         .padding()
-
+        
         Spacer()
       }
     }

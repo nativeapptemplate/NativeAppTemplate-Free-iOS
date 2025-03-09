@@ -12,9 +12,12 @@ struct ShopSettingsView: View {
   @Environment(MessageBus.self) private var messageBus
   @Environment(SessionController.self) private var sessionController
   @State private var isFetching = true
+  @State private var isResetting = false
   @State private var isDeleting = false
+  @State private var isShowingResetConfirmationDialog = false
   @State private var isShowingDeleteConfirmationDialog = false
   private let shopRepository: ShopRepository
+  private let itemTagRepository: ItemTagRepository
   private var shopId: String
   
   private var shop: Binding<Shop> {
@@ -26,9 +29,11 @@ struct ShopSettingsView: View {
   
   init(
     shopRepository: ShopRepository,
+    itemTagRepository: ItemTagRepository,
     shopId: String
   ) {
     self.shopRepository = shopRepository
+    self.itemTagRepository = itemTagRepository
     self.shopId = shopId
   }
 }
@@ -48,7 +53,7 @@ private extension ShopSettingsView {
   var contentView: some View {
     
     @ViewBuilder var contentView: some View {
-      if isFetching || isDeleting {
+      if isFetching || isResetting || isDeleting {
         LoadingView()
       } else {
         shopSettingsView
@@ -76,6 +81,39 @@ private extension ShopSettingsView {
         }
         
         Section {
+          NavigationLink {
+            ItemTagListView(
+              itemTagRepository: itemTagRepository,
+              shop: shop.wrappedValue
+            )
+          } label: {
+            Label(String.shopSettingsManageNumberTagsLabel, systemImage: "rectangle.stack")
+          }
+          .listRowBackground(Color.cardBackground)
+        }
+        
+        Section {
+          NavigationLink {
+            NumberTagsWebpageListView(shop: shop.wrappedValue)
+          } label: {
+            Label(String.shopSettingsNumberTagsWebpageLabel, systemImage: "globe")
+          }
+        }
+        .listRowBackground(Color.cardBackground)
+        
+        Section {
+          VStack(spacing: 8) {
+            MainButtonView(title: String.resetNumberTags, type: .destructive(withArrow: false)) {
+              isShowingResetConfirmationDialog = true
+            }
+            .listRowBackground(Color.clear)
+            Text(String.resetNumberTagsDescription)
+              .font(.uiFootnote)
+              .foregroundStyle(.contentText)
+              .listRowBackground(Color.clear)
+          }
+          .listRowBackground(Color.clear)
+          
           MainButtonView(title: String.deleteShop, type: .destructive(withArrow: false)) {
             isShowingDeleteConfirmationDialog = true
           }
@@ -90,6 +128,19 @@ private extension ShopSettingsView {
       }
     }
     .navigationTitle(String.shopSettingsLabel)
+    .confirmationDialog(
+      String.resetNumberTags,
+      isPresented: $isShowingResetConfirmationDialog
+    ) {
+      Button(String.resetNumberTags, role: .destructive) {
+        resetShop()
+      }
+      Button(String.cancel, role: .cancel) {
+        isShowingResetConfirmationDialog = false
+      }
+    } message: {
+      Text(String.areYouSure)
+    }
     .confirmationDialog(
       String.deleteShop,
       isPresented: $isShowingDeleteConfirmationDialog
@@ -112,7 +163,7 @@ private extension ShopSettingsView {
   private func fetchShopDetail() {
     Task { @MainActor in
       isFetching = true
-
+      
       do {
         _ = try await shopRepository.fetchDetail(id: shopId)
         isFetching = false
@@ -124,10 +175,25 @@ private extension ShopSettingsView {
     }
   }
   
+  private func resetShop () {
+    Task { @MainActor in
+      isResetting = true
+      
+      do {
+        try await shopRepository.reset(id: shop.id)
+        messageBus.post(message: Message(level: .success, message: .shopReset))
+      } catch {
+        messageBus.post(message: Message(level: .error, message: "\(String.shopResetError) \(error.localizedDescription)", autoDismiss: false))
+      }
+      
+      dismiss()
+    }
+  }
+  
   private func destroyShop () {
     Task { @MainActor in
       isDeleting = true
-
+      
       do {
         try await shopRepository.destroy(id: shop.id)
         messageBus.post(message: Message(level: .success, message: .shopDeleted))
