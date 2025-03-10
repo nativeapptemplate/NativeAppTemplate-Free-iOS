@@ -29,6 +29,10 @@
 		012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 012009FB299F1E190078A1F9 /* OrderedCollections */; };
 		012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012643362B3554AD00D4E9BD /* AcceptTermsView.swift */; };
 		013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */; };
+		0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */; };
+		0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */; };
+		0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7162D7E33F9004AD8FA /* ScanView.swift */; };
+		0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */; };
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
@@ -75,6 +79,38 @@
 		0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052E25AC41A7008FD63B /* SessionRequest.swift */; };
 		017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278062D7D4F5800CE424F /* OnboardingRepository.swift */; };
 		017278092D7D4F7400CE424F /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278082D7D4F7400CE424F /* Onboarding.swift */; };
+		0172785A2D7D83B600CE424F /* NFCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278592D7D83B600CE424F /* NFCManager.swift */; };
+		0172785B2D7D83B600CE424F /* AppSingletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278582D7D83B600CE424F /* AppSingletons.swift */; };
+		017278612D7D83E700CE424F /* ItemTagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785D2D7D83E700CE424F /* ItemTagData.swift */; };
+		017278622D7D83E700CE424F /* ItemTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785C2D7D83E700CE424F /* ItemTag.swift */; };
+		017278632D7D83E700CE424F /* ItemTagState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785F2D7D83E700CE424F /* ItemTagState.swift */; };
+		017278642D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */; };
+		017278652D7D83E700CE424F /* ItemTagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278602D7D83E700CE424F /* ItemTagType.swift */; };
+		017278682D7D83F600CE424F /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278672D7D83F600CE424F /* ScanState.swift */; };
+		017278692D7D83F600CE424F /* ScanResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278662D7D83F600CE424F /* ScanResultError.swift */; };
+		0172786B2D7D840A00CE424F /* ShowTagInfoScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786A2D7D840A00CE424F /* ShowTagInfoScanResult.swift */; };
+		0172786F2D7D87D000CE424F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786E2D7D87D000CE424F /* String+Extensions.swift */; };
+		017278702D7D87D000CE424F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786C2D7D87D000CE424F /* Date+Extensions.swift */; };
+		017278712D7D87D000CE424F /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786D2D7D87D000CE424F /* DateFormatter+Extensions.swift */; };
+		017278732D7D87EB00CE424F /* UIImage+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278722D7D87EB00CE424F /* UIImage+Extentions.swift */; };
+		017278752D7D8FAC00CE424F /* ItemTagRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278742D7D8FAC00CE424F /* ItemTagRepository.swift */; };
+		017278772D7D8FF100CE424F /* ItemTagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278762D7D8FF100CE424F /* ItemTagsService.swift */; };
+		017278792D7D900100CE424F /* ItemTagsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278782D7D900100CE424F /* ItemTagsRequest.swift */; };
+		0172787B2D7D903500CE424F /* ItemTagAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172787A2D7D903500CE424F /* ItemTagAdapter.swift */; };
+		0172787D2D7D92DF00CE424F /* CompleteScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172787C2D7D92DF00CE424F /* CompleteScanResult.swift */; };
+		0172787F2D7D933000CE424F /* ShopDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172787E2D7D933000CE424F /* ShopDetailCardView.swift */; };
+		017278822D7D935700CE424F /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278812D7D935700CE424F /* QRCodeGenerator.swift */; };
+		017278832D7D935700CE424F /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278802D7D935700CE424F /* ImageSaver.swift */; };
+		0172788B2D7D936E00CE424F /* CompletedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278842D7D936E00CE424F /* CompletedTag.swift */; };
+		0172788C2D7D936E00CE424F /* IdlingTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278872D7D936E00CE424F /* IdlingTagView.swift */; };
+		0172788D2D7D936E00CE424F /* CustomerScannedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278862D7D936E00CE424F /* CustomerScannedTag.swift */; };
+		017278902D7D936E00CE424F /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278892D7D936E00CE424F /* TagView.swift */; };
+		017278922D7D99B900CE424F /* NumberTagsWebpageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */; };
+		0172789A2D7D99D100CE424F /* ItemTagListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278972D7D99D100CE424F /* ItemTagListCardView.swift */; };
+		0172789B2D7D99D100CE424F /* ItemTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278982D7D99D100CE424F /* ItemTagListView.swift */; };
+		0172789C2D7D99D100CE424F /* ItemTagDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278932D7D99D100CE424F /* ItemTagDetailView.swift */; };
+		0172789D2D7D99D100CE424F /* ItemTagCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278962D7D99D100CE424F /* ItemTagCreateView.swift */; };
+		0172789E2D7D99D100CE424F /* ItemTagEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278942D7D99D100CE424F /* ItemTagEditView.swift */; };
 		0182D37025B258A7001E881D /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0182D36F25B258A7001E881D /* KeychainAccess */; };
 		0182D37825B277FA001E881D /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D37625B277D6001E881D /* KeychainStore.swift */; };
 		0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */; };
@@ -142,6 +178,10 @@
 		011F6DF9259EF16600BED22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		012643362B3554AD00D4E9BD /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
 		013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeper.swift; sourceTree = "<group>"; };
+		0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteScanResultView.swift; sourceTree = "<group>"; };
+		0135E7162D7E33F9004AD8FA /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagInfoScanResultView.swift; sourceTree = "<group>"; };
+		0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SampleCode.xcconfig; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
 		01467356299902230005423D /* ShopSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsView.swift; sourceTree = "<group>"; };
 		01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyView.swift; sourceTree = "<group>"; };
@@ -187,6 +227,39 @@
 		0172052E25AC41A7008FD63B /* SessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequest.swift; sourceTree = "<group>"; };
 		017278062D7D4F5800CE424F /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
 		017278082D7D4F7400CE424F /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		0172782B2D7D575900CE424F /* NativeAppTemplate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NativeAppTemplate.entitlements; sourceTree = "<group>"; };
+		017278582D7D83B600CE424F /* AppSingletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSingletons.swift; sourceTree = "<group>"; };
+		017278592D7D83B600CE424F /* NFCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCManager.swift; sourceTree = "<group>"; };
+		0172785C2D7D83E700CE424F /* ItemTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTag.swift; sourceTree = "<group>"; };
+		0172785D2D7D83E700CE424F /* ItemTagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagData.swift; sourceTree = "<group>"; };
+		0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagInfoFromNdefMessage.swift; sourceTree = "<group>"; };
+		0172785F2D7D83E700CE424F /* ItemTagState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagState.swift; sourceTree = "<group>"; };
+		017278602D7D83E700CE424F /* ItemTagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagType.swift; sourceTree = "<group>"; };
+		017278662D7D83F600CE424F /* ScanResultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultError.swift; sourceTree = "<group>"; };
+		017278672D7D83F600CE424F /* ScanState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
+		0172786A2D7D840A00CE424F /* ShowTagInfoScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagInfoScanResult.swift; sourceTree = "<group>"; };
+		0172786C2D7D87D000CE424F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		0172786D2D7D87D000CE424F /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		0172786E2D7D87D000CE424F /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		017278722D7D87EB00CE424F /* UIImage+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extentions.swift"; sourceTree = "<group>"; };
+		017278742D7D8FAC00CE424F /* ItemTagRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagRepository.swift; sourceTree = "<group>"; };
+		017278762D7D8FF100CE424F /* ItemTagsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagsService.swift; sourceTree = "<group>"; };
+		017278782D7D900100CE424F /* ItemTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagsRequest.swift; sourceTree = "<group>"; };
+		0172787A2D7D903500CE424F /* ItemTagAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagAdapter.swift; sourceTree = "<group>"; };
+		0172787C2D7D92DF00CE424F /* CompleteScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteScanResult.swift; sourceTree = "<group>"; };
+		0172787E2D7D933000CE424F /* ShopDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailCardView.swift; sourceTree = "<group>"; };
+		017278802D7D935700CE424F /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		017278812D7D935700CE424F /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
+		017278842D7D936E00CE424F /* CompletedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTag.swift; sourceTree = "<group>"; };
+		017278862D7D936E00CE424F /* CustomerScannedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerScannedTag.swift; sourceTree = "<group>"; };
+		017278872D7D936E00CE424F /* IdlingTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdlingTagView.swift; sourceTree = "<group>"; };
+		017278892D7D936E00CE424F /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagsWebpageListView.swift; sourceTree = "<group>"; };
+		017278932D7D99D100CE424F /* ItemTagDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagDetailView.swift; sourceTree = "<group>"; };
+		017278942D7D99D100CE424F /* ItemTagEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagEditView.swift; sourceTree = "<group>"; };
+		017278962D7D99D100CE424F /* ItemTagCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagCreateView.swift; sourceTree = "<group>"; };
+		017278972D7D99D100CE424F /* ItemTagListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListCardView.swift; sourceTree = "<group>"; };
+		017278982D7D99D100CE424F /* ItemTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListView.swift; sourceTree = "<group>"; };
 		0182D37625B277D6001E881D /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperAdapter.swift; sourceTree = "<group>"; };
 		0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeperKeychainStore.swift; sourceTree = "<group>"; };
@@ -256,6 +329,7 @@
 		01011B542864434900B70D04 /* Shop Detail */ = {
 			isa = PBXGroup;
 			children = (
+				0172787E2D7D933000CE424F /* ShopDetailCardView.swift */,
 				010F86AD2621A2A900B6C62A /* ShopDetailView.swift */,
 			);
 			path = "Shop Detail";
@@ -267,6 +341,7 @@
 				011F6DEF259EF16400BED22E /* NativeAppTemplate */,
 				01D19B442D4DE33500BDEAB7 /* NativeAppTemplateTests */,
 				011F6DEE259EF16400BED22E /* Products */,
+				0135E8E32D7E4478004AD8FA /* Configuration */,
 				012D037429DF805400C58977 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -285,9 +360,12 @@
 			children = (
 				011F6DF0259EF16400BED22E /* App.swift */,
 				017203A225A96F7A008FD63B /* Constants.swift */,
+				017278582D7D83B600CE424F /* AppSingletons.swift */,
+				017278592D7D83B600CE424F /* NFCManager.swift */,
 				01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */,
 				011F6DF4259EF16600BED22E /* Assets.xcassets */,
 				011F6DF9259EF16600BED22E /* Info.plist */,
+				0172782B2D7D575900CE424F /* NativeAppTemplate.entitlements */,
 				015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */,
 				0172049125AA8449008FD63B /* Data */,
 				017203A725A96FBF008FD63B /* Extensions */,
@@ -320,9 +398,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0135E7182D7E33F9004AD8FA /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */,
+				0135E7162D7E33F9004AD8FA /* ScanView.swift */,
+				0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		0135E8E32D7E4478004AD8FA /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
 		01467355299901E50005423D /* Shop Settings */ = {
 			isa = PBXGroup;
 			children = (
+				017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */,
 				01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */,
 				01467356299902230005423D /* ShopSettingsView.swift */,
 			);
@@ -335,6 +432,8 @@
 				013DE734284E99DF00528CC5 /* ShopCreateView.swift */,
 				01DCE23E298FA3B300BA311D /* ShopListCardView.swift */,
 				010F86BD2622F9C900B6C62A /* ShopListView.swift */,
+				017278952D7D99D100CE424F /* ItemTag Detail */,
+				017278992D7D99D100CE424F /* ItemTag List */,
 			);
 			path = "Shop List";
 			sourceTree = "<group>";
@@ -384,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				0106413B29A9EDFF00B46FED /* AccountPasswordRequest.swift */,
+				017278782D7D900100CE424F /* ItemTagsRequest.swift */,
 				018E21CA2B36367F00FFD1F6 /* MeRequest.swift */,
 				0172031125A9642E008FD63B /* Parameters.swift */,
 				01B6F5AA2601F84700397E66 /* PermissionsRequest.swift */,
@@ -406,6 +506,7 @@
 		0172032225A9642E008FD63B /* EntityAdapters */ = {
 			isa = PBXGroup;
 			children = (
+				0172787A2D7D903500CE424F /* ItemTagAdapter.swift */,
 				0172032C25A9642E008FD63B /* ShopAdapter.swift */,
 				0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */,
 				01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */,
@@ -417,6 +518,7 @@
 			isa = PBXGroup;
 			children = (
 				0106413F29A9F2EC00B46FED /* AccountPasswordService.swift */,
+				017278762D7D8FF100CE424F /* ItemTagsService.swift */,
 				018E21CC2B36377800FFD1F6 /* MeService.swift */,
 				01B6F5A72601F83400397E66 /* PermissionsService.swift */,
 				0172033225A9642E008FD63B /* Service.swift */,
@@ -428,13 +530,22 @@
 		0172036325A96E04008FD63B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0172787C2D7D92DF00CE424F /* CompleteScanResult.swift */,
+				0172785C2D7D83E700CE424F /* ItemTag.swift */,
+				0172785D2D7D83E700CE424F /* ItemTagData.swift */,
+				0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */,
+				0172785F2D7D83E700CE424F /* ItemTagState.swift */,
+				017278602D7D83E700CE424F /* ItemTagType.swift */,
 				01B526532AF4E36400655131 /* MainTab.swift */,
 				017278082D7D4F7400CE424F /* Onboarding.swift */,
+				017278662D7D83F600CE424F /* ScanResultError.swift */,
+				017278672D7D83F600CE424F /* ScanState.swift */,
 				01B526552AF4E82A00655131 /* ScrollToTopID.swift */,
 				0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */,
 				0150A36529B14BB300907F96 /* SendResetPassword.swift */,
 				01E0A62F25BD53FD00298D35 /* Shop.swift */,
 				0172052425AAFA43008FD63B /* Shopkeeper.swift */,
+				0172786A2D7D840A00CE424F /* ShowTagInfoScanResult.swift */,
 				01E2476F29A570D300D4B00D /* SignUp.swift */,
 				0106413D29A9F1C300B46FED /* UpdatePassword.swift */,
 			);
@@ -445,7 +556,11 @@
 			isa = PBXGroup;
 			children = (
 				01E727202B020ECC004AC043 /* Bundle+Extensions.swift */,
+				0172786C2D7D87D000CE424F /* Date+Extensions.swift */,
+				0172786D2D7D87D000CE424F /* DateFormatter+Extensions.swift */,
+				0172786E2D7D87D000CE424F /* String+Extensions.swift */,
 				017203A825A96FBF008FD63B /* UIApplication+DismissKeyboard.swift */,
+				017278722D7D87EB00CE424F /* UIImage+Extentions.swift */,
 				017203AB25A96FBF008FD63B /* View+Extensions.swift */,
 			);
 			path = Extensions;
@@ -496,6 +611,7 @@
 			children = (
 				0172045625AA8275008FD63B /* App Root */,
 				01E0A5B125BD0FC600298D35 /* Empty States */,
+				0135E7182D7E33F9004AD8FA /* Scan */,
 				01E0A59025BD087E00298D35 /* Settings */,
 				01E0A5DF25BD148800298D35 /* Shared */,
 				01011B542864434900B70D04 /* Shop Detail */,
@@ -560,10 +676,42 @@
 		017204F825AA85F3008FD63B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				017278802D7D935700CE424F /* ImageSaver.swift */,
 				017204F925AA85F3008FD63B /* MessageBus.swift */,
+				017278812D7D935700CE424F /* QRCodeGenerator.swift */,
 				01E2477129A5E30400D4B00D /* Utility.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0172788A2D7D936E00CE424F /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				017278842D7D936E00CE424F /* CompletedTag.swift */,
+				017278862D7D936E00CE424F /* CustomerScannedTag.swift */,
+				017278872D7D936E00CE424F /* IdlingTagView.swift */,
+				017278892D7D936E00CE424F /* TagView.swift */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
+		017278952D7D99D100CE424F /* ItemTag Detail */ = {
+			isa = PBXGroup;
+			children = (
+				017278932D7D99D100CE424F /* ItemTagDetailView.swift */,
+				017278942D7D99D100CE424F /* ItemTagEditView.swift */,
+			);
+			path = "ItemTag Detail";
+			sourceTree = "<group>";
+		};
+		017278992D7D99D100CE424F /* ItemTag List */ = {
+			isa = PBXGroup;
+			children = (
+				017278962D7D99D100CE424F /* ItemTagCreateView.swift */,
+				017278972D7D99D100CE424F /* ItemTagListCardView.swift */,
+				017278982D7D99D100CE424F /* ItemTagListView.swift */,
+			);
+			path = "ItemTag List";
 			sourceTree = "<group>";
 		};
 		0182D37425B277D6001E881D /* KeychainStore */ = {
@@ -589,6 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				0106414129A9F51700B46FED /* AccountPasswordRepository.swift */,
+				017278742D7D8FAC00CE424F /* ItemTagRepository.swift */,
 				017204A925AA8449008FD63B /* ShopRepository.swift */,
 			);
 			path = Repositories;
@@ -618,6 +767,7 @@
 		01E0A5DF25BD148800298D35 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0172788A2D7D936E00CE424F /* Tags */,
 				01E0A5F925BD148800298D35 /* MainButtonView.swift */,
 			);
 			path = Shared;
@@ -735,6 +885,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,12 +920,17 @@
 			files = (
 				0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */,
 				01E2477029A570D300D4B00D /* SignUp.swift in Sources */,
+				0172785A2D7D83B600CE424F /* NFCManager.swift in Sources */,
+				0172785B2D7D83B600CE424F /* AppSingletons.swift in Sources */,
+				017278732D7D87EB00CE424F /* UIImage+Extentions.swift in Sources */,
 				0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */,
+				017278772D7D8FF100CE424F /* ItemTagsService.swift in Sources */,
 				017204C025AA846D008FD63B /* TabViewModel.swift in Sources */,
 				01B9E45228A5070D00CAC681 /* ShopkeeperSignInAdapter.swift in Sources */,
 				0172040025AA6775008FD63B /* LoginRepository.swift in Sources */,
 				0172034B25A9642E008FD63B /* EntityAdapter.swift in Sources */,
 				010A30A528A4A285001D6BD1 /* DataCacheUpdate.swift in Sources */,
+				017278922D7D99B900CE424F /* NumberTagsWebpageListView.swift in Sources */,
 				01E0A60C25BD440300298D35 /* SignInEmailAndPasswordView.swift in Sources */,
 				0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */,
 				01B526562AF4E82A00655131 /* ScrollToTopID.swift in Sources */,
@@ -787,6 +943,7 @@
 				01E0A5B725BD0FCD00298D35 /* OfflineView.swift in Sources */,
 				0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */,
 				0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */,
+				0172787F2D7D933000CE424F /* ShopDetailCardView.swift in Sources */,
 				01EE363E29A6DCEB009BCD9D /* ShopkeeperEditView.swift in Sources */,
 				0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */,
 				01BE4F1D29CA6F8C002008BE /* TimeZoneData.swift in Sources */,
@@ -811,6 +968,11 @@
 				0172033E25A9642E008FD63B /* Parameters.swift in Sources */,
 				0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */,
 				017204B625AA8467008FD63B /* DataManager.swift in Sources */,
+				017278682D7D83F600CE424F /* ScanState.swift in Sources */,
+				017278692D7D83F600CE424F /* ScanResultError.swift in Sources */,
+				0172787D2D7D92DF00CE424F /* CompleteScanResult.swift in Sources */,
+				017278822D7D935700CE424F /* QRCodeGenerator.swift in Sources */,
+				017278832D7D935700CE424F /* ImageSaver.swift in Sources */,
 				01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */,
 				01E0A60125BD149200298D35 /* MainButtonView.swift in Sources */,
 				0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */,
@@ -819,11 +981,24 @@
 				01E0A62225BD4A7800298D35 /* Shopkeeper+Backdoor.swift in Sources */,
 				0106413C29A9EDFF00B46FED /* AccountPasswordRequest.swift in Sources */,
 				0172035625A9642E008FD63B /* ShopAdapter.swift in Sources */,
+				0172788B2D7D936E00CE424F /* CompletedTag.swift in Sources */,
+				0172788C2D7D936E00CE424F /* IdlingTagView.swift in Sources */,
+				0172788D2D7D936E00CE424F /* CustomerScannedTag.swift in Sources */,
+				017278902D7D936E00CE424F /* TagView.swift in Sources */,
 				0106414429AA061100B46FED /* PasswordEditView.swift in Sources */,
+				0172786B2D7D840A00CE424F /* ShowTagInfoScanResult.swift in Sources */,
 				017204D925AA847E008FD63B /* ShopRepository.swift in Sources */,
+				017278612D7D83E700CE424F /* ItemTagData.swift in Sources */,
+				017278622D7D83E700CE424F /* ItemTag.swift in Sources */,
+				017278632D7D83E700CE424F /* ItemTagState.swift in Sources */,
+				017278642D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift in Sources */,
+				017278652D7D83E700CE424F /* ItemTagType.swift in Sources */,
 				0172046625AA82BF008FD63B /* MessageBarView.swift in Sources */,
 				01E0A63025BD53FD00298D35 /* Shop.swift in Sources */,
 				017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */,
+				0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */,
+				0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */,
+				0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */,
 				013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */,
 				0172035825A9642E008FD63B /* ShopsService.swift in Sources */,
 				018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */,
@@ -837,19 +1012,30 @@
 				01B526542AF4E36400655131 /* MainTab.swift in Sources */,
 				017203CB25A97090008FD63B /* SessionController.swift in Sources */,
 				0106413E29A9F1C300B46FED /* UpdatePassword.swift in Sources */,
+				0172787B2D7D903500CE424F /* ItemTagAdapter.swift in Sources */,
 				010F86AE2621A2A900B6C62A /* ShopDetailView.swift in Sources */,
 				011F6DF1259EF16400BED22E /* App.swift in Sources */,
 				01FA23A12B00CE5700F1D446 /* MailView.swift in Sources */,
 				017278092D7D4F7400CE424F /* Onboarding.swift in Sources */,
 				01467357299902230005423D /* ShopSettingsView.swift in Sources */,
+				017278792D7D900100CE424F /* ItemTagsRequest.swift in Sources */,
 				0172048125AA8343008FD63B /* Color+Extensions.swift in Sources */,
 				011DDC2528766CEC00C6C21F /* SignUpRequest.swift in Sources */,
 				017203EB25AA6606008FD63B /* Logger.swift in Sources */,
 				0172046425AA82BF008FD63B /* SnackbarView.swift in Sources */,
 				018E21CB2B36367F00FFD1F6 /* MeRequest.swift in Sources */,
 				01E0A5B825BD0FCD00298D35 /* ErrorView.swift in Sources */,
+				0172789A2D7D99D100CE424F /* ItemTagListCardView.swift in Sources */,
+				0172789B2D7D99D100CE424F /* ItemTagListView.swift in Sources */,
+				0172789C2D7D99D100CE424F /* ItemTagDetailView.swift in Sources */,
+				0172789D2D7D99D100CE424F /* ItemTagCreateView.swift in Sources */,
+				0172789E2D7D99D100CE424F /* ItemTagEditView.swift in Sources */,
+				0172786F2D7D87D000CE424F /* String+Extensions.swift in Sources */,
+				017278702D7D87D000CE424F /* Date+Extensions.swift in Sources */,
+				017278712D7D87D000CE424F /* DateFormatter+Extensions.swift in Sources */,
 				01E0A59C25BD088600298D35 /* SettingsView.swift in Sources */,
 				0172052525AAFA43008FD63B /* Shopkeeper.swift in Sources */,
+				017278752D7D8FAC00CE424F /* ItemTagRepository.swift in Sources */,
 				0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */,
 				0172034825A9642E008FD63B /* Request.swift in Sources */,
 				0172048025AA8343008FD63B /* UIColor+Extensions.swift in Sources */,
@@ -1016,8 +1202,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				BUNDLE_ID_SUFFIX = .dev;
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
@@ -1030,10 +1217,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplate.ios$(BUNDLE_ID_SUFFIX)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.nativeapptemplate.NativeAppTemplateFree.ios;
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1050,8 +1239,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				BUNDLE_ID_SUFFIX = "";
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
@@ -1064,10 +1254,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplate.ios$(BUNDLE_ID_SUFFIX)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.nativeapptemplate.NativeAppTemplateFree.ios;
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1147,7 +1339,7 @@
 				BUNDLE_ID_SUFFIX = .beta;
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
@@ -1160,9 +1352,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplate.ios$(BUNDLE_ID_SUFFIX)";
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = NativeAppTemplate;
+				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;

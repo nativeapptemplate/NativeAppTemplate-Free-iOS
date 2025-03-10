@@ -16,6 +16,7 @@ import SwiftUI
   // Repositories
   private(set) var accountPasswordRepository: AccountPasswordRepository!
   private(set) var shopRepository: ShopRepository!
+  private(set) var itemTagRepository: ItemTagRepository!
   private(set) var isRebuildingRepositories = false
 
   // MARK: - Initializers
@@ -37,9 +38,12 @@ import SwiftUI
 
     let accountPasswordService = AccountPasswordService(networkClient: sessionController.client)
     let shopsService = ShopsService(networkClient: sessionController.client)
+    let itemTagsService = ItemTagsService(networkClient: sessionController.client)
+
     accountPasswordRepository = AccountPasswordRepository(accountPasswordService: accountPasswordService)
     shopRepository = ShopRepository(shopsService: shopsService)
-    
+    itemTagRepository = ItemTagRepository(itemTagsService: itemTagsService)
+
     isRebuildingRepositories = false
   }
 }

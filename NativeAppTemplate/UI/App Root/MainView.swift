@@ -33,7 +33,9 @@ struct MainView: View {
   @Environment(DataManager.self) private var dataManager
   @Environment(SessionController.self) private var sessionController
   @State var isShowingForceAppUpdatesAlert = false
+  @State var itemTagId: String?
   @State var isResetting = false
+  @State var isShowingResetConfirmationDialog = false
   @State private var isShowingAcceptPrivacySheet = false
   @State private var arePrivacyAccepted = false
   @State private var isShowingAcceptTermsSheet = false
@@ -46,6 +48,7 @@ struct MainView: View {
       contentView
         .background(Color.backgroundColor)
         .overlay(MessageBarView(messageBus: messageBus), alignment: .bottom)
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb, perform: handleBackgroundTagReading)
         .onChange(of: sessionController.shouldUpdatePrivacy) {
           if sessionController.shouldUpdatePrivacy {
             isShowingAcceptPrivacySheet = true
@@ -55,6 +58,19 @@ struct MainView: View {
           if sessionController.shouldUpdateTerms {
             isShowingAcceptTermsSheet = true
           }
+        }
+        .confirmationDialog(
+          String.itemTagAlreadyCompleted,
+          isPresented: $isShowingResetConfirmationDialog
+        ) {
+          Button(String.reset, role: .destructive) {
+            resetTag(itemTagId: itemTagId!)
+          }
+          Button(String.cancel, role: .cancel) {
+            isShowingResetConfirmationDialog = false
+          }
+        } message: {
+          Text(String.areYouSure)
         }
     }
   }
@@ -86,6 +102,7 @@ private extension MainView {
       if dataManager.isRebuildingRepositories {
         AppTabView(
           shopListView: LoadingView.init,
+          scanView: LoadingView.init,
           settingsView: LoadingView.init
         )
         .environment(tabViewModel)
@@ -93,12 +110,14 @@ private extension MainView {
         if sessionController.shouldUpdateApp {
           AppTabView(
             shopListView: NeedAppUpdatesView.init,
+            scanView: NeedAppUpdatesView.init,
             settingsView: NeedAppUpdatesView.init
           )
           .environment(tabViewModel)
         } else {
           AppTabView(
             shopListView: shopListView,
+            scanView: scanView,
             settingsView: settingsView
           )
           .environment(tabViewModel)
@@ -119,6 +138,7 @@ private extension MainView {
     case .offline:
       AppTabView(
         shopListView: OfflineView.init,
+        scanView: OfflineView.init,
         settingsView: OfflineView.init
       )
       .environment(tabViewModel)
@@ -129,14 +149,92 @@ private extension MainView {
   
   func shopListView() -> ShopListView {
     .init(
-      shopRepository: dataManager.shopRepository
+      shopRepository: dataManager.shopRepository,
+      itemTagRepository: dataManager.itemTagRepository
     )
   }
   
+  func scanView() -> ScanView {
+    .init(
+      itemTagRepository: dataManager.itemTagRepository
+    )
+  }
+
   func settingsView() -> SettingsView {
     .init(accountPasswordRepository: dataManager.accountPasswordRepository)
   }
+
+  func handleBackgroundTagReading(_ userActivity: NSUserActivity) {
+    guard sessionController.isLoggedIn else {
+      messageBus.post(message: Message(level: .error, message: String.pleaseSignIn, autoDismiss: false))
+      return
+    }
+    
+    let ndefMessage = userActivity.ndefMessagePayload
+    guard !ndefMessage.records.isEmpty,
+          ndefMessage.records[0].typeNameFormat != .empty else {
+      return
+    }
+    
+    let itemTagInfo = Utility.extractItemTagInfoFrom(message: ndefMessage)
+    
+    if itemTagInfo.success {
+      itemTagId = itemTagInfo.id
+      completeTag(itemTagId: itemTagId!)
+    } else {
+      messageBus.post(message: Message(level: .error, message: itemTagInfo.message, autoDismiss: false))
+      tabViewModel.selectedTab = .scan
+    }
+  }
   
+  func completeTag(itemTagId: String) {
+    Task { @MainActor in
+      do {
+        let itemTag = try await dataManager.itemTagRepository.complete(id: itemTagId)
+
+        sessionController.completeScanResult = CompleteScanResult(
+          itemTag: itemTag,
+          type: .completed
+        )
+
+        if itemTag.alreadyCompleted! {
+          isShowingResetConfirmationDialog = true
+        }
+      } catch {
+        sessionController.completeScanResult = CompleteScanResult(
+          type: .failed,
+          message: error.localizedDescription
+        )
+      }
+      
+      sessionController.didBackgroundTagReading = true
+      tabViewModel.selectedTab = .scan
+    }
+  }
+  
+  private func resetTag(itemTagId: String) {
+    Task { @MainActor in
+      isResetting = true
+      
+      do {
+        let itemTag = try await dataManager.itemTagRepository.reset(id: itemTagId)
+        sessionController.completeScanResult = CompleteScanResult(
+          itemTag: itemTag,
+          type: .reset
+        )
+      } catch {
+        sessionController.completeScanResult = CompleteScanResult(
+          type: .failed,
+          message: error.localizedDescription
+        )
+      }
+      
+      isResetting = false
+      sessionController.didBackgroundTagReading = true
+      tabViewModel.selectedTab = .scan
+    }
+  }
+
   func logout() {
     Task {
       try await sessionController.logout()
