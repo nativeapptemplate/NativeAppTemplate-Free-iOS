@@ -38,6 +38,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - CRUD Operations for Shops (Create/Read/Update/Delete)
 - CRUD operations for Shops’ Nested Resource, Number Tags (ItemTags) (Create/Read/Update/Delete)
 - NFC features for Number Tags (ItemTags): Write Application Info to a Tag, Read a Tag, Background Tag Reading
+- Generate QR Code image for Number Tags (ItemTags) with a Centered Number
 - And more!
 
 #### Not Included in the Free Version
