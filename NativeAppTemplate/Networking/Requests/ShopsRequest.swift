@@ -136,3 +136,19 @@ struct DestroyShopRequest: Request {
   // MARK: - Internal
   func handle(response: Data) throws { }
 }
+
+struct ResetShopRequest: Request {
+  typealias Response = Void
+  
+  // MARK: - Properties
+  var method: HTTPMethod { .DELETE }
+  var path: String { "/shopkeeper/shops/\(id)/reset" }
+  var additionalHeaders: [String: String] = [:]
+  var body: Data? { nil }
+  
+  // MARK: - Parameters
+  let id: String
+  
+  // MARK: - Internal
+  func handle(response: Data) throws { }
+}
