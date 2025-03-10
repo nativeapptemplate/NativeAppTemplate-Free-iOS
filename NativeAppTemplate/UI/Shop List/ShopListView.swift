@@ -136,7 +136,7 @@ private extension ShopListView {
               HStack(alignment: .firstTextBaseline) {
                 Text(String(leftInShopSlots))
                   .font(.uiLabelBold)
-                Text(verbatim: "left in shop slots(across all organizations).")
+                Text(verbatim: "left in shop slots.")
                   .font(.uiFootnote)
               }
             }
