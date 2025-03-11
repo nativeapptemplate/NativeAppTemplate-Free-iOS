@@ -36,8 +36,8 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - Forgot Password
 - Input Validation
 - CRUD Operations for Shops (Create/Read/Update/Delete)
-- CRUD operations for Shops’ Nested Resource, Number Tags (ItemTags) (Create/Read/Update/Delete)
-- Generate QR Code image for Number Tags (ItemTags) with a Centered Number
+- CRUD Operations for Shops’ Nested Resource, Number Tags (ItemTags) (Create/Read/Update/Delete)
+- Generate QR Code Image for Number Tags (ItemTags) with a Centered Number
 - NFC features for Number Tags (ItemTags): Write Application Info to a Tag, Read a Tag, Background Tag Reading
 - And more!
 
