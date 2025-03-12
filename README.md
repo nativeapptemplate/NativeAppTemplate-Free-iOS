@@ -71,7 +71,12 @@ For background tag reading to work correctly on **iOS**, you must configure **As
 
 To set up Associated Domains on iOS, follow these steps:  
 1. Add your domain (e.g., `applinks:api.example.com`) to the **Associated Domains** section in Xcode under **Signing & Capabilities**.  
-2. Configure the **apple-app-site-association (AASA)** file and host it on your server.  
+2. Configure the **apple-app-site-association (AASA)** file and host it on your server.
+3. Verify that the **AASA** file is correctly configured and accessible by checking its contents at the following URL:  
+
+   🔗 [https://app-site-association.cdn-apple.com/a/v1/api.example.com](https://app-site-association.cdn-apple.com/a/v1/api.example.com)  
+
+4. Uninstall **NativeAppTemplate-Free-iOS**, reset your device, and then reinstall **NativeAppTemplate-Free-iOS** to ensure the changes take effect.
 
 For detailed instructions, refer to Apple’s official documentations:  
 - [Adding Support for Background Tag Reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading)  
