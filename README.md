@@ -84,6 +84,8 @@ For detailed instructions, refer to Apple’s official documentations:
 
 ## Not Included in the Free Version
 
+![Gif showing Switching organization](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/organization.gif "Showing Switching organization")  
+
 The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team)) include additional advanced features:
 
 - URL Path-Based Multitenancy (e.g., prepends `/:account_id/` to URLs)
