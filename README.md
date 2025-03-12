@@ -71,7 +71,7 @@ To set up Associated Domains on iOS, follow these steps:
 2. Configure the **apple-app-site-association (AASA)** file and host it on your server.  
 
 For detailed instructions, refer to Apple’s official documentations:  
-- [Adding Support for Background Tag Reading]([https://developer.apple.com/documentation/xcode/supporting-associated-domains](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading))
+- [Adding Support for Background Tag Reading](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
 - [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
 
 > **Note:**  
