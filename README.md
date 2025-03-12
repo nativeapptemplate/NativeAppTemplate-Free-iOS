@@ -63,6 +63,9 @@ This functionality is available in:
 - [NativeAppTemplate-API (Solo)](https://nativeapptemplate.com/products/api-solo)  
 - [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)  
 
+> **Note:**  
+> The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
+
 #### Associated Domains Requirement (iOS)  
 For background tag reading to work correctly on **iOS**, you must configure **Associated Domains** in your app.  
 
@@ -73,9 +76,6 @@ To set up Associated Domains on iOS, follow these steps:
 For detailed instructions, refer to Apple’s official documentations:  
 - [Adding Support for Background Tag Reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading)  
 - [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
-
-> **Note:**  
-> The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
 
 ## Not Included in the Free Version
 
