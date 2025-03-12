@@ -64,7 +64,7 @@ This functionality is available in:
 - [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)  
 
 > **Note:**  
-> The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-Android**.
+> The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
 
 ## Not Included in the Free Version
 
