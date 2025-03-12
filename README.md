@@ -63,6 +63,17 @@ This functionality is available in:
 - [NativeAppTemplate-API (Solo)](https://nativeapptemplate.com/products/api-solo)  
 - [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)  
 
+#### Associated Domains Requirement (iOS)  
+For background tag reading to work correctly on **iOS**, you must configure **Associated Domains** in your app.  
+
+To set up Associated Domains on iOS, follow these steps:  
+1. Add your domain (e.g., `applinks:api.example.com`) to the **Associated Domains** section in Xcode under **Signing & Capabilities**.  
+2. Configure the **apple-app-site-association (AASA)** file and host it on your server.  
+
+For detailed instructions, refer to Apple’s official documentations:  
+- [Adding Support for Background Tag Reading]([https://developer.apple.com/documentation/xcode/supporting-associated-domains](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading))
+- [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
+
 > **Note:**  
 > The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
 
