@@ -95,7 +95,7 @@ For detailed instructions, refer to Apple’s official documentations:
 
 The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team)) include additional advanced features:
 
-- URL Path-Based Multitenancy (e.g., prepends `/:account_id/` to URLs)
+- URL Path-Based Multitenancy (prepends `/:account_id/` to URLs)
 - User Invitation to Organizations
 - Role-Based Permissions and Access Control
 
