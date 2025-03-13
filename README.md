@@ -46,7 +46,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 ![Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/screenshots_nfc.png "Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen")
 
 ### How It Works  
-1. Write application info to pair Number Tags (Server Tag and Customer Tag) or a Customer QR code (Go to: Shops > [Shop] > Shop Settings > Manage Number Tags > [Manage Number Tag]).  
+1. Write application info to pair **Number Tags** (Server Tag and Customer Tag) or a **Customer QR code** (Go to: Shops > [Shop] > Shop Settings > Manage Number Tags > [Manage Number Tag]).  
 2. Scan a Server Tag in the **Scan** tab.  
 3. View the updated Number Tags status in the **Shop Detail** screen or on the **Number Tags Webpage** (see below).
 
