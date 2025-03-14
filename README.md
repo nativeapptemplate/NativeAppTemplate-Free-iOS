@@ -43,6 +43,13 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 
 ## NFC Tag Operations
 
+![Screenshot showing Overview before, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_before.png "Screenshot showing Overview before")
+
+![Screenshot showing Overview after, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_after.png "Screenshot showing Overview after")
+
+The app replaces traditional paper tags with NFC tags to efficiently manage walk-in customer waitlists. It writes application-specific information onto your NFC cards (referred to as :red_circle: Server Tag and :green_circle: Customer Tag).
+
+
 ![Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/screenshots_nfc.png "Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen")
 
 ### How It Works  
