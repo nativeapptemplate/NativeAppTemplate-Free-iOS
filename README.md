@@ -49,13 +49,13 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 
 ![Screenshot showing Overview after, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_after.png "Screenshot showing Overview after")
 
-The app replaces traditional paper tags with NFC tags to efficiently manage walk-in customer waitlists. It writes application-specific information onto your NFC cards (referred to as :red_circle: **Server Tag** and :blue_circle: **Customer Tag**).
+The app replaces traditional paper tags with NFC tags to efficiently manage walk-in customer waitlists. It writes application-specific information onto your NFC cards (referred to as :red_circle: **Server Tag** and :large_blue_circle: **Customer Tag**).
 
 **For Customers:**  
-When a customer scans a :blue_circle: **Customer Tag**, they can view the :green_circle: **Number Tags Webpage** (a public webpage) on their mobile browser. This page displays completed Number Tags.
+When a customer scans a :large_blue_circle: **Customer Tag**, they can view the :green_circle: **Number Tags Webpage** (a public webpage) on their mobile browser. This page displays completed Number Tags.
 
 **For Staff:**  
-By scanning a :red_circle: **Server Tag** paired with the :blue_circle: **Customer Tag**, staff can complete a Number Tag. Completed Number Tags automatically appear on the :green_circle: **Number Tags Webpage** for customer reference.
+By scanning a :red_circle: **Server Tag** paired with the :large_blue_circle: **Customer Tag**, staff can complete a Number Tag. Completed Number Tags automatically appear on the :green_circle: **Number Tags Webpage** for customer reference.
 
 ### How It Works  
 
