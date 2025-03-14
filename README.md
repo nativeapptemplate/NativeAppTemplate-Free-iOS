@@ -43,16 +43,24 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 
 ## NFC Tag Operations
 
+### Overview  
+
 ![Screenshot showing Overview before, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_before.png "Screenshot showing Overview before")
 
 ![Screenshot showing Overview after, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_after.png "Screenshot showing Overview after")
 
-The app replaces traditional paper tags with NFC tags to efficiently manage walk-in customer waitlists. It writes application-specific information onto your NFC cards (referred to as :red_circle: Server Tag and :green_circle: Customer Tag).
+The app replaces traditional paper tags with NFC tags to efficiently manage walk-in customer waitlists. It writes application-specific information onto your NFC cards (referred to as :red_circle: **Server Tag** and :blue_circle: **Customer Tag**).
 
+**For Customers:**  
+When a customer scans a :blue_circle: **Customer Tag**, they can view the :green_circle: **Number Tags Webpage** (a public webpage) on their mobile browser. This page displays completed Number Tags.
+
+**For Staff:**  
+By scanning a :red_circle: **Server Tag** paired with the :blue_circle: **Customer Tag**, staff can complete a Number Tag. Completed Number Tags automatically appear on the :green_circle: **Number Tags Webpage** for customer reference.
+
+### How It Works  
 
 ![Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/screenshots_nfc.png "Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen")
 
-### How It Works  
 1. Write application info to pair **Number Tags** (Server Tag and Customer Tag) or a **Customer QR code**:  
    - Go to: **Shops > [Shop] > Shop Settings > Manage Number Tags > [Manage Number Tag]**.  
 2. Scan a **Server Tag** in the **Scan** tab.  
