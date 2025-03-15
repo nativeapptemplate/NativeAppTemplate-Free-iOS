@@ -168,9 +168,10 @@ $ brew install swiftlint
 
 Xcode will automatically run SwiftLint if it is installed.
 
-## Blog
+## Blogs
 
 - [Key Differences in MVVM Architecture: iOS vs. Android](https://medium.com/@dadachix/key-differences-in-mvvm-architecture-ios-vs-android-e239d30b2ea7)
+- [Cross-Platform Background NFC Tag Reading](https://medium.com/@dadachix/cross-platform-background-nfc-tag-reading-8a704f0cb6e9)
 
 ## Contributing
 
