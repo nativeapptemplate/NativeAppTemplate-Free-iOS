@@ -26,6 +26,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - **[@Observable](https://developer.apple.com/documentation/swiftui/migrating-from-the-observable-object-protocol-to-the-observable-macro)** (iOS 17: streamlined Swift state management)
 - **[SwiftLint](https://github.com/realm/SwiftLint)**
 - **Test** (Swift Testing)
+- **[Simple MVVM Layered Architecture]([https://github.com/realm/SwiftLint](https://medium.com/@dadachix/key-differences-in-mvvm-architecture-ios-vs-android-e239d30b2ea7)**
 - Inspired by [emitron-iOS](https://github.com/razeware/emitron-iOS)
 
 #### Included Features
