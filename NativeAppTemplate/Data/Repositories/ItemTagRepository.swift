@@ -64,10 +64,12 @@ import SwiftUI
     do {
       let itemTag = try await itemTagsService.itemTagDetail(id: id)
       let itemTagIndex = (itemTags.firstIndex { $0.id == itemTag.id })
-      if itemTagIndex != nil {
+      if itemTagIndex == nil {
+        itemTags.append(itemTag)
+      } else {
         itemTags[itemTagIndex!] = itemTag
       }
-      
+
       return itemTag
     } catch {
       Failure
