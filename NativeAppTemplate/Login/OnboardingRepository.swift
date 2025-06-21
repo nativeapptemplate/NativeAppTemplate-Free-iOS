@@ -8,7 +8,7 @@
 import Foundation
 import OrderedCollections
 
-@MainActor @Observable class OnboardingRepository {
+@MainActor @Observable class OnboardingRepository: OnboardingRepositoryProtocol {
   var onboardings: [Onboarding] = []
   let onboardingsDictionary: OrderedDictionary = [
     1: false,

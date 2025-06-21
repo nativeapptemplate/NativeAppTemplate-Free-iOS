@@ -29,7 +29,7 @@
 import SwiftUI
 
 struct PermissionsLoadingView: View {
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @State private var isShowingLogoutAlert = false
   
   var body: some View {

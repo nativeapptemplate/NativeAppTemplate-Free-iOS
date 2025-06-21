@@ -10,8 +10,8 @@ import SwiftUI
 struct ShopBasicSettingsView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
-  private var shopRepository: ShopRepository
+  @Environment(\.sessionController) private var sessionController
+  private var shopRepository: ShopRepositoryProtocol
   @State private var isFetching = true
   @State private var isUpdating = false
   @State private var name = ""
@@ -27,7 +27,7 @@ struct ShopBasicSettingsView: View {
   }
 
   init(
-    shopRepository: ShopRepository,
+    shopRepository: ShopRepositoryProtocol,
     shopId: String
   ) {
     self.shopRepository = shopRepository

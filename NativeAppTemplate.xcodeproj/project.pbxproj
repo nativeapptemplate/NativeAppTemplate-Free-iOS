@@ -32,7 +32,6 @@
 		0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */; };
 		0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */; };
 		0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0135E7162D7E33F9004AD8FA /* ScanView.swift */; };
-		0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */; };
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
@@ -56,7 +55,6 @@
 		017203A325A96F7B008FD63B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203A225A96F7A008FD63B /* Constants.swift */; };
 		017203B325A96FD6008FD63B /* UIApplication+DismissKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203A825A96FBF008FD63B /* UIApplication+DismissKeyboard.swift */; };
 		017203B625A96FD6008FD63B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203AB25A96FBF008FD63B /* View+Extensions.swift */; };
-		017203CA25A97090008FD63B /* SessionController+States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203C825A9708A008FD63B /* SessionController+States.swift */; };
 		017203CB25A97090008FD63B /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203C725A9708A008FD63B /* SessionController.swift */; };
 		017203EB25AA6606008FD63B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203EA25AA6601008FD63B /* Logger.swift */; };
 		0172040025AA6775008FD63B /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017203F525AA675E008FD63B /* LoginRepository.swift */; };
@@ -119,6 +117,13 @@
 		018D4EFF2B6350F500CBA736 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018D4EFE2B6350F500CBA736 /* Inter-Bold.ttf */; };
 		018E21CB2B36367F00FFD1F6 /* MeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E21CA2B36367F00FFD1F6 /* MeRequest.swift */; };
 		018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E21CC2B36377800FFD1F6 /* MeService.swift */; };
+		0199CD242E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD212E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift */; };
+		0199CD252E07510200109DC6 /* ItemTagRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD222E07510200109DC6 /* ItemTagRepositoryProtocol.swift */; };
+		0199CD262E07510200109DC6 /* ShopRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD232E07510200109DC6 /* ShopRepositoryProtocol.swift */; };
+		0199CD2A2E07512100109DC6 /* OnboardingRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD282E07512100109DC6 /* OnboardingRepositoryProtocol.swift */; };
+		0199CD2B2E07512100109DC6 /* SignUpRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD292E07512100109DC6 /* SignUpRepositoryProtocol.swift */; };
+		0199CD2C2E07512100109DC6 /* LoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */; };
+		0199CD3E2E075CBB00109DC6 /* SessionControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD3D2E075CBB00109DC6 /* SessionControllerProtocol.swift */; };
 		01B37C7629B0960700BF5B2D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B37C7529B0960700BF5B2D /* ForgotPasswordView.swift */; };
 		01B526542AF4E36400655131 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B526532AF4E36400655131 /* MainTab.swift */; };
 		01B526562AF4E82A00655131 /* ScrollToTopID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B526552AF4E82A00655131 /* ScrollToTopID.swift */; };
@@ -205,7 +210,6 @@
 		017203A825A96FBF008FD63B /* UIApplication+DismissKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+DismissKeyboard.swift"; sourceTree = "<group>"; };
 		017203AB25A96FBF008FD63B /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		017203C725A9708A008FD63B /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
-		017203C825A9708A008FD63B /* SessionController+States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionController+States.swift"; sourceTree = "<group>"; };
 		017203EA25AA6601008FD63B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		017203F525AA675E008FD63B /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		0172045725AA82B4008FD63B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -267,6 +271,13 @@
 		018D4EFE2B6350F500CBA736 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
 		018E21CA2B36367F00FFD1F6 /* MeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeRequest.swift; sourceTree = "<group>"; };
 		018E21CC2B36377800FFD1F6 /* MeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeService.swift; sourceTree = "<group>"; };
+		0199CD212E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0199CD222E07510200109DC6 /* ItemTagRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0199CD232E07510200109DC6 /* ShopRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0199CD282E07512100109DC6 /* OnboardingRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0199CD292E07512100109DC6 /* SignUpRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0199CD3D2E075CBB00109DC6 /* SessionControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionControllerProtocol.swift; sourceTree = "<group>"; };
 		01B37C7529B0960700BF5B2D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		01B526532AF4E36400655131 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		01B526552AF4E82A00655131 /* ScrollToTopID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToTopID.swift; sourceTree = "<group>"; };
@@ -565,9 +576,9 @@
 		017203C525A9708A008FD63B /* Sessions */ = {
 			isa = PBXGroup;
 			children = (
-				01E0A62125BD4A7800298D35 /* Shopkeeper+Backdoor.swift */,
 				017203C725A9708A008FD63B /* SessionController.swift */,
-				017203C825A9708A008FD63B /* SessionController+States.swift */,
+				0199CD3D2E075CBB00109DC6 /* SessionControllerProtocol.swift */,
+				01E0A62125BD4A7800298D35 /* Shopkeeper+Backdoor.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
@@ -584,10 +595,13 @@
 			isa = PBXGroup;
 			children = (
 				017203F525AA675E008FD63B /* LoginRepository.swift */,
+				0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */,
 				017278062D7D4F5800CE424F /* OnboardingRepository.swift */,
+				0199CD282E07512100109DC6 /* OnboardingRepositoryProtocol.swift */,
 				0172052E25AC41A7008FD63B /* SessionRequest.swift */,
 				0172051925AAF6BF008FD63B /* SessionsService.swift */,
 				011DDC20287669EA00C6C21F /* SignUpRepository.swift */,
+				0199CD292E07512100109DC6 /* SignUpRepositoryProtocol.swift */,
 				011DDC2428766CEC00C6C21F /* SignUpRequest.swift */,
 				011DDC2228766C5D00C6C21F /* SignUpService.swift */,
 			);
@@ -733,8 +747,11 @@
 			isa = PBXGroup;
 			children = (
 				0106414129A9F51700B46FED /* AccountPasswordRepository.swift */,
+				0199CD212E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift */,
 				017278742D7D8FAC00CE424F /* ItemTagRepository.swift */,
+				0199CD222E07510200109DC6 /* ItemTagRepositoryProtocol.swift */,
 				017204A925AA8449008FD63B /* ShopRepository.swift */,
+				0199CD232E07510200109DC6 /* ShopRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -824,7 +841,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					011F6DEC259EF16400BED22E = {
 						CreatedOnToolsVersion = 12.3;
@@ -874,7 +891,6 @@
 		01D19B412D4DE33500BDEAB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -895,6 +911,8 @@
 				"else",
 				"  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"",
 				"fi",
+				"",
+				"",
 				"",
 			);
 		};
@@ -928,8 +946,12 @@
 				01B37C7629B0960700BF5B2D /* ForgotPasswordView.swift in Sources */,
 				01E0A5B725BD0FCD00298D35 /* OfflineView.swift in Sources */,
 				0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */,
+				0199CD2A2E07512100109DC6 /* OnboardingRepositoryProtocol.swift in Sources */,
+				0199CD2B2E07512100109DC6 /* SignUpRepositoryProtocol.swift in Sources */,
+				0199CD2C2E07512100109DC6 /* LoginRepositoryProtocol.swift in Sources */,
 				0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */,
 				0172787F2D7D933000CE424F /* ShopDetailCardView.swift in Sources */,
+				0199CD3E2E075CBB00109DC6 /* SessionControllerProtocol.swift in Sources */,
 				01EE363E29A6DCEB009BCD9D /* ShopkeeperEditView.swift in Sources */,
 				0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */,
 				01BE4F1D29CA6F8C002008BE /* TimeZoneData.swift in Sources */,
@@ -950,7 +972,6 @@
 				0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */,
 				017204D125AA8479008FD63B /* DataState.swift in Sources */,
 				012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */,
-				017203CA25A97090008FD63B /* SessionController+States.swift in Sources */,
 				0172033E25A9642E008FD63B /* Parameters.swift in Sources */,
 				0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */,
 				017204B625AA8467008FD63B /* DataManager.swift in Sources */,
@@ -976,6 +997,9 @@
 				017204D925AA847E008FD63B /* ShopRepository.swift in Sources */,
 				017278612D7D83E700CE424F /* ItemTagData.swift in Sources */,
 				017278622D7D83E700CE424F /* ItemTag.swift in Sources */,
+				0199CD242E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift in Sources */,
+				0199CD252E07510200109DC6 /* ItemTagRepositoryProtocol.swift in Sources */,
+				0199CD262E07510200109DC6 /* ShopRepositoryProtocol.swift in Sources */,
 				017278632D7D83E700CE424F /* ItemTagState.swift in Sources */,
 				017278642D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift in Sources */,
 				017278652D7D83E700CE424F /* ItemTagType.swift in Sources */,
@@ -1085,6 +1109,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1153,6 +1178,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1189,7 +1215,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
-				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = NativeAppTemplate/Info.plist;
@@ -1226,7 +1251,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
-				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = NativeAppTemplate/Info.plist;
@@ -1289,6 +1313,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1324,7 +1349,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
-				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = NativeAppTemplate/Info.plist;
@@ -1355,7 +1379,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -1377,7 +1400,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -1398,7 +1420,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;

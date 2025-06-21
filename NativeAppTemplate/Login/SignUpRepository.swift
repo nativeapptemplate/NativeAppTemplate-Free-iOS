@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor class SignUpRepository {
+@MainActor class SignUpRepository: SignUpRepositoryProtocol {
   func signUp(signUp: SignUp) async throws -> Shopkeeper {
     var shopkeeper: Shopkeeper
     

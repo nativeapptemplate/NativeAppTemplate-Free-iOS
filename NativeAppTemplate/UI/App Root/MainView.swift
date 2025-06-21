@@ -31,7 +31,7 @@ import SwiftUI
 struct MainView: View {
   @Environment(MessageBus.self) private var messageBus
   @Environment(DataManager.self) private var dataManager
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @State var isShowingForceAppUpdatesAlert = false
   @State var itemTagId: String?
   @State var isResetting = false

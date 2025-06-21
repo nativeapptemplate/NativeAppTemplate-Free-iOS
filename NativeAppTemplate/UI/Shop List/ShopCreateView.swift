@@ -9,16 +9,16 @@ import SwiftUI
 
 struct ShopCreateView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @Environment(MessageBus.self) private var messageBus
-  private var shopRepository: ShopRepository
+  private var shopRepository: ShopRepositoryProtocol
   @State private var name = ""
   @State private var description = ""
   @State private var selectedTimeZone: String
   @State private var isCreating = false
 
   init(
-    shopRepository: ShopRepository
+    shopRepository: ShopRepositoryProtocol
   ) {
     self.shopRepository = shopRepository
     _selectedTimeZone = State(initialValue: Utility.currentTimeZone())

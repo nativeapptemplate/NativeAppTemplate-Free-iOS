@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-@MainActor @Observable class ItemTagRepository {
+@MainActor @Observable class ItemTagRepository: ItemTagRepositoryProtocol {
   let itemTagsService: ItemTagsService
   
   var itemTags: [ItemTag] = []
   var state: DataState = .initial
   
-  init(itemTagsService: ItemTagsService) {
+  required init(itemTagsService: ItemTagsService) {
     self.itemTagsService = itemTagsService
   }
   

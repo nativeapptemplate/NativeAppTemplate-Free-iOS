@@ -12,8 +12,8 @@ import CoreNFC
 struct ItemTagDetailView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
-  private var itemTagRepository: ItemTagRepository
+  @Environment(\.sessionController) private var sessionController
+  private var itemTagRepository: ItemTagRepositoryProtocol
   @StateObject private var nfcManager = appSingletons.nfcManager
   @State private var isLocked = false
   @State private var isShowingEditSheet = false
@@ -36,7 +36,7 @@ struct ItemTagDetailView: View {
   }
   
   init(
-    itemTagRepository: ItemTagRepository,
+    itemTagRepository: ItemTagRepositoryProtocol,
     shop: Shop,
     itemTagId: String
   ) {

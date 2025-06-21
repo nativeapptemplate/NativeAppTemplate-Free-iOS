@@ -14,10 +14,10 @@ struct PasswordEditView: View {
   @State private var currentPassword: String = ""
   @State private var password: String = ""
   @State private var passwordConfirmation: String = ""
-  private var accountPasswordRepository: AccountPasswordRepository
+  private var accountPasswordRepository: AccountPasswordRepositoryProtocol
 
   init(
-    accountPasswordRepository: AccountPasswordRepository
+    accountPasswordRepository: AccountPasswordRepositoryProtocol
   ) {
     self.accountPasswordRepository = accountPasswordRepository
   }

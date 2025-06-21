@@ -5,10 +5,10 @@
 //  Created by Daisuke Adachi on 2023/02/25.
 //
 
-@MainActor class AccountPasswordRepository {
+@MainActor class AccountPasswordRepository: AccountPasswordRepositoryProtocol {
   let accountPasswordService: AccountPasswordService
       
-  init(
+  required init(
     accountPasswordService: AccountPasswordService
   ) {
     self.accountPasswordService = accountPasswordService

@@ -72,3 +72,5 @@ Carthage/Build
 secrets.*.xcconfig
 !secrets.template.xcconfig
 
+# Claude
+.claude/

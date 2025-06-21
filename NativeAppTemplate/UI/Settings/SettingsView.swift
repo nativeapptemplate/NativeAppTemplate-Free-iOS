@@ -10,16 +10,16 @@ import MessageUI
 
 struct SettingsView: View {
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @Environment(TabViewModel.self) private var tabViewModel
   @State var isShowingMailView = false
   @State var alertNoMail = false
   @State var result: Result<MFMailComposeResult, Error>?
-  private var signUpRepository = SignUpRepository()
-  private var accountPasswordRepository: AccountPasswordRepository
+  private var signUpRepository: SignUpRepositoryProtocol = SignUpRepository()
+  private var accountPasswordRepository: AccountPasswordRepositoryProtocol
   
   init(
-    accountPasswordRepository: AccountPasswordRepository
+    accountPasswordRepository: AccountPasswordRepositoryProtocol
   ) {
     self.accountPasswordRepository = accountPasswordRepository
   }

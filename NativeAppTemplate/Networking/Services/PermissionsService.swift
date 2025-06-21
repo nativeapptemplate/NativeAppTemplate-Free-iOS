@@ -29,7 +29,7 @@
 import class Foundation.URLSession
 
 struct PermissionsService: Service {
-  let networkClient: NativeAppTemplateAPI
+  var networkClient = NativeAppTemplateAPI()
   let session = URLSession(configuration: .default)
 }
 

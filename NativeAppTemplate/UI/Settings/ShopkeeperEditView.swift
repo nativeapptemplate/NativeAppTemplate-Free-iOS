@@ -11,7 +11,7 @@ struct ShopkeeperEditView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.openURL) var openURL
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @Environment(TabViewModel.self) private var tabViewModel
   @State private var isUpdating = false
   @State private var isDeleting = false
@@ -19,11 +19,11 @@ struct ShopkeeperEditView: View {
   @State private var email: String = ""
   @State private var selectedTimeZone: String
   @State private var isShowingDeleteConfirmationDialog = false
-  private var signUpRepository: SignUpRepository
+  private var signUpRepository: SignUpRepositoryProtocol
   private var shopkeeper: Shopkeeper
   
   init(
-    signUpRepository: SignUpRepository,
+    signUpRepository: SignUpRepositoryProtocol,
     shopkeeper: Shopkeeper
   ) {
     self.signUpRepository = signUpRepository

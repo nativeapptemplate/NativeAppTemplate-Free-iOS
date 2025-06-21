@@ -37,7 +37,7 @@ private extension SignUpOrSignInView {
             .padding(.horizontal, 24)
 
           VStack {
-            NavigationLink(destination: SignUpView(signUpRepository: SignUpRepository())) {
+            NavigationLink(destination: SignUpView(signUpRepository: SignUpRepository() as SignUpRepositoryProtocol)) {
               MainButtonImageView(title: String.signUpForAnAccount, type: .primary(withArrow: false))
                 .padding(.top, 8)
                 .padding(.horizontal, 24)
@@ -46,7 +46,7 @@ private extension SignUpOrSignInView {
             Text(verbatim: "or")
               .padding(.top, 8)
             
-            NavigationLink(destination: SignInEmailAndPasswordView(signUpRepository: SignUpRepository())) {
+            NavigationLink(destination: SignInEmailAndPasswordView(signUpRepository: SignUpRepository() as SignUpRepositoryProtocol)) {
               Text(String.signInToYourAccount)
                 .font(.uiLabel)
             }
