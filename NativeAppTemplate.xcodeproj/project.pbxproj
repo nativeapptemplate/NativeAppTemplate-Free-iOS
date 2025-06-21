@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -306,7 +306,6 @@
 /* Begin PBXFrameworksBuildPhase section */
 		011F6DEA259EF16400BED22E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */,
 				012009F8299F1E190078A1F9 /* Collections in Frameworks */,
@@ -314,14 +313,11 @@
 				0172030225A9634F008FD63B /* SwiftyJSON in Frameworks */,
 				0182D37025B258A7001E881D /* KeychainAccess in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		01D19B402D4DE33500BDEAB7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -787,8 +783,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = NativeAppTemplate;
 			packageProductDependencies = (
 				0172030125A9634F008FD63B /* SwiftyJSON */,
@@ -818,8 +812,6 @@
 				01D19B442D4DE33500BDEAB7 /* NativeAppTemplateTests */,
 			);
 			name = NativeAppTemplateTests;
-			packageProductDependencies = (
-			);
 			productName = NativeAppTemplateTests;
 			productReference = 01D19B432D4DE33500BDEAB7 /* NativeAppTemplateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -857,7 +849,7 @@
 				0182D36E25B258A7001E881D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 011F6DEE259EF16400BED22E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -871,7 +863,6 @@
 /* Begin PBXResourcesBuildPhase section */
 		011F6DEB259EF16400BED22E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */,
 				018D4EFF2B6350F500CBA736 /* Inter-Bold.ttf in Resources */,
@@ -879,15 +870,12 @@
 				011F6DF8259EF16600BED22E /* Preview Assets.xcassets in Resources */,
 				011F6DF5259EF16600BED22E /* Assets.xcassets in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		01D19B412D4DE33500BDEAB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				0135E8E42D7E4478004AD8FA /* SampleCode.xcconfig in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -895,28 +883,26 @@
 		01A77D352632D1D900352EBC /* SwiftLint Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
 			name = "SwiftLint Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = (
+				"if [[ \"$(uname -m)\" == arm64 ]]; then",
+				"    export PATH=\"/opt/homebrew/bin:$PATH\"",
+				"fi",
+				"",
+				"if which swiftlint > /dev/null; then",
+				"  swiftlint",
+				"else",
+				"  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"",
+				"fi",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		011F6DE9259EF16400BED22E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */,
 				01E2477029A570D300D4B00D /* SignUp.swift in Sources */,
@@ -1045,14 +1031,11 @@
 				0172046725AA82BF008FD63B /* MainView.swift in Sources */,
 				0172033825A9642E008FD63B /* JSONAPIError.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		01D19B3F2D4DE33500BDEAB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -1065,7 +1048,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		011F6E10259EF16600BED22E /* Debug */ = {
+		011F6E10259EF16600BED22E /* Debug configuration for PBXProject "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1133,7 +1116,7 @@
 			};
 			name = Debug;
 		};
-		011F6E11259EF16600BED22E /* Release */ = {
+		011F6E11259EF16600BED22E /* Release configuration for PBXProject "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1195,7 +1178,7 @@
 			};
 			name = Release;
 		};
-		011F6E13259EF16600BED22E /* Debug */ = {
+		011F6E13259EF16600BED22E /* Debug configuration for PBXNativeTarget "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1204,7 +1187,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
@@ -1232,7 +1215,7 @@
 			};
 			name = Debug;
 		};
-		011F6E14259EF16600BED22E /* Release */ = {
+		011F6E14259EF16600BED22E /* Release configuration for PBXNativeTarget "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1241,7 +1224,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
@@ -1269,7 +1252,7 @@
 			};
 			name = Release;
 		};
-		016595AF2824E3D800203F7F /* Beta */ = {
+		016595AF2824E3D800203F7F /* Beta configuration for PBXProject "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1331,7 +1314,7 @@
 			};
 			name = Beta;
 		};
-		016595B02824E3D800203F7F /* Beta */ = {
+		016595B02824E3D800203F7F /* Beta configuration for PBXNativeTarget "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1339,7 +1322,7 @@
 				BUNDLE_ID_SUFFIX = .beta;
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = NNYDL5U3V3;
 				ENABLE_PREVIEWS = YES;
@@ -1365,7 +1348,7 @@
 			};
 			name = Beta;
 		};
-		01D19B4A2D4DE33500BDEAB7 /* Debug */ = {
+		01D19B4A2D4DE33500BDEAB7 /* Debug configuration for PBXNativeTarget "NativeAppTemplateTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1387,7 +1370,7 @@
 			};
 			name = Debug;
 		};
-		01D19B4B2D4DE33500BDEAB7 /* Release */ = {
+		01D19B4B2D4DE33500BDEAB7 /* Release configuration for PBXNativeTarget "NativeAppTemplateTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1408,7 +1391,7 @@
 			};
 			name = Release;
 		};
-		01D19B4C2D4DE33500BDEAB7 /* Beta */ = {
+		01D19B4C2D4DE33500BDEAB7 /* Beta configuration for PBXNativeTarget "NativeAppTemplateTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1435,31 +1418,28 @@
 		011F6DE8259EF16400BED22E /* Build configuration list for PBXProject "NativeAppTemplate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				011F6E10259EF16600BED22E /* Debug */,
-				011F6E11259EF16600BED22E /* Release */,
-				016595AF2824E3D800203F7F /* Beta */,
+				011F6E10259EF16600BED22E /* Debug configuration for PBXProject "NativeAppTemplate" */,
+				011F6E11259EF16600BED22E /* Release configuration for PBXProject "NativeAppTemplate" */,
+				016595AF2824E3D800203F7F /* Beta configuration for PBXProject "NativeAppTemplate" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		011F6E12259EF16600BED22E /* Build configuration list for PBXNativeTarget "NativeAppTemplate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				011F6E13259EF16600BED22E /* Debug */,
-				011F6E14259EF16600BED22E /* Release */,
-				016595B02824E3D800203F7F /* Beta */,
+				011F6E13259EF16600BED22E /* Debug configuration for PBXNativeTarget "NativeAppTemplate" */,
+				011F6E14259EF16600BED22E /* Release configuration for PBXNativeTarget "NativeAppTemplate" */,
+				016595B02824E3D800203F7F /* Beta configuration for PBXNativeTarget "NativeAppTemplate" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		01D19B492D4DE33500BDEAB7 /* Build configuration list for PBXNativeTarget "NativeAppTemplateTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				01D19B4A2D4DE33500BDEAB7 /* Debug */,
-				01D19B4B2D4DE33500BDEAB7 /* Release */,
-				01D19B4C2D4DE33500BDEAB7 /* Beta */,
+				01D19B4A2D4DE33500BDEAB7 /* Debug configuration for PBXNativeTarget "NativeAppTemplateTests" */,
+				01D19B4B2D4DE33500BDEAB7 /* Release configuration for PBXNativeTarget "NativeAppTemplateTests" */,
+				01D19B4C2D4DE33500BDEAB7 /* Beta configuration for PBXNativeTarget "NativeAppTemplateTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

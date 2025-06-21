@@ -56,10 +56,12 @@ import SwiftUI
     do {
       let shop = try await shopsService.shopDetail(id: id)
       let shopIndex = (shops.firstIndex { $0.id == shop.id })
-      if shopIndex != nil {
+      if shopIndex == nil {
+        shops.append(shop)
+      } else {
         shops[shopIndex!] = shop
       }
-      
+
       return shop
     } catch {
       Failure
