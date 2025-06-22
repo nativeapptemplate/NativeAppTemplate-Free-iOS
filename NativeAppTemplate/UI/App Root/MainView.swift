@@ -148,10 +148,14 @@ private extension MainView {
   }
   
   func shopListView() -> ShopListView {
-    .init(
+    let viewModel = ShopListViewModel(
+      sessionController: sessionController,
       shopRepository: dataManager.shopRepository,
-      itemTagRepository: dataManager.itemTagRepository
+      itemTagRepository: dataManager.itemTagRepository,
+      tabViewModel: tabViewModel,
+      mainTab: .shops
     )
+    return ShopListView(viewModel: viewModel)
   }
   
   func scanView() -> ScanView {

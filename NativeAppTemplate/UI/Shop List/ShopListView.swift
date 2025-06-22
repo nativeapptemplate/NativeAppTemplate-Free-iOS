@@ -44,19 +44,10 @@ struct TapShopBelowTip: Tip {
 }
 
 struct ShopListView: View {
-  @Environment(\.mainTab) private var mainTab
-  @Environment(TabViewModel.self) private var tabViewModel
-  @Environment(\.sessionController) private var sessionController
-  private var shopRepository: ShopRepositoryProtocol
-  private var itemTagRepository: ItemTagRepositoryProtocol
-  @State private var isShowingCreateSheet = false
+  @State private var viewModel: ShopListViewModel
   
-  init(
-    shopRepository: ShopRepositoryProtocol,
-    itemTagRepository: ItemTagRepositoryProtocol
-  ) {
-    self.shopRepository = shopRepository
-    self.itemTagRepository = itemTagRepository
+  init(viewModel: ShopListViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
 }
 
@@ -64,21 +55,21 @@ extension ShopListView {
   var body: some View {
     contentView
       .task {
-        reload()
+        viewModel.reload()
       }
       .onAppear {
-        tabViewModel.showingDetailView[mainTab] = false
+        viewModel.setTabViewModelShowingDetailViewToFalse()
       }
-      .onChange(of: shopRepository.state) {
-        if shopRepository.state == .initial {
-          reload()
+      .onChange(of: viewModel.state) {
+        if viewModel.state == .initial {
+          viewModel.reload()
         }
       }
     // Avoid showing deleted shop.
-      .onChange(of: sessionController.shouldPopToRootView) {
+      .onChange(of: viewModel.shouldPopToRootView) {
         Task {
           try await Task.sleep(nanoseconds: 2_000_000_000)
-          reload()
+          viewModel.reload()
         }
       }
   }
@@ -88,7 +79,7 @@ extension ShopListView {
 private extension ShopListView {
   var contentView: some View {
     @ViewBuilder var contentView: some View {
-      switch shopRepository.state {
+      switch viewModel.state {
       case .initial, .loading:
         LoadingView()
       case .hasData:
@@ -101,12 +92,8 @@ private extension ShopListView {
     return contentView
   }
   
-  func reload() {
-    shopRepository.reload()
-  }
-  
   var cardsView: some View {
-    ForEach(shopRepository.shops) { shop in
+    ForEach(viewModel.shops) { shop in
       NavigationLink(value: shop) {
         ShopListCardView(shop: shop)
       }
@@ -115,11 +102,9 @@ private extension ShopListView {
   }
   
   var shopListView: some View {
-    let leftInShopSlots = shopRepository.limitCount - shopRepository.createdShopsCount
-    
-    return VStack {
-      if shopRepository.isEmpty {
-        noResultsView(leftInShopSlots: leftInShopSlots)
+    VStack {
+      if viewModel.isEmpty {
+        noResultsView(leftInShopSlots: viewModel.leftInShopSlots)
       } else {
         List {
           Section {
@@ -130,11 +115,11 @@ private extension ShopListView {
               .tint(.alarm)
             
             EmptyView()
-              .id(ScrollToTopID(mainTab: mainTab, detail: false))
+              .id(viewModel.scrollToTopID())
           } footer: {
             VStack(spacing: 0) {
               HStack(alignment: .firstTextBaseline) {
-                Text(String(leftInShopSlots))
+                Text(String(viewModel.leftInShopSlots))
                   .font(.uiLabelBold)
                 Text(verbatim: "left in shop slots.")
                   .font(.uiFootnote)
@@ -144,41 +129,41 @@ private extension ShopListView {
         }
         .navigationDestination(for: Shop.self) { shop in
           ShopDetailView(
-            shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
+            shopRepository: viewModel.shopRepository,
+            itemTagRepository: viewModel.itemTagRepository,
             shopId: shop.id
           )
         }
         .accessibility(identifier: "shopListView")
         .refreshable {
-          reload()
+          viewModel.reload()
         }
       }
     }
     .navigationTitle(String.shops)
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
-      if leftInShopSlots > 0 {
+      if viewModel.leftInShopSlots > 0 {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
-            isShowingCreateSheet.toggle()
+            viewModel.showCreateView()
           } label: {
             Image(systemName: "plus")
           }
         }
       }
     }
-    .sheet(isPresented: $isShowingCreateSheet,
+    .sheet(isPresented: $viewModel.isShowingCreateSheet,
            onDismiss: {
-      reload()
+      viewModel.reload()
     }, content: {
-      ShopCreateView(shopRepository: shopRepository)
+      ShopCreateView(shopRepository: viewModel.shopRepository)
     }
     )
   }
   
   var reloadView: some View {
-    ErrorView(buttonAction: reload)
+    ErrorView(buttonAction: viewModel.reload)
   }
   
   func noResultsView(leftInShopSlots: Int) -> some View {
@@ -195,7 +180,7 @@ private extension ShopListView {
           .padding()
         
         MainButtonView(title: String.addShop, type: .primary(withArrow: false)) {
-          isShowingCreateSheet.toggle()
+          viewModel.showCreateView()
         }
         .padding()
         
