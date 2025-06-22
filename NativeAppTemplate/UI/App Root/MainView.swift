@@ -29,48 +29,55 @@
 import SwiftUI
 
 struct MainView: View {
-  @Environment(MessageBus.self) private var messageBus
   @Environment(DataManager.self) private var dataManager
-  @Environment(\.sessionController) private var sessionController
-  @State var isShowingForceAppUpdatesAlert = false
-  @State var itemTagId: String?
-  @State var isResetting = false
-  @State var isShowingResetConfirmationDialog = false
-  @State private var isShowingAcceptPrivacySheet = false
-  @State private var arePrivacyAccepted = false
-  @State private var isShowingAcceptTermsSheet = false
-  @State private var areTermsAccepted = false
-  
+  @Environment(\.sessionController) private var sessionController: SessionControllerProtocol
+  @Environment(MessageBus.self) private var messageBus
+  @Environment(\.mainTab) private var mainTab
+  @State private var viewModel: MainViewModel?
+
   private let tabViewModel = TabViewModel()
-  
+
   var body: some View {
     ZStack {
       contentView
         .background(Color.backgroundColor)
         .overlay(MessageBarView(messageBus: messageBus), alignment: .bottom)
-        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb, perform: handleBackgroundTagReading)
-        .onChange(of: sessionController.shouldUpdatePrivacy) {
-          if sessionController.shouldUpdatePrivacy {
-            isShowingAcceptPrivacySheet = true
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb, perform: { userActivity in
+          if let viewModel = viewModel {
+            viewModel.handleBackgroundTagReading(userActivity)
           }
+        })
+        .onChange(of: sessionController.shouldUpdatePrivacy) { _, _ in
+          viewModel?.handlePrivacyUpdate()
         }
-        .onChange(of: sessionController.shouldUpdateTerms) {
-          if sessionController.shouldUpdateTerms {
-            isShowingAcceptTermsSheet = true
-          }
+        .onChange(of: sessionController.shouldUpdateTerms) { _, _ in
+          viewModel?.handleTermsUpdate()
         }
         .confirmationDialog(
           String.itemTagAlreadyCompleted,
-          isPresented: $isShowingResetConfirmationDialog
+          isPresented: Binding(
+            get: { viewModel?.isShowingResetConfirmationDialog ?? false },
+            set: { viewModel?.isShowingResetConfirmationDialog = $0 }
+          )
         ) {
           Button(String.reset, role: .destructive) {
-            resetTag(itemTagId: itemTagId!)
+            viewModel?.resetTag()
           }
           Button(String.cancel, role: .cancel) {
-            isShowingResetConfirmationDialog = false
+            viewModel?.cancelResetDialog()
           }
         } message: {
           Text(String.areYouSure)
+        }
+        .onAppear {
+          if viewModel == nil {
+            viewModel = MainViewModel(
+              sessionController: sessionController,
+              dataManager: dataManager,
+              messageBus: messageBus,
+              tabViewModel: tabViewModel
+            )
+          }
         }
     }
   }
@@ -80,7 +87,7 @@ struct MainView: View {
 private extension MainView {
   @ViewBuilder var contentView: some View {
     if !sessionController.isLoggedIn {
-      OnboardingView()
+      OnboardingView(onboardingRepository: dataManager.onboardingRepository)
     } else {
       switch sessionController.permissionState {
       case .loaded:
@@ -89,13 +96,13 @@ private extension MainView {
         PermissionsLoadingView()
       case .error:
         ErrorView(
-          buttonAction: logout,
+          buttonAction: { viewModel?.logout() },
           buttonTitle: .backToStartScreen
         )
       }
     }
   }
-  
+
   @ViewBuilder var tabBarView: some View {
     switch sessionController.sessionState {
     case .online:
@@ -121,16 +128,40 @@ private extension MainView {
             settingsView: settingsView
           )
           .environment(tabViewModel)
-          .sheet(isPresented: $isShowingAcceptPrivacySheet) {
+          .sheet(isPresented: Binding(
+            get: { viewModel?.isShowingAcceptPrivacySheet ?? false },
+            set: { viewModel?.isShowingAcceptPrivacySheet = $0 }
+          )) {
             NavigationStack {
-              AcceptPrivacyView(arePrivacyAccepted: $arePrivacyAccepted)
-                .interactiveDismissDisabled(!arePrivacyAccepted)
+              AcceptPrivacyView(
+                arePrivacyAccepted: Binding(
+                  get: { viewModel?.arePrivacyAccepted ?? false },
+                  set: { viewModel?.arePrivacyAccepted = $0 }
+                ),
+                viewModel: AcceptPrivacyViewModel(
+                  sessionController: sessionController,
+                  messageBus: messageBus
+                )
+              )
+              .interactiveDismissDisabled(!(viewModel?.arePrivacyAccepted ?? false))
             }
           }
-          .sheet(isPresented: $isShowingAcceptTermsSheet) {
+          .sheet(isPresented: Binding(
+            get: { viewModel?.isShowingAcceptTermsSheet ?? false },
+            set: { viewModel?.isShowingAcceptTermsSheet = $0 }
+          )) {
             NavigationStack {
-              AcceptTermsView(areTermsAccepted: $areTermsAccepted)
-                .interactiveDismissDisabled(!areTermsAccepted)
+              AcceptTermsView(
+                areTermsAccepted: Binding(
+                  get: { viewModel?.areTermsAccepted ?? false },
+                  set: { viewModel?.areTermsAccepted = $0 }
+                ),
+                viewModel: AcceptTermsViewModel(
+                  sessionController: sessionController,
+                  messageBus: messageBus
+                )
+              )
+              .interactiveDismissDisabled(!(viewModel?.areTermsAccepted ?? false))
             }
           }
         }
@@ -146,19 +177,18 @@ private extension MainView {
       LoadingView()
     }
   }
-  
+
   func shopListView() -> ShopListView {
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: dataManager.shopRepository,
-      itemTagRepository: dataManager.itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: .shops,
-      messageBus: messageBus
+    .init(
+      viewModel: ShopListViewModel(
+        sessionController: dataManager.sessionController,
+        shopRepository: dataManager.shopRepository,
+        tabViewModel: tabViewModel,
+        mainTab: mainTab
+      )
     )
-    return ShopListView(viewModel: viewModel)
   }
-  
+
   func scanView() -> ScanView {
     .init(
       viewModel: ScanViewModel(
@@ -173,88 +203,10 @@ private extension MainView {
   func settingsView() -> SettingsView {
     .init(
       viewModel: SettingsViewModel(
-        sessionController: sessionController,
+        sessionController: dataManager.sessionController,
         tabViewModel: tabViewModel,
         messageBus: messageBus
-      ),
-      accountPasswordRepository: dataManager.accountPasswordRepository
+      )
     )
-  }
-
-  func handleBackgroundTagReading(_ userActivity: NSUserActivity) {
-    guard sessionController.isLoggedIn else {
-      messageBus.post(message: Message(level: .error, message: String.pleaseSignIn, autoDismiss: false))
-      return
-    }
-    
-    let ndefMessage = userActivity.ndefMessagePayload
-    guard !ndefMessage.records.isEmpty,
-          ndefMessage.records[0].typeNameFormat != .empty else {
-      return
-    }
-    
-    let itemTagInfo = Utility.extractItemTagInfoFrom(message: ndefMessage)
-    
-    if itemTagInfo.success {
-      itemTagId = itemTagInfo.id
-      completeTag(itemTagId: itemTagId!)
-    } else {
-      messageBus.post(message: Message(level: .error, message: itemTagInfo.message, autoDismiss: false))
-      tabViewModel.selectedTab = .scan
-    }
-  }
-  
-  func completeTag(itemTagId: String) {
-    Task { @MainActor in
-      do {
-        let itemTag = try await dataManager.itemTagRepository.complete(id: itemTagId)
-
-        sessionController.completeScanResult = CompleteScanResult(
-          itemTag: itemTag,
-          type: .completed
-        )
-
-        if itemTag.alreadyCompleted! {
-          isShowingResetConfirmationDialog = true
-        }
-      } catch {
-        sessionController.completeScanResult = CompleteScanResult(
-          type: .failed,
-          message: error.localizedDescription
-        )
-      }
-      
-      sessionController.didBackgroundTagReading = true
-      tabViewModel.selectedTab = .scan
-    }
-  }
-  
-  private func resetTag(itemTagId: String) {
-    Task { @MainActor in
-      isResetting = true
-      
-      do {
-        let itemTag = try await dataManager.itemTagRepository.reset(id: itemTagId)
-        sessionController.completeScanResult = CompleteScanResult(
-          itemTag: itemTag,
-          type: .reset
-        )
-      } catch {
-        sessionController.completeScanResult = CompleteScanResult(
-          type: .failed,
-          message: error.localizedDescription
-        )
-      }
-      
-      isResetting = false
-      sessionController.didBackgroundTagReading = true
-      tabViewModel.selectedTab = .scan
-    }
-  }
-
-  func logout() {
-    Task {
-      try await sessionController.logout()
-    }
   }
 }

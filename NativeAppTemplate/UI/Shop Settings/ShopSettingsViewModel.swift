@@ -43,25 +43,6 @@ final class ShopSettingsViewModel {
     isFetching || isResetting || isDeleting
   }
 
-  func createShopBasicSettingsViewModel() -> ShopBasicSettingsViewModel {
-    ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-  }
-
-  func createNumberTagsWebpageListViewModel() -> NumberTagsWebpageListViewModel {
-    guard let shop = shop else {
-      fatalError("Shop must be loaded before creating NumberTagsWebpageListViewModel")
-    }
-    return NumberTagsWebpageListViewModel(
-      shop: shop,
-      messageBus: messageBus
-    )
-  }
-
   func reload() {
     Task {
       isFetching = true

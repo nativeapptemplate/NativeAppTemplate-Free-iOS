@@ -9,41 +9,14 @@
 import SwiftUI
 
 struct SignInEmailAndPasswordView: View {
+  @Environment(DataManager.self) private var dataManager
+  @State private var viewModel: SignInEmailAndPasswordViewModel
   @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
-  let signUpRepository: SignUpRepositoryProtocol
-  
-  @State var email: String = ""
-  @State var password: String = ""
-  @State private var isLoggingIn = false
-  
-  private var hasInvalidData: Bool {
-    if Utility.isBlank(email) ||
-        Utility.isBlank(password) {
-      return true
-    }
-    
-    if !Utility.validateEmail(email) {
-      return true
-    }
 
-    if hasInvalidDataPassword {
-      return true
-    }
-
-    return false
-  }
-
-  private var hasInvalidDataPassword: Bool {
-    if Utility.isBlank(password) {
-      return true
-    }
-
-    if password.count < .minimumPasswordLength {
-      return true
-    }
-
-    return false
+  init(
+    viewModel: SignInEmailAndPasswordViewModel
+  ) {
+    self._viewModel = State(initialValue: viewModel)
   }
 
   var body: some View {
@@ -55,98 +28,87 @@ struct SignInEmailAndPasswordView: View {
 private extension SignInEmailAndPasswordView {
   var contentView: some View {
     @ViewBuilder var contentView: some View {
-      if isLoggingIn {
+      if viewModel.isLoggingIn {
         LoadingView()
       } else {
         signInEmailAndPasswordView
       }
     }
-    
+
     return contentView
   }
-  
+
   var signInEmailAndPasswordView: some View {
     VStack {
       Form {
         Section {
-          TextField(String.placeholderEmail, text: $email)
+          TextField(String.placeholderEmail, text: $viewModel.email)
             .textContentType(.emailAddress)
             .autocapitalization(.none)
+            .accessibilityIdentifier("SignInEmailAndPasswordView_email_textField")
         } header: {
           Text(String.email)
         } footer: {
-          if Utility.isBlank(email) {
+          if viewModel.isEmailBlank {
             Text(String.emailIsRequired)
               .foregroundStyle(.red)
-          } else if !Utility.validateEmail(email) {
+          } else if viewModel.isEmailInvalid {
             Text(String.emailIsInvalid)
               .foregroundStyle(.red)
           }
         }
         Section {
-          SecureField(String.placeholderPassword, text: $password)
+          SecureField(String.placeholderPassword, text: $viewModel.password)
             .textContentType(.password)
             .autocapitalization(.none)
             .autocorrectionDisabled(true)
+            .accessibilityIdentifier("SignInEmailAndPasswordView_password_secureTextField")
         } header: {
           Text(String.password)
         } footer: {
-          if Utility.isBlank(password) {
+          if viewModel.isPasswordBlank {
             Text(String.passwordIsRequired)
               .foregroundStyle(.red)
-          } else if hasInvalidDataPassword {
+          } else if viewModel.hasInvalidDataPassword {
             Text(String.passwordIsInvalid)
               .foregroundStyle(.red)
           }
         }
-        
+
         Section {
           MainButtonView(title: String.signIn, type: .primary(withArrow: false)) {
-            signInTapped()
+            viewModel.signIn()
           }
-          .disabled(hasInvalidData)
+          .disabled(viewModel.hasInvalidData)
           .listRowBackground(Color.clear)
         }
-        
+
         Spacer()
           .listRowBackground(Color.clear)
-        
+
         NavigationLink(
-          destination: ForgotPasswordView(signUpRepository: signUpRepository)
+          destination: ForgotPasswordView(
+            viewModel: ForgotPasswordViewModel(
+              signUpRepository: dataManager.signUpRepository,
+              messageBus: messageBus
+            )
+          )
         ) {
           Text(String.forgotYourPassword)
         }
-        
+
         NavigationLink(
-          destination: ResendConfirmationInstructionsView(signUpRepository: signUpRepository)
+          destination: ResendConfirmationInstructionsView(
+            viewModel: ResendConfirmationInstructionsViewModel(
+              signUpRepository: dataManager.signUpRepository,
+              messageBus: messageBus
+            )
+          )
         ) {
           Text(String.didntReceiveConfirmationInstructions)
         }
       }
     }
     .navigationTitle(String.signIn)
-  }
-  
-  private func signInTapped() {
-    let whitespacesAndNewlines = CharacterSet.whitespacesAndNewlines
-    let theEmail = email.trimmingCharacters(in: whitespacesAndNewlines)
-    let thePassword = password.trimmingCharacters(in: whitespacesAndNewlines)
-    
-    Task { @MainActor in
-      do {
-        isLoggingIn = true
-        try await sessionController.login(email: theEmail, password: thePassword)
-      } catch {
-        messageBus.post(
-          message: Message(
-            level: .error,
-            message: error.localizedDescription,
-            autoDismiss: false
-          )
-        )
-      }
-      
-      isLoggingIn = false
-    }
   }
 }

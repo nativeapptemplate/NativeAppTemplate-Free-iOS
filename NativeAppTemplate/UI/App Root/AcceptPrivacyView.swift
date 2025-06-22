@@ -9,31 +9,39 @@ import SwiftUI
 
 struct AcceptPrivacyView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
   @Binding var arePrivacyAccepted: Bool
-  @State private var isUpdating = false
+  let viewModel: AcceptPrivacyViewModel
 
   var body: some View {
     contentView
+      .onChange(of: viewModel.arePrivacyAccepted) { _, arePrivacyAccepted in
+        if arePrivacyAccepted {
+          self.arePrivacyAccepted = true
+        }
+      }
+      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
+        if shouldDismiss {
+          dismiss()
+        }
+      }
   }
 }
 
 // MARK: - private
 private extension AcceptPrivacyView {
   var contentView: some View {
-    
+
     @ViewBuilder var contentView: some View {
-      if isUpdating {
+      if viewModel.isUpdating {
         LoadingView()
       } else {
         acceptPrivacyView
       }
     }
-    
+
     return contentView
   }
-  
+
   var acceptPrivacyView: some View {
     VStack {
       let agreement = "Please accept updated [\(String.privacyPolicy)](\(String.privacyPolicyUrl))."
@@ -41,34 +49,13 @@ private extension AcceptPrivacyView {
       .padding(.top, 48)
 
       MainButtonView(title: String.accept, type: .primary(withArrow: false)) {
-        updateConfirmedPrivacyVersion()
+        viewModel.updateConfirmedPrivacyVersion()
       }
       .padding(24)
-      
+
       Spacer()
     }
     .navigationTitle(String.privacyPolicyUpdated)
     .navigationBarTitleDisplayMode(.inline)
   }
-  
-  private func updateConfirmedPrivacyVersion() {
-    Task { @MainActor in
-      do {
-        isUpdating = true
-        try await sessionController.updateConfirmedPrivacyVersion()
-         messageBus.post(message: Message(level: .success, message: .confirmedPrivacyVersionUpdated))
-      } catch {
-        messageBus.post(message: Message(level: .error, message: "\(String.confirmedPrivacyVersionUpdatedError) \(error.localizedDescription)", autoDismiss: false))
-      }
-
-      arePrivacyAccepted = true
-      dismiss()
-    }
-  }
-}
-
-#Preview {
-  @Previewable @State var arePrivacyAccepted = true
-  
-  return AcceptPrivacyView(arePrivacyAccepted: $arePrivacyAccepted)
 }
