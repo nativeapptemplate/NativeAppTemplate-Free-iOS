@@ -11,7 +11,7 @@ import CoreNFC
 enum ScanType: String {
   case completeScan
   case test
-  
+
   var displayString: String {
     switch self {
     case .completeScan:
@@ -32,7 +32,7 @@ extension ScanType: CaseIterable {
       self = Self.allCases[newValue]
     }
   }
-  
+
   var count: Int {
     Self.allCases.count
   }
@@ -44,30 +44,18 @@ extension ScanType: Identifiable {
 }
 
 struct ScanView: View {
-  @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
+  @Environment(\.sessionController) private var sessionController: SessionControllerProtocol
   @StateObject private var nfcManager = appSingletons.nfcManager
-  @State private var scanType: ScanType = .completeScan
-  @State private var isShowingResetConfirmationDialog = false
-  @State private var isFetching = false
-  @State private var isResetting = false
-  private let itemTagRepository: ItemTagRepositoryProtocol
-  
-  init(
-    itemTagRepository: ItemTagRepositoryProtocol
-  ) {
-    self.itemTagRepository = itemTagRepository
+  @State private var viewModel: ScanViewModel
+
+  init(viewModel: ScanViewModel) {
+    self._viewModel = State(initialValue: viewModel)
   }
-  
+
   var body: some View {
     contentView
       .onChange(of: sessionController.didBackgroundTagReading) {
-        Task { @MainActor in
-          if sessionController.didBackgroundTagReading {
-            sessionController.didBackgroundTagReading = false
-            scanType = .completeScan
-          }
-        }
+        viewModel.handleBackgroundTagReading()
       }
   }
 }
@@ -76,75 +64,34 @@ struct ScanView: View {
 private extension ScanView {
   var contentView: some View {
     @ViewBuilder var contentView: some View {
-      if isFetching {
+      if viewModel.isBusy {
         LoadingView()
       } else {
         scanView
           .onChange(of: nfcManager.isScanResultChanged) {
-            guard nfcManager.isScanResultChanged else { return }
-            guard nfcManager.scanResult != nil else { return }
-            
-            switch nfcManager.scanResult {
-            case .success(let itemTagData):
-              completeTag(itemTagId: itemTagData.itemTagId)
-            case .failure(let error):
-              sessionController.completeScanResult = CompleteScanResult(
-                type: .failed,
-                message: error.localizedDescription
-              )
-            default:
-              break
-            }
+            viewModel.handleScanResultChanged()
           }
           .onChange(of: nfcManager.isScanResultChangedForTesting) {
-            guard nfcManager.isScanResultChangedForTesting else { return }
-            guard nfcManager.scanResult != nil else { return }
-            
-            switch nfcManager.scanResult {
-            case .success(let itemTagData):
-              fetchItemTagDetail(itemTagData: itemTagData)
-            case .failure(let error):
-              sessionController.showTagInfoScanResult = ShowTagInfoScanResult(
-                type: .failed,
-                message: error.localizedDescription
-              )
-            default:
-              break
-            }
+            viewModel.handleScanResultChangedForTesting()
           }
       }
     }
-    
+
     return contentView
   }
-  
+
   var scanView: some View {
     ScrollView {
       VStack(spacing: 64) {
-        switch scanType {
+        switch viewModel.scanType {
         case .completeScan:
-          if !isShowingResetConfirmationDialog {
+          if !viewModel.isShowingResetConfirmationDialog {
             GroupBox(label: Label(String.completeScan, systemImage: "flag.checkered") ) {
               MainButtonView(title: String.scan, type: .coloredPrimary(withArrow: false)) {
-                guard NFCNDEFReaderSession.readingAvailable else {
-                  messageBus.post(
-                    message: Message(
-                      level: .error,
-                      message: String.thisDeviceDoesNotSupportTagScanning,
-                      autoDismiss: false
-                    )
-                  )
-                  return
-                }
-                
-                sessionController.completeScanResult = CompleteScanResult()
-                
-                Task {
-                  await nfcManager.startReading()
-                }
+                viewModel.startCompleteScan()
               }
-              .padding()
-              
+               .padding()
+
               Text(String.completeScanHelp)
                 .font(.uiFootnote)
                 .foregroundStyle(.coloredPrimaryFootnoteText)
@@ -152,50 +99,35 @@ private extension ScanView {
             .foregroundStyle(.coloredPrimaryForeground)
             .backgroundStyle(.coloredPrimaryBackground)
           }
-          
+
           CompleteScanResultView(
             completeScanResult: sessionController.completeScanResult
           )
         case .test:
           GroupBox(label: Label(String.showTagInfoScan, systemImage: "info.circle") ) {
             MainButtonView(title: String.scan, type: .coloredSecondary(withArrow: false)) {
-              guard NFCNDEFReaderSession.readingAvailable else {
-                messageBus.post(
-                  message: Message(
-                    level: .error,
-                    message: String.thisDeviceDoesNotSupportTagScanning,
-                    autoDismiss: false
-                  )
-                )
-                return
-              }
-              
-              sessionController.showTagInfoScanResult = ShowTagInfoScanResult()
-              
-              Task {
-                await nfcManager.startReadingForTesting()
-              }
+              viewModel.startTestScan()
             }
             .padding()
-            
+
             Text(String.showTagInfoScanHelp)
               .font(.uiFootnote)
               .foregroundStyle(.coloredSecondaryFootnoteText)
           }
           .foregroundStyle(.coloredSecondaryForeground)
           .backgroundStyle(.coloredSecondaryBackground)
-          
+
           ShowTagInfoScanResultView(
             showTagInfoScanResult: sessionController.showTagInfoScanResult
           )
         }
-        
+
         Spacer()
       }
     }
     .toolbar {
       ToolbarItem(placement: .principal) {
-        Picker(String("ScanType"), selection: $scanType) {
+        Picker(String("ScanType"), selection: $viewModel.scanType) {
           Text(String.completeScan).tag(ScanType.completeScan)
           Text(String.showTagInfoScan).tag(ScanType.test)
         }
@@ -207,88 +139,18 @@ private extension ScanView {
     .padding()
     .confirmationDialog(
       String.itemTagAlreadyCompleted,
-      isPresented: $isShowingResetConfirmationDialog
+      isPresented: $viewModel.isShowingResetConfirmationDialog
     ) {
       Button(String.reset, role: .destructive) {
-        if let itemTagId = sessionController.completeScanResult.itemTag?.id {
-          resetTag(itemTagId: itemTagId)
-        }
+        viewModel.resetTag()
       }
       Button(String.cancel, role: .cancel) {
-        isShowingResetConfirmationDialog = false
+        viewModel.dismissResetConfirmationDialog()
       }
     } message: {
       Text(String.areYouSure)
     }
     .accessibility(identifier: "scanView")
     .scrollContentBackground(.hidden)
-  }
-  
-  func completeTag(itemTagId: String) {
-    Task { @MainActor in
-      do {
-        let itemTag = try await itemTagRepository.complete(id: itemTagId)
-        
-        sessionController.completeScanResult = CompleteScanResult(
-          itemTag: itemTag,
-          type: .completed
-        )
-        
-        if itemTag.alreadyCompleted! {
-          isShowingResetConfirmationDialog = true
-        }
-      } catch {
-        sessionController.completeScanResult = CompleteScanResult(
-          type: .failed,
-          message: error.localizedDescription
-        )
-      }
-    }
-  }
-  
-  private func resetTag(itemTagId: String) {
-    Task { @MainActor in
-      isResetting = true
-      
-      do {
-        let itemTag = try await itemTagRepository.reset(id: itemTagId)
-        sessionController.completeScanResult = CompleteScanResult(
-          itemTag: itemTag,
-          type: .reset
-        )
-      } catch {
-        sessionController.completeScanResult = CompleteScanResult(
-          type: .failed,
-          message: error.localizedDescription
-        )
-      }
-      
-      isResetting = false
-    }
-  }
-  
-  private func fetchItemTagDetail(itemTagData: ItemTagData) {
-    Task {
-      isFetching = true
-      
-      do {
-        let itemTag = try await itemTagRepository.fetchDetail(id: itemTagData.itemTagId)
-        
-        sessionController.showTagInfoScanResult = ShowTagInfoScanResult(
-          itemTag: itemTag,
-          itemTagType: itemTagData.itemTagType,
-          isReadOnly: itemTagData.isReadOnly,
-          type: .succeeded,
-          scannedAt: itemTagData.scannedAt
-        )
-      } catch {
-        sessionController.showTagInfoScanResult = ShowTagInfoScanResult(
-          type: .failed,
-          message: error.localizedDescription
-        )
-      }
-      
-      isFetching = false
-    }
   }
 }

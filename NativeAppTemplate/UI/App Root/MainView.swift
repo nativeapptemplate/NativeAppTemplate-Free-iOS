@@ -161,7 +161,12 @@ private extension MainView {
   
   func scanView() -> ScanView {
     .init(
-      itemTagRepository: dataManager.itemTagRepository
+      viewModel: ScanViewModel(
+        itemTagRepository: dataManager.itemTagRepository,
+        sessionController: dataManager.sessionController,
+        messageBus: messageBus,
+        nfcManager: appSingletons.nfcManager
+      )
     )
   }
 

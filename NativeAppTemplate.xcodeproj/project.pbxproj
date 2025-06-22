@@ -144,6 +144,7 @@
 		01D85B462E07F15400A95798 /* PasswordEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B452E07F15400A95798 /* PasswordEditViewModel.swift */; };
 		01D85B482E07F16100A95798 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B472E07F16100A95798 /* SettingsViewModel.swift */; };
 		01D85B4A2E07F16900A95798 /* ShopkeeperEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B492E07F16900A95798 /* ShopkeeperEditViewModel.swift */; };
+		01D85BA72E081C6D00A95798 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85BA62E081C6D00A95798 /* ScanViewModel.swift */; };
 		01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */; };
 		01DCE23F298FA3B300BA311D /* ShopListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCE23E298FA3B300BA311D /* ShopListCardView.swift */; };
 		01E0A59C25BD088600298D35 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A59125BD087E00298D35 /* SettingsView.swift */; };
@@ -312,6 +313,7 @@
 		01D85B452E07F15400A95798 /* PasswordEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditViewModel.swift; sourceTree = "<group>"; };
 		01D85B472E07F16100A95798 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		01D85B492E07F16900A95798 /* ShopkeeperEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperEditViewModel.swift; sourceTree = "<group>"; };
+		01D85BA62E081C6D00A95798 /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
 		01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsView.swift; sourceTree = "<group>"; };
 		01DCE23E298FA3B300BA311D /* ShopListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListCardView.swift; sourceTree = "<group>"; };
 		01E0A59125BD087E00298D35 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 			children = (
 				0135E7152D7E33F9004AD8FA /* CompleteScanResultView.swift */,
 				0135E7162D7E33F9004AD8FA /* ScanView.swift */,
+				01D85BA62E081C6D00A95798 /* ScanViewModel.swift */,
 				0135E7172D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift */,
 			);
 			path = Scan;
@@ -958,6 +961,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1033,6 +1037,7 @@
 				0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */,
 				01ED197B2A037B9E00CD4735 /* AppTabView.swift in Sources */,
 				0110A1612AC81978003EDCBA /* ResendConfirmationInstructionsView.swift in Sources */,
+				01D85BA72E081C6D00A95798 /* ScanViewModel.swift in Sources */,
 				01E0A62225BD4A7800298D35 /* Shopkeeper+Backdoor.swift in Sources */,
 				0106413C29A9EDFF00B46FED /* AccountPasswordRequest.swift in Sources */,
 				0172035625A9642E008FD63B /* ShopAdapter.swift in Sources */,
