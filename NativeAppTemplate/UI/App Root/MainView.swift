@@ -166,7 +166,14 @@ private extension MainView {
   }
 
   func settingsView() -> SettingsView {
-    .init(accountPasswordRepository: dataManager.accountPasswordRepository)
+    .init(
+      viewModel: SettingsViewModel(
+        sessionController: sessionController,
+        tabViewModel: tabViewModel,
+        messageBus: messageBus
+      ),
+      accountPasswordRepository: dataManager.accountPasswordRepository
+    )
   }
 
   func handleBackgroundTagReading(_ userActivity: NSUserActivity) {

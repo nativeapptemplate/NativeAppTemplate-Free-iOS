@@ -140,6 +140,10 @@
 		01D85AEB2E07CF3600A95798 /* ItemTagEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AEA2E07CF3600A95798 /* ItemTagEditViewModel.swift */; };
 		01D85AEF2E07D20500A95798 /* ItemTagCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AEE2E07D20500A95798 /* ItemTagCreateViewModel.swift */; };
 		01D85AF32E07D37E00A95798 /* ItemTagListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AF22E07D37E00A95798 /* ItemTagListViewModel.swift */; };
+		01D85B442E07ED8700A95798 /* ShopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B432E07ED8700A95798 /* ShopDetailViewModel.swift */; };
+		01D85B462E07F15400A95798 /* PasswordEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B452E07F15400A95798 /* PasswordEditViewModel.swift */; };
+		01D85B482E07F16100A95798 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B472E07F16100A95798 /* SettingsViewModel.swift */; };
+		01D85B4A2E07F16900A95798 /* ShopkeeperEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85B492E07F16900A95798 /* ShopkeeperEditViewModel.swift */; };
 		01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */; };
 		01DCE23F298FA3B300BA311D /* ShopListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCE23E298FA3B300BA311D /* ShopListCardView.swift */; };
 		01E0A59C25BD088600298D35 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A59125BD087E00298D35 /* SettingsView.swift */; };
@@ -304,6 +308,10 @@
 		01D85AEA2E07CF3600A95798 /* ItemTagEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagEditViewModel.swift; sourceTree = "<group>"; };
 		01D85AEE2E07D20500A95798 /* ItemTagCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagCreateViewModel.swift; sourceTree = "<group>"; };
 		01D85AF22E07D37E00A95798 /* ItemTagListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListViewModel.swift; sourceTree = "<group>"; };
+		01D85B432E07ED8700A95798 /* ShopDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailViewModel.swift; sourceTree = "<group>"; };
+		01D85B452E07F15400A95798 /* PasswordEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditViewModel.swift; sourceTree = "<group>"; };
+		01D85B472E07F16100A95798 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		01D85B492E07F16900A95798 /* ShopkeeperEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperEditViewModel.swift; sourceTree = "<group>"; };
 		01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsView.swift; sourceTree = "<group>"; };
 		01DCE23E298FA3B300BA311D /* ShopListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListCardView.swift; sourceTree = "<group>"; };
 		01E0A59125BD087E00298D35 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -356,6 +364,7 @@
 			children = (
 				0172787E2D7D933000CE424F /* ShopDetailCardView.swift */,
 				010F86AD2621A2A900B6C62A /* ShopDetailView.swift */,
+				01D85B432E07ED8700A95798 /* ShopDetailViewModel.swift */,
 			);
 			path = "Shop Detail";
 			sourceTree = "<group>";
@@ -787,8 +796,11 @@
 			isa = PBXGroup;
 			children = (
 				0106414329AA061100B46FED /* PasswordEditView.swift */,
+				01D85B452E07F15400A95798 /* PasswordEditViewModel.swift */,
 				01E0A59125BD087E00298D35 /* SettingsView.swift */,
+				01D85B472E07F16100A95798 /* SettingsViewModel.swift */,
 				01EE363D29A6DCEB009BCD9D /* ShopkeeperEditView.swift */,
+				01D85B492E07F16900A95798 /* ShopkeeperEditViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -945,6 +957,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -955,6 +968,7 @@
 			files = (
 				0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */,
 				01E2477029A570D300D4B00D /* SignUp.swift in Sources */,
+				01D85B4A2E07F16900A95798 /* ShopkeeperEditViewModel.swift in Sources */,
 				0172785A2D7D83B600CE424F /* NFCManager.swift in Sources */,
 				0172785B2D7D83B600CE424F /* AppSingletons.swift in Sources */,
 				017278732D7D87EB00CE424F /* UIImage+Extentions.swift in Sources */,
@@ -1051,6 +1065,7 @@
 				018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */,
 				0106414029A9F2EC00B46FED /* AccountPasswordService.swift in Sources */,
 				01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */,
+				01D85B462E07F15400A95798 /* PasswordEditViewModel.swift in Sources */,
 				0172046325AA82BF008FD63B /* OnboardingView.swift in Sources */,
 				013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */,
 				01D85AE72E07CD4400A95798 /* ItemTagDetailViewModel.swift in Sources */,
@@ -1058,6 +1073,7 @@
 				0106414229A9F51700B46FED /* AccountPasswordRepository.swift in Sources */,
 				0172033A25A9642E008FD63B /* JSONAPIDocument.swift in Sources */,
 				01B526542AF4E36400655131 /* MainTab.swift in Sources */,
+				01D85B442E07ED8700A95798 /* ShopDetailViewModel.swift in Sources */,
 				017203CB25A97090008FD63B /* SessionController.swift in Sources */,
 				0106413E29A9F1C300B46FED /* UpdatePassword.swift in Sources */,
 				0172787B2D7D903500CE424F /* ItemTagAdapter.swift in Sources */,
@@ -1094,6 +1110,7 @@
 				01E2477229A5E30400D4B00D /* Utility.swift in Sources */,
 				0172046725AA82BF008FD63B /* MainView.swift in Sources */,
 				0172033825A9642E008FD63B /* JSONAPIError.swift in Sources */,
+				01D85B482E07F16100A95798 /* SettingsViewModel.swift in Sources */,
 			);
 		};
 		01D19B3F2D4DE33500BDEAB7 /* Sources */ = {

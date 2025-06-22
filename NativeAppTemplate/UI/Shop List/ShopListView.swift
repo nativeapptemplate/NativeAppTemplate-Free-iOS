@@ -45,6 +45,8 @@ struct TapShopBelowTip: Tip {
 
 struct ShopListView: View {
   @Environment(DataManager.self) private var dataManager
+  @Environment(TabViewModel.self) private var tabViewModel
+  @Environment(\.mainTab) private var mainTab
   @Environment(MessageBus.self) private var messageBus
 
   @State private var viewModel: ShopListViewModel
@@ -132,9 +134,15 @@ private extension ShopListView {
         }
         .navigationDestination(for: Shop.self) { shop in
           ShopDetailView(
-            shopRepository: viewModel.shopRepository,
-            itemTagRepository: viewModel.itemTagRepository,
-            shopId: shop.id
+            viewModel: ShopDetailViewModel(
+              sessionController: dataManager.sessionController,
+              shopRepository: viewModel.shopRepository,
+              itemTagRepository: viewModel.itemTagRepository,
+              tabViewModel: tabViewModel,
+              mainTab: mainTab,
+              messageBus: messageBus,
+              shopId: shop.id
+            )
           )
         }
         .accessibility(identifier: "shopListView")
