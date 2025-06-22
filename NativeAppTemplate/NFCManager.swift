@@ -8,11 +8,11 @@
 import Foundation
 import CoreNFC
 
-protocol NFCManagerProtocol {
+protocol NFCManagerProtocol: Sendable {
   @MainActor var scanResult: Result<ItemTagData, Error>? { get }
   @MainActor var isScanResultChanged: Bool { get }
   @MainActor var isScanResultChangedForTesting: Bool { get }
-  
+
   func startReading() async
   func startReadingForTesting() async
 
@@ -21,7 +21,7 @@ protocol NFCManagerProtocol {
 
 final class NFCManager: NSObject, ObservableObject, @unchecked Sendable {
   @MainActor static let shared = NFCManager()
-  
+
   @MainActor @Published var scanResult: Result<ItemTagData, Error>?
   @MainActor @Published var isScanResultChanged = false
   @MainActor @Published var isScanResultChangedForTesting = false
@@ -61,7 +61,7 @@ final class NFCManager: NSObject, ObservableObject, @unchecked Sendable {
     case readForTesting
     case write
   }
-  
+
   var nfcSession: NFCNDEFReaderSession?
   var nfcOperation = NFCOperation.read
   private var userNdefMessage: NFCNDEFMessage?
@@ -85,7 +85,7 @@ extension NFCManager: NFCManagerProtocol {
     nfcOperation = .readForTesting
     startSesstion()
   }
-  
+
   func startWriting(ndefMessage: NFCNDEFMessage, isLock: Bool) async {
     nfcOperation = .write
     userNdefMessage = ndefMessage
@@ -102,22 +102,22 @@ extension NFCManager: NFCManagerProtocol {
 extension NFCManager: NFCNDEFReaderSessionDelegate {
   func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
   }
-  
+
   func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
     guard let tag = tags.first else { return }
-    
+
     session.connect(to: tag) { error in
       if let error = error {
         session.invalidate(errorMessage: "Connection error: \(error.localizedDescription)")
         return
       }
-      
+
       tag.queryNDEFStatus { status, capacity, error in
         if let error = error {
           session.invalidate(errorMessage: "Checking NDEF status error: \(error.localizedDescription)")
           return
         }
-        
+
         switch status {
         case .notSupported:
           session.invalidate(errorMessage: String.tagIsNotNdefFormatted)
@@ -145,14 +145,14 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
 
             self.write(session: session, tag: tag)
           }
-          
+
         @unknown default:
           session.invalidate(errorMessage: String.unknownNdefStatus)
         }
       }
     }
   }
-  
+
   private func read(
     session: NFCNDEFReaderSession,
     tag: NFCNDEFTag,
@@ -169,7 +169,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
         }
         return
       }
-      
+
       guard let message else {
         session.invalidate(errorMessage: String.noRecrodsFound)
         self?.internalScanResult = .failure(ScanResultError.failed(String.tagNotValid))
@@ -194,10 +194,10 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
       session.invalidate()
     }
   }
-  
+
   private func write(session: NFCNDEFReaderSession, tag: NFCNDEFTag) {
     guard let userNdefMessage = self.userNdefMessage else { return }
-    
+
     write(
       session: session,
       tag: tag,
@@ -208,7 +208,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
         print(">>> Write: \(userNdefMessage)")
     }
   }
-  
+
   private func write(
     session: NFCNDEFReaderSession,
     tag: NFCNDEFTag,
@@ -243,7 +243,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
 
   private func setResultExtractedFrom(message: NFCNDEFMessage, isReadOnly: Bool, test: Bool) {
     let itemTagInfo = Utility.extractItemTagInfoFrom(message: message, test: test)
-    
+
     if itemTagInfo.success {
       let itemTagData = ItemTagData(
         itemTagId: itemTagInfo.id,
@@ -258,7 +258,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
   }
 
   func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {}
-  
+
   func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
     print( "readerSession error: \(error.localizedDescription)")
   }
