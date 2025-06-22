@@ -17,6 +17,7 @@
 		010F86BE2622F9C900B6C62A /* ShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F86BD2622F9C900B6C62A /* ShopListView.swift */; };
 		0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */; };
 		0110A1612AC81978003EDCBA /* ResendConfirmationInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A1602AC81978003EDCBA /* ResendConfirmationInstructionsView.swift */; };
+		0114F3AC2E079BD100F4A1DD /* ShopListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0114F3AB2E079BD100F4A1DD /* ShopListViewModel.swift */; };
 		011586122B567363005E8E8F /* SignUpOrSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011586112B567363005E8E8F /* SignUpOrSignInView.swift */; };
 		011DDC21287669EA00C6C21F /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011DDC20287669EA00C6C21F /* SignUpRepository.swift */; };
 		011DDC2328766C5E00C6C21F /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011DDC2228766C5D00C6C21F /* SignUpService.swift */; };
@@ -172,6 +173,7 @@
 		010F86BD2622F9C900B6C62A /* ShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListView.swift; sourceTree = "<group>"; };
 		0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmation.swift; sourceTree = "<group>"; };
 		0110A1602AC81978003EDCBA /* ResendConfirmationInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResendConfirmationInstructionsView.swift; sourceTree = "<group>"; };
+		0114F3AB2E079BD100F4A1DD /* ShopListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListViewModel.swift; sourceTree = "<group>"; };
 		011586112B567363005E8E8F /* SignUpOrSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrSignInView.swift; sourceTree = "<group>"; };
 		011DDC20287669EA00C6C21F /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		011DDC2228766C5D00C6C21F /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				013DE734284E99DF00528CC5 /* ShopCreateView.swift */,
 				01DCE23E298FA3B300BA311D /* ShopListCardView.swift */,
 				010F86BD2622F9C900B6C62A /* ShopListView.swift */,
+				0114F3AB2E079BD100F4A1DD /* ShopListViewModel.swift */,
 				017278952D7D99D100CE424F /* ItemTag Detail */,
 				017278992D7D99D100CE424F /* ItemTag List */,
 			);
@@ -914,6 +917,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -969,6 +973,7 @@
 				011DDC21287669EA00C6C21F /* SignUpRepository.swift in Sources */,
 				0172035B25A9642E008FD63B /* Service.swift in Sources */,
 				01E0A5B625BD0FCD00298D35 /* LoadingView.swift in Sources */,
+				0114F3AC2E079BD100F4A1DD /* ShopListViewModel.swift in Sources */,
 				0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */,
 				017204D125AA8479008FD63B /* DataState.swift in Sources */,
 				012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */,
