@@ -136,6 +136,10 @@
 		01D85A962E07C78400A95798 /* NumberTagsWebpageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */; };
 		01D85A9A2E07C85900A95798 /* ShopBasicSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */; };
 		01D85A9E2E07C9BD00A95798 /* ShopSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */; };
+		01D85AE72E07CD4400A95798 /* ItemTagDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AE62E07CD4400A95798 /* ItemTagDetailViewModel.swift */; };
+		01D85AEB2E07CF3600A95798 /* ItemTagEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AEA2E07CF3600A95798 /* ItemTagEditViewModel.swift */; };
+		01D85AEF2E07D20500A95798 /* ItemTagCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AEE2E07D20500A95798 /* ItemTagCreateViewModel.swift */; };
+		01D85AF32E07D37E00A95798 /* ItemTagListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AF22E07D37E00A95798 /* ItemTagListViewModel.swift */; };
 		01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */; };
 		01DCE23F298FA3B300BA311D /* ShopListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCE23E298FA3B300BA311D /* ShopListCardView.swift */; };
 		01E0A59C25BD088600298D35 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A59125BD087E00298D35 /* SettingsView.swift */; };
@@ -296,6 +300,10 @@
 		01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagsWebpageListViewModel.swift; sourceTree = "<group>"; };
 		01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsViewModel.swift; sourceTree = "<group>"; };
 		01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsViewModel.swift; sourceTree = "<group>"; };
+		01D85AE62E07CD4400A95798 /* ItemTagDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagDetailViewModel.swift; sourceTree = "<group>"; };
+		01D85AEA2E07CF3600A95798 /* ItemTagEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagEditViewModel.swift; sourceTree = "<group>"; };
+		01D85AEE2E07D20500A95798 /* ItemTagCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagCreateViewModel.swift; sourceTree = "<group>"; };
+		01D85AF22E07D37E00A95798 /* ItemTagListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListViewModel.swift; sourceTree = "<group>"; };
 		01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsView.swift; sourceTree = "<group>"; };
 		01DCE23E298FA3B300BA311D /* ShopListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListCardView.swift; sourceTree = "<group>"; };
 		01E0A59125BD087E00298D35 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -724,7 +732,9 @@
 			isa = PBXGroup;
 			children = (
 				017278932D7D99D100CE424F /* ItemTagDetailView.swift */,
+				01D85AE62E07CD4400A95798 /* ItemTagDetailViewModel.swift */,
 				017278942D7D99D100CE424F /* ItemTagEditView.swift */,
+				01D85AEA2E07CF3600A95798 /* ItemTagEditViewModel.swift */,
 			);
 			path = "ItemTag Detail";
 			sourceTree = "<group>";
@@ -733,8 +743,10 @@
 			isa = PBXGroup;
 			children = (
 				017278962D7D99D100CE424F /* ItemTagCreateView.swift */,
+				01D85AEE2E07D20500A95798 /* ItemTagCreateViewModel.swift */,
 				017278972D7D99D100CE424F /* ItemTagListCardView.swift */,
 				017278982D7D99D100CE424F /* ItemTagListView.swift */,
+				01D85AF22E07D37E00A95798 /* ItemTagListViewModel.swift */,
 			);
 			path = "ItemTag List";
 			sourceTree = "<group>";
@@ -932,6 +944,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -962,6 +975,7 @@
 				01FC03E22B3329B700E6CD8E /* NeedAppUpdatesView.swift in Sources */,
 				0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */,
 				01B37C7629B0960700BF5B2D /* ForgotPasswordView.swift in Sources */,
+				01D85AEF2E07D20500A95798 /* ItemTagCreateViewModel.swift in Sources */,
 				01E0A5B725BD0FCD00298D35 /* OfflineView.swift in Sources */,
 				0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */,
 				0199CD2A2E07512100109DC6 /* OnboardingRepositoryProtocol.swift in Sources */,
@@ -1039,6 +1053,7 @@
 				01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */,
 				0172046325AA82BF008FD63B /* OnboardingView.swift in Sources */,
 				013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */,
+				01D85AE72E07CD4400A95798 /* ItemTagDetailViewModel.swift in Sources */,
 				017203B625A96FD6008FD63B /* View+Extensions.swift in Sources */,
 				0106414229A9F51700B46FED /* AccountPasswordRepository.swift in Sources */,
 				0172033A25A9642E008FD63B /* JSONAPIDocument.swift in Sources */,
@@ -1061,6 +1076,7 @@
 				0172789A2D7D99D100CE424F /* ItemTagListCardView.swift in Sources */,
 				0172789B2D7D99D100CE424F /* ItemTagListView.swift in Sources */,
 				0172789C2D7D99D100CE424F /* ItemTagDetailView.swift in Sources */,
+				01D85AEB2E07CF3600A95798 /* ItemTagEditViewModel.swift in Sources */,
 				0172789D2D7D99D100CE424F /* ItemTagCreateView.swift in Sources */,
 				0172789E2D7D99D100CE424F /* ItemTagEditView.swift in Sources */,
 				0172786F2D7D87D000CE424F /* String+Extensions.swift in Sources */,
@@ -1069,6 +1085,7 @@
 				01E0A59C25BD088600298D35 /* SettingsView.swift in Sources */,
 				0172052525AAFA43008FD63B /* Shopkeeper.swift in Sources */,
 				017278752D7D8FAC00CE424F /* ItemTagRepository.swift in Sources */,
+				01D85AF32E07D37E00A95798 /* ItemTagListViewModel.swift in Sources */,
 				0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */,
 				0172034825A9642E008FD63B /* Request.swift in Sources */,
 				0172048025AA8343008FD63B /* UIColor+Extensions.swift in Sources */,
