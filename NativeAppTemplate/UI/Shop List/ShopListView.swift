@@ -44,8 +44,11 @@ struct TapShopBelowTip: Tip {
 }
 
 struct ShopListView: View {
+  @Environment(DataManager.self) private var dataManager
+  @Environment(MessageBus.self) private var messageBus
+
   @State private var viewModel: ShopListViewModel
-  
+
   init(viewModel: ShopListViewModel) {
     self._viewModel = State(wrappedValue: viewModel)
   }
@@ -157,7 +160,13 @@ private extension ShopListView {
            onDismiss: {
       viewModel.reload()
     }, content: {
-      ShopCreateView(shopRepository: viewModel.shopRepository)
+      ShopCreateView(
+        viewModel: ShopCreateViewModel(
+          sessionController: dataManager.sessionController,
+          shopRepository: dataManager.shopRepository,
+          messageBus: messageBus
+        )
+      )
     }
     )
   }

@@ -18,6 +18,7 @@
 		0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */; };
 		0110A1612AC81978003EDCBA /* ResendConfirmationInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A1602AC81978003EDCBA /* ResendConfirmationInstructionsView.swift */; };
 		0114F3AC2E079BD100F4A1DD /* ShopListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0114F3AB2E079BD100F4A1DD /* ShopListViewModel.swift */; };
+		0114F4032E07A88000F4A1DD /* ShopCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0114F4022E07A88000F4A1DD /* ShopCreateViewModel.swift */; };
 		011586122B567363005E8E8F /* SignUpOrSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011586112B567363005E8E8F /* SignUpOrSignInView.swift */; };
 		011DDC21287669EA00C6C21F /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011DDC20287669EA00C6C21F /* SignUpRepository.swift */; };
 		011DDC2328766C5E00C6C21F /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011DDC2228766C5D00C6C21F /* SignUpService.swift */; };
@@ -132,6 +133,9 @@
 		01B6F5AB2601F84700397E66 /* PermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6F5AA2601F84700397E66 /* PermissionsRequest.swift */; };
 		01B9E45228A5070D00CAC681 /* ShopkeeperSignInAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */; };
 		01BE4F1D29CA6F8C002008BE /* TimeZoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */; };
+		01D85A962E07C78400A95798 /* NumberTagsWebpageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */; };
+		01D85A9A2E07C85900A95798 /* ShopBasicSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */; };
+		01D85A9E2E07C9BD00A95798 /* ShopSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */; };
 		01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */; };
 		01DCE23F298FA3B300BA311D /* ShopListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCE23E298FA3B300BA311D /* ShopListCardView.swift */; };
 		01E0A59C25BD088600298D35 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A59125BD087E00298D35 /* SettingsView.swift */; };
@@ -174,6 +178,7 @@
 		0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmation.swift; sourceTree = "<group>"; };
 		0110A1602AC81978003EDCBA /* ResendConfirmationInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResendConfirmationInstructionsView.swift; sourceTree = "<group>"; };
 		0114F3AB2E079BD100F4A1DD /* ShopListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListViewModel.swift; sourceTree = "<group>"; };
+		0114F4022E07A88000F4A1DD /* ShopCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateViewModel.swift; sourceTree = "<group>"; };
 		011586112B567363005E8E8F /* SignUpOrSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrSignInView.swift; sourceTree = "<group>"; };
 		011DDC20287669EA00C6C21F /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		011DDC2228766C5D00C6C21F /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
@@ -288,6 +293,9 @@
 		01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperSignInAdapter.swift; sourceTree = "<group>"; };
 		01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneData.swift; sourceTree = "<group>"; };
 		01D19B432D4DE33500BDEAB7 /* NativeAppTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeAppTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagsWebpageListViewModel.swift; sourceTree = "<group>"; };
+		01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsViewModel.swift; sourceTree = "<group>"; };
+		01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsViewModel.swift; sourceTree = "<group>"; };
 		01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsView.swift; sourceTree = "<group>"; };
 		01DCE23E298FA3B300BA311D /* ShopListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListCardView.swift; sourceTree = "<group>"; };
 		01E0A59125BD087E00298D35 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -428,9 +436,14 @@
 		01467355299901E50005423D /* Shop Settings */ = {
 			isa = PBXGroup;
 			children = (
+				017278952D7D99D100CE424F /* ItemTag Detail */,
+				017278992D7D99D100CE424F /* ItemTag List */,
 				017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */,
+				01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */,
 				01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */,
+				01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */,
 				01467356299902230005423D /* ShopSettingsView.swift */,
+				01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */,
 			);
 			path = "Shop Settings";
 			sourceTree = "<group>";
@@ -439,11 +452,10 @@
 			isa = PBXGroup;
 			children = (
 				013DE734284E99DF00528CC5 /* ShopCreateView.swift */,
+				0114F4022E07A88000F4A1DD /* ShopCreateViewModel.swift */,
 				01DCE23E298FA3B300BA311D /* ShopListCardView.swift */,
 				010F86BD2622F9C900B6C62A /* ShopListView.swift */,
 				0114F3AB2E079BD100F4A1DD /* ShopListViewModel.swift */,
-				017278952D7D99D100CE424F /* ItemTag Detail */,
-				017278992D7D99D100CE424F /* ItemTag List */,
 			);
 			path = "Shop List";
 			sourceTree = "<group>";
@@ -918,6 +930,8 @@
 				"",
 				"",
 				"",
+				"",
+				"",
 			);
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -975,6 +989,7 @@
 				01E0A5B625BD0FCD00298D35 /* LoadingView.swift in Sources */,
 				0114F3AC2E079BD100F4A1DD /* ShopListViewModel.swift in Sources */,
 				0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */,
+				01D85A962E07C78400A95798 /* NumberTagsWebpageListViewModel.swift in Sources */,
 				017204D125AA8479008FD63B /* DataState.swift in Sources */,
 				012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */,
 				0172033E25A9642E008FD63B /* Parameters.swift in Sources */,
@@ -998,6 +1013,7 @@
 				0172788D2D7D936E00CE424F /* CustomerScannedTag.swift in Sources */,
 				017278902D7D936E00CE424F /* TagView.swift in Sources */,
 				0106414429AA061100B46FED /* PasswordEditView.swift in Sources */,
+				0114F4032E07A88000F4A1DD /* ShopCreateViewModel.swift in Sources */,
 				0172786B2D7D840A00CE424F /* ShowTagInfoScanResult.swift in Sources */,
 				017204D925AA847E008FD63B /* ShopRepository.swift in Sources */,
 				017278612D7D83E700CE424F /* ItemTagData.swift in Sources */,
@@ -1012,9 +1028,11 @@
 				01E0A63025BD53FD00298D35 /* Shop.swift in Sources */,
 				017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */,
 				0135E7192D7E33F9004AD8FA /* CompleteScanResultView.swift in Sources */,
+				01D85A9A2E07C85900A95798 /* ShopBasicSettingsViewModel.swift in Sources */,
 				0135E71A2D7E33F9004AD8FA /* ShowTagInfoScanResultView.swift in Sources */,
 				0135E71B2D7E33F9004AD8FA /* ScanView.swift in Sources */,
 				013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */,
+				01D85A9E2E07C9BD00A95798 /* ShopSettingsViewModel.swift in Sources */,
 				0172035825A9642E008FD63B /* ShopsService.swift in Sources */,
 				018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */,
 				0106414029A9F2EC00B46FED /* AccountPasswordService.swift in Sources */,
