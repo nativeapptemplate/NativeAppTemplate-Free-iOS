@@ -169,9 +169,13 @@ private extension ShopDetailView {
       ToolbarItem(placement: .navigationBarTrailing) {
         NavigationLink(
           destination: ShopSettingsView(
-            shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
-            shopId: shop.wrappedValue.id
+            viewModel: ShopSettingsViewModel(
+              sessionController: sessionController,
+              shopRepository: shopRepository,
+              itemTagRepository: itemTagRepository,
+              messageBus: messageBus,
+              shopId: shop.wrappedValue.id
+            )
           )
         ) {
           Image(systemName: "gearshape.fill")

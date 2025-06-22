@@ -22,13 +22,10 @@ enum NumberTagsWebpageListType: String, Identifiable, CaseIterable, Codable, Has
 }
 
 struct NumberTagsWebpageListView: View {
-  @Environment(MessageBus.self) private var messageBus
-  private var shop: Shop
+  @State private var viewModel: NumberTagsWebpageListViewModel
 
-  init(
-    shop: Shop
-  ) {
-    self.shop = shop
+  init(viewModel: NumberTagsWebpageListViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
 }
 
@@ -52,7 +49,7 @@ private extension NumberTagsWebpageListView {
 
   var numberTagsWebpageListView: some View {
     VStack {
-      Text(shop.name)
+      Text(viewModel.shop.name)
         .font(.uiTitle1)
         .foregroundStyle(.titleText)
         .padding(.top, 24)
@@ -60,12 +57,12 @@ private extension NumberTagsWebpageListView {
         switch numberTagsWebpageListType {
         case .server:
           Section {
-            Link(numberTagsWebpageListType.displayString, destination: shop.displayShopServerUrl)
+            Link(numberTagsWebpageListType.displayString, destination: viewModel.shop.displayShopServerUrl)
           } header: {
             Label(String("Server"), systemImage: "storefront")
           } footer: {
             Button(String.copyWebpageUrl) {
-              copyWebpageUrl(shop.displayShopServerUrl.absoluteString)
+              viewModel.copyWebpageUrl(viewModel.shop.displayShopServerUrl.absoluteString)
             }
           }
           .listRowBackground(Color.cardBackground)
@@ -73,10 +70,5 @@ private extension NumberTagsWebpageListView {
       }
     }
     .navigationTitle(String.shopSettingsNumberTagsWebpageLabel)
-  }
-  
-  func copyWebpageUrl(_ url: String) {
-    UIPasteboard.general.setValue(url, forPasteboardType: UTType.plainText.identifier)
-    messageBus.post(message: Message(level: .success, message: .webpageUrlCopied))
   }
 }

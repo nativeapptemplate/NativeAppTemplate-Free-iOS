@@ -26,19 +26,22 @@ final class ShopListViewModel {
   private let sessionController: SessionControllerProtocol
   private let tabViewModel: TabViewModel
   private let mainTab: MainTab
+  private let messageBus: MessageBus
 
   init(
     sessionController: SessionControllerProtocol,
     shopRepository: ShopRepositoryProtocol,
     itemTagRepository: ItemTagRepositoryProtocol,
     tabViewModel: TabViewModel,
-    mainTab: MainTab
+    mainTab: MainTab,
+    messageBus: MessageBus
   ) {
     self.sessionController = sessionController
     self.shopRepository = shopRepository
     self.itemTagRepository = itemTagRepository
     self.tabViewModel = tabViewModel
     self.mainTab = mainTab
+    self.messageBus = messageBus
   }
   
   func reload() {

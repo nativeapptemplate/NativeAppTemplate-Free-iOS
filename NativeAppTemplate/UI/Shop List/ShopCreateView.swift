@@ -9,60 +9,47 @@ import SwiftUI
 
 struct ShopCreateView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.sessionController) private var sessionController
-  @Environment(MessageBus.self) private var messageBus
-  private var shopRepository: ShopRepositoryProtocol
-  @State private var name = ""
-  @State private var description = ""
-  @State private var selectedTimeZone: String
-  @State private var isCreating = false
+  @State private var viewModel: ShopCreateViewModel
 
-  init(
-    shopRepository: ShopRepositoryProtocol
-  ) {
-    self.shopRepository = shopRepository
-    _selectedTimeZone = State(initialValue: Utility.currentTimeZone())
+  init(viewModel: ShopCreateViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
 
-  private var hasInvalidData: Bool { Utility.isBlank(name) }
-  
   var body: some View {
     contentView
-  }
-}
-
-// MARK: - private
-private extension ShopCreateView {
-  var contentView: some View {
-
-    @ViewBuilder var contentView: some View {
-      if isCreating {
-        LoadingView()
-      } else {
-        shopCreateView
+      .onChange(of: viewModel.shouldDismiss) {
+        if viewModel.shouldDismiss {
+          dismiss()
+        }
       }
-    }
-
-    return contentView
   }
 
-  private var shopCreateView: some View {
+  @ViewBuilder
+  private var contentView: some View {
+    if viewModel.isCreating {
+      LoadingView()
+    } else {
+      shopCreateForm
+    }
+  }
+
+  private var shopCreateForm: some View {
     NavigationStack {
       Form {
         Section {
-          TextField(String.name, text: $name)
+          TextField(String.name, text: $viewModel.name)
         } footer: {
           Text(String.shopNameIsRequired)
-            .foregroundStyle(Utility.isBlank(name) ? .red : .clear)
+            .foregroundStyle(viewModel.hasInvalidData ? .red : .clear)
         }
 
         Section {
-          TextField(String.descriptionString, text: $description, axis: .vertical)
+          TextField(String.descriptionString, text: $viewModel.description, axis: .vertical)
             .lineLimit(10, reservesSpace: true)
         }
-        
+
         Section {
-          Picker(String.timeZone, selection: $selectedTimeZone) {
+          Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
             ForEach(timeZones.keys, id: \.self) { key in
               Text(timeZones[key]!).tag(key)
             }
@@ -72,54 +59,18 @@ private extension ShopCreateView {
       .navigationTitle(String.addShop)
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
-          Button {
-            createShop()
-          } label: {
-            Text(String.save)
+          Button(String.save) {
+            viewModel.createShop()
           }
-          .disabled(hasInvalidData)
+          .disabled(viewModel.hasInvalidData)
         }
-        ToolbarItem(placement: .navigationBarLeading) {
-          Button {
-            dismiss()
-          } label: {
-            Text(String.cancel)
-          }
-        }
-      }
-    }
-  }
-  
-  func createShop() {
-    Task { @MainActor in
-      isCreating = true
 
-      do {
-        let shop = Shop(
-          id: "",
-          name: name,
-          description: description,
-          timeZone: selectedTimeZone
-        )
-        _ = try await shopRepository.create(shop: shop)
-        messageBus.post(message: Message(level: .success, message: .shopCreated))
-      } catch {
-        messageBus.post(
-          message: Message(
-            level: .error,
-            message: error.localizedDescription,
-            autoDismiss: false
-          )
-        )
-        
-        // e.g. Limit shopps count error
-        guard case NativeAppTemplateAPIError.requestFailed(_, 422, _) = error else {
-          try await sessionController.logout()
-          return
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button(String.cancel) {
+            dismiss()
+          }
         }
       }
-      
-      dismiss()
     }
   }
 }

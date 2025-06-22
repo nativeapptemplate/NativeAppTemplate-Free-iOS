@@ -153,7 +153,8 @@ private extension MainView {
       shopRepository: dataManager.shopRepository,
       itemTagRepository: dataManager.itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: .shops
+      mainTab: .shops,
+      messageBus: messageBus
     )
     return ShopListView(viewModel: viewModel)
   }

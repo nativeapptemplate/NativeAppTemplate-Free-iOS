@@ -31,6 +31,7 @@ struct ShopListViewModelTest {
   )
   let tabViewModel = TabViewModel()
   let mainTab = MainTab.shops
+  let messageBus = MessageBus()
 
   @Test
   func leftInShopSlots() {
@@ -42,7 +43,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     #expect(viewModel.leftInShopSlots == 3)
@@ -59,7 +61,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     viewModel.reload()
@@ -76,7 +79,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     viewModel.reload()
@@ -94,7 +98,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     viewModel.reload()
@@ -109,7 +114,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     #expect(viewModel.isShowingCreateSheet == false)
@@ -132,7 +138,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     viewModel.setTabViewModelShowingDetailViewToFalse()
@@ -147,7 +154,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     let scrollToTopID = viewModel.scrollToTopID()
@@ -166,7 +174,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     viewModel.reload()
@@ -187,7 +196,8 @@ struct ShopListViewModelTest {
       shopRepository: shopRepository,
       itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab
+      mainTab: mainTab,
+      messageBus: messageBus
     )
 
     viewModel.reload()

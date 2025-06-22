@@ -9,51 +9,21 @@ import SwiftUI
 
 struct ShopBasicSettingsView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
-  private var shopRepository: ShopRepositoryProtocol
-  @State private var isFetching = true
-  @State private var isUpdating = false
-  @State private var name = ""
-  @State private var description = ""
-  @State private var selectedTimeZone = String.defaultTimeZone
-  private var shopId: String
+  @State private var viewModel: ShopBasicSettingsViewModel
 
-  private var shop: Binding<Shop> {
-    Binding {
-      shopRepository.findBy(id: shopId)
-    } set: { _ in 
-    }
-  }
-
-  init(
-    shopRepository: ShopRepositoryProtocol,
-    shopId: String
-  ) {
-    self.shopRepository = shopRepository
-    self.shopId = shopId
-  }
-
-  private var hasInvalidData: Bool {
-    if Utility.isBlank(name) {
-      return true
-    }
-    
-    let wrappedShop = shop.wrappedValue
-
-    if wrappedShop.name == name &&
-        wrappedShop.description == description &&
-        wrappedShop.timeZone == selectedTimeZone {
-      return true
-    }
-    
-    return false
+  init(viewModel: ShopBasicSettingsViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
 
   var body: some View {
     contentView
       .task {
-        reload()
+        viewModel.reload()
+      }
+      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
+        if shouldDismiss {
+          dismiss()
+        }
       }
   }
 }
@@ -63,7 +33,7 @@ private extension ShopBasicSettingsView {
   var contentView: some View {
 
     @ViewBuilder var contentView: some View {
-      if isFetching || isUpdating {
+      if viewModel.isBusy {
         LoadingView()
       } else {
         shopBasicSettingsView
@@ -76,24 +46,24 @@ private extension ShopBasicSettingsView {
   var shopBasicSettingsView: some View {
     Form {
       Section {
-        TextField(String.shopName, text: $name)
+        TextField(String.shopName, text: $viewModel.name)
       } header: {
         Text(String.shopName)
       } footer: {
         Text(String.shopNameIsRequired)
           .font(.uiFootnote)
-          .foregroundStyle(Utility.isBlank(name) ? .red : .clear)
+          .foregroundStyle(Utility.isBlank(viewModel.name) ? .red : .clear)
       }
       
       Section {
-        TextField(String.descriptionString, text: $description, axis: .vertical)
+        TextField(String.descriptionString, text: $viewModel.description, axis: .vertical)
           .lineLimit(10, reservesSpace: true)
       } header: {
         Text(String.descriptionString)
       }
       
       Section {
-        Picker(String.timeZone, selection: $selectedTimeZone) {
+        Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
           ForEach(timeZones.keys, id: \.self) { key in
             Text(timeZones[key]!).tag(key)
           }
@@ -105,57 +75,12 @@ private extension ShopBasicSettingsView {
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {
         Button {
-          updateShop()
+          viewModel.updateShop()
         } label: {
           Text(String.save)
         }
-        .disabled(hasInvalidData)
+        .disabled(viewModel.hasInvalidData)
       }
-    }
-  }
-
-  func reload() {
-    fetchShopDetail()
-  }
-
-  private func fetchShopDetail() {
-    Task { @MainActor in
-      isFetching = true
-
-      do {
-        _ = try await shopRepository.fetchDetail(id: shopId)
-
-        name = shop.wrappedValue.name
-        description = shop.wrappedValue.description
-        selectedTimeZone = shop.wrappedValue.timeZone
-        
-        isFetching = false
-      } catch {
-        messageBus.post(message: Message(level: .error, message: error.localizedDescription, autoDismiss: false))
-        dismiss()
-      }
-    }
-  }
-
-  func updateShop() {
-    Task { @MainActor in
-      isUpdating = true
-
-      do {
-        let shop = Shop(
-          id: shop.id,
-          name: name,
-          description: description,
-          timeZone: selectedTimeZone
-       )
-        _ = try await shopRepository.update(id: shop.id, shop: shop)
-        messageBus.post(message: Message(level: .success, message: .basicSettingsUpdated))
-      } catch {
-        messageBus.post(message: Message(level: .error, message: error.localizedDescription, autoDismiss: false))
-      }
-      
-      isUpdating = false
-      dismiss()
     }
   }
 }
