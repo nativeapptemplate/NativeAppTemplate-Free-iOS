@@ -9,47 +9,19 @@ import SwiftUI
 
 struct ItemTagCreateView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
-  private var itemTagRepository: ItemTagRepositoryProtocol
-  @State private var queueNumber = ""
-  @State private var isCreating = false
-  private var shopId: String
+  @State private var viewModel: ItemTagCreateViewModel
   
-  init(
-    itemTagRepository: ItemTagRepositoryProtocol,
-    shopId: String
-  ) {
-    self.itemTagRepository = itemTagRepository
-    self.shopId = shopId
-  }
-
-  private var hasInvalidData: Bool {
-    if hasInvalidDataQueueNumber {
-      return true
-    }
-    
-    return false
-  }
-
-  private var hasInvalidDataQueueNumber: Bool {
-    if Utility.isBlank(queueNumber) {
-      return true
-    }
-    
-    if !queueNumber.isAlphanumeric(ignoreDiacritics: true) {
-      return true
-    }
-        
-    if !(2 <= queueNumber.count && queueNumber.count <= sessionController.maximumQueueNumberLength) {
-      return true
-    }
-    
-    return false
+  init(viewModel: ItemTagCreateViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
   
   var body: some View {
     contentView
+      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
+        if shouldDismiss {
+          dismiss()
+        }
+      }
   }
 }
 
@@ -58,7 +30,7 @@ private extension ItemTagCreateView {
   var contentView: some View {
     
     @ViewBuilder var contentView: some View {
-      if isCreating {
+      if viewModel.isBusy {
         LoadingView()
       } else {
         itemTagCreateView
@@ -72,22 +44,22 @@ private extension ItemTagCreateView {
     NavigationStack {
       Form {
         Section {
-          TextField(String("A001"), text: $queueNumber)
+          TextField(String("A001"), text: $viewModel.queueNumber)
             .keyboardType(.asciiCapable)
-            .onChange(of: queueNumber) {
-              queueNumber = String(queueNumber.prefix(sessionController.maximumQueueNumberLength))
+            .onChange(of: viewModel.queueNumber) { _, _ in
+              viewModel.validateQueueNumberLength()
             }
         } header: {
           Text(String.tagNumber)
         } footer: {
           VStack(alignment: .leading) {
-            Text("Tag Number must be a 2-\(sessionController.maximumQueueNumberLength) alphanumeric characters.")
+            Text("Tag Number must be a 2-\(viewModel.maximumQueueNumberLength) alphanumeric characters.")
               .font(.uiFootnote)
             Text(String.zeroPadding)
               .font(.uiFootnote)
             Text(String.tagNumberIsInvalid)
               .font(.uiFootnote)
-              .foregroundStyle(hasInvalidDataQueueNumber ? .red : .clear)
+              .foregroundStyle(viewModel.hasInvalidDataQueueNumber ? .red : .clear)
           }
         }
       }
@@ -95,11 +67,11 @@ private extension ItemTagCreateView {
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
-            createItemTag()
+            viewModel.createItemTag()
           } label: {
             Text(String.save)
           }
-          .disabled(hasInvalidData)
+          .disabled(viewModel.hasInvalidData)
         }
         ToolbarItem(placement: .navigationBarLeading) {
           Button {
@@ -109,28 +81,6 @@ private extension ItemTagCreateView {
           }
         }
       }
-    }
-  }
-  
-  func createItemTag() {
-    Task { @MainActor in
-      isCreating = true
-
-      do {
-        let itemTag = ItemTag(queueNumber: queueNumber)
-        _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
-        messageBus.post(message: Message(level: .success, message: .itemTagCreated))
-      } catch {
-        messageBus.post(
-          message: Message(
-            level: .error,
-            message: error.localizedDescription,
-            autoDismiss: false
-          )
-        )
-      }
-      
-      dismiss()
     }
   }
 }

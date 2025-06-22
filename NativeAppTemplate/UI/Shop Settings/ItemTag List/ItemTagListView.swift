@@ -8,26 +8,18 @@
 import SwiftUI
 
 struct ItemTagListView: View {
+  @Environment(DataManager.self) private var dataManager
   @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
-  private var itemTagRepository: ItemTagRepositoryProtocol
-  @State private var isShowingCreateSheet = false
-  @State private var isDeleting = false
-  @State private var isShowingDeleteConfirmationDialog = false
-  private let shop: Shop
-  
-  init(
-    itemTagRepository: ItemTagRepositoryProtocol,
-    shop: Shop
-  ) {
-    self.itemTagRepository = itemTagRepository
-    self.shop = shop
+  @State private var viewModel: ItemTagListViewModel
+
+  init(viewModel: ItemTagListViewModel) {
+    self._viewModel = State(initialValue: viewModel)
   }
-  
+
   var body: some View {
     contentView
       .task {
-        reload()
+        viewModel.reload()
       }
   }
 }
@@ -36,10 +28,10 @@ struct ItemTagListView: View {
 private extension ItemTagListView {
   var contentView: some View {
     @ViewBuilder var contentView: some View {
-      if isDeleting {
+      if viewModel.isBusy {
         LoadingView()
       } else {
-        switch itemTagRepository.state {
+        switch viewModel.state {
         case .initial, .loading:
           LoadingView()
         case .hasData:
@@ -55,24 +47,26 @@ private extension ItemTagListView {
   
   var itemTagListView: some View {
     VStack {
-      Text(shop.name)
+      Text(viewModel.shop.name)
         .font(.uiTitle1)
         .foregroundStyle(.titleText)
         .padding(.top, 24)
         .multilineTextAlignment(.center)
       
-      if itemTagRepository.isEmpty {
+      if viewModel.isEmpty {
         noResultsView
       } else {
-        List(itemTagRepository.itemTags) { itemTag in
+        List(viewModel.itemTags) { itemTag in
           NavigationLink(
-            destination: ItemTagDetailView(itemTagRepository: itemTagRepository, shop: shop, itemTagId: itemTag.id)
+            destination: ItemTagDetailView(
+              viewModel: viewModel.createItemTagDetailViewModel(itemTagId: itemTag.id)
+            )
           ) {
             ItemTagListCardView(
               itemTag: itemTag
             )
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-              Button(role: .destructive) { destroyItemTag(itemTagId: itemTag.id) } label: {
+              Button(role: .destructive) { viewModel.destroyItemTag(itemTagId: itemTag.id) } label: {
                 Label(String.delete, systemImage: "trash")
                   .labelStyle(.titleOnly)
               }
@@ -82,7 +76,7 @@ private extension ItemTagListView {
           .listRowBackground(Color.cardBackground)
         }
         .refreshable {
-          reload()
+          viewModel.reload()
         }
       }
     }
@@ -90,39 +84,21 @@ private extension ItemTagListView {
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {
         Button {
-          isShowingCreateSheet.toggle()
+          viewModel.isShowingCreateSheet.toggle()
         } label: {
           Image(systemName: "plus")
         }
       }
     }
-    .sheet(isPresented: $isShowingCreateSheet,
+    .sheet(isPresented: $viewModel.isShowingCreateSheet,
            onDismiss: {
-      reload()
+      viewModel.reload()
     }, content: {
-      ItemTagCreateView(itemTagRepository: itemTagRepository, shopId: shop.id)
+      ItemTagCreateView(
+        viewModel: viewModel.createItemTagCreateViewModel()
+      )
     }
     )
-  }
-  
-  func reload() {
-    itemTagRepository.reload(shopId: shop.id)
-  }
-  
-  func destroyItemTag(itemTagId: String) {
-    Task { @MainActor in
-      isDeleting = true
-      
-      do {
-        try await itemTagRepository.destroy(id: itemTagId)
-        messageBus.post(message: Message(level: .success, message: .itemTagDeleted))
-      } catch {
-        messageBus.post(message: Message(level: .error, message: "\(String.itemTagDeletedError) \(error.localizedDescription)", autoDismiss: false))
-      }
-      
-      isDeleting = false
-      reload()
-    }
   }
   
   var noResultsView: some View {
@@ -138,7 +114,7 @@ private extension ItemTagListView {
         .padding()
       
       MainButtonView(title: String.addTag, type: .primary(withArrow: false)) {
-        isShowingCreateSheet.toggle()
+        viewModel.isShowingCreateSheet.toggle()
       }
       .padding()
       
@@ -148,6 +124,6 @@ private extension ItemTagListView {
   }
   
   var reloadView: some View {
-    ErrorView(buttonAction: reload)
+    ErrorView(buttonAction: viewModel.reload)
   }
 }

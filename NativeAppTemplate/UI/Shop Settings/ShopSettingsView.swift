@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ShopSettingsView: View {
+  @Environment(DataManager.self) private var dataManager
   @Environment(\.dismiss) private var dismiss
+  @Environment(MessageBus.self) private var messageBus
   @State private var viewModel: ShopSettingsViewModel
   
   init(viewModel: ShopSettingsViewModel) {
@@ -71,8 +73,12 @@ private extension ShopSettingsView {
           if let shop = viewModel.shop {
             NavigationLink {
               ItemTagListView(
-                itemTagRepository: viewModel.itemTagRepository,
-                shop: shop
+                viewModel: ItemTagListViewModel(
+                  itemTagRepository: dataManager.itemTagRepository,
+                  messageBus: messageBus,
+                  sessionController: dataManager.sessionController,
+                  shop: shop
+                )
               )
             } label: {
               Label(String.shopSettingsManageNumberTagsLabel, systemImage: "rectangle.stack")
