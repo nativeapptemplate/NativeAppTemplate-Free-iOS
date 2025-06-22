@@ -13,7 +13,7 @@ struct AppTabView<
   SettingsView: View
 > {
   
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @Environment(DataManager.self) private var dataManager
   @Environment(TabViewModel.self) private var model
   @State var navigationPathShops = NavigationPath()

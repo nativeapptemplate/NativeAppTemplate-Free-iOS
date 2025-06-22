@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@MainActor @Observable class ShopRepository {
+@MainActor @Observable class ShopRepository: ShopRepositoryProtocol {
   let shopsService: ShopsService
   
   var shops: [Shop] = []
@@ -15,7 +15,7 @@ import SwiftUI
   private(set) var limitCount = 0
   private(set) var createdShopsCount = 0
   
-  init(
+  required init(
     shopsService: ShopsService
   ) {
     self.shopsService = shopsService

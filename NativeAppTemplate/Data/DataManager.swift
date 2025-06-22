@@ -11,16 +11,16 @@ import SwiftUI
 
   // MARK: - Properties
   // Initialiser Arguments
-  var sessionController: SessionController
+  var sessionController: SessionControllerProtocol
 
   // Repositories
-  private(set) var accountPasswordRepository: AccountPasswordRepository!
-  private(set) var shopRepository: ShopRepository!
-  private(set) var itemTagRepository: ItemTagRepository!
+  private(set) var accountPasswordRepository: AccountPasswordRepositoryProtocol!
+  private(set) var shopRepository: ShopRepositoryProtocol!
+  private(set) var itemTagRepository: ItemTagRepositoryProtocol!
   private(set) var isRebuildingRepositories = false
 
   // MARK: - Initializers
-  init(sessionController: SessionController) {
+  init(sessionController: SessionControllerProtocol) {
     self.sessionController = sessionController
     rebuildRepositories()
   }

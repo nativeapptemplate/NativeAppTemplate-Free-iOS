@@ -45,16 +45,16 @@ extension ScanType: Identifiable {
 
 struct ScanView: View {
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @StateObject private var nfcManager = appSingletons.nfcManager
   @State private var scanType: ScanType = .completeScan
   @State private var isShowingResetConfirmationDialog = false
   @State private var isFetching = false
   @State private var isResetting = false
-  private let itemTagRepository: ItemTagRepository
+  private let itemTagRepository: ItemTagRepositoryProtocol
   
   init(
-    itemTagRepository: ItemTagRepository
+    itemTagRepository: ItemTagRepositoryProtocol
   ) {
     self.itemTagRepository = itemTagRepository
   }

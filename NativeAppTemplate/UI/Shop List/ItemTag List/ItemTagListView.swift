@@ -9,15 +9,15 @@ import SwiftUI
 
 struct ItemTagListView: View {
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
-  private var itemTagRepository: ItemTagRepository
+  @Environment(\.sessionController) private var sessionController
+  private var itemTagRepository: ItemTagRepositoryProtocol
   @State private var isShowingCreateSheet = false
   @State private var isDeleting = false
   @State private var isShowingDeleteConfirmationDialog = false
   private let shop: Shop
   
   init(
-    itemTagRepository: ItemTagRepository,
+    itemTagRepository: ItemTagRepositoryProtocol,
     shop: Shop
   ) {
     self.itemTagRepository = itemTagRepository

@@ -8,7 +8,7 @@
 import class Foundation.URLSession
 
 struct ItemTagsService: Service {
-  let networkClient: NativeAppTemplateAPI
+  var networkClient = NativeAppTemplateAPI()
   let session = URLSession(configuration: .default)
 }
 

@@ -12,10 +12,10 @@ struct ForgotPasswordView: View {
   @Environment(MessageBus.self) private var messageBus
   @State var email: String = ""
   @State private var isSendingResetPasswordInstructions = false
-  let signUpRepository: SignUpRepository
+  let signUpRepository: SignUpRepositoryProtocol
 
   init(
-    signUpRepository: SignUpRepository
+    signUpRepository: SignUpRepositoryProtocol
   ) {
     self.signUpRepository = signUpRepository
   }

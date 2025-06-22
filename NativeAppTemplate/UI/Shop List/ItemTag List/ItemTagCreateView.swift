@@ -10,14 +10,14 @@ import SwiftUI
 struct ItemTagCreateView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
-  private var itemTagRepository: ItemTagRepository
+  @Environment(\.sessionController) private var sessionController
+  private var itemTagRepository: ItemTagRepositoryProtocol
   @State private var queueNumber = ""
   @State private var isCreating = false
   private var shopId: String
   
   init(
-    itemTagRepository: ItemTagRepository,
+    itemTagRepository: ItemTagRepositoryProtocol,
     shopId: String
   ) {
     self.itemTagRepository = itemTagRepository

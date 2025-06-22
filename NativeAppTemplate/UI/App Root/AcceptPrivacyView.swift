@@ -10,7 +10,7 @@ import SwiftUI
 struct AcceptPrivacyView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @Binding var arePrivacyAccepted: Bool
   @State private var isUpdating = false
 

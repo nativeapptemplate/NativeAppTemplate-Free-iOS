@@ -9,9 +9,9 @@ import SwiftUI
 
 struct SignUpView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @Environment(MessageBus.self) private var messageBus
-  private var signUpRepository: SignUpRepository
+  private var signUpRepository: SignUpRepositoryProtocol
   @State private var errorMessage: String = ""
   @State private var isCreating = false
   
@@ -22,7 +22,7 @@ struct SignUpView: View {
   @State private var selectedTimeZone: String
   
   init(
-    signUpRepository: SignUpRepository
+    signUpRepository: SignUpRepositoryProtocol
   ) {
     self.signUpRepository = signUpRepository
     _selectedTimeZone = State(initialValue: Utility.currentTimeZone())

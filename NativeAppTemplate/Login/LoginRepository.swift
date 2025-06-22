@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor @Observable public class LoginRepository {
+@MainActor @Observable public class LoginRepository: LoginRepositoryProtocol {
   // MARK: - Properties
   private var _currentShopkeeper: Shopkeeper?
   
@@ -25,7 +25,7 @@ import Foundation
     return _currentShopkeeper
   }
 
-  @MainActor func login(email: String, password: String) async throws -> Shopkeeper {
+  public func login(email: String, password: String) async throws -> Shopkeeper {
     do {
       let sessionsService = SessionsService(networkClient: NativeAppTemplateAPI(authToken: "", client: "", expiry: "", uid: "", accountId: ""))
       let shopkeeper = try await sessionsService.makeSession(email: email, password: password)
@@ -40,7 +40,7 @@ import Foundation
     return currentShopkeeper!
   }
   
-  @MainActor func logout(networkClient: NativeAppTemplateAPI) async throws {
+  public func logout(networkClient: NativeAppTemplateAPI) async throws {
     do {
       let sessionsService = SessionsService(networkClient: networkClient)
       try await sessionsService.destroySession()

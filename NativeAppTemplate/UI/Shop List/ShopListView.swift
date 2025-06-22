@@ -46,14 +46,14 @@ struct TapShopBelowTip: Tip {
 struct ShopListView: View {
   @Environment(\.mainTab) private var mainTab
   @Environment(TabViewModel.self) private var tabViewModel
-  @Environment(SessionController.self) private var sessionController
-  private var shopRepository: ShopRepository
-  private var itemTagRepository: ItemTagRepository
+  @Environment(\.sessionController) private var sessionController
+  private var shopRepository: ShopRepositoryProtocol
+  private var itemTagRepository: ItemTagRepositoryProtocol
   @State private var isShowingCreateSheet = false
   
   init(
-    shopRepository: ShopRepository,
-    itemTagRepository: ItemTagRepository
+    shopRepository: ShopRepositoryProtocol,
+    itemTagRepository: ItemTagRepositoryProtocol
   ) {
     self.shopRepository = shopRepository
     self.itemTagRepository = itemTagRepository

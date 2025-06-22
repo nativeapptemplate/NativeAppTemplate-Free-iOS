@@ -60,9 +60,10 @@ extension NativeAppTemplateAPIError: LocalizedError {
     }
   }
 }
-  
-struct NativeAppTemplateAPI: Equatable {
-  static func == (lhs: NativeAppTemplateAPI, rhs: NativeAppTemplateAPI) -> Bool {
+
+@MainActor
+public struct NativeAppTemplateAPI: Equatable {
+  nonisolated public static func == (lhs: NativeAppTemplateAPI, rhs: NativeAppTemplateAPI) -> Bool {
     lhs.environment == rhs.environment &&
     lhs.session == rhs.session &&
     lhs.authToken == rhs.authToken &&
@@ -85,8 +86,12 @@ struct NativeAppTemplateAPI: Equatable {
   let contentTypeHeader: HTTPHeader = ("Content-Type", "application/vnd.api+json; charset=utf-8")
   var additionalHeaders: HTTPHeaders = [:]
 
+  nonisolated init() {
+    self.init(authToken: "", client: "", expiry: "", uid: "", accountId: "")
+  }
+
   // MARK: - Initializers
-  init(
+  nonisolated init(
     session: URLSession = .init(configuration: .default),
     environment: NativeAppTemplateEnvironment = .prod,
     authToken: String,

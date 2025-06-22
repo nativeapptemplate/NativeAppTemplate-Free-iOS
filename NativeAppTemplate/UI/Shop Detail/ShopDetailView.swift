@@ -27,13 +27,13 @@ struct ShopDetailView: View {
   @Environment(\.mainTab) private var mainTab
   @Environment(TabViewModel.self) private var tabViewModel
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @State private var isFetching = true
   @State private var isResetting = false
   @State private var isCompleting = false
   @State private var itemTags: [ItemTag]?
-  private let shopRepository: ShopRepository
-  private let itemTagRepository: ItemTagRepository
+  private let shopRepository: ShopRepositoryProtocol
+  private let itemTagRepository: ItemTagRepositoryProtocol
   private var shopId: String
   
   private var shop: Binding<Shop> {
@@ -44,8 +44,8 @@ struct ShopDetailView: View {
   }
   
   init(
-    shopRepository: ShopRepository,
-    itemTagRepository: ItemTagRepository,
+    shopRepository: ShopRepositoryProtocol,
+    itemTagRepository: ItemTagRepositoryProtocol,
     shopId: String
   ) {
     self.shopRepository = shopRepository

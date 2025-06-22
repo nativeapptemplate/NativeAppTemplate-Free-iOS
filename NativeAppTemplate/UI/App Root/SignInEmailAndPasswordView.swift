@@ -10,8 +10,8 @@ import SwiftUI
 
 struct SignInEmailAndPasswordView: View {
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
-  let signUpRepository: SignUpRepository
+  @Environment(\.sessionController) private var sessionController
+  let signUpRepository: SignUpRepositoryProtocol
   
   @State var email: String = ""
   @State var password: String = ""

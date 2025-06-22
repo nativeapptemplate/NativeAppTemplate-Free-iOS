@@ -9,7 +9,7 @@ import Foundation
 import SwiftyJSON
 
 struct SignUpsService {
-  var networkClient: NativeAppTemplateAPI
+  var networkClient = NativeAppTemplateAPI()
   var session = URLSession(configuration: .default)
 }
 

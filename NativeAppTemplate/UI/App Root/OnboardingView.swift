@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingView: View {
   let isAppStorePromotion = false
-  @State private var onboardingRepository = OnboardingRepository()
+  @State private var onboardingRepository: OnboardingRepositoryProtocol = OnboardingRepository()
   
   var body: some View {
     NavigationStack {

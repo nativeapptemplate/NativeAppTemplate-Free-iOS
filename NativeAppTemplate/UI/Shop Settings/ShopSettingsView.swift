@@ -10,14 +10,14 @@ import SwiftUI
 struct ShopSettingsView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(MessageBus.self) private var messageBus
-  @Environment(SessionController.self) private var sessionController
+  @Environment(\.sessionController) private var sessionController
   @State private var isFetching = true
   @State private var isResetting = false
   @State private var isDeleting = false
   @State private var isShowingResetConfirmationDialog = false
   @State private var isShowingDeleteConfirmationDialog = false
-  private let shopRepository: ShopRepository
-  private let itemTagRepository: ItemTagRepository
+  private let shopRepository: ShopRepositoryProtocol
+  private let itemTagRepository: ItemTagRepositoryProtocol
   private var shopId: String
   
   private var shop: Binding<Shop> {
@@ -28,8 +28,8 @@ struct ShopSettingsView: View {
   }
   
   init(
-    shopRepository: ShopRepository,
-    itemTagRepository: ItemTagRepository,
+    shopRepository: ShopRepositoryProtocol,
+    itemTagRepository: ItemTagRepositoryProtocol,
     shopId: String
   ) {
     self.shopRepository = shopRepository
