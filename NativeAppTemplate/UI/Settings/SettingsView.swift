@@ -9,18 +9,18 @@ import SwiftUI
 import MessageUI
 
 struct SettingsView: View {
+  @Environment(DataManager.self) private var dataManager
   @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
   @Environment(TabViewModel.self) private var tabViewModel
-  @State var isShowingMailView = false
-  @State var alertNoMail = false
-  @State var result: Result<MFMailComposeResult, Error>?
+  @State private var viewModel: SettingsViewModel
   private var signUpRepository: SignUpRepositoryProtocol = SignUpRepository()
   private var accountPasswordRepository: AccountPasswordRepositoryProtocol
   
   init(
+    viewModel: SettingsViewModel,
     accountPasswordRepository: AccountPasswordRepositoryProtocol
   ) {
+    self._viewModel = State(wrappedValue: viewModel)
     self.accountPasswordRepository = accountPasswordRepository
   }
   
@@ -28,16 +28,29 @@ struct SettingsView: View {
     VStack(spacing: 0) {
       List {
         Section(header: Text(String.myAccount)) {
-          if let shopkeeper = sessionController.shopkeeper {
+          if let shopkeeper = viewModel.shopkeeper {
             NavigationLink(
-              destination: ShopkeeperEditView(signUpRepository: signUpRepository, shopkeeper: shopkeeper)
+              destination: ShopkeeperEditView(
+                viewModel: ShopkeeperEditViewModel(
+                  signUpRepository: SignUpRepository(),
+                  sessionController: dataManager.sessionController,
+                  messageBus: messageBus,
+                  tabViewModel: tabViewModel,
+                  shopkeeper: shopkeeper
+                )
+              )
             ) {
               Label(String.profile, systemImage: "person")
             }
           }
-          
+
           NavigationLink(
-            destination: PasswordEditView(accountPasswordRepository: accountPasswordRepository)
+            destination: PasswordEditView(
+              viewModel: PasswordEditViewModel(
+                accountPasswordRepository: dataManager.accountPasswordRepository,
+                messageBus: messageBus
+              )
+            )
           ) {
             Label(String.password, systemImage: "key")
           }
@@ -62,7 +75,7 @@ struct SettingsView: View {
           }
 
           Button {
-            MFMailComposeViewController.canSendMail() ? self.isShowingMailView.toggle() : self.alertNoMail.toggle()
+            MFMailComposeViewController.canSendMail() ? viewModel.isShowingMailView.toggle() : viewModel.alertNoMail.toggle()
           } label: {
             Label(String.contact, systemImage: "envelope")
           }
@@ -82,18 +95,18 @@ struct SettingsView: View {
         
         Section {
           VStack {
-            Text("Logged in as \(sessionController.shopkeeper?.name ?? "")")
+            Text("Logged in as \(viewModel.shopkeeper?.name ?? "")")
             MainButtonView(title: "Sign Out", type: .destructive(withArrow: false)) {
-              signOut()
+              viewModel.signOut()
             }
           }
           .listRowBackground(Color.clear)
         }
         
 #if DEBUG
-        if sessionController.isLoggedIn {
+        if viewModel.isLoggedIn {
           Section {
-            Text(verbatim: sessionController.client.accountId)
+            Text(verbatim: viewModel.accountId)
           } header: {
             Text(verbatim: "Account ID")
           }
@@ -103,12 +116,12 @@ struct SettingsView: View {
     }
     .navigationTitle(String.settings)
     .navigationBarTitleDisplayMode(.inline)
-    .sheet(isPresented: $isShowingMailView) {
+    .sheet(isPresented: $viewModel.isShowingMailView) {
       let systemVersion = UIDevice.current.systemVersion
       let device = Utility.deviceModel
       
       MailView(
-        result: self.$result,
+        result: $viewModel.result,
         recipients: [String.supportMail],
         subject: "\(Bundle.main.displayName) for iPhone support",
         messageBody: "\n\n\n-----\n\(Bundle.main.displayName) \(Bundle.main.appVersionLong)\n\(device) (\(systemVersion))\n\(Locale.preferredLanguages[0])"
@@ -116,25 +129,8 @@ struct SettingsView: View {
     }
     .alert(
       "NO MAIL SETUP",
-      isPresented: $alertNoMail
+      isPresented: $viewModel.alertNoMail
     ) {
-    }
-  }
-  
-  func signOut() {
-    Task { @MainActor in
-      do {
-        try await sessionController.logout()
-#if DEBUG
-        messageBus.post(message: Message(level: .success, message: .signedOut))
-#endif
-      } catch {
-#if DEBUG
-        messageBus.post(message: Message(level: .error, message: "\(String.signedOutError) \(error.localizedDescription)", autoDismiss: false))
-#endif
-      }
-      
-      tabViewModel.selectedTab = .shops
     }
   }
 }

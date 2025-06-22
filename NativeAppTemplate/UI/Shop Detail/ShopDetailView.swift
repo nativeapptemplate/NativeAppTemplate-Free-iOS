@@ -26,31 +26,10 @@ struct ShopDetailView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.mainTab) private var mainTab
   @Environment(TabViewModel.self) private var tabViewModel
-  @Environment(MessageBus.self) private var messageBus
-  @Environment(\.sessionController) private var sessionController
-  @State private var isFetching = true
-  @State private var isResetting = false
-  @State private var isCompleting = false
-  @State private var itemTags: [ItemTag]?
-  private let shopRepository: ShopRepositoryProtocol
-  private let itemTagRepository: ItemTagRepositoryProtocol
-  private var shopId: String
+  @State private var viewModel: ShopDetailViewModel
   
-  private var shop: Binding<Shop> {
-    Binding {
-      shopRepository.findBy(id: shopId)
-    } set: { _ in
-    }
-  }
-  
-  init(
-    shopRepository: ShopRepositoryProtocol,
-    itemTagRepository: ItemTagRepositoryProtocol,
-    shopId: String
-  ) {
-    self.shopRepository = shopRepository
-    self.itemTagRepository = itemTagRepository
-    self.shopId = shopId
+  init(viewModel: ShopDetailViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
 }
 
@@ -59,10 +38,15 @@ extension ShopDetailView {
   var body: some View {
     contentView
       .onAppear {
-        tabViewModel.showingDetailView[mainTab] = true
+        viewModel.setTabViewModelShowingDetailViewToTrue()
       }
       .task {
-        reload()
+        viewModel.reload()
+      }
+      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
+        if shouldDismiss {
+          dismiss()
+        }
       }
   }
 }
@@ -72,17 +56,17 @@ private extension ShopDetailView {
   var contentView: some View {
     
     @ViewBuilder var contentView: some View {
-      if isFetching || isResetting || isCompleting {
+      if viewModel.isBusy {
         LoadingView()
-      } else {
-        shopDetailView
+      } else if let shop = viewModel.shop {
+        shopDetailView(shop: shop)
       }
     }
     
     return contentView
   }
   
-  var header: some View {
+  func header(shop: Shop) -> some View {
     ScrollView(.horizontal) {
       VStack(alignment: .leading, spacing: 0) {
         let tip = ReadInstructionsTip()
@@ -96,7 +80,7 @@ private extension ShopDetailView {
             .font(.uiCaption)
             .foregroundStyle(.contentText)
           HStack {
-            let openServerNumberTagsWebpage = "\(String.open) [\(String.serverNumberTagsWebpage)](\(shop.wrappedValue.displayShopServerUrl))."
+            let openServerNumberTagsWebpage = "\(String.open) [\(String.serverNumberTagsWebpage)](\(shop.displayShopServerUrl))."
             Text(.init(openServerNumberTagsWebpage))
               .font(.uiCaption)
               .foregroundStyle(.contentText)
@@ -124,17 +108,17 @@ private extension ShopDetailView {
   }
   
   var cardsView: some View {
-    ForEach(itemTagRepository.itemTags, id: \.id) { itemTag in
+    ForEach(viewModel.itemTags, id: \.id) { itemTag in
       ShopDetailCardView(itemTag: itemTag)
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
           if itemTag.state == ItemTagState.idled {
-            Button { completeTag(itemTagId: itemTag.id) } label: {
+            Button { viewModel.completeTag(itemTagId: itemTag.id) } label: {
               Label(String.complete, systemImage: "bolt.fill")
                 .labelStyle(.titleOnly)
             }
             .tint(.blue)
           } else {
-            Button(role: .destructive) { resetTag(itemTagId: itemTag.id) } label: {
+            Button(role: .destructive) { viewModel.resetTag(itemTagId: itemTag.id) } label: {
               Label(String.reset, systemImage: "trash")
                 .labelStyle(.titleOnly)
             }
@@ -145,9 +129,9 @@ private extension ShopDetailView {
     }
   }
   
-  var shopDetailView: some View {
+  func shopDetailView(shop: Shop) -> some View {
     VStack {
-      header
+      header(shop: shop)
         .padding(.top)
         .padding(.horizontal, 8)
       List {
@@ -155,99 +139,26 @@ private extension ShopDetailView {
           cardsView
         } header: {
           EmptyView()
-            .id(ScrollToTopID(mainTab: mainTab, detail: true))
+            .id(viewModel.scrollToTopID())
         }
       }
       .scrollContentBackground(.hidden)
       .accessibility(identifier: "shopDetailView")
       .refreshable {
-        reload()
+        viewModel.reload()
       }
     }
-    .navigationTitle(shop.wrappedValue.name)
+    .navigationTitle(viewModel.shop?.name ?? "")
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {
         NavigationLink(
           destination: ShopSettingsView(
-            viewModel: ShopSettingsViewModel(
-              sessionController: sessionController,
-              shopRepository: shopRepository,
-              itemTagRepository: itemTagRepository,
-              messageBus: messageBus,
-              shopId: shop.wrappedValue.id
-            )
+            viewModel: viewModel.createShopSettingsViewModel()
           )
         ) {
           Image(systemName: "gearshape.fill")
         }
       }
-    }
-  }
-  
-  func reload() {
-    // Avoid fetching shop detail error
-    guard sessionController.isLoggedIn else {
-      return
-    }
-    
-    fetchShopDetail()
-  }
-  
-  private func fetchShopDetail() {
-    Task { @MainActor in
-      isFetching = true
-      
-      do {
-        _ = try await shopRepository.fetchDetail(id: shopId)
-        _ = try await itemTagRepository.fetchAll(shopId: shopId)
-        isFetching = false
-      } catch {
-        messageBus.post(
-          message: Message(
-            level: .error,
-            message: error.localizedDescription,
-            autoDismiss: false
-          )
-        )
-        
-        dismiss()
-      }
-    }
-  }
-  
-  func completeTag(itemTagId: String) {
-    Task { @MainActor in
-      isCompleting = true
-      
-      do {
-        let itemTag = try await itemTagRepository.complete(id: itemTagId)
-        if itemTag.alreadyCompleted! {
-          messageBus.post(message: Message(level: .warning, message: .itemTagAlreadyCompleted, autoDismiss: false))
-        } else {
-          messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
-        }
-      } catch {
-        messageBus.post(message: Message(level: .error, message: "\(String.itemTagCompletedError) \(error.localizedDescription)", autoDismiss: false))
-      }
-      
-      isCompleting = false
-      reload()
-    }
-  }
-  
-  func resetTag(itemTagId: String) {
-    Task { @MainActor in
-      isResetting = true
-      
-      do {
-        _ = try await itemTagRepository.reset(id: itemTagId)
-        messageBus.post(message: Message(level: .success, message: .itemTagReset))
-      } catch {
-        messageBus.post(message: Message(level: .error, message: "\(String.itemTagResetError) \(error.localizedDescription)", autoDismiss: false))
-      }
-      
-      isResetting = false
-      reload()
     }
   }
 }

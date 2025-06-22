@@ -8,48 +8,20 @@
 import SwiftUI
 
 struct PasswordEditView: View {
-  @Environment(MessageBus.self) private var messageBus
   @Environment(\.dismiss) private var dismiss
-  @State private var isUpdating = false
-  @State private var currentPassword: String = ""
-  @State private var password: String = ""
-  @State private var passwordConfirmation: String = ""
-  private var accountPasswordRepository: AccountPasswordRepositoryProtocol
+  @State private var viewModel: PasswordEditViewModel
 
-  init(
-    accountPasswordRepository: AccountPasswordRepositoryProtocol
-  ) {
-    self.accountPasswordRepository = accountPasswordRepository
-  }
-
-  private var hasInvalidData: Bool {
-    if Utility.isBlank(currentPassword) ||
-        Utility.isBlank(password) ||
-        Utility.isBlank(passwordConfirmation) {
-      return true
-    }
-    
-    if hasInvalidDataPassword {
-      return true
-    }
-    
-    return false
-  }
-
-  private var hasInvalidDataPassword: Bool {
-    if Utility.isBlank(password) {
-      return true
-    }
-
-    if password.count < .minimumPasswordLength {
-      return true
-    }
-
-    return false
+  init(viewModel: PasswordEditViewModel) {
+    self._viewModel = State(wrappedValue: viewModel)
   }
 
   var body: some View {
     contentView
+      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
+        if shouldDismiss {
+          dismiss()
+        }
+      }
   }
 }
 
@@ -58,7 +30,7 @@ private extension PasswordEditView {
   var contentView: some View {
     
     @ViewBuilder var contentView: some View {
-      if isUpdating {
+      if viewModel.isBusy {
         LoadingView()
       } else {
         passwordEditView
@@ -71,7 +43,7 @@ private extension PasswordEditView {
   var passwordEditView: some View {
     Form {
       Section {
-        SecureField(String.currentPassword, text: $currentPassword)
+        SecureField(String.currentPassword, text: $viewModel.currentPassword)
           .textContentType(.password)
           .autocapitalization(.none)
           .autocorrectionDisabled(true)
@@ -82,12 +54,12 @@ private extension PasswordEditView {
           Text(String.weNeedYourCurrentPassword)
             .font(.uiFootnote)
           Text(String.currentPasswordIsRequired)
-            .foregroundStyle(Utility.isBlank(currentPassword) ? .red : .clear)
+            .foregroundStyle(Utility.isBlank(viewModel.currentPassword) ? .red : .clear)
             .font(.uiFootnote)
         }
       }
       Section {
-        SecureField(String.newPassword, text: $password)
+        SecureField(String.newPassword, text: $viewModel.password)
           .textContentType(.password)
           .autocapitalization(.none)
           .autocorrectionDisabled(true)
@@ -95,14 +67,14 @@ private extension PasswordEditView {
         Text(String.newPassword)
       } footer: {
         VStack(alignment: .leading) {
-          Text("\(Int.minimumPasswordLength) characters minimum.")
+          Text("\(viewModel.minimumPasswordLength) characters minimum.")
             .font(.uiFootnote)
           
-          if Utility.isBlank(password) {
+          if Utility.isBlank(viewModel.password) {
             Text(String.newPasswordIsRequired)
               .foregroundStyle(.red)
               .font(.uiFootnote)
-          } else if hasInvalidDataPassword {
+          } else if viewModel.hasInvalidDataPassword {
             Text(String.passwordIsInvalid)
               .foregroundStyle(.red)
               .font(.uiFootnote)
@@ -110,7 +82,7 @@ private extension PasswordEditView {
         }
       }
       Section {
-        SecureField(String.confirmNewPassword, text: $passwordConfirmation)
+        SecureField(String.confirmNewPassword, text: $viewModel.passwordConfirmation)
           .textContentType(.password)
           .autocapitalization(.none)
           .autocorrectionDisabled(true)
@@ -119,46 +91,19 @@ private extension PasswordEditView {
       } footer: {
         Text(String.confirmNewPasswordIsRequired)
           .font(.uiFootnote)
-          .foregroundStyle(Utility.isBlank(passwordConfirmation) ? .red : .clear)
+          .foregroundStyle(Utility.isBlank(viewModel.passwordConfirmation) ? .red : .clear)
       }
     }
    .navigationTitle(String.updatePassword)
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {
         Button {
-          updatePassword()
+          viewModel.updatePassword()
         } label: {
           Text(String.save)
         }
-        .disabled(hasInvalidData)
+        .disabled(viewModel.hasInvalidData)
       }
-    }
-  }
-  
-  func updatePassword() {
-    let whitespacesAndNewlines = CharacterSet.whitespacesAndNewlines
-    let theCurrentPassword = currentPassword.trimmingCharacters(in: whitespacesAndNewlines)
-    let thePassword = password.trimmingCharacters(in: whitespacesAndNewlines)
-    let thePasswordConfirmation = passwordConfirmation.trimmingCharacters(in: whitespacesAndNewlines)
-
-    Task { @MainActor in
-      isUpdating = true
-
-      do {
-        let updatePassword = UpdatePassword(
-          currentPassword: theCurrentPassword,
-          password: thePassword,
-          passwordConfirmation: thePasswordConfirmation
-        )
-        
-        try await accountPasswordRepository.update(updatePassword: updatePassword)
-        messageBus.post(message: Message(level: .success, message: .passwordUpdated))
-        dismiss()
-      } catch {
-        messageBus.post(message: Message(level: .error, message: error.localizedDescription, autoDismiss: false))
-      }
-      
-      isUpdating = false
     }
   }
 }
