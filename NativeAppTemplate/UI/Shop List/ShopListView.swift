@@ -136,8 +136,8 @@ private extension ShopListView {
           ShopDetailView(
             viewModel: ShopDetailViewModel(
               sessionController: dataManager.sessionController,
-              shopRepository: viewModel.shopRepository,
-              itemTagRepository: viewModel.itemTagRepository,
+              shopRepository: dataManager.shopRepository,
+              itemTagRepository: dataManager.itemTagRepository,
               tabViewModel: tabViewModel,
               mainTab: mainTab,
               messageBus: messageBus,

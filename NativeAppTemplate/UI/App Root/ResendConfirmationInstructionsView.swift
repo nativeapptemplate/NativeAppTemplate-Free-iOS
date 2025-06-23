@@ -9,92 +9,65 @@ import SwiftUI
 
 struct ResendConfirmationInstructionsView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(MessageBus.self) private var messageBus
-  @State var email: String = ""
-  @State private var isSendingConfirmationInstructions = false
-  let signUpRepository: SignUpRepositoryProtocol
+  @State private var viewModel: ResendConfirmationInstructionsViewModel
 
   init(
-    signUpRepository: SignUpRepositoryProtocol
+    viewModel: ResendConfirmationInstructionsViewModel
   ) {
-    self.signUpRepository = signUpRepository
-  }
-
-  private var hasInvalidData: Bool {
-    if Utility.isBlank(email) {
-      return true
-    }
-    
-    if !Utility.validateEmail(email) {
-      return true
-    }
-    
-    return false
+    self._viewModel = State(initialValue: viewModel)
   }
 }
 
 extension ResendConfirmationInstructionsView {
   var body: some View {
     contentView
+      .onChange(of: viewModel.shouldDismiss) {
+        if viewModel.shouldDismiss {
+          dismiss()
+        }
+      }
   }
 }
 
 // MARK: - private
 private extension ResendConfirmationInstructionsView {
   var contentView: some View {
-    
+
     @ViewBuilder var contentView: some View {
-      if isSendingConfirmationInstructions {
+      if viewModel.isSendingConfirmationInstructions {
         LoadingView()
       } else {
         resendConfirmationInstructionsView
       }
     }
-    
+
     return contentView
   }
-  
+
   var resendConfirmationInstructionsView: some View {
     Form {
       Section {
-        TextField(String.placeholderEmail, text: $email)
+        TextField(String.placeholderEmail, text: $viewModel.email)
           .textContentType(.emailAddress)
           .autocapitalization(.none)
       } header: {
         Text(String.email)
       } footer: {
-        if Utility.isBlank(email) {
+        if viewModel.isEmailBlank {
           Text(String.emailIsRequired)
             .foregroundStyle(.red)
-        } else if !Utility.validateEmail(email) {
+        } else if viewModel.isEmailInvalid {
           Text(String.emailIsInvalid)
             .foregroundStyle(.red)
         }
       }
 
       MainButtonView(title: String.buttonSendMeConfirmationInstructions, type: .primary(withArrow: false)) {
-        sendMeConfirmationInstructionsTapped()
+        viewModel.sendMeConfirmationInstructionsTapped()
       }
-      .disabled(hasInvalidData)
+      .disabled(viewModel.hasInvalidData)
       .listRowBackground(Color.clear)
     }
     .navigationTitle(String.didntReceiveConfirmationInstructions)
-  }
-  
-  private func sendMeConfirmationInstructionsTapped() {
-    let whitespacesAndNewlines = CharacterSet.whitespacesAndNewlines
-    let theEmail = email.trimmingCharacters(in: whitespacesAndNewlines)
-        
-    Task { @MainActor in
-      do {
-        let sendConfirmation = SendConfirmation(email: theEmail)
-        try await signUpRepository.sendConfirmationInstruction(sendConfirmation: sendConfirmation)
-        messageBus.post(message: Message(level: .success, message: .sentConfirmationInstruction, autoDismiss: false))
-        dismiss()
-      } catch {
-        UIApplication.dismissKeyboard()
-        messageBus.post(message: Message(level: .error, message: String.sentConfirmationInstructionError, autoDismiss: false))
-      }
-    }
   }
 }

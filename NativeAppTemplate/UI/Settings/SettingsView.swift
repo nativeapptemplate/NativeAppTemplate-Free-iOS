@@ -13,15 +13,11 @@ struct SettingsView: View {
   @Environment(MessageBus.self) private var messageBus
   @Environment(TabViewModel.self) private var tabViewModel
   @State private var viewModel: SettingsViewModel
-  private var signUpRepository: SignUpRepositoryProtocol = SignUpRepository()
-  private var accountPasswordRepository: AccountPasswordRepositoryProtocol
-  
+
   init(
     viewModel: SettingsViewModel,
-    accountPasswordRepository: AccountPasswordRepositoryProtocol
   ) {
     self._viewModel = State(wrappedValue: viewModel)
-    self.accountPasswordRepository = accountPasswordRepository
   }
   
   var body: some View {
@@ -32,7 +28,7 @@ struct SettingsView: View {
             NavigationLink(
               destination: ShopkeeperEditView(
                 viewModel: ShopkeeperEditViewModel(
-                  signUpRepository: SignUpRepository(),
+                  signUpRepository: dataManager.signUpRepository,
                   sessionController: dataManager.sessionController,
                   messageBus: messageBus,
                   tabViewModel: tabViewModel,

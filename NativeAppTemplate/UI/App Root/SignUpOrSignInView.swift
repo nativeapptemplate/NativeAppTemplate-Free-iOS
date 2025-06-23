@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SignUpOrSignInView: View {
+  @Environment(DataManager.self) private var dataManager
+  @Environment(\.sessionController) private var sessionController: SessionControllerProtocol
+  @Environment(MessageBus.self) private var messageBus
+
   var body: some View {
     contentView
   }
@@ -37,23 +41,33 @@ private extension SignUpOrSignInView {
             .padding(.horizontal, 24)
 
           VStack {
-            NavigationLink(destination: SignUpView(signUpRepository: SignUpRepository() as SignUpRepositoryProtocol)) {
+            NavigationLink(destination: SignUpView(
+              viewModel: SignUpViewModel(
+                signUpRepository: dataManager.signUpRepository,
+                messageBus: messageBus
+              )
+            )) {
               MainButtonImageView(title: String.signUpForAnAccount, type: .primary(withArrow: false))
                 .padding(.top, 8)
                 .padding(.horizontal, 24)
             }
-            
+
             Text(verbatim: "or")
               .padding(.top, 8)
-            
-            NavigationLink(destination: SignInEmailAndPasswordView(signUpRepository: SignUpRepository() as SignUpRepositoryProtocol)) {
+
+            NavigationLink(destination: SignInEmailAndPasswordView(
+              viewModel: SignInEmailAndPasswordViewModel(
+                sessionController: sessionController,
+                messageBus: messageBus
+              )
+            )) {
               Text(String.signInToYourAccount)
                 .font(.uiLabel)
             }
             .padding(.top, 8)
           }
           .padding(.top, 4)
-          
+
           Spacer()
         }
         .padding(.bottom)
@@ -66,7 +80,7 @@ private extension SignUpOrSignInView {
       }
       .background(Color.backgroundColor)
     }
-    
+
     return contentView
   }
 }

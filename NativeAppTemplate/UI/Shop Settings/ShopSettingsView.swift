@@ -14,7 +14,7 @@ struct ShopSettingsView: View {
   @State private var viewModel: ShopSettingsViewModel
   
   init(viewModel: ShopSettingsViewModel) {
-    self._viewModel = State(wrappedValue: viewModel)
+    self.viewModel = viewModel
   }
 }
 
@@ -22,13 +22,13 @@ struct ShopSettingsView: View {
 extension ShopSettingsView {
   var body: some View {
     contentView
-      .task {
-        viewModel.reload()
-      }
-      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
-        if shouldDismiss {
+      .onChange(of: viewModel.shouldDismiss) {
+        if viewModel.shouldDismiss {
           dismiss()
         }
+      }
+      .task {
+        reload()
       }
   }
 }
@@ -36,32 +36,34 @@ extension ShopSettingsView {
 // MARK: - private
 private extension ShopSettingsView {
   var contentView: some View {
-    
     @ViewBuilder var contentView: some View {
       if viewModel.isBusy {
         LoadingView()
-      } else {
-        shopSettingsView
+      } else if let shop = viewModel.shop {
+        shopSettingsView(shop: shop)
       }
     }
     
     return contentView
   }
   
-  var shopSettingsView: some View {
+  func shopSettingsView(shop: Shop) -> some View { // swiftlint:disable:this function_body_length
     VStack {
-      if let shop = viewModel.shop {
-        Text(shop.name)
-          .font(.uiTitle1)
-          .foregroundStyle(.titleText)
-          .padding(.top, 24)
-      }
+      Text(shop.name)
+        .font(.uiTitle1)
+        .foregroundStyle(.titleText)
+        .padding(.top, 24)
       
       List {
         Section {
           NavigationLink {
             ShopBasicSettingsView(
-              viewModel: viewModel.createShopBasicSettingsViewModel()
+              viewModel: ShopBasicSettingsViewModel(
+                sessionController: dataManager.sessionController,
+                shopRepository: dataManager.shopRepository,
+                messageBus: messageBus,
+                shopId: viewModel.shopId
+              )
             )
           } label: {
             Label(String.shopSettingsBasicSettingsLabel, systemImage: "storefront")
@@ -70,35 +72,34 @@ private extension ShopSettingsView {
         }
         
         Section {
-          if let shop = viewModel.shop {
-            NavigationLink {
-              ItemTagListView(
-                viewModel: ItemTagListViewModel(
-                  itemTagRepository: dataManager.itemTagRepository,
-                  messageBus: messageBus,
-                  sessionController: dataManager.sessionController,
-                  shop: shop
-                )
+          NavigationLink {
+            ItemTagListView(
+              viewModel: ItemTagListViewModel(
+                itemTagRepository: dataManager.itemTagRepository,
+                messageBus: messageBus,
+                sessionController: dataManager.sessionController,
+                shop: shop
               )
-            } label: {
-              Label(String.shopSettingsManageNumberTagsLabel, systemImage: "rectangle.stack")
-            }
-            .listRowBackground(Color.cardBackground)
+            )
+          } label: {
+            Label(String.shopSettingsManageNumberTagsLabel, systemImage: "rectangle.stack")
           }
+          .listRowBackground(Color.cardBackground)
         }
         
         Section {
-          if viewModel.shop != nil {
-            NavigationLink {
-              NumberTagsWebpageListView(
-                viewModel: viewModel.createNumberTagsWebpageListViewModel()
+          NavigationLink {
+            NumberTagsWebpageListView(
+              viewModel: NumberTagsWebpageListViewModel(
+                shop: shop,
+                messageBus: messageBus
               )
-            } label: {
-              Label(String.shopSettingsNumberTagsWebpageLabel, systemImage: "globe")
-            }
-            .listRowBackground(Color.cardBackground)
+            )
+          } label: {
+            Label(String.shopSettingsNumberTagsWebpageLabel, systemImage: "globe")
           }
         }
+        .listRowBackground(Color.cardBackground)
         
         Section {
           VStack(spacing: 8) {
@@ -123,7 +124,7 @@ private extension ShopSettingsView {
         .padding(.top)
       }
       .refreshable {
-        viewModel.reload()
+        reload()
       }
     }
     .navigationTitle(String.shopSettingsLabel)
@@ -153,5 +154,9 @@ private extension ShopSettingsView {
     } message: {
       Text(String.areYouSure)
     }
+  }
+  
+  func reload() {
+    viewModel.reload()
   }
 }

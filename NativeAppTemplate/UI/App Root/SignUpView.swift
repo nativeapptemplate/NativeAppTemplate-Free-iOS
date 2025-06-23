@@ -9,122 +9,76 @@ import SwiftUI
 
 struct SignUpView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.sessionController) private var sessionController
-  @Environment(MessageBus.self) private var messageBus
-  private var signUpRepository: SignUpRepositoryProtocol
-  @State private var errorMessage: String = ""
-  @State private var isCreating = false
-  
-  @State private var name: String = ""
-  @State private var email: String = ""
-  @State private var password: String = ""
-  @State private var isShowingAlert = false
-  @State private var selectedTimeZone: String
-  
+  @State private var viewModel: SignUpViewModel
+
   init(
-    signUpRepository: SignUpRepositoryProtocol
+    viewModel: SignUpViewModel
   ) {
-    self.signUpRepository = signUpRepository
-    _selectedTimeZone = State(initialValue: Utility.currentTimeZone())
+    self._viewModel = State(initialValue: viewModel)
   }
-  
+
   var body: some View {
     contentView
-  }
-  
-  private var hasInvalidData: Bool {
-    if Utility.isBlank(name) {
-      return true
-    }
-    
-    if hasInvalidDataEmail {
-      return true
-    }
-    
-    if hasInvalidDataPassword {
-      return true
-    }
-    
-    return false
-  }
-  
-  private var hasInvalidDataEmail: Bool {
-    if Utility.isBlank(email) {
-      return true
-    }
-    
-    if !Utility.validateEmail(email) {
-      return true
-    }
-    
-    return false
-  }
-  
-  private var hasInvalidDataPassword: Bool {
-    if Utility.isBlank(password) {
-      return true
-    }
-    
-    if password.count < .minimumPasswordLength {
-      return true
-    }
-    
-    return false
+      .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
+        if shouldDismiss {
+          dismiss()
+        }
+      }
   }
 }
 
 // MARK: - private
 private extension SignUpView {
   var contentView: some View {
-    
+
     @ViewBuilder var contentView: some View {
-      if isCreating {
+      if viewModel.isCreating {
         LoadingView()
       } else {
         signUpView
       }
     }
-    
+
     return contentView
   }
-  
+
   var signUpView: some View {
     NavigationStack {
       Form {
         Section {
-          TextField(String.placeholderFullName, text: $name)
+          TextField(String.placeholderFullName, text: $viewModel.name)
         } header: {
           Text(String.fullName)
         } footer: {
           Text(String.fullNameIsRequired)
             .font(.caption)
-            .foregroundStyle(Utility.isBlank(name) ? .red : .clear)
+            .foregroundStyle(viewModel.isNameBlank ? .red : .clear)
         }
-        
+
         Section {
-          TextField(String.placeholderEmail, text: $email)
+          TextField(String.placeholderEmail, text: $viewModel.email)
             .textContentType(.emailAddress)
             .autocapitalization(.none)
         } header: {
           Text(String.email)
         } footer: {
-          if Utility.isBlank(email) {
+          if viewModel.isEmailBlank {
             Text(String.emailIsRequired)
               .foregroundStyle(.red)
-          } else if hasInvalidDataEmail {
+          } else if viewModel.hasInvalidDataEmail {
             Text(String.emailIsInvalid)
               .foregroundStyle(.red)
           }
         }
-        
-        Picker(String.timeZone, selection: $selectedTimeZone) {
+
+        Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
           ForEach(timeZones.keys, id: \.self) { key in
             Text(timeZones[key]!).tag(key)
           }
         }
-        
+
         Section {
-          SecureField(String.placeholderPassword, text: $password)
+          SecureField(String.placeholderPassword, text: $viewModel.password)
             .textContentType(.password)
             .autocapitalization(.none)
             .autocorrectionDisabled(true)
@@ -133,11 +87,11 @@ private extension SignUpView {
         } footer: {
           VStack(alignment: .leading) {
             Text("\(Int.minimumPasswordLength) characters minimum.")
-            
-            if Utility.isBlank(password) {
+
+            if viewModel.isPasswordBlank {
               Text(String.passwordIsRequired)
                 .foregroundStyle(.red)
-            } else if hasInvalidDataPassword {
+            } else if viewModel.hasInvalidDataPassword {
               Text(String.passwordIsInvalid)
                 .foregroundStyle(.red)
             }
@@ -145,9 +99,9 @@ private extension SignUpView {
         }
         Section {
           MainButtonView(title: String.signUp, type: .primary(withArrow: false)) {
-            createShopkeeper()
+            viewModel.createShopkeeper()
           }
-          .disabled(hasInvalidData)
+          .disabled(viewModel.hasInvalidData)
           .listRowBackground(Color.clear)
         }
       }
@@ -155,42 +109,10 @@ private extension SignUpView {
     }
     .alert(
       String.shopkeeperCreatedError,
-      isPresented: $isShowingAlert
+      isPresented: $viewModel.isShowingAlert
     ) {
     } message: {
-      Text(errorMessage)
-    }
-  }
-  
-  func createShopkeeper() {
-    let whitespacesAndNewlines = CharacterSet.whitespacesAndNewlines
-    let theName = name.trimmingCharacters(in: whitespacesAndNewlines)
-    let theEmail = email.trimmingCharacters(in: whitespacesAndNewlines)
-    let thePassword = password.trimmingCharacters(in: whitespacesAndNewlines)
-    
-    Task { @MainActor in
-      isCreating = true
-      
-      do {
-        let signUp = SignUp(
-          name: theName,
-          email: theEmail,
-          timeZone: selectedTimeZone,
-          password: thePassword
-        )
-        _ = try await signUpRepository.signUp(signUp: signUp)
-        
-        messageBus.post(message: Message(level: .error, message: String.signedUpButUnconfirmed, autoDismiss: false))
-        dismiss()
-      } catch NativeAppTemplateAPIError.requestFailed(_, _, let message) {
-        errorMessage = message ?? "UNKNOWN"
-        isShowingAlert = true
-      } catch {
-        errorMessage = error.localizedDescription
-        isShowingAlert = true
-      }
-      
-      isCreating = false
+      Text(viewModel.errorMessage)
     }
   }
 }

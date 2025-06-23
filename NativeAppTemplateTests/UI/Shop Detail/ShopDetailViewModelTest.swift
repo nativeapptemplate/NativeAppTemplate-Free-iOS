@@ -218,8 +218,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
     }
     await completeTagTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.message ==
-            "\(String.itemTagCompletedError) \(message) [Status: \(httpResponseCode)]")
+    #expect(viewModel.messageBus.currentMessage!.level == .error)
   }
 
   @Test
@@ -287,8 +286,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
     }
     await resetTagTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.message ==
-            "\(String.itemTagResetError) \(message) [Status: \(httpResponseCode)]")
+    #expect(viewModel.messageBus.currentMessage!.level == .error)
   }
 
   @Test

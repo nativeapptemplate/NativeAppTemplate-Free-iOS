@@ -41,10 +41,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     #expect(viewModel.leftInShopSlots == 3)
@@ -59,10 +57,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     viewModel.reload()
@@ -77,10 +73,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     viewModel.reload()
@@ -96,10 +90,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     viewModel.reload()
@@ -112,10 +104,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     #expect(viewModel.isShowingCreateSheet == false)
@@ -136,10 +126,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     viewModel.setTabViewModelShowingDetailViewToFalse()
@@ -152,10 +140,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     let scrollToTopID = viewModel.scrollToTopID()
@@ -172,10 +158,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     viewModel.reload()
@@ -194,10 +178,8 @@ struct ShopListViewModelTest {
     let viewModel = ShopListViewModel(
       sessionController: sessionController,
       shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
       tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus
+      mainTab: mainTab
     )
 
     viewModel.reload()

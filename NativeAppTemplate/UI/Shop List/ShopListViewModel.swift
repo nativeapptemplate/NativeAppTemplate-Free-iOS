@@ -22,26 +22,20 @@ final class ShopListViewModel {
   var shouldPopToRootView: Bool { sessionController.shouldPopToRootView }
   
   let shopRepository: ShopRepositoryProtocol
-  let itemTagRepository: ItemTagRepositoryProtocol
   private let sessionController: SessionControllerProtocol
   private let tabViewModel: TabViewModel
   private let mainTab: MainTab
-  private let messageBus: MessageBus
 
   init(
     sessionController: SessionControllerProtocol,
     shopRepository: ShopRepositoryProtocol,
-    itemTagRepository: ItemTagRepositoryProtocol,
     tabViewModel: TabViewModel,
-    mainTab: MainTab,
-    messageBus: MessageBus
+    mainTab: MainTab
   ) {
     self.sessionController = sessionController
     self.shopRepository = shopRepository
-    self.itemTagRepository = itemTagRepository
     self.tabViewModel = tabViewModel
     self.mainTab = mainTab
-    self.messageBus = messageBus
   }
   
   func reload() {
