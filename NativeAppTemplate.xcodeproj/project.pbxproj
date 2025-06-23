@@ -988,6 +988,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1309,7 +1310,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1321,7 +1322,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
@@ -1345,7 +1346,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1357,7 +1358,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
@@ -1443,7 +1444,7 @@
 				BUNDLE_ID_SUFFIX = .beta;
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1455,7 +1456,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = NativeAppTemplate;
 				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";
