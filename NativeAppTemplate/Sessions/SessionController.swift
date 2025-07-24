@@ -31,7 +31,7 @@ import Observation
     didSet {
       setClient()
       
-      if let theShopkeeper = shopkeeper {
+      if let shopkeeper {
         userState = .loggedIn
         
         if shopLimitCount == 0 {
