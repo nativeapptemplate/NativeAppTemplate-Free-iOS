@@ -862,7 +862,6 @@
 				011F6DE9259EF16400BED22E /* Sources */,
 				011F6DEA259EF16400BED22E /* Frameworks */,
 				011F6DEB259EF16400BED22E /* Resources */,
-				01A77D352632D1D900352EBC /* SwiftLint Run Script */,
 			);
 			buildRules = (
 			);
@@ -962,37 +961,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01A77D352632D1D900352EBC /* SwiftLint Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			name = "SwiftLint Run Script";
-			shellPath = /bin/sh;
-			shellScript = (
-				"if [[ \"$(uname -m)\" == arm64 ]]; then",
-				"    export PATH=\"/opt/homebrew/bin:$PATH\"",
-				"fi",
-				"",
-				"if which swiftlint > /dev/null; then",
-				"  swiftlint",
-				"else",
-				"  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"",
-				"fi",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-			);
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */

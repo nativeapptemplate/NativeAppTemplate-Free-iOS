@@ -36,10 +36,16 @@ xcodebuild -project NativeAppTemplate.xcodeproj \
 ### Linting
 ```bash
 # Run SwiftLint (must be installed via: brew install swiftlint)
-cd NativeAppTemplate && swiftlint
+swiftlint
 
 # Run SwiftLint with strict mode (as in CI)
-cd NativeAppTemplate && swiftlint --strict
+swiftlint --strict
+```
+
+### Formatting
+```bash
+# Run SwiftFormat (must be installed via: brew install swiftformat)
+swiftformat .
 ```
 
 ## Architecture Overview

@@ -2,236 +2,234 @@
 //  ShopBasicSettingsViewModelTest.swift
 //  NativeAppTemplate
 //
-//  Created by Claude on 2025/06/22.
-//
 
-import Testing
 import Foundation
 @testable import NativeAppTemplate
+import Testing
 
 @MainActor
 @Suite
 struct ShopBasicSettingsViewModelTest {
-  var shops: [Shop] {
-    [
-      mockShop(id: "1", name: "Shop 1"),
-      mockShop(id: "2", name: "Shop 2"),
-      mockShop(id: "3", name: "Shop 3"),
-      mockShop(id: "4", name: "Shop 4"),
-      mockShop(id: "5", name: "Shop 5")
-    ]
-  }
-
-  let sessionController = TestSessionController()
-  let shopRepository = TestShopRepository(
-    shopsService: ShopsService()
-  )
-  let messageBus = MessageBus()
-  let shopId = "1"
-
-  let tabViewModel = TabViewModel()
-  let mainTab = MainTab.shops
-
-  @Test
-  func stateIsInitiallyLoading() {
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    #expect(viewModel.isFetching)
-    #expect(viewModel.isBusy)
-  }
-
-  @Test("Has invalid data", arguments: ["", "Shop Name 1"])
-  func hasInvalidData(name: String) async {
-    shopRepository.setShops(shops: shops)
-
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    // https://stackoverflow.com/a/75618551/1160200
-    let reloadTask = Task {
-      viewModel.reload()
+    var shops: [Shop] {
+        [
+            mockShop(id: "1", name: "Shop 1"),
+            mockShop(id: "2", name: "Shop 2"),
+            mockShop(id: "3", name: "Shop 3"),
+            mockShop(id: "4", name: "Shop 4"),
+            mockShop(id: "5", name: "Shop 5")
+        ]
     }
-    await reloadTask.value
 
-    viewModel.name = name
-    #expect(viewModel.hasInvalidData == (name == "" ? true : false))
-  }
-
-  @Test("Has invalid data when inputting all same data", arguments: ["Shop 1", "New Shop 1"])
-  func hasInvalidDataWhenInputtingAllSameData(name: String) async {
-    shopRepository.setShops(shops: shops)
-
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
+    let sessionController = TestSessionController()
+    let shopRepository = TestShopRepository(
+        shopsService: ShopsService()
     )
+    let messageBus = MessageBus()
+    let shopId = "1"
 
-    // https://stackoverflow.com/a/75618551/1160200
-    let reloadTask = Task {
-      viewModel.reload()
+    let tabViewModel = TabViewModel()
+    let mainTab = MainTab.shops
+
+    @Test
+    func stateIsInitiallyLoading() {
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        #expect(viewModel.isFetching)
+        #expect(viewModel.isBusy)
     }
-    await reloadTask.value
 
-    viewModel.name = name
-    #expect(viewModel.hasInvalidData == (name == "Shop 1" ? true : false))
-  }
+    @Test("Has invalid data", arguments: ["", "Shop Name 1"])
+    func hasInvalidData(name: String) async {
+        shopRepository.setShops(shops: shops)
 
-  @Test
-  func reload() async {
-    shopRepository.setShops(shops: shops)
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
+        // https://stackoverflow.com/a/75618551/1160200
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    // https://stackoverflow.com/a/75618551/1160200
-    let reloadTask = Task {
-      viewModel.reload()
+        viewModel.name = name
+        #expect(viewModel.hasInvalidData == (name == "" ? true : false))
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
-    #expect(viewModel.name == shop.name)
-    #expect(viewModel.isFetching == false)
-    #expect(viewModel.isBusy == false)
-  }
+    @Test("Has invalid data when inputting all same data", arguments: ["Shop 1", "New Shop 1"])
+    func hasInvalidDataWhenInputtingAllSameData(name: String) async {
+        shopRepository.setShops(shops: shops)
 
-  @Test
-  func reloadFailed() async {
-    shopRepository.setShops(shops: shops)
-    let message = "Internal server error."
-    let httpResponseCode = 500
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+        // https://stackoverflow.com/a/75618551/1160200
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    // https://stackoverflow.com/a/75618551/1160200
-    let reloadTask = Task {
-      viewModel.reload()
+        viewModel.name = name
+        #expect(viewModel.hasInvalidData == (name == "Shop 1" ? true : false))
     }
-    await reloadTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.message == "\(message) [Status: \(httpResponseCode)]")
-    #expect(viewModel.shouldDismiss)
-  }
+    @Test
+    func reload() async throws {
+        shopRepository.setShops(shops: shops)
 
-  @Test
-  func updateShop() async {
-    shopRepository.setShops(shops: shops)
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
+        // https://stackoverflow.com/a/75618551/1160200
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    // https://stackoverflow.com/a/75618551/1160200
-    let reloadTask = Task {
-      viewModel.reload()
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.name == shop.name)
+        #expect(viewModel.isFetching == false)
+        #expect(viewModel.isBusy == false)
     }
-    await reloadTask.value
 
-    let newName = "New Shop Name"
-    let newTimeZone = "Osaka"
-    let newDescription = "New Shop Name"
+    @Test
+    func reloadFailed() async {
+        shopRepository.setShops(shops: shops)
+        let message = "Internal server error."
+        let httpResponseCode = 500
 
-    viewModel.name = newName
-    viewModel.selectedTimeZone = newTimeZone
-    viewModel.description = newDescription
+        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-    // https://stackoverflow.com/a/75618551/1160200
-    let updateShopTask = Task {
-      viewModel.updateShop()
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        // https://stackoverflow.com/a/75618551/1160200
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.shouldDismiss)
     }
-    await updateShopTask.value
 
-    let latestShop = shopRepository.shops.first { $0.id == shopId }!
+    @Test
+    func updateShop() async throws {
+        shopRepository.setShops(shops: shops)
 
-    #expect(latestShop.name == newName)
-    #expect(latestShop.timeZone == newTimeZone)
-    #expect(latestShop.description == newDescription)
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let message = String.basicSettingsUpdated
+        // https://stackoverflow.com/a/75618551/1160200
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.message == message)
-    #expect(viewModel.isUpdating == false)
-    #expect(viewModel.isBusy == false)
-    #expect(viewModel.shouldDismiss)
-  }
+        let newName = "New Shop Name"
+        let newTimeZone = "Osaka"
+        let newDescription = "New Shop Name"
 
-  @Test
-  func updateShopFailed() async {
-    shopRepository.setShops(shops: shops)
+        viewModel.name = newName
+        viewModel.selectedTimeZone = newTimeZone
+        viewModel.description = newDescription
 
-    let viewModel = ShopBasicSettingsViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      messageBus: messageBus,
-      shopId: shopId
-    )
+        // https://stackoverflow.com/a/75618551/1160200
+        let updateShopTask = Task {
+            viewModel.updateShop()
+        }
+        await updateShopTask.value
 
-    // https://stackoverflow.com/a/75618551/1160200
-    let reloadTask = Task {
-      viewModel.reload()
+        let latestShop = try #require(shopRepository.shops.first { $0.id == shopId })
+
+        #expect(latestShop.name == newName)
+        #expect(latestShop.timeZone == newTimeZone)
+        #expect(latestShop.description == newDescription)
+
+        let message = String.basicSettingsUpdated
+
+        #expect(viewModel.messageBus.currentMessage?.message == message)
+        #expect(viewModel.isUpdating == false)
+        #expect(viewModel.isBusy == false)
+        #expect(viewModel.shouldDismiss)
     }
-    await reloadTask.value
 
-    let newName = "New Shop Name"
-    let newTimeZone = "Osaka"
-    let newDescription = "New Shop Name"
+    @Test
+    func updateShopFailed() async {
+        shopRepository.setShops(shops: shops)
 
-    viewModel.name = newName
-    viewModel.selectedTimeZone = newTimeZone
-    viewModel.description = newDescription
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let message = "Internal server error."
-    let httpResponseCode = 500
+        // https://stackoverflow.com/a/75618551/1160200
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+        let newName = "New Shop Name"
+        let newTimeZone = "Osaka"
+        let newDescription = "New Shop Name"
 
-    // https://stackoverflow.com/a/75618551/1160200
-    let updateShopTask = Task {
-      viewModel.updateShop()
+        viewModel.name = newName
+        viewModel.selectedTimeZone = newTimeZone
+        viewModel.description = newDescription
+
+        let message = "Internal server error."
+        let httpResponseCode = 500
+
+        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+
+        // https://stackoverflow.com/a/75618551/1160200
+        let updateShopTask = Task {
+            viewModel.updateShop()
+        }
+        await updateShopTask.value
+
+        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.isUpdating == false)
+        #expect(viewModel.isBusy == false)
+        #expect(viewModel.shouldDismiss)
     }
-    await updateShopTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.message == "\(message) [Status: \(httpResponseCode)]")
-    #expect(viewModel.isUpdating == false)
-    #expect(viewModel.isBusy == false)
-    #expect(viewModel.shouldDismiss)
-  }
-
-  private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
-    Shop(
-      id: id,
-      name: name,
-      description: "This is a mock shop for testing",
-      timeZone: "Tokyo",
-      itemTagsCount: 10,
-      scannedItemTagsCount: 5,
-      completedItemTagsCount: 3,
-      displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
-    )
-  }
+    private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
+        Shop(
+            id: id,
+            name: name,
+            description: "This is a mock shop for testing",
+            timeZone: "Tokyo",
+            itemTagsCount: 10,
+            scannedItemTagsCount: 5,
+            completedItemTagsCount: 3,
+            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+        )
+    }
 }
