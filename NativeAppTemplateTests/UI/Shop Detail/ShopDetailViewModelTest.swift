@@ -2,364 +2,361 @@
 //  ShopDetailViewModelTest.swift
 //  NativeAppTemplate
 //
-//  Created by Claude on 2025/06/22.
-//
 
-import Testing
 import Foundation
 @testable import NativeAppTemplate
+import Testing
 
 @MainActor
 @Suite
 struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
-  var shops: [Shop] {
-    [
-      mockShop(id: "1", name: "Shop 1"),
-      mockShop(id: "2", name: "Shop 2")
-    ]
-  }
-
-  var itemTags: [ItemTag] {
-    [
-      mockItemTag(id: "1", shopId: "1", queueNumber: "A001"),
-      mockItemTag(id: "2", shopId: "1", queueNumber: "A002"),
-      mockItemTag(id: "3", shopId: "1", queueNumber: "A003")
-    ]
-  }
-
-  let sessionController = TestSessionController()
-  let shopRepository = TestShopRepository(
-    shopsService: ShopsService()
-  )
-  let itemTagRepository = TestItemTagRepository(
-    itemTagsService: ItemTagsService()
-  )
-  let tabViewModel = TabViewModel()
-  let mainTab = MainTab.shops
-  let messageBus = MessageBus()
-  let shopId = "1"
-
-  @Test
-  func stateIsInitiallyLoading() {
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    #expect(viewModel.isFetching)
-    #expect(viewModel.isBusy)
-  }
-
-  @Test
-  func reload() async {
-    shopRepository.setShops(shops: shops)
-    itemTagRepository.setItemTags(itemTags: itemTags)
-
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    #expect(viewModel.isFetching == true)
-    #expect(viewModel.isBusy)
-
-    let reloadTask = Task {
-      viewModel.reload()
+    var shops: [Shop] {
+        [
+            mockShop(id: "1", name: "Shop 1"),
+            mockShop(id: "2", name: "Shop 2")
+        ]
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
+    var itemTags: [ItemTag] {
+        [
+            mockItemTag(id: "1", shopId: "1", queueNumber: "A001"),
+            mockItemTag(id: "2", shopId: "1", queueNumber: "A002"),
+            mockItemTag(id: "3", shopId: "1", queueNumber: "A003")
+        ]
+    }
 
-    #expect(viewModel.shop == shop)
-    #expect(viewModel.itemTags == itemTags)
-    #expect(viewModel.isFetching == false)
-    #expect(viewModel.isBusy == false)
-  }
-
-  @Test
-  func reloadFailed() async {
-    shopRepository.setShops(shops: shops)
-    itemTagRepository.setItemTags(itemTags: itemTags)
-
-    let message = "Internal server error."
-    let httpResponseCode = 500
-    shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
-
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
+    let sessionController = TestSessionController()
+    let shopRepository = TestShopRepository(
+        shopsService: ShopsService()
     )
-
-    #expect(viewModel.isFetching == true)
-    #expect(viewModel.isBusy)
-
-    let reloadTask = Task {
-      viewModel.reload()
-    }
-    await reloadTask.value
-
-    #expect(viewModel.messageBus.currentMessage!.message == "\(message) [Status: \(httpResponseCode)]")
-    #expect(viewModel.shouldDismiss)
-  }
-
-  @Test
-  func completeTag() async {
-    shopRepository.setShops(shops: shops)
-    itemTagRepository.setItemTags(itemTags: itemTags)
-
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
+    let itemTagRepository = TestItemTagRepository(
+        itemTagsService: ItemTagsService()
     )
+    let tabViewModel = TabViewModel()
+    let mainTab = MainTab.shops
+    let messageBus = MessageBus()
+    let shopId = "1"
 
-    let reloadTask = Task {
-      viewModel.reload()
+    @Test
+    func stateIsInitiallyLoading() {
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        #expect(viewModel.isFetching)
+        #expect(viewModel.isBusy)
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
-    #expect(viewModel.shop == shop)
+    @Test
+    func reload() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
 
-    let completeTagTask = Task {
-      viewModel.completeTag(itemTagId: itemTags.first!.id)
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        #expect(viewModel.isFetching == true)
+        #expect(viewModel.isBusy)
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+
+        #expect(viewModel.shop == shop)
+        #expect(viewModel.itemTags == itemTags)
+        #expect(viewModel.isFetching == false)
+        #expect(viewModel.isBusy == false)
     }
-    await completeTagTask.value
 
-    let message = String.itemTagCompleted
+    @Test
+    func reloadFailed() async {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
 
-    #expect(viewModel.messageBus.currentMessage!.message == message)
-  }
+        let message = "Internal server error."
+        let httpResponseCode = 500
+        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-  @Test
-  func completeTagWhenAlreadyCompleted() async {
-    shopRepository.setShops(shops: shops)
-    var modifiedItemTags = itemTags
-    modifiedItemTags[0].alreadyCompleted = true
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    itemTagRepository.setItemTags(itemTags: modifiedItemTags)
+        #expect(viewModel.isFetching == true)
+        #expect(viewModel.isBusy)
 
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    let reloadTask = Task {
-      viewModel.reload()
+        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.shouldDismiss)
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
-    #expect(viewModel.shop == shop)
+    @Test
+    func completeTag() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
 
-    let completeTagTask = Task {
-      viewModel.completeTag(itemTagId: modifiedItemTags.first!.id)
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let completeTagTask = Task {
+            viewModel.completeTag(itemTagId: itemTags.first!.id)
+        }
+        await completeTagTask.value
+
+        let message = String.itemTagCompleted
+
+        #expect(viewModel.messageBus.currentMessage?.message == message)
     }
-    await completeTagTask.value
 
-    let message = String.itemTagAlreadyCompleted
+    @Test
+    func completeTagWhenAlreadyCompleted() async throws {
+        shopRepository.setShops(shops: shops)
+        var modifiedItemTags = itemTags
+        modifiedItemTags[0].alreadyCompleted = true
 
-    #expect(viewModel.messageBus.currentMessage!.message == message)
-  }
+        itemTagRepository.setItemTags(itemTags: modifiedItemTags)
 
-  @Test
-  func completeTagFailed() async {
-    shopRepository.setShops(shops: shops)
-    itemTagRepository.setItemTags(itemTags: itemTags)
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    let reloadTask = Task {
-      viewModel.reload()
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let completeTagTask = Task {
+            viewModel.completeTag(itemTagId: modifiedItemTags.first!.id)
+        }
+        await completeTagTask.value
+
+        let message = String.itemTagAlreadyCompleted
+
+        #expect(viewModel.messageBus.currentMessage?.message == message)
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
-    #expect(viewModel.shop == shop)
+    @Test
+    func completeTagFailed() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
 
-    let message = "Internal server error."
-    let httpResponseCode = 500
-    itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let completeTagTask = Task {
-      viewModel.completeTag(itemTagId: itemTags.first!.id)
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let message = "Internal server error."
+        let httpResponseCode = 500
+        itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+
+        let completeTagTask = Task {
+            viewModel.completeTag(itemTagId: itemTags.first!.id)
+        }
+        await completeTagTask.value
+
+        #expect(viewModel.messageBus.currentMessage?.level == .error)
     }
-    await completeTagTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.level == .error)
-  }
+    @Test
+    func resetTag() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
 
-  @Test
-  func resetTag() async {
-    shopRepository.setShops(shops: shops)
-    itemTagRepository.setItemTags(itemTags: itemTags)
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
 
-    let reloadTask = Task {
-      viewModel.reload()
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let resetTagTask = Task {
+            viewModel.resetTag(itemTagId: itemTags.first!.id)
+        }
+        await resetTagTask.value
+
+        let message = String.itemTagReset
+
+        #expect(viewModel.messageBus.currentMessage?.message == message)
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
-    #expect(viewModel.shop == shop)
+    @Test
+    func resetTagFailed() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
 
-    let resetTagTask = Task {
-      viewModel.resetTag(itemTagId: itemTags.first!.id)
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let message = "Internal server error."
+        let httpResponseCode = 500
+        itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+
+        let resetTagTask = Task {
+            viewModel.resetTag(itemTagId: itemTags.first!.id)
+        }
+        await resetTagTask.value
+
+        #expect(viewModel.messageBus.currentMessage?.level == .error)
     }
-    await resetTagTask.value
 
-    let message = String.itemTagReset
+    @Test
+    func setTabViewModelShowingDetailViewToTrue() {
+        tabViewModel.showingDetailView[mainTab] = false
 
-    #expect(viewModel.messageBus.currentMessage!.message == message)
-  }
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-  @Test
-  func resetTagFailed() async {
-    shopRepository.setShops(shops: shops)
-    itemTagRepository.setItemTags(itemTags: itemTags)
+        viewModel.setTabViewModelShowingDetailViewToTrue()
 
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    let reloadTask = Task {
-      viewModel.reload()
+        #expect(tabViewModel.showingDetailView[mainTab] == true)
     }
-    await reloadTask.value
 
-    let shop = shops.first { $0.id == shopId }!
-    #expect(viewModel.shop == shop)
+    @Test
+    func scrollToTopID() {
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
 
-    let message = "Internal server error."
-    let httpResponseCode = 500
-    itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+        let scrollToTopID = viewModel.scrollToTopID()
 
-    let resetTagTask = Task {
-      viewModel.resetTag(itemTagId: itemTags.first!.id)
+        #expect(scrollToTopID == ScrollToTopID(mainTab: mainTab, detail: true))
     }
-    await resetTagTask.value
 
-    #expect(viewModel.messageBus.currentMessage!.level == .error)
-  }
+    private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
+        Shop(
+            id: id,
+            name: name,
+            description: "This is a mock shop for testing",
+            timeZone: "Tokyo",
+            itemTagsCount: 10,
+            scannedItemTagsCount: 5,
+            completedItemTagsCount: 3,
+            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+        )
+    }
 
-  @Test
-  func setTabViewModelShowingDetailViewToTrue() {
-    tabViewModel.showingDetailView[mainTab] = false
+    private func mockItemTag(
+        id: String = UUID().uuidString,
+        shopId: String = UUID().uuidString,
+        queueNumber: String = "Mock ItemTag"
+    ) -> ItemTag {
+        let dateString = "2025-05-18 18:00:00 UTC"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss 'UTC'"
+        let date = formatter.date(from: dateString)!
 
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    viewModel.setTabViewModelShowingDetailViewToTrue()
-
-    #expect(tabViewModel.showingDetailView[mainTab] == true)
-  }
-
-  @Test
-  func scrollToTopID() {
-    let viewModel = ShopDetailViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      itemTagRepository: itemTagRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab,
-      messageBus: messageBus,
-      shopId: shopId
-    )
-
-    let scrollToTopID = viewModel.scrollToTopID()
-
-    #expect(scrollToTopID == ScrollToTopID(mainTab: mainTab, detail: true))
-  }
-
-  private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
-    Shop(
-      id: id,
-      name: name,
-      description: "This is a mock shop for testing",
-      timeZone: "Tokyo",
-      itemTagsCount: 10,
-      scannedItemTagsCount: 5,
-      completedItemTagsCount: 3,
-      displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
-    )
-  }
-
-  private func mockItemTag(
-    id: String = UUID().uuidString,
-    shopId: String = UUID().uuidString,
-    queueNumber: String = "Mock ItemTag"
-  ) -> ItemTag {
-
-    let dateString = "2025-05-18 18:00:00 UTC"
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss 'UTC'"
-    let date = formatter.date(from: dateString)!
-
-    return ItemTag(
-      id: id,
-      shopId: shopId,
-      queueNumber: queueNumber,
-      state: .idled,
-      scanState: .unscanned,
-      createdAt: date,
-      customerReadAt: nil,
-      completedAt: nil,
-      shopName: "Mock ItemTag",
-      alreadyCompleted: false
-    )
-  }
+        return ItemTag(
+            id: id,
+            shopId: shopId,
+            queueNumber: queueNumber,
+            state: .idled,
+            scanState: .unscanned,
+            createdAt: date,
+            customerReadAt: nil,
+            completedAt: nil,
+            shopName: "Mock ItemTag",
+            alreadyCompleted: false
+        )
+    }
 }

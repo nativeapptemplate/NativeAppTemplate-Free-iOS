@@ -1,0 +1,46 @@
+# SwiftFormat Configuration for NativeAppTemplate
+
+# Swift version
+--swiftversion 6.0
+
+# Indentation
+--indent 4
+--indentcase false
+--trimwhitespace always
+
+# Operators
+--nospaceoperators ...,..
+--ranges spaced
+
+# File header
+--header "//\n//  {file}\n//  NativeAppTemplate\n//"
+
+# Excluded paths
+--exclude Pods,Carthage,DerivedData,.build
+
+# Formatting rules
+--allman false
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--closingparen balanced
+--commas always
+--decimalgrouping 3,4
+--exponentcase lowercase
+--fractiongrouping disabled
+--hexliteralcase lowercase
+--ifdef no-indent
+--linebreaks lf
+--octalgrouping 4,8
+--operatorfunc spaced
+--patternlet hoist
+--self remove
+--semicolons never
+--stripunusedargs closure-only
+--trailingclosures
+--commas inline
+--xcodeindentation disabled
+
+# Disabled rules to avoid conflicts with SwiftLint
+--disable wrapMultilineStatementBraces

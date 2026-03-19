@@ -2,202 +2,200 @@
 //  ShopListViewModelTest.swift
 //  NativeAppTemplate
 //
-//  Created by Claude on 2025/06/22.
-//
 
-import Testing
 import Foundation
 @testable import NativeAppTemplate
+import Testing
 
 @MainActor
 @Suite
 struct ShopListViewModelTest {
-  var shops: [Shop] {
-    [
-      mockShop(id: "1", name: "Shop 1"),
-      mockShop(id: "2", name: "Shop 2"),
-      mockShop(id: "3", name: "Shop 3"),
-      mockShop(id: "4", name: "Shop 4"),
-      mockShop(id: "5", name: "Shop 5")
-    ]
-  }
+    var shops: [Shop] {
+        [
+            mockShop(id: "1", name: "Shop 1"),
+            mockShop(id: "2", name: "Shop 2"),
+            mockShop(id: "3", name: "Shop 3"),
+            mockShop(id: "4", name: "Shop 4"),
+            mockShop(id: "5", name: "Shop 5")
+        ]
+    }
 
-  let sessionController = TestSessionController()
-  let shopRepository = TestShopRepository(
-    shopsService: ShopsService()
-  )
-  let itemTagRepository = TestItemTagRepository(
-    itemTagsService: ItemTagsService()
-  )
-  let tabViewModel = TabViewModel()
-  let mainTab = MainTab.shops
-  let messageBus = MessageBus()
-
-  @Test
-  func leftInShopSlots() {
-    shopRepository.limitCount = 5
-    shopRepository.createdShopsCount = 2
-
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
+    let sessionController = TestSessionController()
+    let shopRepository = TestShopRepository(
+        shopsService: ShopsService()
     )
-
-    #expect(viewModel.leftInShopSlots == 3)
-  }
-
-  @Test("Should pop to root view", arguments: [false, true])
-  func shouldPopToRootView(shouldPopToRootView: Bool) {
-    sessionController.shouldPopToRootView = shouldPopToRootView
-
-    shopRepository.setShops(shops: shops)
-
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
+    let itemTagRepository = TestItemTagRepository(
+        itemTagsService: ItemTagsService()
     )
+    let tabViewModel = TabViewModel()
+    let mainTab = MainTab.shops
+    let messageBus = MessageBus()
 
-    viewModel.reload()
+    @Test
+    func leftInShopSlots() {
+        shopRepository.limitCount = 5
+        shopRepository.createdShopsCount = 2
 
-    #expect(viewModel.shouldPopToRootView == shouldPopToRootView)
-  }
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-  @Test
-  func reload() {
-    shopRepository.setShops(shops: shops)
+        #expect(viewModel.leftInShopSlots == 3)
+    }
 
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+    @Test("Should pop to root view", arguments: [false, true])
+    func shouldPopToRootView(shouldPopToRootView: Bool) {
+        sessionController.shouldPopToRootView = shouldPopToRootView
 
-    viewModel.reload()
+        shopRepository.setShops(shops: shops)
 
-    #expect(viewModel.shops.count == 5)
-  }
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-  @Test
-  func reloadFailed() {
-    shopRepository.setShops(shops: shops)
-    shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 422, nil)
+        viewModel.reload()
 
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+        #expect(viewModel.shouldPopToRootView == shouldPopToRootView)
+    }
 
-    viewModel.reload()
+    @Test
+    func reload() {
+        shopRepository.setShops(shops: shops)
 
-    #expect(viewModel.state == .failed)
-  }
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-  @Test
-  func showCreateView() {
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+        viewModel.reload()
 
-    #expect(viewModel.isShowingCreateSheet == false)
+        #expect(viewModel.shops.count == 5)
+    }
 
-    viewModel.showCreateView()
+    @Test
+    func reloadFailed() {
+        shopRepository.setShops(shops: shops)
+        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 422, nil)
 
-    #expect(viewModel.isShowingCreateSheet == true)
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-    viewModel.showCreateView()
+        viewModel.reload()
 
-    #expect(viewModel.isShowingCreateSheet == false)
-  }
+        #expect(viewModel.state == .failed)
+    }
 
-  @Test
-  func setTabViewModelShowingDetailViewToFalse() {
-    tabViewModel.showingDetailView[mainTab] = true
+    @Test
+    func showCreateView() {
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+        #expect(viewModel.isShowingCreateSheet == false)
 
-    viewModel.setTabViewModelShowingDetailViewToFalse()
+        viewModel.showCreateView()
 
-    #expect(tabViewModel.showingDetailView[mainTab] == false)
-  }
+        #expect(viewModel.isShowingCreateSheet == true)
 
-  @Test
-  func scrollToTopID() {
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+        viewModel.showCreateView()
 
-    let scrollToTopID = viewModel.scrollToTopID()
+        #expect(viewModel.isShowingCreateSheet == false)
+    }
 
-    #expect(scrollToTopID == ScrollToTopID(mainTab: mainTab, detail: false))
-  }
+    @Test
+    func setTabViewModelShowingDetailViewToFalse() {
+        tabViewModel.showingDetailView[mainTab] = true
 
-  @Test
-  func repositoryProperties() {
-    shopRepository.setShops(shops: shops)
-    shopRepository.limitCount = 10
-    shopRepository.createdShopsCount = 5
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+        viewModel.setTabViewModelShowingDetailViewToFalse()
 
-    viewModel.reload()
+        #expect(tabViewModel.showingDetailView[mainTab] == false)
+    }
 
-    #expect(viewModel.shops.count == 5)
-    #expect(viewModel.limitCount == 10)
-    #expect(viewModel.createdShopsCount == 5)
-    #expect(viewModel.isEmpty == false)
-    #expect(viewModel.leftInShopSlots == 5)
-  }
+    @Test
+    func scrollToTopID() {
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-  @Test
-  func emptyState() {
-    shopRepository.setShops(shops: [])
+        let scrollToTopID = viewModel.scrollToTopID()
 
-    let viewModel = ShopListViewModel(
-      sessionController: sessionController,
-      shopRepository: shopRepository,
-      tabViewModel: tabViewModel,
-      mainTab: mainTab
-    )
+        #expect(scrollToTopID == ScrollToTopID(mainTab: mainTab, detail: false))
+    }
 
-    viewModel.reload()
+    @Test
+    func repositoryProperties() {
+        shopRepository.setShops(shops: shops)
+        shopRepository.limitCount = 10
+        shopRepository.createdShopsCount = 5
 
-    #expect(viewModel.shops.isEmpty == true)
-    #expect(viewModel.isEmpty == true)
-  }
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
 
-  private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
-    Shop(
-      id: id,
-      name: name,
-      description: "This is a mock shop for testing",
-      timeZone: "Tokyo",
-      itemTagsCount: 10,
-      scannedItemTagsCount: 5,
-      completedItemTagsCount: 3,
-      displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
-    )
-  }
+        viewModel.reload()
+
+        #expect(viewModel.shops.count == 5)
+        #expect(viewModel.limitCount == 10)
+        #expect(viewModel.createdShopsCount == 5)
+        #expect(viewModel.isEmpty == false)
+        #expect(viewModel.leftInShopSlots == 5)
+    }
+
+    @Test
+    func emptyState() {
+        shopRepository.setShops(shops: [])
+
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
+
+        viewModel.reload()
+
+        #expect(viewModel.shops.isEmpty == true)
+        #expect(viewModel.isEmpty == true)
+    }
+
+    private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
+        Shop(
+            id: id,
+            name: name,
+            description: "This is a mock shop for testing",
+            timeZone: "Tokyo",
+            itemTagsCount: 10,
+            scannedItemTagsCount: 5,
+            completedItemTagsCount: 3,
+            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+        )
+    }
 }
