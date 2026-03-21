@@ -68,7 +68,7 @@ import Observation
     init(loginRepository: LoginRepositoryProtocol) {
         self.loginRepository = loginRepository
 
-        let shopkeeper = Shopkeeper.backdoor ?? loginRepository.currentShopkeeper
+        let shopkeeper = loginRepository.currentShopkeeper
         let token = shopkeeper?.token ?? ""
         let tokenClient = shopkeeper?.client ?? ""
         let expiry = shopkeeper?.expiry ?? ""
