@@ -161,7 +161,6 @@
 		01E0A5B825BD0FCD00298D35 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A5B325BD0FC700298D35 /* ErrorView.swift */; };
 		01E0A60125BD149200298D35 /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A5F925BD148800298D35 /* MainButtonView.swift */; };
 		01E0A60C25BD440300298D35 /* SignInEmailAndPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A60B25BD440300298D35 /* SignInEmailAndPasswordView.swift */; };
-		01E0A62225BD4A7800298D35 /* Shopkeeper+Backdoor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A62125BD4A7800298D35 /* Shopkeeper+Backdoor.swift */; };
 		01E0A63025BD53FD00298D35 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A62F25BD53FD00298D35 /* Shop.swift */; };
 		01E1CECC287787A700E724FC /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1CECB287787A700E724FC /* SignUpView.swift */; };
 		01E2477029A570D300D4B00D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E2476F29A570D300D4B00D /* SignUp.swift */; };
@@ -338,7 +337,6 @@
 		01E0A5B525BD0FC700298D35 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		01E0A5F925BD148800298D35 /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
 		01E0A60B25BD440300298D35 /* SignInEmailAndPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailAndPasswordView.swift; sourceTree = "<group>"; };
-		01E0A62125BD4A7800298D35 /* Shopkeeper+Backdoor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shopkeeper+Backdoor.swift"; sourceTree = "<group>"; };
 		01E0A62F25BD53FD00298D35 /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
 		01E1CECB287787A700E724FC /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		01E2476F29A570D300D4B00D /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -629,7 +627,6 @@
 			children = (
 				017203C725A9708A008FD63B /* SessionController.swift */,
 				0199CD3D2E075CBB00109DC6 /* SessionControllerProtocol.swift */,
-				01E0A62125BD4A7800298D35 /* Shopkeeper+Backdoor.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
@@ -906,7 +903,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					011F6DEC259EF16400BED22E = {
 						CreatedOnToolsVersion = 12.3;
@@ -959,9 +956,6 @@
 			);
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		011F6DE9259EF16400BED22E /* Sources */ = {
@@ -1040,7 +1034,6 @@
 				01ED197B2A037B9E00CD4735 /* AppTabView.swift in Sources */,
 				0110A1612AC81978003EDCBA /* ResendConfirmationInstructionsView.swift in Sources */,
 				01D85BA72E081C6D00A95798 /* ScanViewModel.swift in Sources */,
-				01E0A62225BD4A7800298D35 /* Shopkeeper+Backdoor.swift in Sources */,
 				0106413C29A9EDFF00B46FED /* AccountPasswordRequest.swift in Sources */,
 				0172035625A9642E008FD63B /* ShopAdapter.swift in Sources */,
 				0172788B2D7D936E00CE424F /* CompletedTag.swift in Sources */,
@@ -1200,6 +1193,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1262,6 +1256,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1397,6 +1392,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

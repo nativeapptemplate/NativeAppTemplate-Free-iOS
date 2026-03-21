@@ -211,7 +211,8 @@ extension String {
     static let passwordUpdatedError = "There was a problem updating the password."
 
     static let sentResetPasswordInstruction =
-        "An email has been sent the email containing instructions for resetting your password."
+        "If your email address exists in our database, you will receive a password recovery link " +
+        "at your email address in a few minutes."
     static let sentResetPasswordInstructionError = "Unable to find user with the email."
 
     static let sentConfirmationInstruction =
