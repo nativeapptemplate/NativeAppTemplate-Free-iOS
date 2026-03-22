@@ -3,11 +3,8 @@
 //  NativeAppTemplate
 //
 
-import class Foundation.URLSession
-
 struct ShopsService: Service {
     var networkClient = NativeAppTemplateAPI()
-    let session = URLSession(configuration: .default)
 }
 
 // MARK: - Internal

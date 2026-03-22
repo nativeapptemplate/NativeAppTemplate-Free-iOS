@@ -73,7 +73,7 @@ public struct NativeAppTemplateAPI: Equatable {
     // MARK: - Initializers
 
     nonisolated init(
-        session: URLSession = .init(configuration: .default),
+        session: URLSession = .pinned,
         environment: NativeAppTemplateEnvironment = .prod,
         authToken: String,
         client: String,

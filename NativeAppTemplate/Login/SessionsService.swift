@@ -8,7 +8,7 @@ import SwiftyJSON
 
 struct SessionsService {
     var networkClient: NativeAppTemplateAPI
-    var session = URLSession(configuration: .default)
+    var session: URLSession = .pinned
 }
 
 extension SessionsService {

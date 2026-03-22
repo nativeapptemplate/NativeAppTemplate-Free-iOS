@@ -12,6 +12,10 @@ protocol Service {
 }
 
 extension Service {
+    var session: URLSession { .pinned }
+}
+
+extension Service {
     var isAuthenticated: Bool {
         !networkClient.authToken.isEmpty
     }
