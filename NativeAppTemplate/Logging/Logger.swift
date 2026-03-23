@@ -32,6 +32,10 @@ struct Failure {
         .init(source: source, action: "destroy", reason: reason)
     }
 
+    static func certificatePinning(from source: (some Any).Type, reason: String) -> Self {
+        .init(source: source, action: "certificatePinning", reason: reason)
+    }
+
     private init<Source>(
         source: Source.Type,
         action: String,

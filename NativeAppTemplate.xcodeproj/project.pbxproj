@@ -46,6 +46,7 @@
 		0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */; };
 		0172033A25A9642E008FD63B /* JSONAPIDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030B25A9642E008FD63B /* JSONAPIDocument.swift */; };
 		0172033B25A9642E008FD63B /* JSONAPIErrorSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030C25A9642E008FD63B /* JSONAPIErrorSource.swift */; };
+		7249A60C06FE44338E16BC50 /* CertificatePinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597C0551370446BB931F19B /* CertificatePinningDelegate.swift */; };
 		0172033C25A9642E008FD63B /* NativeAppTemplateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */; };
 		0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */; };
 		0172033E25A9642E008FD63B /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172031125A9642E008FD63B /* Parameters.swift */; };
@@ -221,6 +222,7 @@
 		0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIRelationship.swift; sourceTree = "<group>"; };
 		0172030B25A9642E008FD63B /* JSONAPIDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIDocument.swift; sourceTree = "<group>"; };
 		0172030C25A9642E008FD63B /* JSONAPIErrorSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIErrorSource.swift; sourceTree = "<group>"; };
+		C597C0551370446BB931F19B /* CertificatePinningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinningDelegate.swift; sourceTree = "<group>"; };
 		0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateAPI.swift; sourceTree = "<group>"; };
 		0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateEnvironment.swift; sourceTree = "<group>"; };
 		0172031125A9642E008FD63B /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 		0172030D25A9642E008FD63B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C597C0551370446BB931F19B /* CertificatePinningDelegate.swift */,
 				0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */,
 				0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */,
 			);
@@ -979,6 +982,7 @@
 				01E0A60C25BD440300298D35 /* SignInEmailAndPasswordView.swift in Sources */,
 				0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */,
 				01B526562AF4E82A00655131 /* ScrollToTopID.swift in Sources */,
+				7249A60C06FE44338E16BC50 /* CertificatePinningDelegate.swift in Sources */,
 				0172033C25A9642E008FD63B /* NativeAppTemplateAPI.swift in Sources */,
 				017203B325A96FD6008FD63B /* UIApplication+DismissKeyboard.swift in Sources */,
 				01A133A72E08BB66000AD24A /* SignUpViewModel.swift in Sources */,
