@@ -162,7 +162,7 @@ import Observation
 
         Task {
             do {
-                let prmissionsResponse = try await permissionsService.allPermissions()
+                let permissionsResponse = try await permissionsService.allPermissions()
 
                 // Check that we have a logged in user. Otherwise this is pointless
                 guard let shopkeeper = self.shopkeeper else { return }
@@ -172,12 +172,12 @@ import Observation
                 // Ensure loginRepository is aware, and hence the keychain is updated
                 try self.loginRepository.updateShopkeeper(shopkeeper: self.shopkeeper)
 
-                shouldUpdateApp = Int(Bundle.main.appBuild)! < prmissionsResponse.iosAppVersion
-                shouldUpdatePrivacy = prmissionsResponse.shouldUpdatePrivacy
-                shouldUpdateTerms = prmissionsResponse.shouldUpdateTerms
-                maximumQueueNumberLength = prmissionsResponse.maximumQueueNumberLength
+                shouldUpdateApp = Int(Bundle.main.appBuild)! < permissionsResponse.iosAppVersion
+                shouldUpdatePrivacy = permissionsResponse.shouldUpdatePrivacy
+                shouldUpdateTerms = permissionsResponse.shouldUpdateTerms
+                maximumQueueNumberLength = permissionsResponse.maximumQueueNumberLength
 
-                shopLimitCount = prmissionsResponse.shopLimitCount
+                shopLimitCount = permissionsResponse.shopLimitCount
 
                 didFetchPermissions = true
             } catch {

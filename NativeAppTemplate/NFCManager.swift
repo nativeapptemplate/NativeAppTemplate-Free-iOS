@@ -74,24 +74,24 @@ extension NFCManager: NFCManagerProtocol {
         internalScanResult = nil
         internalIsScanResultChanged = false
         nfcOperation = .read
-        startSesstion()
+        startSession()
     }
 
     func startReadingForTesting() async {
         internalScanResult = nil
         internalIsScanResultChangedForTesting = false
         nfcOperation = .readForTesting
-        startSesstion()
+        startSession()
     }
 
     func startWriting(ndefMessage: NFCNDEFMessage, isLock: Bool) async {
         nfcOperation = .write
         userNdefMessage = ndefMessage
         self.isLock = isLock
-        startSesstion()
+        startSession()
     }
 
-    private func startSesstion() {
+    private func startSession() {
         nfcSession = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
         nfcSession?.begin()
     }
