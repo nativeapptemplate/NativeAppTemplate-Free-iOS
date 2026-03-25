@@ -14,7 +14,6 @@ struct AppTabView<
     @Environment(DataManager.self) private var dataManager
     @Environment(TabViewModel.self) private var model
     @State var navigationPathShops = NavigationPath()
-    @State var navigationPathStats = NavigationPath()
     private let shopListView: () -> ShopListView
     private let scanView: () -> ScanView
     private let settingsView: () -> SettingsView
@@ -83,13 +82,11 @@ extension AppTabView: View {
         .tint(.accent)
         .onChange(of: sessionController.client) {
             navigationPathShops = NavigationPath()
-            navigationPathStats = NavigationPath()
         }
         .onChange(of: sessionController.shouldPopToRootView) {
             if sessionController.shouldPopToRootView {
                 navigationPathShops = NavigationPath()
-                navigationPathStats = NavigationPath()
-                sessionController.shouldPopToRootView = false
+                    sessionController.shouldPopToRootView = false
             }
         }
     }
