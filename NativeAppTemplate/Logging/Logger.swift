@@ -67,7 +67,13 @@ struct Failure {
     private let reason: String
 
     func log() {
-        appLogger.error("source: \(self.source, privacy: .public), action: \(self.action, privacy: .public), reason: \(self.reason, privacy: .private)")
+        appLogger.error(
+            """
+            \(self.action, privacy: .public) \
+            source=\(self.source, privacy: .public) \
+            reason=\(self.reason, privacy: .private)
+            """
+        )
     }
 }
 
