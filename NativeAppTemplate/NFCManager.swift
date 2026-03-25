@@ -205,7 +205,9 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
             isLock: isLock
         ) { error in
             guard error == nil else { return }
+            #if DEBUG
             print(">>> Write: \(userNdefMessage)")
+            #endif
         }
     }
 
@@ -263,6 +265,8 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
     func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {}
 
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+        #if DEBUG
         print("readerSession error: \(error.localizedDescription)")
+        #endif
     }
 }

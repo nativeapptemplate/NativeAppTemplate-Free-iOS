@@ -100,7 +100,9 @@ import Foundation
         do {
             try keychainStore.remove()
         } catch {
+            #if DEBUG
             print(error)
+            #endif
         }
     }
 }

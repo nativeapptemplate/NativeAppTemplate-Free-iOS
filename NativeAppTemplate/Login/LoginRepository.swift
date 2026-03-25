@@ -18,7 +18,9 @@ import Foundation
                 let loggedInShopkeeper = try keychainStore.retrieve()
                 _currentShopkeeper = Shopkeeper(from: loggedInShopkeeper)
             } catch {
+                #if DEBUG
                 print(error)
+                #endif
             }
         }
         return _currentShopkeeper
@@ -86,7 +88,9 @@ import Foundation
         do {
             try keychainStore.remove()
         } catch {
+            #if DEBUG
             print(error)
+            #endif
         }
     }
 }

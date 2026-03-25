@@ -3,6 +3,10 @@
 //  NativeAppTemplate
 //
 
+import os
+
+private let appLogger = os.Logger(subsystem: "com.nativeapptemplate", category: "app")
+
 struct Failure {
     static func signUp(from source: (some Any).Type, reason: String) -> Self {
         .init(source: source, action: "signUp", reason: reason)
@@ -63,12 +67,12 @@ struct Failure {
     private let reason: String
 
     func log() {
-        print(
-            [
-                "source": source,
-                "action": action,
-                "reason": reason
-            ]
+        appLogger.error(
+            """
+            \(self.action, privacy: .public) \
+            source=\(self.source, privacy: .public) \
+            reason=\(self.reason, privacy: .private)
+            """
         )
     }
 }
@@ -95,6 +99,6 @@ struct Event {
     private let action: String
 
     func log() {
-        print("EVENT:: \(["source": source, "action": action])")
+        appLogger.info("EVENT:: source: \(self.source, privacy: .public), action: \(self.action, privacy: .public)")
     }
 }
