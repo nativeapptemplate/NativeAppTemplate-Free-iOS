@@ -15,7 +15,7 @@ protocol NFCManagerProtocol: Sendable {
     func startReading() async
     func startReadingForTesting() async
 
-    func startWriting(ndefMessage: sending NFCNDEFMessage, isLock: Bool) async
+    func startWriting(ndefMessage: NFCNDEFMessage, isLock: Bool) async
 }
 
 final class NFCManager: NSObject, ObservableObject, @unchecked Sendable {

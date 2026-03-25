@@ -83,7 +83,7 @@ final class ItemTagDetailViewModel {
             return
         }
 
-        let ndefMessage = createNdefMessage(itemTag: itemTag, itemTagType: .server)
+        nonisolated(unsafe) let ndefMessage = createNdefMessage(itemTag: itemTag, itemTagType: .server)
 
         Task {
             await nfcManager.startWriting(ndefMessage: ndefMessage, isLock: isLocked)
@@ -104,7 +104,7 @@ final class ItemTagDetailViewModel {
             return
         }
 
-        let ndefMessage = createNdefMessage(itemTag: itemTag, itemTagType: .customer)
+        nonisolated(unsafe) let ndefMessage = createNdefMessage(itemTag: itemTag, itemTagType: .customer)
 
         Task {
             await nfcManager.startWriting(ndefMessage: ndefMessage, isLock: isLocked)

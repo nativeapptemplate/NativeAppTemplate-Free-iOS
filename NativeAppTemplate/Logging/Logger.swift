@@ -91,7 +91,7 @@ struct Event {
     ) -> Self {
         .init(
             source: "\(Source.self)",
-            action: "Refresh"
+            action: action
         )
     }
 
