@@ -5,7 +5,7 @@
 
 import os
 
-private let appLogger = os.Logger(subsystem: "com.nativeapptemplate", category: "app")
+let appLogger = os.Logger(subsystem: "com.nativeapptemplate", category: "app")
 
 struct Failure {
     static func signUp(from source: (some Any).Type, reason: String) -> Self {

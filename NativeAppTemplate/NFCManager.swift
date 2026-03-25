@@ -5,6 +5,7 @@
 
 @preconcurrency import CoreNFC
 import Foundation
+import os
 
 protocol NFCManagerProtocol: Sendable {
     @MainActor var scanResult: Result<ItemTagData, Error>? { get }
@@ -205,9 +206,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
             isLock: isLock
         ) { error in
             guard error == nil else { return }
-            #if DEBUG
-            print(">>> Write: \(userNdefMessage)")
-            #endif
+            appLogger.debug("NFC Write: \(userNdefMessage, privacy: .private)")
         }
     }
 
@@ -265,8 +264,6 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
     func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {}
 
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-        #if DEBUG
-        print("readerSession error: \(error.localizedDescription)")
-        #endif
+        appLogger.debug("readerSession error: \(error.localizedDescription, privacy: .private)")
     }
 }
