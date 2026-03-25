@@ -60,7 +60,9 @@ extension KeychainStore {
 
     func store(_ data: DataType) throws {
         let archived: Data
+        #if DEBUG
         print("data: \(data)")
+        #endif
         do {
             archived = try NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: true)
         } catch {

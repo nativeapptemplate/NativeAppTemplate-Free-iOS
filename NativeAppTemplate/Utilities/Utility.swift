@@ -75,12 +75,16 @@ enum Utility {
                 if let itemTagId = item.value {
                     itemTagInfo.id = itemTagId
                 }
+                #if DEBUG
                 print("item_tag_id: \(String(describing: itemTagInfo.id))")
+                #endif
             case "type":
                 if let type = item.value {
                     itemTagInfo.type = type
                 }
+                #if DEBUG
                 print("type: \(String(describing: itemTagInfo.type))")
+                #endif
             default:
                 break
             }
