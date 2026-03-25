@@ -5,6 +5,7 @@
 
 import Foundation
 import KeychainAccess
+import os
 
 enum KeychainStoreError: Error {
     case secCallFailed(Error)
@@ -60,9 +61,7 @@ extension KeychainStore {
 
     func store(_ data: DataType) throws {
         let archived: Data
-        #if DEBUG
-        print("data: \(data)")
-        #endif
+        appLogger.debug("KeychainStore data: \(data, privacy: .private)")
         do {
             archived = try NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: true)
         } catch {

@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import os
 
 @MainActor class SignUpRepository: SignUpRepositoryProtocol {
     func signUp(signUp: SignUp) async throws -> Shopkeeper {
@@ -100,9 +101,7 @@ import Foundation
         do {
             try keychainStore.remove()
         } catch {
-            #if DEBUG
-            print(error)
-            #endif
+            appLogger.debug("SignUpRepository remove error: \(error, privacy: .private)")
         }
     }
 }

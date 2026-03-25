@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import os
 
 @MainActor @Observable public class LoginRepository: LoginRepositoryProtocol {
     // MARK: - Properties
@@ -18,9 +19,7 @@ import Foundation
                 let loggedInShopkeeper = try keychainStore.retrieve()
                 _currentShopkeeper = Shopkeeper(from: loggedInShopkeeper)
             } catch {
-                #if DEBUG
-                print(error)
-                #endif
+                appLogger.debug("LoginRepository retrieve error: \(error, privacy: .private)")
             }
         }
         return _currentShopkeeper
@@ -88,9 +87,7 @@ import Foundation
         do {
             try keychainStore.remove()
         } catch {
-            #if DEBUG
-            print(error)
-            #endif
+            appLogger.debug("LoginRepository remove error: \(error, privacy: .private)")
         }
     }
 }
