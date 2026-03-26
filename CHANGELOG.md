@@ -16,6 +16,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Applied SwiftFormat across all source files
 - Fixed all SwiftLint violations (line length, cyclomatic complexity, etc.)
 
+### Security
+- Prevent sensitive data from leaking to iOS console in Release builds
+- Replace `#if DEBUG print()` with `os.Logger` for structured, privacy-aware logging
+- Add TLS certificate pinning for API connections
+- Remove backdoor authentication bypass
+
+### Fixed
+- Fix typo `startSesstion` → `startSession` in NFCManager
+- Fix typo `prmissionsResponse` → `permissionsResponse` in SessionController
+- Fix `Event.refresh` ignoring `action` parameter and hardcoding `"Refresh"`
+- Fix data race warning when sending `NFCNDEFMessage` across isolation boundaries
+- Remove unused `navigationPathStats` state variable from `AppTabView`
+
+### Other
+- Refine `.claude` gitignore rules for granular control
+
 ## [1.1.0] - 2025-07-26
 
 ### Changed
