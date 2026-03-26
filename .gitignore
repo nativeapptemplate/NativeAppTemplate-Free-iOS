@@ -73,4 +73,19 @@ secrets.*.xcconfig
 !secrets.template.xcconfig
 
 # Claude
-.claude/
+# Personal Claude Code settings
+.claude/settings.local.json
+.claude/CLAUDE.local.md
+
+# Sensitive data and generated files within skills
+.claude/skills/*/.venv/
+.claude/skills/*/venv/
+.claude/skills/*/node_modules/
+.claude/skills/*/data/
+.claude/skills/*/auth_info.json
+.claude/skills/*/__pycache__/
+
+# Logs and temporary files
+.claude/logs/
+.claude/tmp/
+.claude/*.log
