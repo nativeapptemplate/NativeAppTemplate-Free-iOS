@@ -23,7 +23,7 @@ struct TagView: View {
     var image: Image?
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: NativeAppTemplateConstants.Spacing.xxxs) {
             image?
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -40,10 +40,10 @@ struct TagView: View {
                     }
                 )
         }
-        .padding([.vertical], 4)
-        .padding([.horizontal], 8)
+        .padding([.vertical], NativeAppTemplateConstants.Spacing.xxxs)
+        .padding([.horizontal], NativeAppTemplateConstants.Spacing.xxs)
         .background(backgroundColor)
-        .cornerRadius(4) // This is a bit hacky.
+        .cornerRadius(NativeAppTemplateConstants.CornerRadius.xs) // This is a bit hacky.
         .onPreferenceChange(SizeKey.self) { size in
             Task { @MainActor in
                 height = size?.height

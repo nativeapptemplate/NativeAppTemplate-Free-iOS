@@ -49,17 +49,17 @@ private extension ItemTagDetailView {
                 VStack(alignment: .center, spacing: 0) {
                     Text(verbatim: "Write Info to Tag / Save Customer QR code")
                         .font(.title2)
-                        .padding(.top, 8)
+                        .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
 
                     Text(viewModel.shop.name)
                         .font(.title3)
-                        .padding(.top, 16)
+                        .padding(.top, NativeAppTemplateConstants.Spacing.sm)
 
                     if let itemTag = viewModel.itemTag {
                         Text(String(itemTag.queueNumber))
                             .font(.largeTitle)
                             .bold()
-                            .padding(.top, 8)
+                            .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
                             .foregroundStyle(.lightestAccent)
                     }
                 }
@@ -69,7 +69,7 @@ private extension ItemTagDetailView {
                         Text(verbatim: "Lock")
                     }
                     .dynamicTypeSize(...DynamicTypeSize.large)
-                    .frame(width: 96)
+                    .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .tint(.lockForeground)
 
                     if viewModel.isLocked {
@@ -99,7 +99,7 @@ private extension ItemTagDetailView {
                     if let customerTagQrCodeImage = viewModel.customerTagQrCodeImage {
                         Image(uiImage: customerTagQrCodeImage)
                             .resizable()
-                            .frame(width: 96, height: 96)
+                            .frame(width: NativeAppTemplateConstants.Spacing.xxxl, height: NativeAppTemplateConstants.Spacing.xxxl)
 
                         Button {
                             viewModel.saveImageToPhotoAlbum()
@@ -110,7 +110,7 @@ private extension ItemTagDetailView {
                         generateCustomerQrCodeView
                     }
                 }
-                .padding(.top, 24)
+                .padding(.top, NativeAppTemplateConstants.Spacing.md)
                 .foregroundStyle(.customerForeground)
                 .backgroundStyle(.customerBackground)
             }

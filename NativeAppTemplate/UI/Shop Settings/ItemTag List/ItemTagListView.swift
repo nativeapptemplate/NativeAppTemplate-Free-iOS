@@ -49,7 +49,7 @@ private extension ItemTagListView {
             Text(viewModel.shop.name)
                 .font(.uiTitle1)
                 .foregroundStyle(.titleText)
-                .padding(.top, 24)
+                .padding(.top, NativeAppTemplateConstants.Spacing.md)
                 .multilineTextAlignment(.center)
 
             if viewModel.isEmpty {
@@ -107,7 +107,7 @@ private extension ItemTagListView {
             Image(systemName: "01.square")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 96)
+                .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .padding()
 
             Text(String.addTagDescription)

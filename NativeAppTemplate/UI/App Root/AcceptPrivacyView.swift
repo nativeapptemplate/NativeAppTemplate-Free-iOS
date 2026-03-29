@@ -44,12 +44,12 @@ private extension AcceptPrivacyView {
         VStack {
             let agreement = "Please accept updated [\(String.privacyPolicy)](\(String.privacyPolicyUrl))."
             Text(.init(agreement))
-                .padding(.top, 48)
+                .padding(.top, NativeAppTemplateConstants.Spacing.xl)
 
             MainButtonView(title: String.accept, type: .primary(withArrow: false)) {
                 viewModel.updateConfirmedPrivacyVersion()
             }
-            .padding(24)
+            .padding(NativeAppTemplateConstants.Spacing.md)
 
             Spacer()
         }

@@ -133,7 +133,7 @@ private extension ShopDetailView {
         VStack {
             header(shop: shop)
                 .padding(.top)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, NativeAppTemplateConstants.Spacing.xxs)
             List {
                 Section {
                     cardsView

@@ -48,6 +48,6 @@ struct ShopDetailCardView: View {
             }
             .frame(minWidth: 82, alignment: .trailing)
         }
-        .frame(minHeight: 48)
+        .frame(minHeight: NativeAppTemplateConstants.Spacing.xl)
     }
 }

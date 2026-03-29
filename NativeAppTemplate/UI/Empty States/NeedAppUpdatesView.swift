@@ -13,7 +13,7 @@ struct NeedAppUpdatesView: View {
             Image(systemName: "exclamationmark.arrow.circlepath")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 96)
+                .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .foregroundStyle(.titleText)
                 .padding()
             Text(String.updateApp)
@@ -22,7 +22,7 @@ struct NeedAppUpdatesView: View {
                 .padding(.top)
             Text(String.installNewVersionApp)
                 .foregroundStyle(.contentText)
-                .padding(.top, 4)
+                .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
             Button {
                 openURL(URL(string: String.appStoreUrl)!)
             } label: {

@@ -56,7 +56,7 @@ private extension ShowTagInfoScanResultView {
                             .foregroundStyle(.coloredSecondaryFootnoteText)
                     }
 
-                    Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 12, verticalSpacing: 8) {
+                    Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: NativeAppTemplateConstants.Spacing.xs, verticalSpacing: NativeAppTemplateConstants.Spacing.xxs) {
                         GridRow {
                             Image(systemName: "storefront")
                                 .frame(width: imageSize, height: imageSize)

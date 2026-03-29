@@ -71,7 +71,7 @@ private extension OnboardingView {
             Image(image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .padding(.top, 24)
+                .padding(.top, NativeAppTemplateConstants.Spacing.md)
                 .padding(.bottom, isPortraitImage ? 0 : 192)
 
             ZStack(alignment: .top) {

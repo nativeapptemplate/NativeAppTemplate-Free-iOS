@@ -35,7 +35,7 @@ extension ErrorView: View {
                 Image(systemName: "exclamationmark.triangle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 96)
+                    .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
                     .foregroundStyle(.titleText)
 
@@ -48,14 +48,14 @@ extension ErrorView: View {
                     .font(.uiLabel)
                     .foregroundStyle(.contentText)
                     .multilineTextAlignment(.center)
-                    .padding(.top, 4)
+                    .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
 
                 MainButtonView(
                     title: buttonTitle,
                     type: .primary(withArrow: false),
                     callback: buttonAction
                 )
-                .padding(32)
+                .padding(NativeAppTemplateConstants.Spacing.lg)
 
                 Spacer()
             }

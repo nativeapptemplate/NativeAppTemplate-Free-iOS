@@ -53,7 +53,7 @@ private extension NumberTagsWebpageListView {
             Text(viewModel.shop.name)
                 .font(.uiTitle1)
                 .foregroundStyle(.titleText)
-                .padding(.top, 24)
+                .padding(.top, NativeAppTemplateConstants.Spacing.md)
             List(NumberTagsWebpageListType.allCases) { numberTagsWebpageListType in
                 switch numberTagsWebpageListType {
                 case .server:

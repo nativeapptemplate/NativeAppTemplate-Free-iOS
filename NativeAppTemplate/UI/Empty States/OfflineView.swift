@@ -11,7 +11,7 @@ struct OfflineView: View {
             Image(systemName: "wifi.slash")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 96)
+                .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .padding()
                 .foregroundStyle(.titleText)
 
@@ -23,11 +23,11 @@ struct OfflineView: View {
 
             Text(String.checkInternetConnection)
                 .font(.uiLabel)
-                .lineSpacing(8)
+                .lineSpacing(NativeAppTemplateConstants.Spacing.xxs)
                 .foregroundStyle(.contentText)
                 .multilineTextAlignment(.center)
-                .padding(.top, 4)
-                .padding(.horizontal, 32)
+                .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
+                .padding(.horizontal, NativeAppTemplateConstants.Spacing.lg)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.backgroundColor)

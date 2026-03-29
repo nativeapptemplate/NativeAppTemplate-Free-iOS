@@ -38,8 +38,8 @@ private extension SignUpOrSignInView {
                         "[\(String.termsOfUse)](\(String.termsOfUseUrl)) " +
                         "and [\(String.privacyPolicy)](\(String.privacyPolicyUrl))."
                     Text(.init(agreement))
-                        .padding(.top, 16)
-                        .padding(.horizontal, 24)
+                        .padding(.top, NativeAppTemplateConstants.Spacing.sm)
+                        .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
 
                     VStack {
                         NavigationLink(destination: SignUpView(
@@ -49,12 +49,12 @@ private extension SignUpOrSignInView {
                             )
                         )) {
                             MainButtonImageView(title: String.signUpForAnAccount, type: .primary(withArrow: false))
-                                .padding(.top, 8)
-                                .padding(.horizontal, 24)
+                                .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
+                                .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
                         }
 
                         Text(verbatim: "or")
-                            .padding(.top, 8)
+                            .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
 
                         NavigationLink(destination: SignInEmailAndPasswordView(
                             viewModel: SignInEmailAndPasswordViewModel(
@@ -65,9 +65,9 @@ private extension SignUpOrSignInView {
                             Text(String.signInToYourAccount)
                                 .font(.uiLabel)
                         }
-                        .padding(.top, 8)
+                        .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
                     }
-                    .padding(.top, 4)
+                    .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
 
                     Spacer()
                 }

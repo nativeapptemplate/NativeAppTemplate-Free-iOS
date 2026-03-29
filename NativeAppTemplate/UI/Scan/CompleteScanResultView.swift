@@ -57,7 +57,7 @@ private extension CompleteScanResultView {
                         .font(.uiFootnote)
                         .foregroundStyle(.successSecondaryForeground)
                 }
-                .padding(.top, 8)
+                .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
             }
             .backgroundStyle(.successBackground)
         }

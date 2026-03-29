@@ -72,7 +72,7 @@ struct MainButtonView: View {
                         Text(title)
                             .font(.uiButtonLabelLarge)
                             .foregroundStyle(type.color)
-                            .padding(16)
+                            .padding(NativeAppTemplateConstants.Spacing.sm)
                         // If commenting out below and select max large font size on settings accessibility, you will
                         // not be enable to tap Scan button on Scan tab.
 //              .background(GeometryReader { proxy in
@@ -92,15 +92,15 @@ struct MainButtonView: View {
                                 .foregroundStyle(type.color)
                                 .background(
                                     Color.white
-                                        .cornerRadius(8)
-                                        .padding(12)
+                                        .cornerRadius(NativeAppTemplateConstants.CornerRadius.sm)
+                                        .padding(NativeAppTemplateConstants.Spacing.xs)
                                 )
                         }
                     }
                 }
                 .frame(height: height)
                 .background(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.sm)
                         .stroke(type.color, lineWidth: 2)
                 )
                 .onPreferenceChange(SizeKey.self) { size in
@@ -133,7 +133,7 @@ struct MainButtonImageView: View {
                     Text(title)
                         .font(.uiButtonLabelLarge)
                         .foregroundStyle(type.color)
-                        .padding(16)
+                        .padding(NativeAppTemplateConstants.Spacing.sm)
                         .background(GeometryReader { proxy in
                             Color.clear.preference(key: SizeKey.self, value: proxy.size)
                         })
@@ -151,15 +151,15 @@ struct MainButtonImageView: View {
                             .foregroundStyle(type.color)
                             .background(
                                 Color.white
-                                    .cornerRadius(8)
-                                    .padding(12)
+                                    .cornerRadius(NativeAppTemplateConstants.CornerRadius.sm)
+                                    .padding(NativeAppTemplateConstants.Spacing.xs)
                             )
                     }
                 }
             }
             .frame(height: height)
             .background(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.sm)
                     .stroke(type.color, lineWidth: 2)
             )
             .onPreferenceChange(SizeKey.self) { size in
@@ -174,7 +174,7 @@ struct MainButtonImageView: View {
 struct PrimaryButtonView_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            VStack(spacing: NativeAppTemplateConstants.Spacing.md) {
                 MainButtonView(title: "Got It!", type: .primary(withArrow: false), callback: {})
                 MainButtonView(title: "Got It!", type: .primary(withArrow: true), callback: {})
                 MainButtonView(title: "Got It!", type: .secondary(withArrow: false), callback: {})
@@ -189,7 +189,7 @@ struct PrimaryButtonView_Previews: PreviewProvider {
                 MainButtonImageView(title: "Got It!", type: .secondary(withArrow: false))
             }
         }
-        .padding(24)
+        .padding(NativeAppTemplateConstants.Spacing.md)
         .background(Color.backgroundColor)
         .inAllColorSchemes
     }

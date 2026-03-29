@@ -85,7 +85,7 @@ private extension ScanView {
 
     var scanView: some View {
         ScrollView {
-            VStack(spacing: 64) {
+            VStack(spacing: NativeAppTemplateConstants.Spacing.xxl) {
                 switch viewModel.scanType {
                 case .completeScan:
                     if !viewModel.isShowingResetConfirmationDialog {

@@ -18,7 +18,7 @@ struct CompletedTag: View {
 
 struct CompletedTag_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: NativeAppTemplateConstants.Spacing.xs) {
             completedTag.colorScheme(.light)
             completedTag.colorScheme(.dark)
         }

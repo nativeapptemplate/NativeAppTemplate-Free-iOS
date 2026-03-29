@@ -49,12 +49,12 @@ struct SnackbarView: View {
             } label: {
                 Image(systemName: "xmark")
                     .resizable()
-                    .frame(width: 16, height: 16)
+                    .frame(width: NativeAppTemplateConstants.Spacing.sm, height: NativeAppTemplateConstants.Spacing.sm)
             }
             .foregroundStyle(.snackText)
         }
-        .padding(.vertical, 16.0)
-        .padding(.horizontal, 24.0)
+        .padding(.vertical, NativeAppTemplateConstants.Spacing.sm)
+        .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
         .background(state.status.color)
         .overlay(
             Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(.lightestAccent),

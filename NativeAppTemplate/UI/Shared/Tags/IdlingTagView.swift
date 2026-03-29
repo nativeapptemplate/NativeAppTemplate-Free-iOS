@@ -18,7 +18,7 @@ struct IdlingTag: View {
 
 struct IdlingTag_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: NativeAppTemplateConstants.Spacing.xs) {
             idlingTag.colorScheme(.light)
             idlingTag.colorScheme(.dark)
         }

@@ -16,7 +16,7 @@ struct ShopListCardView: View {
 
             let statImageSize = 12.0
 
-            Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 12, verticalSpacing: 4) {
+            Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: NativeAppTemplateConstants.Spacing.xs, verticalSpacing: NativeAppTemplateConstants.Spacing.xxxs) {
                 GridRow {
                     Image(systemName: "person.2")
                         .frame(width: statImageSize, height: statImageSize)

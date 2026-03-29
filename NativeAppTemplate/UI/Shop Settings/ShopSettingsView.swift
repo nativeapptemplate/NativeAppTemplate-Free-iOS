@@ -52,7 +52,7 @@ private extension ShopSettingsView {
             Text(shop.name)
                 .font(.uiTitle1)
                 .foregroundStyle(.titleText)
-                .padding(.top, 24)
+                .padding(.top, NativeAppTemplateConstants.Spacing.md)
 
             List {
                 Section {
@@ -102,7 +102,7 @@ private extension ShopSettingsView {
                 .listRowBackground(Color.cardBackground)
 
                 Section {
-                    VStack(spacing: 8) {
+                    VStack(spacing: NativeAppTemplateConstants.Spacing.xxs) {
                         MainButtonView(title: String.resetNumberTags, type: .destructive(withArrow: false)) {
                             viewModel.isShowingResetConfirmationDialog = true
                         }

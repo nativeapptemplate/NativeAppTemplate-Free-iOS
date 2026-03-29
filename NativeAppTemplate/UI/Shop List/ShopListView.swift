@@ -169,7 +169,7 @@ private extension ShopListView {
                 Image(systemName: "storefront")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 96)
+                    .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
 
                 Text(String.addShopDescription)
@@ -186,7 +186,7 @@ private extension ShopListView {
                 Image(systemName: "externaldrive.badge.exclamationmark")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 96)
+                    .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
 
                 HStack(alignment: .firstTextBaseline) {

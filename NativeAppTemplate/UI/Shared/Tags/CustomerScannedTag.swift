@@ -18,7 +18,7 @@ struct CustomerScannedTag: View {
 
 struct CustomerScannedTag_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: NativeAppTemplateConstants.Spacing.xs) {
             customerScannedTag.colorScheme(.light)
             customerScannedTag.colorScheme(.dark)
         }
