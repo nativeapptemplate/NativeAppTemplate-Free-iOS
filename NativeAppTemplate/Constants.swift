@@ -11,6 +11,87 @@ extension Int {
     static let invitationCodeLength: Int = 6
 }
 
+// MARK: - Design Constants
+
+enum NativeAppTemplateConstants {
+    // MARK: - Spacing
+
+    enum Spacing {
+        /// 4pt - Micro spacing, tight padding
+        static let xxxs: CGFloat = 4
+
+        /// 8pt - Minimal spacing, compact layouts
+        static let xxs: CGFloat = 8
+
+        /// 12pt - Small spacing, close elements
+        static let xs: CGFloat = 12
+
+        /// 16pt - Base spacing unit, standard padding
+        static let sm: CGFloat = 16
+
+        /// 24pt - Medium spacing, section separation
+        static let md: CGFloat = 24
+
+        /// 32pt - Large spacing, major sections
+        static let lg: CGFloat = 32
+
+        /// 48pt - Extra large spacing, screen margins
+        static let xl: CGFloat = 48
+
+        /// 64pt - Very large spacing, major divisions
+        static let xxl: CGFloat = 64
+
+        /// 96pt - Dramatic spacing, large separations
+        static let xxxl: CGFloat = 96
+
+        /// 128pt - Massive spacing, hero sections
+        static let xxxxl: CGFloat = 128
+    }
+
+    // MARK: - Animation Durations
+
+    enum Animation {
+        /// 0.15s - Fast animations, micro-interactions
+        static let fast: Double = 0.15
+
+        /// 0.3s - Standard animations, most UI transitions
+        static let standard: Double = 0.3
+    }
+
+    // MARK: - Glass
+
+    enum Glass {
+        static let borderOpacity: Double = 0.2
+        static let shadowOpacity: Double = 0.15
+    }
+
+    // MARK: - Layout
+
+    enum Layout {
+        static let borderWidth: CGFloat = 1
+        static let shadowRadius: CGFloat = 8
+    }
+
+    // MARK: - Corner Radius
+
+    enum CornerRadius {
+        /// 4pt - Minimal rounding
+        static let xs: CGFloat = 4
+
+        /// 8pt - Small rounding, buttons
+        static let sm: CGFloat = 8
+
+        /// 12pt - Medium rounding, cards (default)
+        static let md: CGFloat = 12
+
+        /// 16pt - Large rounding, prominent cards
+        static let lg: CGFloat = 16
+
+        /// 24pt - Extra large rounding, hero elements
+        static let xl: CGFloat = 24
+    }
+}
+
 extension String {
     #if DEBUG
     //  static let scheme: String = "http"
@@ -298,83 +379,4 @@ extension TimeInterval {
     // MARK: Message Banner
 
     static let autoDismissTime: Self = 3
-}
-
-enum NativeAppTemplateConstants {
-    // MARK: - Spacing
-
-    enum Spacing {
-        /// 4pt - Micro spacing, tight padding
-        static let xxxs: CGFloat = 4
-
-        /// 8pt - Minimal spacing, compact layouts
-        static let xxs: CGFloat = 8
-
-        /// 12pt - Small spacing, close elements
-        static let xs: CGFloat = 12
-
-        /// 16pt - Base spacing unit, standard padding
-        static let sm: CGFloat = 16
-
-        /// 24pt - Medium spacing, section separation
-        static let md: CGFloat = 24
-
-        /// 32pt - Large spacing, major sections
-        static let lg: CGFloat = 32
-
-        /// 48pt - Extra large spacing, screen margins
-        static let xl: CGFloat = 48
-
-        /// 64pt - Very large spacing, major divisions
-        static let xxl: CGFloat = 64
-
-        /// 96pt - Dramatic spacing, large separations
-        static let xxxl: CGFloat = 96
-
-        /// 128pt - Massive spacing, hero sections
-        static let xxxxl: CGFloat = 128
-    }
-
-    // MARK: - Animation Durations
-
-    enum Animation {
-        /// 0.15s - Fast animations, micro-interactions
-        static let fast: Double = 0.15
-
-        /// 0.3s - Standard animations, most UI transitions
-        static let standard: Double = 0.3
-    }
-
-    // MARK: - Glass
-
-    enum Glass {
-        static let borderOpacity: Double = 0.2
-        static let shadowOpacity: Double = 0.15
-    }
-
-    // MARK: - Layout
-
-    enum Layout {
-        static let borderWidth: CGFloat = 1
-        static let shadowRadius: CGFloat = 8
-    }
-
-    // MARK: - Corner Radius
-
-    enum CornerRadius {
-        /// 4pt - Minimal rounding
-        static let xs: CGFloat = 4
-
-        /// 8pt - Small rounding, buttons
-        static let sm: CGFloat = 8
-
-        /// 12pt - Medium rounding, cards (default)
-        static let md: CGFloat = 12
-
-        /// 16pt - Large rounding, prominent cards
-        static let lg: CGFloat = 16
-
-        /// 24pt - Extra large rounding, hero elements
-        static let xl: CGFloat = 24
-    }
 }
