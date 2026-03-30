@@ -99,7 +99,10 @@ private extension ItemTagDetailView {
                     if let customerTagQrCodeImage = viewModel.customerTagQrCodeImage {
                         Image(uiImage: customerTagQrCodeImage)
                             .resizable()
-                            .frame(width: NativeAppTemplateConstants.Spacing.xxxl, height: NativeAppTemplateConstants.Spacing.xxxl)
+                            .frame(
+                                width: NativeAppTemplateConstants.Spacing.xxxl,
+                                height: NativeAppTemplateConstants.Spacing.xxxl
+                            )
 
                         Button {
                             viewModel.saveImageToPhotoAlbum()
