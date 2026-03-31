@@ -72,7 +72,7 @@ private extension ItemTagListView {
                             .tint(.validationError)
                         }
                     }
-                    .listRowBackground(Color.cardBackground)
+                    .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
                 .refreshable {
                     viewModel.reload()

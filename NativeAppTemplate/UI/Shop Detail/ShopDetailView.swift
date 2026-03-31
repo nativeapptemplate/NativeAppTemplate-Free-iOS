@@ -125,7 +125,7 @@ private extension ShopDetailView {
                         .tint(.validationError)
                     }
                 }
-                .listRowBackground(Color.cardBackground)
+                .listRowBackground(Color.cardBackground.opacity(0.7))
         }
     }
 

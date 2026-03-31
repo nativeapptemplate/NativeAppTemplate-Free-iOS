@@ -68,7 +68,7 @@ private extension ShopSettingsView {
                     } label: {
                         Label(String.shopSettingsBasicSettingsLabel, systemImage: "storefront")
                     }
-                    .listRowBackground(Color.cardBackground)
+                    .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
 
                 Section {
@@ -84,7 +84,7 @@ private extension ShopSettingsView {
                     } label: {
                         Label(String.shopSettingsManageNumberTagsLabel, systemImage: "rectangle.stack")
                     }
-                    .listRowBackground(Color.cardBackground)
+                    .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
 
                 Section {
@@ -99,7 +99,7 @@ private extension ShopSettingsView {
                         Label(String.shopSettingsNumberTagsWebpageLabel, systemImage: "globe")
                     }
                 }
-                .listRowBackground(Color.cardBackground)
+                .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section {
                     VStack(spacing: NativeAppTemplateConstants.Spacing.xxs) {
