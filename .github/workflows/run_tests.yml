@@ -10,9 +10,12 @@ jobs:
         with:
           xcode-version: '16.4'
       - uses: actions/checkout@v3
-      - name: Install SwiftLint
+      - name: Install SwiftLint and SwiftFormat
         run: |
-          brew install swiftlint
+          brew install swiftlint swiftformat
+      - name: SwiftFormat Lint
+        run: |
+          swiftformat --lint NativeAppTemplate
     # Commented out due to an error.
     #   - name: Unit Tests
     #     run: |

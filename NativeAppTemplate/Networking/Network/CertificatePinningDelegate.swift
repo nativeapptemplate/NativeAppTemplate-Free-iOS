@@ -2,16 +2,14 @@
 //  CertificatePinningDelegate.swift
 //  NativeAppTemplate
 //
-//  Created by Daisuke Adachi.
-//
 
 import CommonCrypto
 import Foundation
 
 final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
-    // SPKI SHA-256 hashes (base64-encoded) for api.nativeapptemplate.com
-    // The server uses Google Trust Services certificates (Render hosting).
-    // Pin the leaf public key and Google Trust Services intermediate CAs as backup.
+    /// SPKI SHA-256 hashes (base64-encoded) for api.nativeapptemplate.com
+    /// The server uses Google Trust Services certificates (Render hosting).
+    /// Pin the leaf public key and Google Trust Services intermediate CAs as backup.
     static let pinnedHashes: Set<String> = [
         // Leaf certificate public key (api.nativeapptemplate.com)
         "54Il7gpV4QvX8fAyEKV+6fp8VGjgHqIAAqF5bLCfYNQ=",
@@ -21,19 +19,19 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
 
     static let pinnedDomain = String.domain
 
-    // ASN.1 header for EC 256-bit public key (SPKI prefix)
+    /// ASN.1 header for EC 256-bit public key (SPKI prefix)
     private static let ecDsaSecp256r1Asn1Header: [UInt8] = [
-        0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2A, 0x86,
-        0x48, 0xCE, 0x3D, 0x02, 0x01, 0x06, 0x08, 0x2A,
-        0x86, 0x48, 0xCE, 0x3D, 0x03, 0x01, 0x07, 0x03,
+        0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2a, 0x86,
+        0x48, 0xce, 0x3d, 0x02, 0x01, 0x06, 0x08, 0x2a,
+        0x86, 0x48, 0xce, 0x3d, 0x03, 0x01, 0x07, 0x03,
         0x42, 0x00
     ]
 
-    // ASN.1 header for RSA 2048-bit public key (SPKI prefix)
+    /// ASN.1 header for RSA 2048-bit public key (SPKI prefix)
     private static let rsa2048Asn1Header: [UInt8] = [
-        0x30, 0x82, 0x01, 0x22, 0x30, 0x0D, 0x06, 0x09,
-        0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01,
-        0x01, 0x05, 0x00, 0x03, 0x82, 0x01, 0x0F, 0x00
+        0x30, 0x82, 0x01, 0x22, 0x30, 0x0d, 0x06, 0x09,
+        0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
+        0x01, 0x05, 0x00, 0x03, 0x82, 0x01, 0x0f, 0x00
     ]
 
     func urlSession(
@@ -52,7 +50,7 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
         let certificateCount = SecTrustGetCertificateCount(serverTrust)
         var pinMatched = false
 
-        for index in 0..<certificateCount {
+        for index in 0 ..< certificateCount {
             guard let certificate = SecTrustCopyCertificateChain(serverTrust)
                 .map({ unsafeBitCast(CFArrayGetValueAtIndex($0, index), to: SecCertificate.self) })
             else { continue }

@@ -2,8 +2,6 @@
 //  GlassButtonStyle.swift
 //  NativeAppTemplate
 //
-//  Created by Daisuke Adachi.
-//
 
 import SwiftUI
 
