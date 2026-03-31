@@ -42,6 +42,9 @@ swiftlint
 swiftlint --strict
 ```
 
+### Linting and Formatting
+Always run `make lint` before pushing to verify SwiftLint and SwiftFormat checks pass (matches CI). Use `make format` to auto-fix SwiftFormat issues.
+
 ### Formatting
 ```bash
 # Run SwiftFormat (must be installed via: brew install swiftformat)

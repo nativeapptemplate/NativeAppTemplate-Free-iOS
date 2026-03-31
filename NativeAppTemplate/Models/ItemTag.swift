@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct ItemTag: Codable, Hashable, Identifiable, Sendable {
+struct ItemTag: Codable, Hashable, Identifiable {
     var id: String = ""
     var shopId: String = ""
     var queueNumber: String = ""
