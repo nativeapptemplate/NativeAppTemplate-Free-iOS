@@ -86,7 +86,7 @@ extension AppTabView: View {
         .onChange(of: sessionController.shouldPopToRootView) {
             if sessionController.shouldPopToRootView {
                 navigationPathShops = NavigationPath()
-                sessionController.shouldPopToRootView = false
+                    sessionController.shouldPopToRootView = false
             }
         }
     }

@@ -3,8 +3,8 @@
 //  NativeAppTemplate
 //
 
-import typealias Foundation.TimeInterval
 import SwiftUI
+import typealias Foundation.TimeInterval
 
 extension Int {
     static let minimumPasswordLength: Int = 8
