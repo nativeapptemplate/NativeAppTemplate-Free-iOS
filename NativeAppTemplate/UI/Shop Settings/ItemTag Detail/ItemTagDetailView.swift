@@ -67,9 +67,10 @@ private extension ItemTagDetailView {
                 GroupBox(label: Label(String("Lock"), systemImage: "lock")) {
                     Toggle(isOn: $viewModel.isLocked) {
                         Text(verbatim: "Lock")
+                            .lineLimit(1)
                     }
+                    .toggleStyle(.button)
                     .dynamicTypeSize(...DynamicTypeSize.large)
-                    .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .tint(.lockForeground)
 
                     if viewModel.isLocked {
