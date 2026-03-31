@@ -53,10 +53,10 @@ private extension ForgotPasswordView {
             } footer: {
                 if viewModel.isEmailBlank {
                     Text(String.emailIsRequired)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.validationError)
                 } else if viewModel.isEmailInvalid {
                     Text(String.emailIsInvalid)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.validationError)
                 }
             }
 

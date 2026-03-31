@@ -67,7 +67,6 @@
 		0172046925AA82BF008FD63B /* PermissionsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */; };
 		0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172046E25AA8325008FD63B /* UIFont+Extensions.swift */; };
 		0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047525AA8325008FD63B /* Font+Extensions.swift */; };
-		0172048025AA8343008FD63B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047425AA8325008FD63B /* UIColor+Extensions.swift */; };
 		0172048125AA8343008FD63B /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047625AA8325008FD63B /* Color+Extensions.swift */; };
 		017204B625AA8467008FD63B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172049225AA8449008FD63B /* DataManager.swift */; };
 		017204C025AA846D008FD63B /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172049925AA8449008FD63B /* TabViewModel.swift */; };
@@ -160,6 +159,8 @@
 		01E0A5B725BD0FCD00298D35 /* OfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A5B225BD0FC700298D35 /* OfflineView.swift */; };
 		01E0A5B825BD0FCD00298D35 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A5B325BD0FC700298D35 /* ErrorView.swift */; };
 		01E0A60125BD149200298D35 /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A5F925BD148800298D35 /* MainButtonView.swift */; };
+		A1B2C3D401000001 /* GlassButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D401000002 /* GlassButtonStyle.swift */; };
+		A1B2C3D401000003 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D401000004 /* GlassCard.swift */; };
 		01E0A60C25BD440300298D35 /* SignInEmailAndPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A60B25BD440300298D35 /* SignInEmailAndPasswordView.swift */; };
 		01E0A63025BD53FD00298D35 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0A62F25BD53FD00298D35 /* Shop.swift */; };
 		01E1CECC287787A700E724FC /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1CECB287787A700E724FC /* SignUpView.swift */; };
@@ -242,7 +243,6 @@
 		0172045C25AA82B4008FD63B /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsLoadingView.swift; sourceTree = "<group>"; };
 		0172046E25AA8325008FD63B /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
-		0172047425AA8325008FD63B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		0172047525AA8325008FD63B /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
 		0172047625AA8325008FD63B /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		0172049225AA8449008FD63B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -337,6 +337,8 @@
 		01E0A5B325BD0FC700298D35 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		01E0A5B525BD0FC700298D35 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		01E0A5F925BD148800298D35 /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
+		A1B2C3D401000002 /* GlassButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassButtonStyle.swift; sourceTree = "<group>"; };
+		A1B2C3D401000004 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
 		01E0A60B25BD440300298D35 /* SignInEmailAndPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailAndPasswordView.swift; sourceTree = "<group>"; };
 		01E0A62F25BD53FD00298D35 /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
 		01E1CECB287787A700E724FC /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -717,7 +719,6 @@
 				018D4EFB2B6350CB00CBA736 /* Inter */,
 				0172047625AA8325008FD63B /* Color+Extensions.swift */,
 				0172047525AA8325008FD63B /* Font+Extensions.swift */,
-				0172047425AA8325008FD63B /* UIColor+Extensions.swift */,
 				0172046E25AA8325008FD63B /* UIFont+Extensions.swift */,
 			);
 			path = Styleguide;
@@ -847,6 +848,8 @@
 			isa = PBXGroup;
 			children = (
 				0172788A2D7D936E00CE424F /* Tags */,
+				A1B2C3D401000002 /* GlassButtonStyle.swift */,
+				A1B2C3D401000004 /* GlassCard.swift */,
 				01E0A5F925BD148800298D35 /* MainButtonView.swift */,
 			);
 			path = Shared;
@@ -1034,6 +1037,8 @@
 				017278832D7D935700CE424F /* ImageSaver.swift in Sources */,
 				01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */,
 				01E0A60125BD149200298D35 /* MainButtonView.swift in Sources */,
+				A1B2C3D401000001 /* GlassButtonStyle.swift in Sources */,
+				A1B2C3D401000003 /* GlassCard.swift in Sources */,
 				0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */,
 				01ED197B2A037B9E00CD4735 /* AppTabView.swift in Sources */,
 				0110A1612AC81978003EDCBA /* ResendConfirmationInstructionsView.swift in Sources */,
@@ -1111,7 +1116,6 @@
 				01D85AF32E07D37E00A95798 /* ItemTagListViewModel.swift in Sources */,
 				0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */,
 				0172034825A9642E008FD63B /* Request.swift in Sources */,
-				0172048025AA8343008FD63B /* UIColor+Extensions.swift in Sources */,
 				01DCE23F298FA3B300BA311D /* ShopListCardView.swift in Sources */,
 				011DDC2328766C5E00C6C21F /* SignUpService.swift in Sources */,
 				01E2477229A5E30400D4B00D /* Utility.swift in Sources */,

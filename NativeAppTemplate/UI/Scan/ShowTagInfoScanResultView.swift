@@ -46,14 +46,14 @@ private extension ShowTagInfoScanResultView {
 
                     Text(String(itemTag.queueNumber))
                         .font(.uiTitle1)
-                        .foregroundStyle(itemTagType == .server ? .red : .blue)
+                        .foregroundStyle(itemTagType == .server ? .serverForeground : .accent)
                     HStack(alignment: .firstTextBaseline) {
                         Text(String(scannedAt.cardTimeAgoInWordsDateString))
                             .font(.uiBodyCustom)
-                            .foregroundStyle(.coloredSecondaryFootnoteText)
+                            .foregroundStyle(.secondaryText)
                         Text(verbatim: "show tag info scanned")
                             .font(.uiFootnote)
-                            .foregroundStyle(.coloredSecondaryFootnoteText)
+                            .foregroundStyle(.secondaryText)
                     }
 
                     Grid(
@@ -64,28 +64,28 @@ private extension ShowTagInfoScanResultView {
                         GridRow {
                             Image(systemName: "storefront")
                                 .frame(width: imageSize, height: imageSize)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                             Text(itemTag.shopName)
                                 .font(.uiLabelBold)
                             Text(" ")
                                 .font(.uiFootnote)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                         }
                         GridRow {
                             Image(systemName: "info.circle")
                                 .frame(width: imageSize, height: imageSize)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                             Text(itemTagType.displayString)
                                 .font(.uiLabelBold)
-                                .foregroundStyle(itemTagType == .server ? .red : .blue)
+                                .foregroundStyle(itemTagType == .server ? .serverForeground : .accent)
                             Text(verbatim: "tag type")
                                 .font(.uiFootnote)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                         }
                         GridRow {
                             Image(systemName: "flag.checkered")
                                 .frame(width: imageSize, height: imageSize)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                             if itemTag.state == .completed {
                                 CompletedTag()
                             } else {
@@ -93,19 +93,19 @@ private extension ShowTagInfoScanResultView {
                             }
                             Text(verbatim: "tag status")
                                 .font(.uiFootnote)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                         }
 
                         if itemTag.scanState == ScanState.scanned, itemTag.customerReadAt != nil {
                             GridRow {
                                 Image(systemName: "person.2")
                                     .frame(width: imageSize, height: imageSize)
-                                    .foregroundStyle(.coloredSecondaryFootnoteText)
+                                    .foregroundStyle(.secondaryText)
                                 Text(itemTag.customerReadAt!.cardTimeString)
                                     .font(.uiLabelBold)
                                 Text(verbatim: "scanned by a customer")
                                     .font(.uiFootnote)
-                                    .foregroundStyle(.coloredSecondaryFootnoteText)
+                                    .foregroundStyle(.secondaryText)
                             }
                         }
 
@@ -113,55 +113,56 @@ private extension ShowTagInfoScanResultView {
                             GridRow {
                                 Image(systemName: "flag.checkered.circle")
                                     .frame(width: imageSize, height: imageSize)
-                                    .foregroundStyle(.coloredSecondaryFootnoteText)
+                                    .foregroundStyle(.secondaryText)
                                 Text(itemTag.completedAt!.cardTimeString)
                                     .font(.uiLabelBold)
                                 Text(verbatim: "completed")
                                     .font(.uiFootnote)
-                                    .foregroundStyle(.coloredSecondaryFootnoteText)
+                                    .foregroundStyle(.secondaryText)
                             }
                         }
 
                         GridRow {
                             Image(systemName: "rectangle")
                                 .frame(width: imageSize, height: imageSize)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                             Text(displayReadOnly)
                                 .font(.uiLabelBold)
                             Text(verbatim: "NFC tag")
                                 .font(.uiFootnote)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                         }
                         GridRow {
                             Image(systemName: "clock")
                                 .frame(width: imageSize, height: imageSize)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                             Text(itemTag.createdAt.cardDateString)
                                 .font(.uiLabelBold)
                             Text(verbatim: "created")
                                 .font(.uiFootnote)
-                                .foregroundStyle(.coloredSecondaryFootnoteText)
+                                .foregroundStyle(.secondaryText)
                         }
                     }
                 }
             }
         }
-        .foregroundStyle(.coloredSecondaryForeground)
-        .backgroundStyle(.coloredSecondaryBackground)
+        .foregroundStyle(.contentText)
+        .backgroundStyle(.ultraThinMaterial)
         .dynamicTypeSize(...DynamicTypeSize.accessibility1)
     }
 
     var failedView: some View {
         GroupBox(label: Label(String("Error"), systemImage: "exclamationmark.triangle")) {
             Text(showTagInfoScanResult.message)
-                .padding(.top)
+                .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
         }
-        .backgroundStyle(.failureBackground)
+        .foregroundStyle(.validationError)
+        .backgroundStyle(.ultraThinMaterial)
     }
 
     var idledView: some View {
         GroupBox(label: Label(String.tagInfo, systemImage: "rectangle")) {}
-            .foregroundStyle(.coloredSecondaryForeground)
-            .backgroundStyle(.coloredSecondaryBackground)
+            .foregroundStyle(.contentText)
+            .backgroundStyle(.ultraThinMaterial)
     }
 }

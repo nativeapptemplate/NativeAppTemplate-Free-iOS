@@ -28,38 +28,40 @@ struct ErrorView {
 
 extension ErrorView: View {
     var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
+        VStack {
+            Spacer()
 
-                Image(systemName: "exclamationmark.triangle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
-                    .padding()
-                    .foregroundStyle(.titleText)
+            GlassCard {
+                VStack {
+                    Image(systemName: "exclamationmark.triangle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
+                        .padding()
+                        .foregroundStyle(.titleText)
 
-                Text(titleText)
-                    .font(.uiTitle1)
-                    .foregroundStyle(.titleText)
-                    .padding(.top)
+                    Text(titleText)
+                        .font(.uiTitle1)
+                        .foregroundStyle(.titleText)
+                        .padding(.top)
 
-                Text(bodyText)
-                    .font(.uiLabel)
-                    .foregroundStyle(.contentText)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
+                    Text(bodyText)
+                        .font(.uiLabel)
+                        .foregroundStyle(.contentText)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
 
-                MainButtonView(
-                    title: buttonTitle,
-                    type: .primary(withArrow: false),
-                    callback: buttonAction
-                )
-                .padding(NativeAppTemplateConstants.Spacing.lg)
-
-                Spacer()
+                    MainButtonView(
+                        title: buttonTitle,
+                        type: .primary(withArrow: false),
+                        callback: buttonAction
+                    )
+                    .padding(.top, NativeAppTemplateConstants.Spacing.lg)
+                }
             }
-            .background(Color.backgroundColor)
+            .padding(.horizontal, NativeAppTemplateConstants.Spacing.lg)
+
+            Spacer()
         }
     }
 }

@@ -80,7 +80,7 @@ private extension ShopListView {
             NavigationLink(value: shop) {
                 ShopListCardView(shop: shop)
             }
-            .listRowBackground(Color.cardBackground)
+            .listRowBackground(Color.cardBackground.opacity(0.7))
         }
     }
 

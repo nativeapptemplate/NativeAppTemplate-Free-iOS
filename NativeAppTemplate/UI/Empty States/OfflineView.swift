@@ -8,30 +8,36 @@ import SwiftUI
 struct OfflineView: View {
     var body: some View {
         VStack {
-            Image(systemName: "wifi.slash")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
-                .padding()
-                .foregroundStyle(.titleText)
+            Spacer()
 
-            Text(String.noConnection)
-                .font(.uiTitle1)
-                .foregroundStyle(.titleText)
-                .multilineTextAlignment(.center)
-                .padding(.top)
+            GlassCard {
+                VStack {
+                    Image(systemName: "wifi.slash")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
+                        .padding()
+                        .foregroundStyle(.titleText)
 
-            Text(String.checkInternetConnection)
-                .font(.uiLabel)
-                .lineSpacing(NativeAppTemplateConstants.Spacing.xxs)
-                .foregroundStyle(.contentText)
-                .multilineTextAlignment(.center)
-                .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
-                .padding(.horizontal, NativeAppTemplateConstants.Spacing.lg)
+                    Text(String.noConnection)
+                        .font(.uiTitle1)
+                        .foregroundStyle(.titleText)
+                        .multilineTextAlignment(.center)
+                        .padding(.top)
+
+                    Text(String.checkInternetConnection)
+                        .font(.uiLabel)
+                        .lineSpacing(NativeAppTemplateConstants.Spacing.xxs)
+                        .foregroundStyle(.contentText)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
+                }
+            }
+            .padding(.horizontal, NativeAppTemplateConstants.Spacing.lg)
+
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.backgroundColor)
-        .edgesIgnoringSafeArea(.all)
     }
 }
 

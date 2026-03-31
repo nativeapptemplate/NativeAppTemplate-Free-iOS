@@ -91,7 +91,7 @@ struct MainButtonView: View {
                                 .frame(width: height, height: height)
                                 .foregroundStyle(type.color)
                                 .background(
-                                    Color.white
+                                    Color.arrowBackground
                                         .cornerRadius(NativeAppTemplateConstants.CornerRadius.sm)
                                         .padding(NativeAppTemplateConstants.Spacing.xs)
                                 )
@@ -150,7 +150,7 @@ struct MainButtonImageView: View {
                             .frame(width: height, height: height)
                             .foregroundStyle(type.color)
                             .background(
-                                Color.white
+                                Color.arrowBackground
                                     .cornerRadius(NativeAppTemplateConstants.CornerRadius.sm)
                                     .padding(NativeAppTemplateConstants.Spacing.xs)
                             )

@@ -7,11 +7,13 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        VStack {
-            ProgressView().scaleEffect(1.0, anchor: .center)
-                .padding([.bottom], NativeAppTemplateConstants.Spacing.xs)
-            Text(String.loading)
-                .font(.uiHeadline)
+        GlassCard(padding: NativeAppTemplateConstants.Spacing.lg) {
+            VStack {
+                ProgressView().scaleEffect(1.0, anchor: .center)
+                    .padding([.bottom], NativeAppTemplateConstants.Spacing.xs)
+                Text(String.loading)
+                    .font(.uiHeadline)
+            }
         }
     }
 }

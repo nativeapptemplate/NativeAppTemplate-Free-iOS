@@ -35,7 +35,7 @@ struct QRCodeGenerator {
         if let centerImage = centerText.image(
             withAttributes: [
                 .font: UIFont.systemFont(ofSize: 40.0),
-                .backgroundColor: UIColor.white
+                .backgroundColor: UIColor(Color.arrowBackground)
             ]
         ) {
             generate(inputText: inputText, scale: scale, centerImage: centerImage)

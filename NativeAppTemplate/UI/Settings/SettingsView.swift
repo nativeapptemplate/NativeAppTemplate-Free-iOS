@@ -49,7 +49,7 @@ struct SettingsView: View {
                         Label(String.password, systemImage: "key")
                     }
                 }
-                .listRowBackground(Color.cardBackground)
+                .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section(header: Text(String.information)) {
                     Link(destination: URL(string: String.supportWebsiteUrl)!) {
@@ -86,7 +86,7 @@ struct SettingsView: View {
                         Text(String.termsOfUse)
                     }
                 }
-                .listRowBackground(Color.cardBackground)
+                .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section {
                     VStack {

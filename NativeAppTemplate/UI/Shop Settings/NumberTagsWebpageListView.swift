@@ -66,7 +66,7 @@ private extension NumberTagsWebpageListView {
                             viewModel.copyWebpageUrl(viewModel.shop.displayShopServerUrl.absoluteString)
                         }
                     }
-                    .listRowBackground(Color.cardBackground)
+                    .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
             }
         }

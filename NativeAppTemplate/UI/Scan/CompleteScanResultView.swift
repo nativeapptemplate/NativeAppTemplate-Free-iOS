@@ -59,19 +59,21 @@ private extension CompleteScanResultView {
                 }
                 .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
             }
-            .backgroundStyle(.successBackground)
+            .backgroundStyle(.ultraThinMaterial)
         }
     }
 
     var failedView: some View {
         GroupBox(label: Label(String("Error"), systemImage: "exclamationmark.triangle")) {
             Text(completeScanResult.message)
+                .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
         }
-        .backgroundStyle(.failureBackground)
+        .foregroundStyle(.validationError)
+        .backgroundStyle(.ultraThinMaterial)
     }
 
     var idledView: some View {
         GroupBox(label: Label(String("Result"), systemImage: "checkmark.circle")) {}
-            .backgroundStyle(.successBackground)
+            .backgroundStyle(.ultraThinMaterial)
     }
 }

@@ -50,7 +50,7 @@ private extension ShopBasicSettingsView {
             } footer: {
                 Text(String.shopNameIsRequired)
                     .font(.uiFootnote)
-                    .foregroundStyle(Utility.isBlank(viewModel.name) ? .red : .clear)
+                    .foregroundStyle(Utility.isBlank(viewModel.name) ? .validationError : .clear)
             }
 
             Section {

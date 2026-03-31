@@ -60,7 +60,7 @@ private extension ItemTagEditView {
                             .font(.uiFootnote)
                         Text(String.tagNumberIsInvalid)
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataQueueNumber ? .red : .clear)
+                            .foregroundStyle(viewModel.hasInvalidDataQueueNumber ? .validationError : .clear)
                     }
                 }
             }

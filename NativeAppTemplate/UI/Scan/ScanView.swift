@@ -97,10 +97,10 @@ private extension ScanView {
 
                             Text(String.completeScanHelp)
                                 .font(.uiFootnote)
-                                .foregroundStyle(.coloredPrimaryFootnoteText)
+                                .foregroundStyle(.contentText)
                         }
-                        .foregroundStyle(.coloredPrimaryForeground)
-                        .backgroundStyle(.coloredPrimaryBackground)
+                        .foregroundStyle(.accent)
+                        .backgroundStyle(.ultraThinMaterial)
                     }
 
                     CompleteScanResultView(
@@ -115,10 +115,10 @@ private extension ScanView {
 
                         Text(String.showTagInfoScanHelp)
                             .font(.uiFootnote)
-                            .foregroundStyle(.coloredSecondaryFootnoteText)
+                            .foregroundStyle(.contentText)
                     }
-                    .foregroundStyle(.coloredSecondaryForeground)
-                    .backgroundStyle(.coloredSecondaryBackground)
+                    .foregroundStyle(.contentText)
+                    .backgroundStyle(.ultraThinMaterial)
 
                     ShowTagInfoScanResultView(
                         showTagInfoScanResult: sessionController.showTagInfoScanResult
@@ -137,8 +137,6 @@ private extension ScanView {
                 .pickerStyle(SegmentedPickerStyle())
             }
         }
-        .toolbarBackground(.black, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
         .padding()
         .confirmationDialog(
             String.itemTagAlreadyCompleted,

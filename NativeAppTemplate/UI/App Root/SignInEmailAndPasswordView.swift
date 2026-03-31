@@ -49,10 +49,10 @@ private extension SignInEmailAndPasswordView {
                 } footer: {
                     if viewModel.isEmailBlank {
                         Text(String.emailIsRequired)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                     } else if viewModel.isEmailInvalid {
                         Text(String.emailIsInvalid)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                     }
                 }
                 Section {
@@ -66,10 +66,10 @@ private extension SignInEmailAndPasswordView {
                 } footer: {
                     if viewModel.isPasswordBlank {
                         Text(String.passwordIsRequired)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                     } else if viewModel.hasInvalidDataPassword {
                         Text(String.passwordIsInvalid)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                     }
                 }
 
