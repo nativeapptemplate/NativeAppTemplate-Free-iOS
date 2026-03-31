@@ -55,15 +55,20 @@ struct SnackbarView: View {
         }
         .padding(.vertical, NativeAppTemplateConstants.Spacing.sm)
         .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
-        .background(state.status.color)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.md))
         .overlay(
-            Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(.lightestAccent),
-            alignment: .top
+            RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.md)
+                .stroke(
+                    Color.glassBorder.opacity(NativeAppTemplateConstants.Glass.borderOpacity),
+                    lineWidth: NativeAppTemplateConstants.Layout.borderWidth
+                )
         )
-        .overlay(
-            Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(.lightestAccent),
-            alignment: .bottom
+        .shadow(
+            color: .glassShadow.opacity(NativeAppTemplateConstants.Glass.shadowOpacity),
+            radius: NativeAppTemplateConstants.Layout.shadowRadius
         )
+        .padding(.horizontal, NativeAppTemplateConstants.Spacing.xxs)
     }
 }
 
