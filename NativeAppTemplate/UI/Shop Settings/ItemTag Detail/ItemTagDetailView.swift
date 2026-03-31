@@ -79,7 +79,7 @@ private extension ItemTagDetailView {
                     }
                 }
                 .foregroundStyle(.lockForeground)
-                .backgroundStyle(.lockBackground)
+                .backgroundStyle(.ultraThinMaterial)
 
                 GroupBox(label: Label(String("Server"), systemImage: "storefront")) {
                     MainButtonView(title: String.writeServerTag, type: .server(withArrow: false)) {
@@ -88,7 +88,7 @@ private extension ItemTagDetailView {
                     .padding()
                 }
                 .foregroundStyle(.serverForeground)
-                .backgroundStyle(.serverBackground)
+                .backgroundStyle(.ultraThinMaterial)
 
                 GroupBox(label: Label(String("Customer"), systemImage: "person.2")) {
                     MainButtonView(title: String.writeCustomerTag, type: .customer(withArrow: false)) {
@@ -115,7 +115,7 @@ private extension ItemTagDetailView {
                 }
                 .padding(.top, NativeAppTemplateConstants.Spacing.md)
                 .foregroundStyle(.customerForeground)
-                .backgroundStyle(.customerBackground)
+                .backgroundStyle(.ultraThinMaterial)
             }
         }
         .sheet(
