@@ -49,5 +49,4 @@ struct UtilityTest {
     func validateEmail(email: String, expected: Bool) {
         #expect(Utility.validateEmail(email) == expected)
     }
-
 }

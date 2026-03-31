@@ -50,7 +50,7 @@ private extension SignUpView {
                 } footer: {
                     Text(String.fullNameIsRequired)
                         .font(.caption)
-                        .foregroundStyle(viewModel.isNameBlank ? .red : .clear)
+                        .foregroundStyle(viewModel.isNameBlank ? .validationError : .clear)
                 }
 
                 Section {
@@ -62,10 +62,10 @@ private extension SignUpView {
                 } footer: {
                     if viewModel.isEmailBlank {
                         Text(String.emailIsRequired)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                     } else if viewModel.hasInvalidDataEmail {
                         Text(String.emailIsInvalid)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                     }
                 }
 
@@ -88,10 +88,10 @@ private extension SignUpView {
 
                         if viewModel.isPasswordBlank {
                             Text(String.passwordIsRequired)
-                                .foregroundStyle(.red)
+                                .foregroundStyle(.validationError)
                         } else if viewModel.hasInvalidDataPassword {
                             Text(String.passwordIsInvalid)
-                                .foregroundStyle(.red)
+                                .foregroundStyle(.validationError)
                         }
                     }
                 }

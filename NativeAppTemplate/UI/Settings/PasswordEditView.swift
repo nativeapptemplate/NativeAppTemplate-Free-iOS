@@ -52,7 +52,7 @@ private extension PasswordEditView {
                     Text(String.weNeedYourCurrentPassword)
                         .font(.uiFootnote)
                     Text(String.currentPasswordIsRequired)
-                        .foregroundStyle(Utility.isBlank(viewModel.currentPassword) ? .red : .clear)
+                        .foregroundStyle(Utility.isBlank(viewModel.currentPassword) ? .validationError : .clear)
                         .font(.uiFootnote)
                 }
             }
@@ -70,11 +70,11 @@ private extension PasswordEditView {
 
                     if Utility.isBlank(viewModel.password) {
                         Text(String.newPasswordIsRequired)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                             .font(.uiFootnote)
                     } else if viewModel.hasInvalidDataPassword {
                         Text(String.passwordIsInvalid)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.validationError)
                             .font(.uiFootnote)
                     }
                 }
@@ -89,7 +89,7 @@ private extension PasswordEditView {
             } footer: {
                 Text(String.confirmNewPasswordIsRequired)
                     .font(.uiFootnote)
-                    .foregroundStyle(Utility.isBlank(viewModel.passwordConfirmation) ? .red : .clear)
+                    .foregroundStyle(Utility.isBlank(viewModel.passwordConfirmation) ? .validationError : .clear)
             }
         }
         .navigationTitle(String.updatePassword)

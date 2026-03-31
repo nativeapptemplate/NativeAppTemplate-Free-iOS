@@ -122,7 +122,7 @@ private extension ShopDetailView {
                             Label(String.reset, systemImage: "trash")
                                 .labelStyle(.titleOnly)
                         }
-                        .tint(.red)
+                        .tint(.validationError)
                     }
                 }
                 .listRowBackground(Color.cardBackground)

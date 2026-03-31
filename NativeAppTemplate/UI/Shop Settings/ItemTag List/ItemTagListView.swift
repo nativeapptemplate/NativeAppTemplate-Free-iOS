@@ -69,7 +69,7 @@ private extension ItemTagListView {
                                 Label(String.delete, systemImage: "trash")
                                     .labelStyle(.titleOnly)
                             }
-                            .tint(.red)
+                            .tint(.validationError)
                         }
                     }
                     .listRowBackground(Color.cardBackground)

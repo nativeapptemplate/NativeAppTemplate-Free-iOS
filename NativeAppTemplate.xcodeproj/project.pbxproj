@@ -67,7 +67,6 @@
 		0172046925AA82BF008FD63B /* PermissionsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */; };
 		0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172046E25AA8325008FD63B /* UIFont+Extensions.swift */; };
 		0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047525AA8325008FD63B /* Font+Extensions.swift */; };
-		0172048025AA8343008FD63B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047425AA8325008FD63B /* UIColor+Extensions.swift */; };
 		0172048125AA8343008FD63B /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047625AA8325008FD63B /* Color+Extensions.swift */; };
 		017204B625AA8467008FD63B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172049225AA8449008FD63B /* DataManager.swift */; };
 		017204C025AA846D008FD63B /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172049925AA8449008FD63B /* TabViewModel.swift */; };
@@ -242,7 +241,6 @@
 		0172045C25AA82B4008FD63B /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsLoadingView.swift; sourceTree = "<group>"; };
 		0172046E25AA8325008FD63B /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
-		0172047425AA8325008FD63B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		0172047525AA8325008FD63B /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
 		0172047625AA8325008FD63B /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		0172049225AA8449008FD63B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -717,7 +715,6 @@
 				018D4EFB2B6350CB00CBA736 /* Inter */,
 				0172047625AA8325008FD63B /* Color+Extensions.swift */,
 				0172047525AA8325008FD63B /* Font+Extensions.swift */,
-				0172047425AA8325008FD63B /* UIColor+Extensions.swift */,
 				0172046E25AA8325008FD63B /* UIFont+Extensions.swift */,
 			);
 			path = Styleguide;
@@ -1111,7 +1108,6 @@
 				01D85AF32E07D37E00A95798 /* ItemTagListViewModel.swift in Sources */,
 				0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */,
 				0172034825A9642E008FD63B /* Request.swift in Sources */,
-				0172048025AA8343008FD63B /* UIColor+Extensions.swift in Sources */,
 				01DCE23F298FA3B300BA311D /* ShopListCardView.swift in Sources */,
 				011DDC2328766C5E00C6C21F /* SignUpService.swift in Sources */,
 				01E2477229A5E30400D4B00D /* Utility.swift in Sources */,

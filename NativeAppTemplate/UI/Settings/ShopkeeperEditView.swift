@@ -47,7 +47,7 @@ private extension ShopkeeperEditView {
                 Text(String.fullName)
             } footer: {
                 Text(String.fullNameIsRequired)
-                    .foregroundStyle(Utility.isBlank(viewModel.name) ? .red : .clear)
+                    .foregroundStyle(Utility.isBlank(viewModel.name) ? .validationError : .clear)
             }
 
             Section {
@@ -59,10 +59,10 @@ private extension ShopkeeperEditView {
             } footer: {
                 if Utility.isBlank(viewModel.email) {
                     Text(String.emailIsRequired)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.validationError)
                 } else if viewModel.hasInvalidDataEmail {
                     Text(String.emailIsInvalid)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.validationError)
                 }
             }
 

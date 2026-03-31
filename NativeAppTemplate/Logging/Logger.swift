@@ -69,9 +69,9 @@ struct Failure {
     func log() {
         appLogger.error(
             """
-            \(self.action, privacy: .public) \
-            source=\(self.source, privacy: .public) \
-            reason=\(self.reason, privacy: .private)
+            \(action, privacy: .public) \
+            source=\(source, privacy: .public) \
+            reason=\(reason, privacy: .private)
             """
         )
     }
@@ -99,6 +99,6 @@ struct Event {
     private let action: String
 
     func log() {
-        appLogger.info("EVENT:: source: \(self.source, privacy: .public), action: \(self.action, privacy: .public)")
+        appLogger.info("EVENT:: source: \(source, privacy: .public), action: \(action, privacy: .public)")
     }
 }

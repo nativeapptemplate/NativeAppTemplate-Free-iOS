@@ -38,7 +38,7 @@ struct ShopCreateView: View {
                     TextField(String.name, text: $viewModel.name)
                 } footer: {
                     Text(String.shopNameIsRequired)
-                        .foregroundStyle(viewModel.hasInvalidData ? .red : .clear)
+                        .foregroundStyle(viewModel.hasInvalidData ? .validationError : .clear)
                 }
 
                 Section {

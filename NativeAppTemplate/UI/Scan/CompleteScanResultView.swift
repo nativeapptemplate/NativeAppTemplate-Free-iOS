@@ -67,6 +67,7 @@ private extension CompleteScanResultView {
         GroupBox(label: Label(String("Error"), systemImage: "exclamationmark.triangle")) {
             Text(completeScanResult.message)
         }
+        .foregroundStyle(.validationError)
         .backgroundStyle(.failureBackground)
     }
 

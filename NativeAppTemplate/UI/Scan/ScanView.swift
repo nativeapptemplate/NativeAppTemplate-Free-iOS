@@ -137,7 +137,7 @@ private extension ScanView {
                 .pickerStyle(SegmentedPickerStyle())
             }
         }
-        .toolbarBackground(.black, for: .navigationBar)
+        .toolbarBackground(.backgroundColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .padding()
         .confirmationDialog(
