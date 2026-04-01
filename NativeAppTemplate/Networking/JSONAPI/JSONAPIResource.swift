@@ -4,7 +4,6 @@
 //
 
 import struct Foundation.URL
-import SwiftyJSON
 
 public class JSONAPIResource {
     // MARK: - Properties
@@ -33,31 +32,35 @@ public class JSONAPIResource {
     // MARK: - Initializers
 
     convenience init(
-        _ json: JSON,
+        _ json: Any,
         parent: JSONAPIDocument?
     ) {
         self.init()
+
+        guard let dict = json as? [String: Any] else { return }
 
         if let doc = parent {
             self.parent = doc
         }
 
-        id = json["id"].stringValue
-        type = json["type"].stringValue
+        id = (dict["id"] as? String) ?? ""
+        type = (dict["type"] as? String) ?? ""
 
-        for relationship in json["relationships"].dictionaryValue {
-            relationships.append(
-                JSONAPIRelationship(
-                    relationship.value,
-                    type: relationship.key,
-                    parent: nil
+        if let rels = dict["relationships"] as? [String: Any] {
+            for (key, value) in rels {
+                relationships.append(
+                    JSONAPIRelationship(
+                        value,
+                        type: key,
+                        parent: nil
+                    )
                 )
-            )
+            }
         }
 
-        attributes = json["attributes"].dictionaryObject ?? [:]
+        attributes = dict["attributes"] as? [String: Any] ?? [:]
 
-        if let linksDict = json["links"].dictionaryObject {
+        if let linksDict = dict["links"] as? [String: Any] {
             for link in linksDict {
                 if let strValue = link.value as? String,
                    let url = URL(string: strValue) {
@@ -66,7 +69,7 @@ public class JSONAPIResource {
             }
         }
 
-        meta = json["meta"].dictionaryValue
+        meta = dict["meta"] as? [String: Any] ?? [:]
     }
 }
 

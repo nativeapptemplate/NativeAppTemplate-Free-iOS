@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct MakeShopkeeperRequest: Request {
     typealias Response = Shopkeeper
@@ -30,7 +29,7 @@ struct MakeShopkeeperRequest: Request {
     let signUp: SignUp
 
     func handle(response: Data) throws -> Shopkeeper {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shopkeepers = try doc.data.map { try ShopkeeperSignInAdapter.process(resource: $0) }
         return shopkeepers.first!
@@ -64,7 +63,7 @@ struct UpdateShopkeeperRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shopkeepers = try doc.data.map { try ShopkeeperSignInAdapter.process(resource: $0) }
         guard let shopkeeper = shopkeepers.first,

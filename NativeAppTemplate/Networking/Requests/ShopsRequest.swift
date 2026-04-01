@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct GetShopsRequest: Request {
     typealias Response = (shops: [Shop], limitCount: Int, createdShopsCount: Int)
@@ -27,7 +26,7 @@ struct GetShopsRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shops = try doc.data.map { try ShopAdapter.process(resource: $0) }
         guard let limitCount = doc.meta["limit_count"] as? Int else {
@@ -68,7 +67,7 @@ struct GetShopDetailRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shops = try doc.data.map { try ShopAdapter.process(resource: $0) }
 
@@ -107,7 +106,7 @@ struct MakeShopRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Shop {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shops = try doc.data.map { try ShopAdapter.process(resource: $0) }
         guard let shop = shops.first,
@@ -146,7 +145,7 @@ struct UpdateShopRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shops = try doc.data.map { try ShopAdapter.process(resource: $0) }
         guard let shop = shops.first,

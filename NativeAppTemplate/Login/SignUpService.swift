@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct SignUpsService {
     var networkClient = NativeAppTemplateAPI()
@@ -90,11 +89,10 @@ extension SignUpsService {
         guard statusCode.map((200 ..< 300).contains) == true
         else {
             var errorMessage: String?
-            var json: JSON?
 
             do {
-                json = try JSON(data: data)
-                if let json, let theErrorMessage = json["error_message"].string {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let theErrorMessage = json["error_message"] as? String {
                     errorMessage = theErrorMessage
                 }
             } catch {

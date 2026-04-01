@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct MakeSessionRequest: Request {
     typealias Response = Shopkeeper
@@ -31,7 +30,7 @@ struct MakeSessionRequest: Request {
     let password: String
 
     func handle(response: Data) throws -> Shopkeeper {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shopkeepers = try doc.data.map { try ShopkeeperSignInAdapter.process(resource: $0) }
         return shopkeepers.first!

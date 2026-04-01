@@ -40,7 +40,6 @@
 		0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0150A36529B14BB300907F96 /* SendResetPassword.swift */; };
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
-		0172030225A9634F008FD63B /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 0172030125A9634F008FD63B /* SwiftyJSON */; };
 		0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030825A9642D008FD63B /* JSONAPIResource.swift */; };
 		0172033825A9642E008FD63B /* JSONAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030925A9642E008FD63B /* JSONAPIError.swift */; };
 		0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */; };
@@ -363,7 +362,6 @@
 				012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */,
 				012009F8299F1E190078A1F9 /* Collections in Frameworks */,
 				012009FA299F1E190078A1F9 /* DequeModule in Frameworks */,
-				0172030225A9634F008FD63B /* SwiftyJSON in Frameworks */,
 				0182D37025B258A7001E881D /* KeychainAccess in Frameworks */,
 			);
 		};
@@ -856,7 +854,6 @@
 			);
 			name = NativeAppTemplate;
 			packageProductDependencies = (
-				0172030125A9634F008FD63B /* SwiftyJSON */,
 				0182D36F25B258A7001E881D /* KeychainAccess */,
 				012009F7299F1E190078A1F9 /* Collections */,
 				012009F9299F1E190078A1F9 /* DequeModule */,
@@ -916,7 +913,6 @@
 			);
 			mainGroup = 011F6DE4259EF16400BED22E;
 			packageReferences = (
-				0172030025A9634F008FD63B /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				0182D36E25B258A7001E881D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
@@ -1529,14 +1525,6 @@
 				minimumVersion = 1.0.5;
 			};
 		};
-		0172030025A9634F008FD63B /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
 		0182D36E25B258A7001E881D /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
@@ -1562,11 +1550,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
-		};
-		0172030125A9634F008FD63B /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0172030025A9634F008FD63B /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
 		};
 		0182D36F25B258A7001E881D /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;

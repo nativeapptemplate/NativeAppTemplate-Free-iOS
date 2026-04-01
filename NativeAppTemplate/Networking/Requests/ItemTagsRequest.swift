@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct GetItemTagsRequest: Request {
     typealias Response = [ItemTag]
@@ -29,7 +28,7 @@ struct GetItemTagsRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         return try doc.data.map { try ItemTagAdapter.process(resource: $0) }
     }
@@ -60,7 +59,7 @@ struct GetItemTagDetailRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let itemTags = try doc.data.map { try ItemTagAdapter.process(resource: $0) }
 
@@ -101,7 +100,7 @@ struct MakeItemTagRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> ItemTag {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let itemTags = try doc.data.map { try ItemTagAdapter.process(resource: $0) }
         guard let itemTag = itemTags.first,
@@ -141,7 +140,7 @@ struct UpdateItemTagRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let itemTags = try doc.data.map { try ItemTagAdapter.process(resource: $0) }
         guard let theItemTag = itemTags.first,
@@ -205,7 +204,7 @@ struct CompleteItemTagRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let itemTags = try doc.data.map { try ItemTagAdapter.process(resource: $0) }
         guard let itemTag = itemTags.first,
@@ -242,7 +241,7 @@ struct ResetItemTagRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let itemTags = try doc.data.map { try ItemTagAdapter.process(resource: $0) }
         guard let theItemTag = itemTags.first,

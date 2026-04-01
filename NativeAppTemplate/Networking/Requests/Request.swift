@@ -4,7 +4,6 @@
 //
 
 import struct Foundation.Data
-import SwiftyJSON
 
 enum HTTPMethod: String {
     case GET

@@ -3,8 +3,7 @@
 //  NativeAppTemplate
 //
 
-import struct Foundation.Data
-import SwiftyJSON
+import Foundation
 
 struct PermissionsResponse: Sendable {
     var iosAppVersion: Int
@@ -35,7 +34,7 @@ struct PermissionsRequest: Request {
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
-        let json = try JSON(data: response)
+        let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
 
         guard let iosAppVersion = doc.meta["ios_app_version"] as? Int else {
