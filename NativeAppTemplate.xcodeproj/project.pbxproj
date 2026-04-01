@@ -114,8 +114,6 @@
 		0182D37825B277FA001E881D /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D37625B277D6001E881D /* KeychainStore.swift */; };
 		0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */; };
 		0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */; };
-		018D4EFD2B6350E800CBA736 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018D4EFC2B6350E800CBA736 /* Inter-Medium.ttf */; };
-		018D4EFF2B6350F500CBA736 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018D4EFE2B6350F500CBA736 /* Inter-Bold.ttf */; };
 		018E21CB2B36367F00FFD1F6 /* MeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E21CA2B36367F00FFD1F6 /* MeRequest.swift */; };
 		018E21CD2B36377800FFD1F6 /* MeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E21CC2B36377800FFD1F6 /* MeService.swift */; };
 		0199CD242E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD212E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift */; };
@@ -291,8 +289,6 @@
 		0182D37625B277D6001E881D /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperAdapter.swift; sourceTree = "<group>"; };
 		0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeperKeychainStore.swift; sourceTree = "<group>"; };
-		018D4EFC2B6350E800CBA736 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
-		018D4EFE2B6350F500CBA736 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
 		018E21CA2B36367F00FFD1F6 /* MeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeRequest.swift; sourceTree = "<group>"; };
 		018E21CC2B36377800FFD1F6 /* MeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeService.swift; sourceTree = "<group>"; };
 		0199CD212E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -716,7 +712,6 @@
 		0172046D25AA8325008FD63B /* Styleguide */ = {
 			isa = PBXGroup;
 			children = (
-				018D4EFB2B6350CB00CBA736 /* Inter */,
 				0172047625AA8325008FD63B /* Color+Extensions.swift */,
 				0172047525AA8325008FD63B /* Font+Extensions.swift */,
 				0172046E25AA8325008FD63B /* UIFont+Extensions.swift */,
@@ -796,15 +791,6 @@
 				0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */,
 			);
 			path = KeychainStore;
-			sourceTree = "<group>";
-		};
-		018D4EFB2B6350CB00CBA736 /* Inter */ = {
-			isa = PBXGroup;
-			children = (
-				018D4EFE2B6350F500CBA736 /* Inter-Bold.ttf */,
-				018D4EFC2B6350E800CBA736 /* Inter-Medium.ttf */,
-			);
-			path = Inter;
 			sourceTree = "<group>";
 		};
 		0190B3D3263F7B94009E09FF /* Repositories */ = {
@@ -950,8 +936,6 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */,
-				018D4EFF2B6350F500CBA736 /* Inter-Bold.ttf in Resources */,
-				018D4EFD2B6350E800CBA736 /* Inter-Medium.ttf in Resources */,
 				011F6DF8259EF16600BED22E /* Preview Assets.xcassets in Resources */,
 				011F6DF5259EF16600BED22E /* Assets.xcassets in Resources */,
 			);

@@ -7,27 +7,27 @@ import SwiftUI
 
 extension Font {
     static var uiLargeTitle: Font {
-        .custom("Inter-Bold", size: 36.0, relativeTo: .largeTitle)
+        .system(size: UIFontMetrics.default.scaledValue(for: 36.0)).weight(.bold)
     }
 
     static var uiTitle1: Font {
-        .custom("Inter-Medium", size: 30.0, relativeTo: .title)
+        .system(size: UIFontMetrics.default.scaledValue(for: 30.0)).weight(.medium)
     }
 
     static var uiTitle2: Font {
-        .custom("Inter-Bold", size: 24.0, relativeTo: .title2)
+        .system(size: UIFontMetrics.default.scaledValue(for: 24.0)).weight(.bold)
     }
 
     static var uiTitle3: Font {
-        .custom("Inter-Bold", size: 20.0, relativeTo: .title3)
+        .system(size: UIFontMetrics.default.scaledValue(for: 20.0)).weight(.bold)
     }
 
     static var uiTitle4: Font {
-        .custom("Inter-Medium", size: 18.0, relativeTo: .title3)
+        .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).weight(.medium)
     }
 
     static var uiTitle5: Font {
-        .custom("Inter-Medium", size: 18.0, relativeTo: .body)
+        .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).weight(.medium)
     }
 
     static var uiHeadline: Font {
@@ -35,7 +35,7 @@ extension Font {
     }
 
     static var uiNumberBox: Font {
-        .custom("Inter-Bold", size: 12.0, relativeTo: .footnote)
+        .system(size: UIFontMetrics.default.scaledValue(for: 12.0)).weight(.bold)
     }
 
     static var uiBodyAppleDefault: Font {
