@@ -84,7 +84,7 @@ private extension ShopkeeperEditView {
                 .listRowBackground(Color.clear)
             }
         }
-        .confirmationDialog(
+        .alert(
             String.deleteMyAccount,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {

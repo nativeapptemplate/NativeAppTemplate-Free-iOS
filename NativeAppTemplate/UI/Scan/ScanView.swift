@@ -138,7 +138,7 @@ private extension ScanView {
             }
         }
         .padding()
-        .confirmationDialog(
+        .alert(
             String.itemTagAlreadyCompleted,
             isPresented: $viewModel.isShowingResetConfirmationDialog
         ) {
