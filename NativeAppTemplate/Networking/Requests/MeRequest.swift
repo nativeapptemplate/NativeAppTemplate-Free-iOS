@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct UpdateConfirmedPrivacyVersionRequest: Request {
     typealias Response = Void

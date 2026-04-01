@@ -4,11 +4,10 @@
 //
 
 @testable import NativeAppTemplate
-import SwiftyJSON
 import Testing
 
 struct ItemTagAdapterTest {
-    let sampleResource: JSON = [
+    let sampleResource: [String: Any] = [
         "id": "5712F2DF-DFC7-A3AA-66BC-191203654A1A",
         "type": "item_tag",
         "attributes": [
@@ -24,8 +23,8 @@ struct ItemTagAdapterTest {
         ]
     ]
 
-    func makeJsonAPIResource(for dict: JSON) throws -> JSONAPIResource {
-        let json: JSON = [
+    func makeJsonAPIResource(for dict: [String: Any]) throws -> JSONAPIResource {
+        let json: [String: Any] = [
             "data": [
                 dict
             ]
@@ -55,7 +54,10 @@ struct ItemTagAdapterTest {
 
     @Test func missingnAccountIdThrows() throws {
         var sample = sampleResource
-        sample["attributes"].dictionaryObject?.removeValue(forKey: "shop_id")
+        if var attributes = sample["attributes"] as? [String: Any] {
+            attributes.removeValue(forKey: "shop_id")
+            sample["attributes"] = attributes
+        }
 
         let resource = try makeJsonAPIResource(for: sample)
 

@@ -4,7 +4,6 @@
 //
 
 import struct Foundation.URL
-import SwiftyJSON
 
 public class JSONAPIError {
     // MARK: - Properties
@@ -20,12 +19,14 @@ public class JSONAPIError {
 
     // MARK: - Initializers
 
-    convenience init(_ json: JSON) {
+    convenience init(_ json: Any) {
         self.init()
 
-        id = json["id"].stringValue
+        guard let dict = json as? [String: Any] else { return }
 
-        if let linksDict = json["links"].dictionaryObject {
+        id = (dict["id"] as? String) ?? ""
+
+        if let linksDict = dict["links"] as? [String: Any] {
             for link in linksDict {
                 if let strValue = link.value as? String,
                    let url = URL(string: strValue) {
@@ -34,11 +35,11 @@ public class JSONAPIError {
             }
         }
 
-        status = json["status"].stringValue
-        code = json["code"].stringValue
-        title = json["title"].stringValue
-        detail = json["detail"].stringValue
-        source = JSONAPIErrorSource(json["source"])
-        meta = json["meta"].dictionaryValue
+        status = (dict["status"] as? String) ?? ""
+        code = (dict["code"] as? String) ?? ""
+        title = (dict["title"] as? String) ?? ""
+        detail = (dict["detail"] as? String) ?? ""
+        source = JSONAPIErrorSource(dict["source"] as Any)
+        meta = dict["meta"] as? [String: Any] ?? [:]
     }
 }

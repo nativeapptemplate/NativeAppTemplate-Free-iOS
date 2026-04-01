@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct UpdateAccountPasswordRequest: Request {
     typealias Response = Void

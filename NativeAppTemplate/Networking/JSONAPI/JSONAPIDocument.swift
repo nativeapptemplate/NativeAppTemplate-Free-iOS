@@ -4,7 +4,6 @@
 //
 
 import struct Foundation.URL
-import SwiftyJSON
 
 class JSONAPIDocument {
     // MARK: - Properties
@@ -17,36 +16,27 @@ class JSONAPIDocument {
 
     // MARK: - Initializers
 
-    convenience init(_ json: JSON) {
+    convenience init(_ json: Any) {
         self.init()
 
-        data = json["data"].arrayValue.map { JSONAPIResource($0, parent: self) }
-        meta = json["meta"].dictionaryObject ?? [:]
-        included = json["included"].arrayValue.map { JSONAPIResource($0, parent: self) }
-        errors = json["error"].arrayValue.map { JSONAPIError($0) }
+        guard let dict = json as? [String: Any] else { return }
 
-        if let dataArray = json["data"].array {
+        meta = dict["meta"] as? [String: Any] ?? [:]
+        errors = (dict["error"] as? [[String: Any]] ?? []).map { JSONAPIError($0) }
+
+        if let dataArray = dict["data"] as? [[String: Any]] {
             data = dataArray.map { JSONAPIResource($0, parent: self) }
-        } else {
-            data = [JSONAPIResource(json["data"], parent: self)]
+        } else if let dataDict = dict["data"] as? [String: Any] {
+            data = [JSONAPIResource(dataDict, parent: self)]
         }
 
-        if let includedArray = json["included"].array {
+        if let includedArray = dict["included"] as? [[String: Any]] {
             included = includedArray.map { JSONAPIResource($0, parent: self) }
-        } else {
-            included = [JSONAPIResource(json["included"], parent: self)]
+        } else if let includedDict = dict["included"] as? [String: Any] {
+            included = [JSONAPIResource(includedDict, parent: self)]
         }
 
-        if let linksDict = json["links"].dictionaryObject {
-            for link in linksDict {
-                if let strValue = link.value as? String,
-                   let url = URL(string: strValue) {
-                    links[link.key] = url
-                }
-            }
-        }
-
-        if let linksDict = json["links"].dictionaryObject {
+        if let linksDict = dict["links"] as? [String: Any] {
             for link in linksDict {
                 if let strValue = link.value as? String,
                    let url = URL(string: strValue) {

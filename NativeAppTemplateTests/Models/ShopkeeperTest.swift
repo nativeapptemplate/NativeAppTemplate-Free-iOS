@@ -4,7 +4,6 @@
 //
 
 @testable import NativeAppTemplate
-import SwiftyJSON
 import Testing
 
 struct ShopkeeperTest {

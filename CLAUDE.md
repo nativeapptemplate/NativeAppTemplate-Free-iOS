@@ -108,7 +108,6 @@ NativeAppTemplate/
 
 ### Dependencies (Swift Package Manager)
 - KeychainAccess (4.2.2) - Secure credential storage
-- SwiftyJSON (5.0.2) - JSON parsing  
 - Swift Collections (1.1.4) - Additional data structures
 
 ### Testing

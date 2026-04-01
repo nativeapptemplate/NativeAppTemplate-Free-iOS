@@ -3,8 +3,6 @@
 //  NativeAppTemplate
 //
 
-import SwiftyJSON
-
 public class JSONAPIErrorSource {
     // MARK: - Properties
 
@@ -13,10 +11,12 @@ public class JSONAPIErrorSource {
 
     // MARK: - Initializers
 
-    convenience init(_ json: JSON) {
+    convenience init(_ json: Any) {
         self.init()
 
-        pointer = json["pointer"].stringValue
-        parameter = json["parameter"].stringValue
+        guard let dict = json as? [String: Any] else { return }
+
+        pointer = (dict["pointer"] as? String) ?? ""
+        parameter = (dict["parameter"] as? String) ?? ""
     }
 }
