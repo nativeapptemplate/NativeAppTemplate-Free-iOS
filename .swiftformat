@@ -43,4 +43,4 @@
 --xcodeindentation disabled
 
 # Disabled rules to avoid conflicts with SwiftLint
---disable wrapMultilineStatementBraces
+--disable wrapMultilineStatementBraces,redundantSendable

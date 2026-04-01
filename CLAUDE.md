@@ -43,7 +43,7 @@ swiftlint --strict
 ```
 
 ### Linting and Formatting
-Always run `make lint` before pushing to verify SwiftLint and SwiftFormat checks pass (matches CI). Use `make format` to auto-fix SwiftFormat issues.
+Always run `make lint` before pushing to verify SwiftLint and SwiftFormat checks pass. Use `make format` to auto-fix SwiftFormat issues. After lint passes, ask the user to verify tests in Xcode (Cmd+U) before pushing.
 
 ### Formatting
 ```bash

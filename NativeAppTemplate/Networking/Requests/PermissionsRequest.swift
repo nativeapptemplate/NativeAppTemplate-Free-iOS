@@ -6,7 +6,7 @@
 import struct Foundation.Data
 import SwiftyJSON
 
-struct PermissionsResponse {
+struct PermissionsResponse: Sendable {
     var iosAppVersion: Int
     var shouldUpdatePrivacy: Bool
     var shouldUpdateTerms: Bool
