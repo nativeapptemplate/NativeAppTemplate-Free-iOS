@@ -28,11 +28,6 @@
 	<string>This app uses a NFC to write the application info to the NFC number tag or to read the NFC number tag into the application.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save a QR code image including web page link used by this app.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Inter-Medium.ttf</string>
-		<string>Inter-Bold.ttf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

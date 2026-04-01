@@ -7,10 +7,10 @@ import UIKit
 
 extension UIFont {
     static var uiLargeTitle: UIFont {
-        .init(name: "Inter-Bold", size: 36.0)!
+        .systemFont(ofSize: 36.0, weight: .bold)
     }
 
     static var uiHeadline: UIFont {
-        .init(name: "Inter-Medium", size: 18.0)!
+        .systemFont(ofSize: 18.0, weight: .medium)
     }
 }
