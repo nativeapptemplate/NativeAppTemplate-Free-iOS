@@ -128,7 +128,7 @@ private extension ShopSettingsView {
             }
         }
         .navigationTitle(String.shopSettingsLabel)
-        .confirmationDialog(
+        .alert(
             String.resetNumberTags,
             isPresented: $viewModel.isShowingResetConfirmationDialog
         ) {
@@ -141,7 +141,7 @@ private extension ShopSettingsView {
         } message: {
             Text(String.areYouSure)
         }
-        .confirmationDialog(
+        .alert(
             String.deleteShop,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {

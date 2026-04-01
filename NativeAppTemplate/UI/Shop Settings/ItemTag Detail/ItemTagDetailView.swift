@@ -135,7 +135,7 @@ private extension ItemTagDetailView {
                 )
             }
         )
-        .confirmationDialog(
+        .alert(
             String.buttonDeleteTag,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {

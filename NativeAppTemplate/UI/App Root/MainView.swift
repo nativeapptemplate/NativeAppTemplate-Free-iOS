@@ -30,7 +30,7 @@ struct MainView: View {
                 .onChange(of: sessionController.shouldUpdateTerms) { _, _ in
                     viewModel?.handleTermsUpdate()
                 }
-                .confirmationDialog(
+                .alert(
                     String.itemTagAlreadyCompleted,
                     isPresented: Binding(
                         get: { viewModel?.isShowingResetConfirmationDialog ?? false },
