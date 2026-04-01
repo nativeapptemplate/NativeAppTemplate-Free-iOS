@@ -3,16 +3,11 @@
 //  NativeAppTemplate
 //
 
-import MessageUI
 import Observation
-import SwiftUI
 
 @Observable
 @MainActor
 final class SettingsViewModel {
-    var isShowingMailView = false
-    var alertNoMail = false
-    var result: Result<MFMailComposeResult, Error>?
     private(set) var messageBus: MessageBus
 
     private let sessionController: SessionControllerProtocol

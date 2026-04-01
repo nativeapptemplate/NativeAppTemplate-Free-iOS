@@ -22,9 +22,6 @@ struct SettingsViewModelTest {
             messageBus: messageBus
         )
 
-        #expect(viewModel.isShowingMailView == false)
-        #expect(viewModel.alertNoMail == false)
-        #expect(viewModel.result == nil)
         #expect(viewModel.messageBus === messageBus)
     }
 
@@ -128,25 +125,6 @@ struct SettingsViewModelTest {
 
         // Even if logout succeeds in test environment, tab should still be set to shops
         #expect(tabViewModel.selectedTab == .shops)
-    }
-
-    @Test
-    func statePropertiesAreObservable() {
-        let viewModel = SettingsViewModel(
-            sessionController: sessionController,
-            tabViewModel: tabViewModel,
-            messageBus: messageBus
-        )
-
-        // Test that properties can be set (indicating they're observable)
-        viewModel.isShowingMailView = true
-        #expect(viewModel.isShowingMailView == true)
-
-        viewModel.alertNoMail = true
-        #expect(viewModel.alertNoMail == true)
-
-        viewModel.result = .success(.sent)
-        #expect(viewModel.result != nil)
     }
 
     @Test

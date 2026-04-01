@@ -215,7 +215,6 @@ extension String {
     static let supportWebsiteUrl: String = "https://nativeapptemplate.com"
     static let howToUseUrl: String = "https://myturntag.com/how"
     static let faqsUrl: String = "https://nativeapptemplate.com/faqs"
-    static let discussionsUrl: String = "https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/discussions"
     static let privacyPolicyUrl: String = "https://nativeapptemplate.com/privacy"
     static let termsOfUseUrl: String = "https://nativeapptemplate.com/terms"
 
@@ -225,9 +224,7 @@ extension String {
     static let supportWebsite = "Support Website"
     static let howToUse = "How To Use"
     static let faqs = "FAQs"
-    static let discussions = "Discussions"
     static let rateApp = "Rate or Review the App"
-    static let emailUs = "Email Us"
     static let contact = "Contact"
     static let privacyPolicy = "Privacy Policy"
     static let termsOfUse = "Terms of Use"

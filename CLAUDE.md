@@ -55,7 +55,7 @@ swiftformat .
 
 ### MVVM with Observable Pattern
 The app uses iOS 17's `@Observable` macro for state management with clean separation between:
-- **Views**: SwiftUI views (99% SwiftUI, UIKit only for mail view)
+- **Views**: SwiftUI views
 - **ViewModels**: Observable state containers that bridge views and data
 - **Models**: Domain objects and data structures
 - **Repositories**: Data access layer implementing CRUD operations
