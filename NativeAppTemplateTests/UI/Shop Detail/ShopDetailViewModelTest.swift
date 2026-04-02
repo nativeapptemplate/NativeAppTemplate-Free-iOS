@@ -111,7 +111,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         }
         await reloadTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
     }
 

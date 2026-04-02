@@ -107,13 +107,13 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
 
         session.connect(to: tag) { error in
             if let error {
-                session.invalidate(errorMessage: "Connection error: \(error.localizedDescription)")
+                session.invalidate(errorMessage: "Connection error: \(error.codedDescription)")
                 return
             }
 
             tag.queryNDEFStatus { status, capacity, error in
                 if let error {
-                    session.invalidate(errorMessage: "Checking NDEF status error: \(error.localizedDescription)")
+                    session.invalidate(errorMessage: "Checking NDEF status error: \(error.codedDescription)")
                     return
                 }
 
@@ -162,7 +162,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
         nonisolated(unsafe) let tag = tag
         tag.readNDEF { [weak self] message, error in
             if let error {
-                session.invalidate(errorMessage: "Reading error: \(error.localizedDescription)")
+                session.invalidate(errorMessage: "Reading error: \(error.codedDescription)")
                 if test {
                     self?.internalIsScanResultChangedForTesting = true
                 } else {
@@ -173,7 +173,7 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
 
             guard let message else {
                 session.invalidate(errorMessage: String.noRecrodsFound)
-                self?.internalScanResult = .failure(ScanResultError.failed(String.tagNotValid))
+                self?.internalScanResult = .failure(NFCError.scanFailed(String.tagNotValid))
 
                 if test {
                     self?.internalIsScanResultChangedForTesting = true
@@ -222,13 +222,13 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
         nonisolated(unsafe) let completion = completion
         tag.writeNDEF(ndefMessage) { error in
             if let error {
-                session.invalidate(errorMessage: "Writing error: \(error.localizedDescription)")
+                session.invalidate(errorMessage: "Writing error: \(error.codedDescription)")
                 completion(error)
             } else {
                 if isLock {
                     tag.writeLock { error in
                         if let error {
-                            session.invalidate(errorMessage: "Writing lock error: \(error.localizedDescription)")
+                            session.invalidate(errorMessage: "Writing lock error: \(error.codedDescription)")
                             completion(error)
                         } else {
                             session.alertMessage = String.writingSucceeded
@@ -257,13 +257,13 @@ extension NFCManager: NFCNDEFReaderSessionDelegate {
             )
             internalScanResult = .success(itemTagData)
         } else {
-            internalScanResult = .failure(ScanResultError.failed(itemTagInfo.message))
+            internalScanResult = .failure(NFCError.scanFailed(itemTagInfo.message))
         }
     }
 
     func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {}
 
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-        appLogger.debug("readerSession error: \(error.localizedDescription, privacy: .private)")
+        appLogger.debug("readerSession error: \(error.codedDescription, privacy: .private)")
     }
 }

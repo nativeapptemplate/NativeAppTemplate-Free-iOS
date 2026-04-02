@@ -18,6 +18,10 @@ struct Message {
 }
 
 extension Message {
+    init(error: any Error, autoDismiss: Bool = false) {
+        self.init(level: .error, message: error.codedDescription, autoDismiss: autoDismiss)
+    }
+
     var snackbarState: SnackbarState {
         .init(status: level.snackbarStatus, message: message)
     }

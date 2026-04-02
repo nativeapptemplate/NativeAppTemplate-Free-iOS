@@ -9,36 +9,6 @@ import Observation
 typealias HTTPHeaders = [String: String]
 typealias HTTPHeader = HTTPHeaders.Element
 
-enum NativeAppTemplateAPIError: Error {
-    case requestFailed(Error?, Int, String?)
-    case processingError(Error?)
-    case responseMissingRequiredMeta(field: String?)
-    case responseHasIncorrectNumberOfElements
-    case noData
-}
-
-extension NativeAppTemplateAPIError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case let .requestFailed(error, statusCode, message):
-            if let message {
-                "\(message) [Status: \(statusCode)]"
-            } else {
-                "NativeAppTemplateAPIError::RequestFailed" +
-                    "[Status: \(statusCode) | Error: \(error?.localizedDescription ?? "UNKNOWN")]"
-            }
-        case let .processingError(error):
-            "NativeAppTemplateAPIError::ProcessingError[Error: \(error?.localizedDescription ?? "UNKNOWN")]"
-        case let .responseMissingRequiredMeta(field: field):
-            "NativeAppTemplateAPIError::ResponseMissingRequiredMeta[Field: \(field ?? "UNKNOWN")]"
-        case .responseHasIncorrectNumberOfElements:
-            "NativeAppTemplateAPIError::ResponseHasIncorrectNumberOfElements"
-        case .noData:
-            "NativeAppTemplateAPIError::NoData"
-        }
-    }
-}
-
 @MainActor
 public struct NativeAppTemplateAPI: Equatable {
     public nonisolated static func == (lhs: NativeAppTemplateAPI, rhs: NativeAppTemplateAPI) -> Bool {

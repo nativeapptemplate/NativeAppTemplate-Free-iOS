@@ -71,13 +71,7 @@ final class ItemTagCreateViewModel {
                 _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: .itemTagCreated))
             } catch {
-                messageBus.post(
-                    message: Message(
-                        level: .error,
-                        message: error.localizedDescription,
-                        autoDismiss: false
-                    )
-                )
+                messageBus.post(message: Message(error: error))
             }
 
             shouldDismiss = true

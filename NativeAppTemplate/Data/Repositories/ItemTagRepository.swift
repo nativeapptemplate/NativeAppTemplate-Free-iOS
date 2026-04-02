@@ -42,7 +42,7 @@ import SwiftUI
             } catch {
                 state = .failed
                 Failure
-                    .fetch(from: Self.self, reason: error.localizedDescription)
+                    .fetch(from: Self.self, reason: error.codedDescription)
                     .log()
             }
         }
@@ -54,7 +54,7 @@ import SwiftUI
             return itemTags
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.localizedDescription)
+                .fetch(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -73,7 +73,7 @@ import SwiftUI
             return itemTag
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.localizedDescription)
+                .fetch(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -84,7 +84,7 @@ import SwiftUI
             return try await itemTagsService.makeItemTag(shopId: shopId, itemTag: itemTag)
         } catch {
             Failure
-                .create(from: Self.self, reason: error.localizedDescription)
+                .create(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -101,7 +101,7 @@ import SwiftUI
             return updatedItemTag
         } catch {
             Failure
-                .update(from: Self.self, reason: error.localizedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -112,7 +112,7 @@ import SwiftUI
             try await itemTagsService.destroyItemTag(id: id)
         } catch {
             Failure
-                .destroy(from: Self.self, reason: error.localizedDescription)
+                .destroy(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -130,7 +130,7 @@ import SwiftUI
         } catch {
             state = .failed
             Failure
-                .update(from: Self.self, reason: error.localizedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -148,7 +148,7 @@ import SwiftUI
         } catch {
             state = .failed
             Failure
-                .update(from: Self.self, reason: error.localizedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }

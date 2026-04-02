@@ -91,11 +91,7 @@ final class ItemTagEditViewModel {
                 _ = try await itemTagRepository.update(id: itemTagId, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: .itemTagUpdated))
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
             }
 
             isUpdating = false
@@ -113,11 +109,7 @@ final class ItemTagEditViewModel {
                     queueNumber = String(itemTag.queueNumber)
                 }
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
 

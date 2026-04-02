@@ -47,7 +47,7 @@ final class ShopSettingsViewModel {
             do {
                 shop = try await shopRepository.fetchDetail(id: shopId)
             } catch {
-                messageBus.post(message: .init(level: .error, message: error.localizedDescription, autoDismiss: false))
+                messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
             isFetching = false
@@ -65,7 +65,7 @@ final class ShopSettingsViewModel {
             } catch {
                 messageBus.post(message: .init(
                     level: .error,
-                    message: "\(String.shopResetError) \(error.localizedDescription)",
+                    message: "\(String.shopResetError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
@@ -85,7 +85,7 @@ final class ShopSettingsViewModel {
             } catch {
                 messageBus.post(message: .init(
                     level: .error,
-                    message: "\(String.shopDeletedError) \(error.localizedDescription)",
+                    message: "\(String.shopDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
                 try await sessionController.logout()

@@ -117,11 +117,7 @@ final class ShopkeeperEditViewModel {
 
                 shouldDismiss = true
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
             }
 
             isUpdating = false
@@ -138,7 +134,7 @@ final class ShopkeeperEditViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.shopkeeperDeletedError) \(error.localizedDescription)",
+                    message: "\(String.shopkeeperDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
@@ -148,7 +144,7 @@ final class ShopkeeperEditViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.shopkeeperDeletedError) \(error.localizedDescription)",
+                    message: "\(String.shopkeeperDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

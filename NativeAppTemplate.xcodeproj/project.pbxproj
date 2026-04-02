@@ -85,7 +85,6 @@
 		017278642D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */; };
 		017278652D7D83E700CE424F /* ItemTagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278602D7D83E700CE424F /* ItemTagType.swift */; };
 		017278682D7D83F600CE424F /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278672D7D83F600CE424F /* ScanState.swift */; };
-		017278692D7D83F600CE424F /* ScanResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278662D7D83F600CE424F /* ScanResultError.swift */; };
 		0172786B2D7D840A00CE424F /* ShowTagInfoScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786A2D7D840A00CE424F /* ShowTagInfoScanResult.swift */; };
 		0172786F2D7D87D000CE424F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786E2D7D87D000CE424F /* String+Extensions.swift */; };
 		017278702D7D87D000CE424F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786C2D7D87D000CE424F /* Date+Extensions.swift */; };
@@ -167,6 +166,10 @@
 		01EE363E29A6DCEB009BCD9D /* ShopkeeperEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE363D29A6DCEB009BCD9D /* ShopkeeperEditView.swift */; };
 		01FC03E22B3329B700E6CD8E /* NeedAppUpdatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC03E12B3329B700E6CD8E /* NeedAppUpdatesView.swift */; };
 		7249A60C06FE44338E16BC50 /* CertificatePinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597C0551370446BB931F19B /* CertificatePinningDelegate.swift */; };
+		A2B3C4D500000002 /* CodedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000001 /* CodedError.swift */; };
+		A2B3C4D500000004 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000003 /* AppError.swift */; };
+		A2B3C4D500000006 /* NFCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000005 /* NFCError.swift */; };
+		A2B3C4D500000008 /* NativeAppTemplateAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000007 /* NativeAppTemplateAPIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,7 +261,6 @@
 		0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagInfoFromNdefMessage.swift; sourceTree = "<group>"; };
 		0172785F2D7D83E700CE424F /* ItemTagState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagState.swift; sourceTree = "<group>"; };
 		017278602D7D83E700CE424F /* ItemTagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagType.swift; sourceTree = "<group>"; };
-		017278662D7D83F600CE424F /* ScanResultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultError.swift; sourceTree = "<group>"; };
 		017278672D7D83F600CE424F /* ScanState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
 		0172786A2D7D840A00CE424F /* ShowTagInfoScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagInfoScanResult.swift; sourceTree = "<group>"; };
 		0172786C2D7D87D000CE424F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -341,6 +343,10 @@
 		01EE363D29A6DCEB009BCD9D /* ShopkeeperEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperEditView.swift; sourceTree = "<group>"; };
 		01FC03E12B3329B700E6CD8E /* NeedAppUpdatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedAppUpdatesView.swift; sourceTree = "<group>"; };
 		C597C0551370446BB931F19B /* CertificatePinningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinningDelegate.swift; sourceTree = "<group>"; };
+		A2B3C4D500000001 /* CodedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodedError.swift; sourceTree = "<group>"; };
+		A2B3C4D500000003 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		A2B3C4D500000005 /* NFCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCError.swift; sourceTree = "<group>"; };
+		A2B3C4D500000007 /* NativeAppTemplateAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateAPIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -411,6 +417,7 @@
 				011F6DF9259EF16600BED22E /* Info.plist */,
 				0172782B2D7D575900CE424F /* NativeAppTemplate.entitlements */,
 				015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */,
+				A2B3C4D50000000A /* Common */,
 				0172049125AA8449008FD63B /* Data */,
 				017203A725A96FBF008FD63B /* Extensions */,
 				017203E925AA6601008FD63B /* Logging */,
@@ -581,7 +588,6 @@
 				017278602D7D83E700CE424F /* ItemTagType.swift */,
 				01B526532AF4E36400655131 /* MainTab.swift */,
 				017278082D7D4F7400CE424F /* Onboarding.swift */,
-				017278662D7D83F600CE424F /* ScanResultError.swift */,
 				017278672D7D83F600CE424F /* ScanState.swift */,
 				01B526552AF4E82A00655131 /* ScrollToTopID.swift */,
 				0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */,
@@ -825,6 +831,25 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		A2B3C4D500000009 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				A2B3C4D500000003 /* AppError.swift */,
+				A2B3C4D500000001 /* CodedError.swift */,
+				A2B3C4D500000007 /* NativeAppTemplateAPIError.swift */,
+				A2B3C4D500000005 /* NFCError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		A2B3C4D50000000A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A2B3C4D500000009 /* Errors */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -997,7 +1022,10 @@
 				0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */,
 				017204B625AA8467008FD63B /* DataManager.swift in Sources */,
 				017278682D7D83F600CE424F /* ScanState.swift in Sources */,
-				017278692D7D83F600CE424F /* ScanResultError.swift in Sources */,
+				A2B3C4D500000002 /* CodedError.swift in Sources */,
+				A2B3C4D500000004 /* AppError.swift in Sources */,
+				A2B3C4D500000006 /* NFCError.swift in Sources */,
+				A2B3C4D500000008 /* NativeAppTemplateAPIError.swift in Sources */,
 				0172787D2D7D92DF00CE424F /* CompleteScanResult.swift in Sources */,
 				017278822D7D935700CE424F /* QRCodeGenerator.swift in Sources */,
 				017278832D7D935700CE424F /* ImageSaver.swift in Sources */,

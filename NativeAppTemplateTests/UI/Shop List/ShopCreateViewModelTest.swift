@@ -105,7 +105,7 @@ struct ShopCreateViewModelTest {
         }
         await createShopTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isCreating)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss)
@@ -140,7 +140,7 @@ struct ShopCreateViewModelTest {
         }
         await createShopTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isCreating)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss == false)

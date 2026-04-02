@@ -49,11 +49,7 @@ final class ShopCreateViewModel {
                 messageBus.post(message: Message(level: .success, message: .shopCreated))
                 shouldDismiss = true
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
 
                 // e.g. Limit shops count error
                 guard case NativeAppTemplateAPIError.requestFailed(_, 422, _) = error else {

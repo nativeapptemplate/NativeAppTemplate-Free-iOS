@@ -46,7 +46,7 @@ final class SettingsViewModel {
                 #if DEBUG
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.signedOutError) \(error.localizedDescription)",
+                    message: "\(String.signedOutError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
                 #endif

@@ -73,11 +73,7 @@ final class ShopBasicSettingsViewModel {
 
                 isFetching = false
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
         }
@@ -97,11 +93,7 @@ final class ShopBasicSettingsViewModel {
                 _ = try await shopRepository.update(id: shop.id, shop: shop)
                 messageBus.post(message: Message(level: .success, message: .basicSettingsUpdated))
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
             }
 
             isUpdating = false
