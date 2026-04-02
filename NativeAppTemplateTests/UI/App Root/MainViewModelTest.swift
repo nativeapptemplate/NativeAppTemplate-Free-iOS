@@ -38,72 +38,8 @@ struct MainViewModelTest {
         #expect(viewModel.itemTagId == nil)
         #expect(viewModel.isResetting == false)
         #expect(viewModel.isShowingResetConfirmationDialog == false)
-        #expect(viewModel.isShowingAcceptPrivacySheet == false)
         #expect(viewModel.arePrivacyAccepted == false)
-        #expect(viewModel.isShowingAcceptTermsSheet == false)
         #expect(viewModel.areTermsAccepted == false)
-    }
-
-    @Test
-    func handlePrivacyUpdate() {
-        let dataManager = createTestDataManager()
-        let tabViewModel = createTestTabViewModel()
-
-        let viewModel = MainViewModel(
-            sessionController: sessionController,
-            dataManager: dataManager,
-            messageBus: messageBus,
-            tabViewModel: tabViewModel
-        )
-
-        // Initially should not show privacy sheet
-        #expect(viewModel.isShowingAcceptPrivacySheet == false)
-
-        // Set shouldUpdatePrivacy to true
-        sessionController.shouldUpdatePrivacy = true
-
-        viewModel.handlePrivacyUpdate()
-
-        #expect(viewModel.isShowingAcceptPrivacySheet == true)
-
-        // Set shouldUpdatePrivacy to false
-        sessionController.shouldUpdatePrivacy = false
-
-        viewModel.handlePrivacyUpdate()
-
-        // Should not change the sheet state when false
-        #expect(viewModel.isShowingAcceptPrivacySheet == true)
-    }
-
-    @Test
-    func handleTermsUpdate() {
-        let dataManager = createTestDataManager()
-        let tabViewModel = createTestTabViewModel()
-
-        let viewModel = MainViewModel(
-            sessionController: sessionController,
-            dataManager: dataManager,
-            messageBus: messageBus,
-            tabViewModel: tabViewModel
-        )
-
-        // Initially should not show terms sheet
-        #expect(viewModel.isShowingAcceptTermsSheet == false)
-
-        // Set shouldUpdateTerms to true
-        sessionController.shouldUpdateTerms = true
-
-        viewModel.handleTermsUpdate()
-
-        #expect(viewModel.isShowingAcceptTermsSheet == true)
-
-        // Set shouldUpdateTerms to false
-        sessionController.shouldUpdateTerms = false
-
-        viewModel.handleTermsUpdate()
-
-        // Should not change the sheet state when false
-        #expect(viewModel.isShowingAcceptTermsSheet == true)
     }
 
     @Test
@@ -212,14 +148,8 @@ struct MainViewModelTest {
         viewModel.isShowingResetConfirmationDialog = true
         #expect(viewModel.isShowingResetConfirmationDialog == true)
 
-        viewModel.isShowingAcceptPrivacySheet = true
-        #expect(viewModel.isShowingAcceptPrivacySheet == true)
-
         viewModel.arePrivacyAccepted = true
         #expect(viewModel.arePrivacyAccepted == true)
-
-        viewModel.isShowingAcceptTermsSheet = true
-        #expect(viewModel.isShowingAcceptTermsSheet == true)
 
         viewModel.areTermsAccepted = true
         #expect(viewModel.areTermsAccepted == true)

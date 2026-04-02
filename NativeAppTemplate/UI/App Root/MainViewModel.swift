@@ -14,9 +14,7 @@ final class MainViewModel {
     var itemTagId: String?
     var isResetting = false
     var isShowingResetConfirmationDialog = false
-    var isShowingAcceptPrivacySheet = false
     var arePrivacyAccepted = false
-    var isShowingAcceptTermsSheet = false
     var areTermsAccepted = false
 
     private let sessionController: SessionControllerProtocol
@@ -34,18 +32,6 @@ final class MainViewModel {
         self.dataManager = dataManager
         self.messageBus = messageBus
         self.tabViewModel = tabViewModel
-    }
-
-    func handlePrivacyUpdate() {
-        if sessionController.shouldUpdatePrivacy {
-            isShowingAcceptPrivacySheet = true
-        }
-    }
-
-    func handleTermsUpdate() {
-        if sessionController.shouldUpdateTerms {
-            isShowingAcceptTermsSheet = true
-        }
     }
 
     func resetTag() {

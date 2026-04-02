@@ -199,6 +199,7 @@ import Observation
     func updateConfirmedPrivacyVersion() async throws {
         do {
             try await meService.updateConfirmedPrivacyVersion()
+            shouldUpdatePrivacy = false
         } catch {
             Failure
                 .update(from: Self.self, reason: error.codedDescription)
@@ -210,6 +211,7 @@ import Observation
     func updateConfirmedTermsVersion() async throws {
         do {
             try await meService.updateConfirmedTermsVersion()
+            shouldUpdateTerms = false
         } catch {
             Failure
                 .update(from: Self.self, reason: error.codedDescription)
