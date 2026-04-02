@@ -3,6 +3,7 @@
 //  NativeAppTemplate
 //
 
+import Foundation
 @testable import NativeAppTemplate
 import Testing
 
@@ -70,6 +71,38 @@ struct MessageBusTest {
 
         #expect(snackbarState.status == .error)
         #expect(snackbarState.message == "Error occurred")
+    }
+
+    @Test
+    func messageInitWithCodedError() {
+        let error = NativeAppTemplateAPIError.noData
+        let message = Message(error: error)
+
+        #expect(message.level == .error)
+        #expect(message.message == "[NATI-2005] NativeAppTemplateAPIError::NoData")
+        #expect(message.autoDismiss == false)
+    }
+
+    @Test
+    func messageInitWithNonCodedError() {
+        let error = NSError(
+            domain: "TestDomain",
+            code: 42,
+            userInfo: [NSLocalizedDescriptionKey: "Something went wrong"]
+        )
+        let message = Message(error: error)
+
+        #expect(message.level == .error)
+        #expect(message.message == "Something went wrong")
+        #expect(message.autoDismiss == false)
+    }
+
+    @Test
+    func messageInitWithErrorAutoDismiss() {
+        let error = NativeAppTemplateAPIError.noData
+        let message = Message(error: error, autoDismiss: true)
+
+        #expect(message.autoDismiss == true)
     }
 
     @Test

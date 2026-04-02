@@ -129,7 +129,7 @@ struct ShopBasicSettingsViewModelTest {
         }
         await reloadTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
     }
 
@@ -214,7 +214,7 @@ struct ShopBasicSettingsViewModelTest {
         }
         await updateShopTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "\(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.isBusy == false)
         #expect(viewModel.shouldDismiss)

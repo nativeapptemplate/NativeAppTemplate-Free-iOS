@@ -33,7 +33,7 @@ final class AcceptPrivacyViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.confirmedPrivacyVersionUpdatedError) \(error.localizedDescription)",
+                    message: "\(String.confirmedPrivacyVersionUpdatedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

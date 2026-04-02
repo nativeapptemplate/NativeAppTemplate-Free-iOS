@@ -110,7 +110,7 @@ final class SignUpViewModel {
                 errorMessage = message ?? "UNKNOWN"
                 isShowingAlert = true
             } catch {
-                errorMessage = error.localizedDescription
+                errorMessage = error.codedDescription
                 isShowingAlert = true
             }
 

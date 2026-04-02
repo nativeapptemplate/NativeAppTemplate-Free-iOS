@@ -33,7 +33,7 @@ final class AcceptTermsViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.confirmedTermsVersionUpdatedError) \(error.localizedDescription)",
+                    message: "\(String.confirmedTermsVersionUpdatedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

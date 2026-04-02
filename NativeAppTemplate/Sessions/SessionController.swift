@@ -110,7 +110,7 @@ import Observation
                 permissionState = .notLoaded
 
                 Failure
-                    .login(from: Self.self, reason: error.localizedDescription)
+                    .login(from: Self.self, reason: error.codedDescription)
                     .log()
 
                 throw error
@@ -128,7 +128,7 @@ import Observation
             shopkeeper = nil
         } catch {
             Failure
-                .login(from: Self.self, reason: error.localizedDescription)
+                .login(from: Self.self, reason: error.codedDescription)
                 .log()
 
             userState = .notLoggedIn
@@ -183,7 +183,7 @@ import Observation
             } catch {
                 enum Permissions {}
                 Failure
-                    .fetch(from: Permissions.self, reason: error.localizedDescription)
+                    .fetch(from: Permissions.self, reason: error.codedDescription)
                     .log()
 
                 self.permissionState = .error
@@ -201,7 +201,7 @@ import Observation
             try await meService.updateConfirmedPrivacyVersion()
         } catch {
             Failure
-                .update(from: Self.self, reason: error.localizedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -212,7 +212,7 @@ import Observation
             try await meService.updateConfirmedTermsVersion()
         } catch {
             Failure
-                .update(from: Self.self, reason: error.localizedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }

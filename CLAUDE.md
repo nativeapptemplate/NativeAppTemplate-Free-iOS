@@ -106,6 +106,20 @@ NativeAppTemplate/
 └── NFC/                     # NFC functionality
 ```
 
+### Error Handling (CodedError System)
+All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. Error codes use the `NATI-XXXX` prefix (NativeAppTemplate iOS) to distinguish from Android (`NATA-XXXX`).
+
+| Range | Type | File |
+|-------|------|------|
+| NATI-1xxx | App/general errors | `AppError.swift` |
+| NATI-2xxx | API/network errors | `NativeAppTemplateAPIError.swift` |
+| NATI-3xxx | NFC/scan errors | `NFCError.swift` |
+
+- New error types must conform to `CodedError` and be placed in `Common/Errors/`
+- Use `error.codedDescription` (not `error.localizedDescription`) in all error messages
+- Use `Message(error: error)` convenience to post errors to `MessageBus`
+- Error code numbers must match across iOS and Android (only the prefix differs)
+
 ### Dependencies (Swift Package Manager)
 - KeychainAccess (4.2.2) - Secure credential storage
 - Swift Collections (1.1.4) - Additional data structures

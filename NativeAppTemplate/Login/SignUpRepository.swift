@@ -21,7 +21,7 @@ import os
             shopkeeper = try await signUpsService.makeShopkeeper(signUp: signUp)
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.localizedDescription)
+                .fetch(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -36,7 +36,7 @@ import os
             shopkeeper = try await signUpsService.updateShopkeeper(id: id, signUp: signUp)
         } catch {
             Failure
-                .update(from: Self.self, reason: error.localizedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -50,7 +50,7 @@ import os
             removeShopkeeper()
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.localizedDescription)
+                .fetch(from: Self.self, reason: error.codedDescription)
                 .log()
             removeShopkeeper()
 
@@ -70,7 +70,7 @@ import os
             try await signUpsService.sendResetPasswordInstruction(sendResetPassword: sendResetPassword)
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.localizedDescription)
+                .fetch(from: Self.self, reason: error.codedDescription)
                 .log()
 
             throw error
@@ -89,7 +89,7 @@ import os
             try await signUpsService.sendConfirmationInstruction(sendConfirmation: sendConfirmation)
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.localizedDescription)
+                .fetch(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }

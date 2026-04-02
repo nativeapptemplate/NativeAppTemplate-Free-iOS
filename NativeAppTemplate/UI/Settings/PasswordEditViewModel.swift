@@ -80,11 +80,7 @@ final class PasswordEditViewModel {
                 messageBus.post(message: Message(level: .success, message: .passwordUpdated))
                 shouldDismiss = true
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
             }
 
             isUpdating = false

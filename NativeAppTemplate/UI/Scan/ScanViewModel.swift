@@ -53,7 +53,7 @@ final class ScanViewModel {
         case let .failure(error):
             sessionController.completeScanResult = CompleteScanResult(
                 type: .failed,
-                message: error.localizedDescription
+                message: error.codedDescription
             )
         default:
             break
@@ -70,7 +70,7 @@ final class ScanViewModel {
         case let .failure(error):
             sessionController.showTagInfoScanResult = ShowTagInfoScanResult(
                 type: .failed,
-                message: error.localizedDescription
+                message: error.codedDescription
             )
         default:
             break
@@ -140,7 +140,7 @@ final class ScanViewModel {
             } catch {
                 sessionController.completeScanResult = CompleteScanResult(
                     type: .failed,
-                    message: error.localizedDescription
+                    message: error.codedDescription
                 )
             }
         }
@@ -159,7 +159,7 @@ final class ScanViewModel {
             } catch {
                 sessionController.completeScanResult = CompleteScanResult(
                     type: .failed,
-                    message: error.localizedDescription
+                    message: error.codedDescription
                 )
             }
 
@@ -184,7 +184,7 @@ final class ScanViewModel {
             } catch {
                 sessionController.showTagInfoScanResult = ShowTagInfoScanResult(
                     type: .failed,
-                    message: error.localizedDescription
+                    message: error.codedDescription
                 )
             }
 

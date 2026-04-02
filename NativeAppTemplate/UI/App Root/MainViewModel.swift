@@ -104,7 +104,7 @@ final class MainViewModel {
             } catch {
                 sessionController.completeScanResult = CompleteScanResult(
                     type: .failed,
-                    message: error.localizedDescription
+                    message: error.codedDescription
                 )
             }
 
@@ -126,7 +126,7 @@ final class MainViewModel {
             } catch {
                 sessionController.completeScanResult = CompleteScanResult(
                     type: .failed,
-                    message: error.localizedDescription
+                    message: error.codedDescription
                 )
             }
 

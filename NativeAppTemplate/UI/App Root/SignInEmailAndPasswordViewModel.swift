@@ -70,13 +70,7 @@ final class SignInEmailAndPasswordViewModel {
                 isLoggingIn = true
                 try await sessionController.login(email: theEmail, password: thePassword)
             } catch {
-                messageBus.post(
-                    message: Message(
-                        level: .error,
-                        message: error.localizedDescription,
-                        autoDismiss: false
-                    )
-                )
+                messageBus.post(message: Message(error: error))
             }
 
             isLoggingIn = false

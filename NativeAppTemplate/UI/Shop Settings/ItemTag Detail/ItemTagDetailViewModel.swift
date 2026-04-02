@@ -148,7 +148,7 @@ final class ItemTagDetailViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.itemTagDeletedError) \(error.localizedDescription)",
+                    message: "\(String.itemTagDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
@@ -163,11 +163,7 @@ final class ItemTagDetailViewModel {
                 isFetching = true
                 itemTag = try await itemTagRepository.fetchDetail(id: itemTagId)
             } catch {
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: error.localizedDescription,
-                    autoDismiss: false
-                ))
+                messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
 

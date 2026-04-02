@@ -64,13 +64,7 @@ final class ShopDetailViewModel {
                 itemTags = try await itemTagRepository.fetchAll(shopId: shopId)
                 isFetching = false
             } catch {
-                messageBus.post(
-                    message: Message(
-                        level: .error,
-                        message: error.localizedDescription,
-                        autoDismiss: false
-                    )
-                )
+                messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
         }
@@ -95,7 +89,7 @@ final class ShopDetailViewModel {
                 messageBus.post(
                     message: Message(
                         level: .error,
-                        message: "\(String.itemTagCompletedError) \(error.localizedDescription)",
+                        message: "\(String.itemTagCompletedError) \(error.codedDescription)",
                         autoDismiss: false
                     )
                 )
@@ -117,7 +111,7 @@ final class ShopDetailViewModel {
                 messageBus.post(
                     message: Message(
                         level: .error,
-                        message: "\(String.itemTagResetError) \(error.localizedDescription)",
+                        message: "\(String.itemTagResetError) \(error.codedDescription)",
                         autoDismiss: false
                     )
                 )
