@@ -24,12 +24,6 @@ struct MainView: View {
                         viewModel.handleBackgroundTagReading(userActivity)
                     }
                 })
-                .onChange(of: sessionController.shouldUpdatePrivacy) { _, _ in
-                    viewModel?.handlePrivacyUpdate()
-                }
-                .onChange(of: sessionController.shouldUpdateTerms) { _, _ in
-                    viewModel?.handleTermsUpdate()
-                }
                 .alert(
                     String.itemTagAlreadyCompleted,
                     isPresented: Binding(
@@ -66,6 +60,10 @@ private extension MainView {
     @ViewBuilder var contentView: some View {
         if !sessionController.isLoggedIn {
             OnboardingView(onboardingRepository: dataManager.onboardingRepository)
+        } else if sessionController.shouldUpdatePrivacy {
+            acceptPrivacySheet
+        } else if sessionController.shouldUpdateTerms {
+            acceptTermsSheet
         } else {
             switch sessionController.permissionState {
             case .loaded:
@@ -78,6 +76,36 @@ private extension MainView {
                     buttonTitle: .backToStartScreen
                 )
             }
+        }
+    }
+
+    var acceptPrivacySheet: some View {
+        NavigationStack {
+            AcceptPrivacyView(
+                arePrivacyAccepted: Binding(
+                    get: { viewModel?.arePrivacyAccepted ?? false },
+                    set: { viewModel?.arePrivacyAccepted = $0 }
+                ),
+                viewModel: AcceptPrivacyViewModel(
+                    sessionController: sessionController,
+                    messageBus: messageBus
+                )
+            )
+        }
+    }
+
+    var acceptTermsSheet: some View {
+        NavigationStack {
+            AcceptTermsView(
+                areTermsAccepted: Binding(
+                    get: { viewModel?.areTermsAccepted ?? false },
+                    set: { viewModel?.areTermsAccepted = $0 }
+                ),
+                viewModel: AcceptTermsViewModel(
+                    sessionController: sessionController,
+                    messageBus: messageBus
+                )
+            )
         }
     }
 
@@ -106,42 +134,6 @@ private extension MainView {
                         settingsView: settingsView
                     )
                     .environment(tabViewModel)
-                    .sheet(isPresented: Binding(
-                        get: { viewModel?.isShowingAcceptPrivacySheet ?? false },
-                        set: { viewModel?.isShowingAcceptPrivacySheet = $0 }
-                    )) {
-                        NavigationStack {
-                            AcceptPrivacyView(
-                                arePrivacyAccepted: Binding(
-                                    get: { viewModel?.arePrivacyAccepted ?? false },
-                                    set: { viewModel?.arePrivacyAccepted = $0 }
-                                ),
-                                viewModel: AcceptPrivacyViewModel(
-                                    sessionController: sessionController,
-                                    messageBus: messageBus
-                                )
-                            )
-                            .interactiveDismissDisabled(!(viewModel?.arePrivacyAccepted ?? false))
-                        }
-                    }
-                    .sheet(isPresented: Binding(
-                        get: { viewModel?.isShowingAcceptTermsSheet ?? false },
-                        set: { viewModel?.isShowingAcceptTermsSheet = $0 }
-                    )) {
-                        NavigationStack {
-                            AcceptTermsView(
-                                areTermsAccepted: Binding(
-                                    get: { viewModel?.areTermsAccepted ?? false },
-                                    set: { viewModel?.areTermsAccepted = $0 }
-                                ),
-                                viewModel: AcceptTermsViewModel(
-                                    sessionController: sessionController,
-                                    messageBus: messageBus
-                                )
-                            )
-                            .interactiveDismissDisabled(!(viewModel?.areTermsAccepted ?? false))
-                        }
-                    }
                 }
             }
         case .offline:
