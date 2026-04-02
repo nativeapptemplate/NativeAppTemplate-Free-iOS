@@ -3,6 +3,7 @@
 //  NativeAppTemplate
 //
 
+import Foundation
 @testable import NativeAppTemplate
 import Testing
 
