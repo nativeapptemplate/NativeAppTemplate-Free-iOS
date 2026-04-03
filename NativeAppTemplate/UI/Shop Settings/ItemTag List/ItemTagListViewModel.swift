@@ -20,6 +20,18 @@ final class ItemTagListViewModel {
         itemTagRepository.itemTags
     }
 
+    var paginationMeta: PaginationMeta? {
+        itemTagRepository.paginationMeta
+    }
+
+    var isLoadingMore: Bool {
+        itemTagRepository.isLoadingMore
+    }
+
+    var hasMorePages: Bool {
+        paginationMeta?.hasMorePages ?? false
+    }
+
     private let itemTagRepository: ItemTagRepositoryProtocol
     private let messageBus: MessageBus
     private let sessionController: SessionControllerProtocol
@@ -46,7 +58,11 @@ final class ItemTagListViewModel {
     }
 
     func reload() {
-        itemTagRepository.reload(shopId: shop.id)
+        itemTagRepository.reloadPage(shopId: shop.id, page: 1)
+    }
+
+    func loadMore() {
+        itemTagRepository.loadNextPage(shopId: shop.id)
     }
 
     func destroyItemTag(itemTagId: String) {

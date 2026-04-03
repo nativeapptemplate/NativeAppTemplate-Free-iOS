@@ -10,6 +10,8 @@ import SwiftUI
 
     var itemTags: [ItemTag] = []
     var state: DataState = .initial
+    var paginationMeta: PaginationMeta?
+    var isLoadingMore = false
 
     required init(itemTagsService: ItemTagsService) {
         self.itemTagsService = itemTagsService
@@ -37,7 +39,9 @@ import SwiftUI
 
         Task { @MainActor in
             do {
-                itemTags = try await itemTagsService.allItemTags(shopId: shopId)
+                let response = try await itemTagsService.allItemTags(shopId: shopId)
+                itemTags = response.itemTags
+                paginationMeta = response.paginationMeta
                 state = .hasData
             } catch {
                 state = .failed
@@ -48,9 +52,60 @@ import SwiftUI
         }
     }
 
+    func reloadPage(shopId: String, page: Int) {
+        if Task.isCancelled {
+            return
+        }
+
+        if state == .loading {
+            return
+        }
+
+        state = .loading
+
+        Task { @MainActor in
+            do {
+                let response = try await itemTagsService.allItemTags(shopId: shopId, page: page)
+                itemTags = response.itemTags
+                paginationMeta = response.paginationMeta
+                state = .hasData
+            } catch {
+                state = .failed
+                Failure
+                    .fetch(from: Self.self, reason: error.codedDescription)
+                    .log()
+            }
+        }
+    }
+
+    func loadNextPage(shopId: String) {
+        guard let meta = paginationMeta, meta.hasMorePages else { return }
+
+        if isLoadingMore {
+            return
+        }
+
+        isLoadingMore = true
+
+        Task { @MainActor in
+            do {
+                let response = try await itemTagsService.allItemTags(shopId: shopId, page: meta.currentPage + 1)
+                itemTags.append(contentsOf: response.itemTags)
+                paginationMeta = response.paginationMeta
+            } catch {
+                Failure
+                    .fetch(from: Self.self, reason: error.codedDescription)
+                    .log()
+            }
+
+            isLoadingMore = false
+        }
+    }
+
     func fetchAll(shopId: String) async throws -> [ItemTag] {
         do {
-            itemTags = try await itemTagsService.allItemTags(shopId: shopId)
+            let response = try await itemTagsService.allItemTags(shopId: shopId)
+            itemTags = response.itemTags
             return itemTags
         } catch {
             Failure

@@ -5,8 +5,13 @@
 
 import Foundation
 
+struct ItemTagsResponse: Sendable {
+    let itemTags: [ItemTag]
+    let paginationMeta: PaginationMeta?
+}
+
 struct GetItemTagsRequest: Request {
-    typealias Response = [ItemTag]
+    typealias Response = ItemTagsResponse
 
     // MARK: - Properties
 
@@ -19,18 +24,27 @@ struct GetItemTagsRequest: Request {
     }
 
     var additionalHeaders: [String: String] = [:]
+
+    var queryItems: [URLQueryItem] {
+        guard let page else { return [] }
+        return [URLQueryItem(name: "page", value: String(page))]
+    }
+
     var body: Data? {
         nil
     }
 
     let shopId: String
+    let page: Int?
 
     // MARK: - Internal
 
     func handle(response: Data) throws -> Response {
         let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
-        return try doc.data.map { try ItemTagAdapter.process(resource: $0) }
+        let itemTags = try doc.data.map { try ItemTagAdapter.process(resource: $0) }
+        let paginationMeta = PaginationMeta(dictionary: doc.meta)
+        return ItemTagsResponse(itemTags: itemTags, paginationMeta: paginationMeta)
     }
 }
 

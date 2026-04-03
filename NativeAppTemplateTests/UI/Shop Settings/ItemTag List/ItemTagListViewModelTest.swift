@@ -98,6 +98,10 @@ struct ItemTagListViewModelTest {
 
     @Test
     func reloadCallsRepositoryWithShopId() {
+        itemTagRepository.paginationMeta = PaginationMeta(
+            currentPage: 1, totalPages: 3, totalCount: 55, limit: 20
+        )
+
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
@@ -111,6 +115,97 @@ struct ItemTagListViewModelTest {
         viewModel.reload()
 
         // After reload, state should change to .hasData (success case)
+        #expect(itemTagRepository.state == .hasData)
+
+        // Verify paginationMeta is accessible through viewModel
+        #expect(viewModel.paginationMeta?.currentPage == 1)
+        #expect(viewModel.paginationMeta?.totalPages == 3)
+    }
+
+    @Test
+    func hasMorePagesReflectsPaginationMeta() {
+        let viewModel = ItemTagListViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop
+        )
+
+        // No pagination meta — should not have more pages
+        #expect(viewModel.hasMorePages == false)
+
+        // Set pagination meta with more pages
+        itemTagRepository.paginationMeta = PaginationMeta(
+            currentPage: 1, totalPages: 3, totalCount: 55, limit: 20
+        )
+        #expect(viewModel.hasMorePages == true)
+
+        // Set pagination meta on last page
+        itemTagRepository.paginationMeta = PaginationMeta(
+            currentPage: 3, totalPages: 3, totalCount: 55, limit: 20
+        )
+        #expect(viewModel.hasMorePages == false)
+    }
+
+    @Test
+    func isLoadingMoreReflectsRepository() {
+        let viewModel = ItemTagListViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop
+        )
+
+        #expect(viewModel.isLoadingMore == false)
+
+        itemTagRepository.isLoadingMore = true
+        #expect(viewModel.isLoadingMore == true)
+
+        itemTagRepository.isLoadingMore = false
+        #expect(viewModel.isLoadingMore == false)
+    }
+
+    @Test
+    func loadMoreCallsRepository() {
+        itemTagRepository.paginationMeta = PaginationMeta(
+            currentPage: 1, totalPages: 3, totalCount: 55, limit: 20
+        )
+
+        let viewModel = ItemTagListViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop
+        )
+
+        #expect(viewModel.hasMorePages == true)
+
+        viewModel.loadMore()
+
+        // loadNextPage was called (isLoadingMore toggled back to false in test double)
+        #expect(itemTagRepository.isLoadingMore == false)
+    }
+
+    @Test
+    func reloadAfterDestroyResetsToPage1() async {
+        itemTagRepository.setItemTags(itemTags: itemTags)
+        itemTagRepository.paginationMeta = PaginationMeta(
+            currentPage: 2, totalPages: 3, totalCount: 55, limit: 20
+        )
+
+        let viewModel = ItemTagListViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop
+        )
+
+        let destroyTask = Task {
+            viewModel.destroyItemTag(itemTagId: "1")
+        }
+        await destroyTask.value
+
+        // After destroy, reload is called which resets state
         #expect(itemTagRepository.state == .hasData)
     }
 

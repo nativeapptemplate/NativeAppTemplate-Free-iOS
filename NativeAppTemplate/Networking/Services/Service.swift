@@ -31,11 +31,15 @@ extension Service {
             pathURL = pathURL.appendingPathComponent(networkClient.environment.basePath)
             pathURL = pathURL.appendingPathComponent(request.path)
 
-            guard let components = URLComponents(
+            guard var components = URLComponents(
                 url: pathURL,
                 resolvingAgainstBaseURL: false
             ) else {
                 throw URLError(.badURL)
+            }
+
+            if !request.queryItems.isEmpty {
+                components.queryItems = request.queryItems
             }
 
             guard let url = components.url

@@ -55,24 +55,30 @@ private extension ItemTagListView {
             if viewModel.isEmpty {
                 noResultsView
             } else {
-                List(viewModel.itemTags) { itemTag in
-                    NavigationLink(
-                        destination: ItemTagDetailView(
-                            viewModel: viewModel.createItemTagDetailViewModel(itemTagId: itemTag.id)
-                        )
-                    ) {
-                        ItemTagListCardView(
-                            itemTag: itemTag
-                        )
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) { viewModel.destroyItemTag(itemTagId: itemTag.id) } label: {
-                                Label(String.delete, systemImage: "trash")
-                                    .labelStyle(.titleOnly)
+                List {
+                    ForEach(viewModel.itemTags) { itemTag in
+                        NavigationLink(
+                            destination: ItemTagDetailView(
+                                viewModel: viewModel.createItemTagDetailViewModel(itemTagId: itemTag.id)
+                            )
+                        ) {
+                            ItemTagListCardView(
+                                itemTag: itemTag
+                            )
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) { viewModel.destroyItemTag(itemTagId: itemTag.id) } label: {
+                                    Label(String.delete, systemImage: "trash")
+                                        .labelStyle(.titleOnly)
+                                }
+                                .tint(.validationError)
                             }
-                            .tint(.validationError)
                         }
+                        .listRowBackground(Color.cardBackground.opacity(0.7))
                     }
-                    .listRowBackground(Color.cardBackground.opacity(0.7))
+
+                    if viewModel.hasMorePages {
+                        loadMoreRow
+                    }
                 }
                 .refreshable {
                     viewModel.reload()
@@ -100,6 +106,19 @@ private extension ItemTagListView {
                 )
             }
         )
+    }
+
+    var loadMoreRow: some View {
+        HStack {
+            Spacer()
+            ProgressView()
+                .padding(NativeAppTemplateConstants.Spacing.xxs)
+            Spacer()
+        }
+        .listRowBackground(Color.clear)
+        .onAppear {
+            viewModel.loadMore()
+        }
     }
 
     var noResultsView: some View {

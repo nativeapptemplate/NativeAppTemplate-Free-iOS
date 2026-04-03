@@ -82,6 +82,7 @@
 		017278612D7D83E700CE424F /* ItemTagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785D2D7D83E700CE424F /* ItemTagData.swift */; };
 		017278622D7D83E700CE424F /* ItemTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785C2D7D83E700CE424F /* ItemTag.swift */; };
 		017278632D7D83E700CE424F /* ItemTagState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785F2D7D83E700CE424F /* ItemTagState.swift */; };
+		4A8DA0DEF6F142C3A127058A /* PaginationMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE8A6D1D27C458389C4F61A /* PaginationMeta.swift */; };
 		017278642D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */; };
 		017278652D7D83E700CE424F /* ItemTagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278602D7D83E700CE424F /* ItemTagType.swift */; };
 		017278682D7D83F600CE424F /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278672D7D83F600CE424F /* ScanState.swift */; };
@@ -260,6 +261,7 @@
 		0172785D2D7D83E700CE424F /* ItemTagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagData.swift; sourceTree = "<group>"; };
 		0172785E2D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagInfoFromNdefMessage.swift; sourceTree = "<group>"; };
 		0172785F2D7D83E700CE424F /* ItemTagState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagState.swift; sourceTree = "<group>"; };
+		2FE8A6D1D27C458389C4F61A /* PaginationMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationMeta.swift; sourceTree = "<group>"; };
 		017278602D7D83E700CE424F /* ItemTagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagType.swift; sourceTree = "<group>"; };
 		017278672D7D83F600CE424F /* ScanState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
 		0172786A2D7D840A00CE424F /* ShowTagInfoScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagInfoScanResult.swift; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				0172785F2D7D83E700CE424F /* ItemTagState.swift */,
 				017278602D7D83E700CE424F /* ItemTagType.swift */,
 				01B526532AF4E36400655131 /* MainTab.swift */,
+				2FE8A6D1D27C458389C4F61A /* PaginationMeta.swift */,
 				017278082D7D4F7400CE424F /* Onboarding.swift */,
 				017278672D7D83F600CE424F /* ScanState.swift */,
 				01B526552AF4E82A00655131 /* ScrollToTopID.swift */,
@@ -1053,6 +1056,7 @@
 				0199CD252E07510200109DC6 /* ItemTagRepositoryProtocol.swift in Sources */,
 				0199CD262E07510200109DC6 /* ShopRepositoryProtocol.swift in Sources */,
 				017278632D7D83E700CE424F /* ItemTagState.swift in Sources */,
+				4A8DA0DEF6F142C3A127058A /* PaginationMeta.swift in Sources */,
 				017278642D7D83E700CE424F /* ItemTagInfoFromNdefMessage.swift in Sources */,
 				017278652D7D83E700CE424F /* ItemTagType.swift in Sources */,
 				0172046625AA82BF008FD63B /* MessageBarView.swift in Sources */,

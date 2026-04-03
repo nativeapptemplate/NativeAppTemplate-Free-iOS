@@ -3,7 +3,7 @@
 //  NativeAppTemplate
 //
 
-import struct Foundation.Data
+import Foundation
 
 enum HTTPMethod: String {
     case GET
@@ -19,6 +19,7 @@ protocol Request {
     var method: HTTPMethod { get }
     var path: String { get }
     var additionalHeaders: [String: String] { get }
+    var queryItems: [URLQueryItem] { get }
     var body: Data? { get }
 
     func handle(response: Data) throws -> Response
@@ -28,6 +29,10 @@ protocol Request {
 extension Request {
     var method: HTTPMethod {
         .GET
+    }
+
+    var queryItems: [URLQueryItem] {
+        []
     }
 
     var body: Data? {

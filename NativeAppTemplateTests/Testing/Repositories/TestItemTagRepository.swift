@@ -14,6 +14,9 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
         itemTags.isEmpty
     }
 
+    var paginationMeta: PaginationMeta?
+    var isLoadingMore = false
+
     /// A test-only
     var error: NativeAppTemplateAPIError?
 
@@ -34,6 +37,26 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
 
         state = .loading
         state = .hasData
+    }
+
+    func reloadPage(shopId: String, page: Int) {
+        guard error == nil else {
+            state = .failed
+            return
+        }
+
+        state = .loading
+        state = .hasData
+    }
+
+    func loadNextPage(shopId: String) {
+        guard error == nil else {
+            state = .failed
+            return
+        }
+
+        isLoadingMore = true
+        isLoadingMore = false
     }
 
     func fetchAll(shopId: String) async throws -> [ItemTag] {
