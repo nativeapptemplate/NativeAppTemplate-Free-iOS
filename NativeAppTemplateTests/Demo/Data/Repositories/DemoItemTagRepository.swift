@@ -15,6 +15,9 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
         itemTags.isEmpty
     }
 
+    var paginationMeta: PaginationMeta?
+    var isLoadingMore = false
+
     required init(itemTagsService: ItemTagsService) {}
 
     func findBy(id: String) -> ItemTag {
@@ -28,6 +31,14 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
         itemTags = allItemTags.filter { $0.shopId == shopId }
 
         state = .hasData
+    }
+
+    func reloadPage(shopId: String, page: Int) {
+        reload(shopId: shopId)
+    }
+
+    func loadNextPage(shopId: String) {
+        // No-op for demo
     }
 
     func fetchAll(shopId: String) async throws -> [ItemTag] {

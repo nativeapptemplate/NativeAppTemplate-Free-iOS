@@ -10,8 +10,8 @@ struct ItemTagsService: Service {
 extension ItemTagsService {
     // MARK: - Internal
 
-    func allItemTags(shopId: String) async throws -> GetItemTagsRequest.Response {
-        let request = GetItemTagsRequest(shopId: shopId)
+    func allItemTags(shopId: String, page: Int? = nil) async throws -> GetItemTagsRequest.Response {
+        let request = GetItemTagsRequest(shopId: shopId, page: page)
         return try await makeRequest(request: request)
     }
 
