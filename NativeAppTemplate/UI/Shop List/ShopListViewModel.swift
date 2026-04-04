@@ -35,6 +35,10 @@ final class ShopListViewModel {
         limitCount - createdShopsCount
     }
 
+    var accountName: String {
+        sessionController.shopkeeper?.accountName ?? ""
+    }
+
     var shouldPopToRootView: Bool {
         sessionController.shouldPopToRootView
     }

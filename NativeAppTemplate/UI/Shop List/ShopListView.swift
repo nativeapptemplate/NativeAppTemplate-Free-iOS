@@ -129,9 +129,19 @@ private extension ShopListView {
                 }
             }
         }
-        .navigationTitle(String.shops)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack(spacing: 0) {
+                    Text(String.shops)
+                        .font(.uiHeadline)
+                    if !viewModel.accountName.isEmpty {
+                        Text(viewModel.accountName)
+                            .font(.uiCaption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
             if viewModel.leftInShopSlots > 0 {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

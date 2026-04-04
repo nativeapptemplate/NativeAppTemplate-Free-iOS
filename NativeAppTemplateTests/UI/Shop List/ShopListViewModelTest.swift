@@ -46,6 +46,47 @@ struct ShopListViewModelTest {
         #expect(viewModel.leftInShopSlots == 3)
     }
 
+    @Test("Account name from shopkeeper")
+    func accountName() {
+        sessionController.shopkeeper = Shopkeeper(dictionary: [
+            "id": "1",
+            "account_id": "1",
+            "personal_account_id": "1",
+            "account_owner_id": "1",
+            "account_name": "Account1",
+            "email": "email@example.com",
+            "name": "John Smith",
+            "time_zone": "Tokyo",
+            "uid": "email@example.com",
+            "token": "token",
+            "client": "client",
+            "expiry": "123456789"
+        ])
+
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
+
+        #expect(viewModel.accountName == "Account1")
+    }
+
+    @Test("Account name when no shopkeeper")
+    func accountNameEmpty() {
+        sessionController.shopkeeper = nil
+
+        let viewModel = ShopListViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab
+        )
+
+        #expect(viewModel.accountName == "")
+    }
+
     @Test("Should pop to root view", arguments: [false, true])
     func shouldPopToRootView(shouldPopToRootView: Bool) {
         sessionController.shouldPopToRootView = shouldPopToRootView
