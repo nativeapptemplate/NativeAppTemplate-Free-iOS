@@ -220,7 +220,6 @@ extension String {
 
     static let myAccount = "My Account"
     static let profile = "Profile"
-    static let information = "Information"
     static let supportWebsite = "Support Website"
     static let howToUse = "How To Use"
     static let faqs = "FAQs"

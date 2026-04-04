@@ -52,11 +52,7 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
-                Section(header: Text(String.information)) {
-                    Link(destination: URL(string: String.supportWebsiteUrl)!) {
-                        Label(String.supportWebsite, systemImage: "globe")
-                    }
-
+                Section(header: Text(verbatim: "Support")) {
                     Link(destination: URL(string: String.howToUseUrl)!) {
                         Label(String.howToUse, systemImage: "info")
                     }
@@ -74,12 +70,28 @@ struct SettingsView: View {
                     } label: {
                         Label(String.rateApp, systemImage: "hand.thumbsup")
                     }
+                }
+                .listRowBackground(Color.cardBackground.opacity(0.7))
 
+                Section(header: Text(verbatim: "About")) {
+                    Link(destination: URL(string: String.supportWebsiteUrl)!) {
+                        Label("Website", systemImage: "globe")
+                    }
                     Link(destination: URL(string: String.privacyPolicyUrl)!) {
-                        Text(String.privacyPolicy)
+                        Label(String.privacyPolicy, systemImage: "hand.raised")
                     }
                     Link(destination: URL(string: String.termsOfUseUrl)!) {
-                        Text(String.termsOfUse)
+                        Label(String.termsOfUse, systemImage: "doc.text")
+                    }
+                }
+                .listRowBackground(Color.cardBackground.opacity(0.7))
+
+                Section(header: Text(verbatim: "App")) {
+                    HStack {
+                        Text(verbatim: "Version")
+                        Spacer()
+                        Text(appVersion)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
@@ -107,6 +119,10 @@ struct SettingsView: View {
         }
         .navigationTitle(String.settings)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var appVersion: String {
+        "\(Bundle.main.appVersionLong) (\(Bundle.main.appBuild))"
     }
 
     var supportEmailURL: URL {
