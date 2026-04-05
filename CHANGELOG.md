@@ -7,11 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-04-05
+
 ### Added
+- Pagination support for item tags list
+- CodedError system with `NATI-XXXX` prefixed error codes
+- App version display in settings
+- Design system constants (spacing, animation, glass, layout, corner radius)
+- GlassButtonStyle and GlassCard components with glassmorphism styling
+- Explicit Sendable conformance to model structs
 - SwiftFormat for code formatting (with `--maxwidth 120`)
+- SwiftFormat lint check to CI
 - `@preconcurrency import CoreNFC` and `nonisolated(unsafe)` for Sendable fixes
+- Model tests for ItemTagType, ItemTagState, and ScanState
+- Tests for TabViewModel, MessageBus, Utility, and String extensions
 
 ### Changed
+- Update to iOS 26 and remove deprecated `UIRequiresFullScreen`
+- Replace asset catalog colors with palette-based color system
+- Replace Inter font with Apple system font
+- Replace `confirmationDialog` with `alert` for consistent centered presentation
+- Replace hardcoded spacing and corner radius values with `NativeAppTemplateConstants`
+- Apply ultraThinMaterial backgrounds to scan views and ItemTagDetailView
+- Use semi-transparent card background for list rows
+- Update Lock toggle to button style in ItemTagDetailView
+- Reorganize settings sections
+- Clean up Settings: remove Discussions, update contact, remove dead code
+- Remove SwiftyJSON dependency, use `JSONSerialization`
 - Moved `.swiftlint.yml` to repository root with updated rules
 - Applied SwiftFormat across all source files
 - Fixed all SwiftLint violations (line length, cyclomatic complexity, etc.)
@@ -23,14 +45,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove backdoor authentication bypass
 
 ### Fixed
+- Fix accept privacy/terms views not displaying
 - Fix typo `startSesstion` → `startSession` in NFCManager
 - Fix typo `prmissionsResponse` → `permissionsResponse` in SessionController
 - Fix `Event.refresh` ignoring `action` parameter and hardcoding `"Refresh"`
 - Fix data race warning when sending `NFCNDEFMessage` across isolation boundaries
 - Remove unused `navigationPathStats` state variable from `AppTabView`
-
-### Other
-- Refine `.claude` gitignore rules for granular control
+- Remove hardcoded toolbar background from ScanView
 
 ## [1.1.0] - 2025-07-26
 
