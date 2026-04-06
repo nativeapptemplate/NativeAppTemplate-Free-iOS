@@ -37,6 +37,7 @@
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
+		014E79252F83205400F37DF7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 014E79242F83205400F37DF7 /* AppIcon.icon */; };
 		0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0150A36529B14BB300907F96 /* SendResetPassword.swift */; };
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
@@ -214,6 +215,7 @@
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
 		01467356299902230005423D /* ShopSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsView.swift; sourceTree = "<group>"; };
 		01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyView.swift; sourceTree = "<group>"; };
+		014E79242F83205400F37DF7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		0150A36529B14BB300907F96 /* SendResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendResetPassword.swift; sourceTree = "<group>"; };
 		0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsRequest.swift; sourceTree = "<group>"; };
 		015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -415,7 +417,6 @@
 				017278582D7D83B600CE424F /* AppSingletons.swift */,
 				017278592D7D83B600CE424F /* NFCManager.swift */,
 				01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */,
-				011F6DF4259EF16600BED22E /* Assets.xcassets */,
 				011F6DF9259EF16600BED22E /* Info.plist */,
 				0172782B2D7D575900CE424F /* NativeAppTemplate.entitlements */,
 				015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */,
@@ -428,6 +429,7 @@
 				0172030625A9642D008FD63B /* Networking */,
 				0172040925AA684A008FD63B /* Persistence */,
 				011F6DF6259EF16600BED22E /* Preview Content */,
+				014E79232F831FA600F37DF7 /* Resources */,
 				017203C525A9708A008FD63B /* Sessions */,
 				0172046D25AA8325008FD63B /* Styleguide */,
 				0172045025AA81C8008FD63B /* UI */,
@@ -483,6 +485,15 @@
 				01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */,
 			);
 			path = "Shop Settings";
+			sourceTree = "<group>";
+		};
+		014E79232F831FA600F37DF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				014E79242F83205400F37DF7 /* AppIcon.icon */,
+				011F6DF4259EF16600BED22E /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		0158B9F525C16366008EC9D5 /* Shop List */ = {
@@ -946,6 +957,7 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */,
+				014E79252F83205400F37DF7 /* AppIcon.icon in Resources */,
 				011F6DF8259EF16600BED22E /* Preview Assets.xcassets in Resources */,
 				011F6DF5259EF16600BED22E /* Assets.xcassets in Resources */,
 			);
@@ -1279,7 +1291,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1291,7 +1303,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
@@ -1315,7 +1327,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1327,7 +1339,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
@@ -1414,7 +1426,7 @@
 				BUNDLE_ID_SUFFIX = .beta;
 				CODE_SIGN_ENTITLEMENTS = NativeAppTemplate/NativeAppTemplate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1426,7 +1438,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = NativeAppTemplate;
 				SAMPLE_CODE_DISAMBIGUATOR = "${DEVELOPMENT_TEAM}";

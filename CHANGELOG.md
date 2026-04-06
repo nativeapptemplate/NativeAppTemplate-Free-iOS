@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.1] - 2026-04-06
+
+### Changed
+- Replace PNG-based app icon with SVG-based `.icon` format
+- Move `Assets.xcassets` into `Resources/` directory
+
 ## [3.1.0] - 2026-04-05
 
 ### Added
