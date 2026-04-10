@@ -46,6 +46,9 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 
 ## NFC Tag Operations
 
+<details>
+<summary><strong>How NFC tag writing and background reading works</strong></summary>
+
 ### Overview  
 
 ![Screenshot showing Overview before](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_before.png "Screenshot showing Overview before")
@@ -75,11 +78,10 @@ Example: [50pcs NFC Cards Ntag215](https://www.amazon.com/dp/B087FRYY8S) (Amazon
 
 ---
 
-## Background Tag Reading  
+### Background Tag Reading  
 
 ![Gif showing Background Tag Reading](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/nfc.gif "Showing Background Tag Reading")  
 
-### How It Works  
 1. Scan a **Server Tag**.  
 2. View the updated **Number Tags** status in the **Shop Detail** screen or on the **Number Tags Webpage**.  
 
@@ -91,7 +93,7 @@ This functionality is available in:
 > **Note:**  
 > The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
 
-#### Associated Domains Requirement (iOS)  
+### Associated Domains Requirement (iOS)  
 For background tag reading to work correctly on **iOS**, you must configure **Associated Domains** in your app.  
 
 To set up Associated Domains on iOS, follow these steps:  
@@ -106,6 +108,8 @@ To set up Associated Domains on iOS, follow these steps:
 For detailed instructions, refer to Apple's official documentations:  
 - [Adding Support for Background Tag Reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading)  
 - [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
+
+</details>
 
 ## Not Included in the Free Version
 
