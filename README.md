@@ -22,7 +22,7 @@ You can purchase the source code for the backend server APIs, made with Ruby on 
 NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, including:
 
 - **100% Swift**
-- **99% SwiftUI** (UIKit is only used for the contact email screen.)
+- **100% SwiftUI**
 - **[@Observable](https://developer.apple.com/documentation/swiftui/migrating-from-the-observable-object-protocol-to-the-observable-macro)** (iOS 17: streamlined Swift state management)
 - **[SwiftLint](https://github.com/realm/SwiftLint)**
 - **[Simple MVVM Layered Architecture](https://medium.com/@dadachix/key-differences-in-mvvm-architecture-ios-vs-android-e239d30b2ea7)**
@@ -35,9 +35,11 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - Sign Up / Sign In / Sign Out
 - Email Confirmation
 - Forgot Password
-- Input Validation
 - CRUD Operations for Shops (Create/Read/Update/Delete)
-- CRUD Operations for Shops’ Nested Resource, Number Tags (ItemTags) (Create/Read/Update/Delete)
+- CRUD Operations for Shops' Nested Resource, Number Tags (ItemTags) (Create/Read/Update/Delete)
+- Force App Version Update
+- Force Privacy Policy Version Update
+- Force Terms of Use Version Update
 - Generate QR Code Image for Number Tags (ItemTags) with a Centered Number
 - NFC features for Number Tags (ItemTags): Write Application Info to a Tag, Read a Tag, Background Tag Reading
 - And more!
@@ -101,7 +103,7 @@ To set up Associated Domains on iOS, follow these steps:
 
 4. Uninstall **NativeAppTemplate-Free-iOS**, reset your device, and then reinstall **NativeAppTemplate-Free-iOS** to ensure the changes take effect.
 
-For detailed instructions, refer to Apple’s official documentations:  
+For detailed instructions, refer to Apple's official documentations:  
 - [Adding Support for Background Tag Reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading)  
 - [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
 
@@ -114,24 +116,13 @@ The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/
 - URL Path-Based Multitenancy (prepends `/:account_id/` to URLs)
 - User Invitation to Organizations
 - Role-Based Permissions and Access Control
+- Organization Switching UI
 
 ## Supported Devices
 
-- **iPhone**  
-  - SDK: iOS  
-  - Orientation: Portrait mode only  
-  - Screen: Requires full screen  
-
-- **iPad**  
-  - SDK: iOS  
-  - Orientation: Portrait mode only  
-  - Screen: Requires full screen  
-
-- **Mac**  
-  - SDK: iOS  
-  - Orientation: Portrait mode only  
-  - Screen: Requires full screen  
-  - Notes: Designed for iPad  
+- **iPhone** — iOS 26.2+, Portrait mode, Full screen
+- **iPad** — iOS 26.2+, Portrait mode, Full screen
+- **Mac** — Designed for iPad
 
 ## Getting Started
 
@@ -145,7 +136,7 @@ git clone https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS.git
 
 To run this app successfully, ensure you have:
 
-- An iOS device or emulator with iOS version 17.6 or higher
+- An iOS device or emulator with iOS version 26.2 or higher
 
 ## Running with the NativeAppTemplate-API on localhost
 
