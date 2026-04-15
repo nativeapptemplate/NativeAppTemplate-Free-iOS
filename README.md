@@ -8,10 +8,9 @@ The Android version is available here: [NativeAppTemplate-Free-Android](https://
 ## Overview
 
 NativeAppTemplate-Free-iOS is configured to connect to `api.nativeapptemplate.com`.  
-You can purchase the source code for the backend server APIs, made with Ruby on Rails, that power `api.nativeapptemplate.com` ([API Docs](https://nativeapptemplate.com/api-docs/index.html)):
+The Rails 8.1 API backend that powers `api.nativeapptemplate.com` is open source (MIT):
 
-- [NativeAppTemplate-API (Solo)](https://nativeapptemplate.com/products/api-solo)  
-- [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)
+- [nativeapptemplateapi](https://github.com/nativeapptemplate/nativeapptemplateapi) &middot; [API Docs](https://nativeapptemplate.com/api-docs/index.html)
 
 ### Screenshots
 
@@ -86,9 +85,7 @@ Example: [50pcs NFC Cards Ntag215](https://www.amazon.com/dp/B087FRYY8S) (Amazon
 2. View the updated **Number Tags** status in the **Shop Detail** screen or on the **Number Tags Webpage**.  
 
 The **Number Tags Webpage** updates in real-time using Rails [Turbo](https://turbo.hotwired.dev).  
-This functionality is available in:  
-- [NativeAppTemplate-API (Solo)](https://nativeapptemplate.com/products/api-solo)  
-- [NativeAppTemplate-API (Team)](https://nativeapptemplate.com/products/api-team)  
+This functionality is part of the open-source [nativeapptemplateapi](https://github.com/nativeapptemplate/nativeapptemplateapi) backend.  
 
 > **Note:**  
 > The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
