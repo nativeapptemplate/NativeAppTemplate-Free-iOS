@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <!-- Palette 9: Friendly - Light Blue Vivid (Primary) -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1F2933"/>
+      <stop offset="100%" stop-color="#0B69A3"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#40C3F7"/>
+      <stop offset="100%" stop-color="#2BB0ED"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Soft glow orbs -->
+  <circle cx="1050" cy="180" r="180" fill="#40C3F7" opacity="0.22"/>
+  <circle cx="1150" cy="450" r="140" fill="#5ED0FA" opacity="0.15"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1280" height="6" fill="url(#accent)"/>
+
+  <!-- Free & Open Source badge -->
+  <g transform="translate(80, 80)">
+    <rect x="0" y="0" width="260" height="44" rx="22" fill="#127FBF"/>
+    <text x="130" y="30" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="18" font-weight="700" fill="#E3F8FF" text-anchor="middle">★ FREE &amp; OPEN SOURCE</text>
+  </g>
+
+  <!-- Title -->
+  <text x="80" y="240" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="76" font-weight="800" fill="#F5F7FA" letter-spacing="-2">NativeAppTemplate</text>
+  <text x="80" y="310" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="56" font-weight="700" fill="url(#accent)" letter-spacing="-1">Free · iOS</text>
+
+  <!-- Tagline -->
+  <text x="80" y="390" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="30" font-weight="400" fill="#CBD2D9">100% SwiftUI · @Observable · MVVM</text>
+  <text x="80" y="432" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="30" font-weight="400" fill="#CBD2D9">Liquid Glass · iOS 26.2+</text>
+
+  <!-- Tech pills -->
+  <g transform="translate(80, 500)" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="20" font-weight="600">
+    <g>
+      <rect x="0" y="0" width="100" height="44" rx="22" fill="#323F4B" stroke="#52606D" stroke-width="1"/>
+      <text x="50" y="29" fill="#F5F7FA" text-anchor="middle">Swift</text>
+    </g>
+    <g transform="translate(115, 0)">
+      <rect x="0" y="0" width="120" height="44" rx="22" fill="#323F4B" stroke="#52606D" stroke-width="1"/>
+      <text x="60" y="29" fill="#F5F7FA" text-anchor="middle">SwiftUI</text>
+    </g>
+    <g transform="translate(250, 0)">
+      <rect x="0" y="0" width="130" height="44" rx="22" fill="#323F4B" stroke="#52606D" stroke-width="1"/>
+      <text x="65" y="29" fill="#F5F7FA" text-anchor="middle">iOS 26+</text>
+    </g>
+    <g transform="translate(395, 0)">
+      <rect x="0" y="0" width="80" height="44" rx="22" fill="#323F4B" stroke="#52606D" stroke-width="1"/>
+      <text x="40" y="29" fill="#F5F7FA" text-anchor="middle">MIT</text>
+    </g>
+  </g>
+
+  <!-- Right visual: iPhone with Liquid Glass cards -->
+  <g transform="translate(900, 130)">
+    <rect x="0" y="0" width="280" height="380" rx="48" fill="#1F2933" stroke="#3E4C59" stroke-width="3"/>
+    <rect x="14" y="14" width="252" height="352" rx="36" fill="#323F4B"/>
+    <rect x="110" y="28" width="60" height="20" rx="10" fill="#0B69A3"/>
+
+    <g transform="translate(30, 80)">
+      <rect x="0" y="0" width="220" height="90" rx="20" fill="url(#glass)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
+      <circle cx="32" cy="45" r="18" fill="url(#accent)"/>
+      <rect x="64" y="30" width="120" height="10" rx="5" fill="#F5F7FA" opacity="0.85"/>
+      <rect x="64" y="48" width="80" height="8" rx="4" fill="#F5F7FA" opacity="0.5"/>
+    </g>
+
+    <g transform="translate(30, 185)">
+      <rect x="0" y="0" width="220" height="90" rx="20" fill="url(#glass)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
+      <circle cx="32" cy="45" r="18" fill="#5ED0FA"/>
+      <rect x="64" y="30" width="100" height="10" rx="5" fill="#F5F7FA" opacity="0.85"/>
+      <rect x="64" y="48" width="130" height="8" rx="4" fill="#F5F7FA" opacity="0.5"/>
+    </g>
+  </g>
+
+  <!-- Footer URL — baseline at y=585 keeps text bottom inside the 40pt safe area -->
+  <text x="80" y="585" font-family="SF Mono, Menlo, monospace" font-size="20" font-weight="500" fill="#7B8794">github.com/nativeapptemplate/NativeAppTemplate-Free-iOS</text>
+</svg>
