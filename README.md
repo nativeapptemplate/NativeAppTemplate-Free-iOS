@@ -171,4 +171,14 @@ Xcode will automatically run SwiftLint if it is installed.
 
 ## Contributing
 
-If you have an improvement you'd like to share, create a fork of the repository and send us a pull request.
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting issues, proposing changes, and submitting pull requests.
+
+This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
+## Security
+
+If you discover a security vulnerability, please follow the disclosure process in [SECURITY.md](SECURITY.md). Do not open public issues for security concerns.
+
+## License
+
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
