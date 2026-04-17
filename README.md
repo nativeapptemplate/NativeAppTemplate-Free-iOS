@@ -1,7 +1,5 @@
 # NativeAppTemplate-Free-iOS
 
-<a href="https://www.producthunt.com/products/nativeapptemplate?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-nativeapptemplate-2-0" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1124956&theme=light" alt="NativeAppTemplate 2.0 - Native iOS + Android + Rails boilerplate, now open source | Product Hunt" width="250" height="54" /></a>
-
 NativeAppTemplate-Free-iOS is a modern, comprehensive, and production-ready native iOS app with user authentication and [background tag reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading).  
 This iOS app is a free version of  [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team).  
 
