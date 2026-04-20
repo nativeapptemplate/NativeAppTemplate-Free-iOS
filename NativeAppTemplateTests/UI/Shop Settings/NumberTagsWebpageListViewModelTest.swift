@@ -121,7 +121,7 @@ struct NumberTagsWebpageListViewModelTest {
             itemTagsCount: 10,
             scannedItemTagsCount: 5,
             completedItemTagsCount: 3,
-            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+            displayShopServerPath: "/display/shops/\(id)?type=server"
         )
     }
 }

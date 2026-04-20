@@ -141,13 +141,23 @@ To run this app successfully, ensure you have:
 
 ## Running with the NativeAppTemplate-API on localhost
 
-To connect to a local API server, update the following configuration in in Constants.swift:
+To connect to a local API server, set these env vars on the Xcode scheme (Edit Scheme → Run → Arguments → Environment Variables):
 
-```swift
-static let scheme: String = "http"
-static let domain: String = "192.168.1.21"
-static let port: String = "3000"
 ```
+NATEMPLATE_API_SCHEME = http
+NATEMPLATE_API_DOMAIN = <your-lan-ip>
+NATEMPLATE_API_PORT   = 3000
+```
+
+> **Note:** Never use `127.0.0.1`, `localhost`, or `0.0.0.0` for `NATEMPLATE_API_DOMAIN` — those resolve to the iOS Simulator/device itself, not your Mac. Use your Mac's LAN IP (e.g., `192.168.1.6`) so the simulator or a physical device can reach the API server.
+
+Keep the scheme in `xcuserdata` (per-developer, gitignored), not `xcshareddata`. In Xcode, open **Product → Scheme → Manage Schemes…**, find `NativeAppTemplate`, and **uncheck "Shared"**. This moves the scheme (with your local env vars) to `xcuserdata/<user>.xcuserdatad/xcschemes/` so your API settings are not committed. If Xcode staged a deletion of the previously shared scheme, restore it with:
+
+```bash
+git restore --source=HEAD --staged --worktree NativeAppTemplate.xcodeproj/xcshareddata/xcschemes/NativeAppTemplate.xcscheme
+```
+
+Debug builds read these at launch via `ProcessInfo.processInfo.environment` in `Constants.swift`; when unset, they fall back to the production defaults (`https://api.nativeapptemplate.com`). Release builds always use the production defaults.
 
 ## SwiftLint
 

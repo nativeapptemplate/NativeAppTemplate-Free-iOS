@@ -94,12 +94,10 @@ enum NativeAppTemplateConstants {
 
 extension String {
     #if DEBUG
-    //  static let scheme: String = "http"
-    //  static let domain: String = "192.168.1.21"
-    //  static let port: String = "3000"
-    static let scheme: String = "https"
-    static let domain: String = "api.nativeapptemplate.com"
-    static let port: String = ""
+    private static let env = ProcessInfo.processInfo.environment
+    static let scheme: String = env["NATEMPLATE_API_SCHEME"] ?? "https"
+    static let domain: String = env["NATEMPLATE_API_DOMAIN"] ?? "api.nativeapptemplate.com"
+    static let port: String = env["NATEMPLATE_API_PORT"] ?? ""
     #else
     static let scheme: String = "https"
     static let domain: String = "api.nativeapptemplate.com"
