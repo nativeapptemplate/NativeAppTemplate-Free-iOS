@@ -96,7 +96,7 @@ extension String {
     #if DEBUG
     static let scheme: String = ProcessInfo.processInfo.environment["NATEMPLATE_API_SCHEME"] ?? "https"
     static let domain: String = ProcessInfo.processInfo.environment["NATEMPLATE_API_DOMAIN"] ?? "api.nativeapptemplate.com"
-    static let port:   String = ProcessInfo.processInfo.environment["NATEMPLATE_API_PORT"]   ?? ""
+    static let port: String = ProcessInfo.processInfo.environment["NATEMPLATE_API_PORT"] ?? ""
     #else
     static let scheme: String = "https"
     static let domain: String = "api.nativeapptemplate.com"
