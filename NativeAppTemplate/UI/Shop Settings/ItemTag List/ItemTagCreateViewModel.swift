@@ -9,7 +9,7 @@ import SwiftUI
 @Observable
 @MainActor
 final class ItemTagCreateViewModel {
-    var queueNumber = ""
+    var name = ""
     var isCreating = false
     var shouldDismiss = false
 
@@ -35,19 +35,19 @@ final class ItemTagCreateViewModel {
     }
 
     var hasInvalidData: Bool {
-        hasInvalidDataQueueNumber
+        hasInvalidDataName
     }
 
-    var hasInvalidDataQueueNumber: Bool {
-        if Utility.isBlank(queueNumber) {
+    var hasInvalidDataName: Bool {
+        if Utility.isBlank(name) {
             return true
         }
 
-        if !queueNumber.isAlphanumeric(ignoreDiacritics: true) {
+        if !name.isAlphanumeric(ignoreDiacritics: true) {
             return true
         }
 
-        if !(queueNumber.count >= 2 && queueNumber.count <= maximumQueueNumberLength) {
+        if !(name.count >= 2 && name.count <= maximumQueueNumberLength) {
             return true
         }
 
@@ -58,8 +58,8 @@ final class ItemTagCreateViewModel {
         sessionController.maximumQueueNumberLength
     }
 
-    func validateQueueNumberLength() {
-        queueNumber = String(queueNumber.prefix(maximumQueueNumberLength))
+    func validateNameLength() {
+        name = String(name.prefix(maximumQueueNumberLength))
     }
 
     func createItemTag() {
@@ -67,7 +67,7 @@ final class ItemTagCreateViewModel {
             isCreating = true
 
             do {
-                let itemTag = ItemTag(queueNumber: queueNumber)
+                let itemTag = ItemTag(name: name)
                 _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: .itemTagCreated))
             } catch {

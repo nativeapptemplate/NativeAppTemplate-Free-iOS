@@ -22,7 +22,7 @@ import Observation
     var shouldUpdateApp = false
     var shouldUpdatePrivacy = false
     var shouldUpdateTerms = false
-    var maximumQueueNumberLength = 0
+    var maximumQueueNumberLength = 256
     var shopLimitCount = 0
 
     var shopkeeper: Shopkeeper? {

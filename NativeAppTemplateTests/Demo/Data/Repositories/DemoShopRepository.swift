@@ -68,8 +68,7 @@ final class DemoShopRepository: ShopRepositoryProtocol {
             timeZone: "Tokyo",
             itemTagsCount: 10,
             scannedItemTagsCount: 5,
-            completedItemTagsCount: 3,
-            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+            completedItemTagsCount: 3
         )
     }
 }

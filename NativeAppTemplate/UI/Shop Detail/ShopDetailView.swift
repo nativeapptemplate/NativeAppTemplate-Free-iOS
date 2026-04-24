@@ -78,24 +78,12 @@ private extension ShopDetailView {
                     Text(verbatim: "1.")
                         .font(.uiCaption)
                         .foregroundStyle(.contentText)
-                    HStack {
-                        let openServerNumberTagsWebpage =
-                            "\(String.open) [\(String.serverNumberTagsWebpage)](\(shop.displayShopServerUrl))."
-                        Text(.init(openServerNumberTagsWebpage))
-                            .font(.uiCaption)
-                            .foregroundStyle(.contentText)
-                    }
-                }
-                HStack(alignment: .firstTextBaseline) {
-                    Text(verbatim: "2.")
-                        .font(.uiCaption)
-                        .foregroundStyle(.contentText)
                     Text("\(String.swipeNumberTagBelow) \(String.tapDisplayedButton)")
                         .font(.uiCaption)
                         .foregroundStyle(.contentText)
                 }
                 HStack(alignment: .firstTextBaseline) {
-                    Text(verbatim: "3.")
+                    Text(verbatim: "2.")
                         .font(.uiCaption)
                         .foregroundStyle(.contentText)
                     Text(String.serverNumberTagsWebpageWillBeUpdated)

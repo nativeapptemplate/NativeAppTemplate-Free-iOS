@@ -45,10 +45,10 @@ private extension ItemTagEditView {
         NavigationStack {
             Form {
                 Section {
-                    TextField(String("A001"), text: $viewModel.queueNumber)
+                    TextField(String("A001"), text: $viewModel.name)
                         .keyboardType(.asciiCapable)
-                        .onChange(of: viewModel.queueNumber) { _, _ in
-                            viewModel.validateQueueNumberLength()
+                        .onChange(of: viewModel.name) { _, _ in
+                            viewModel.validateNameLength()
                         }
                 } header: {
                     Text(String.tagNumber)
@@ -60,7 +60,7 @@ private extension ItemTagEditView {
                             .font(.uiFootnote)
                         Text(String.tagNumberIsInvalid)
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataQueueNumber ? .validationError : .clear)
+                            .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
                     }
                 }
             }

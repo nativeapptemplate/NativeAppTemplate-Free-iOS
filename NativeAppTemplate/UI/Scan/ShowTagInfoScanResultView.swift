@@ -44,7 +44,7 @@ private extension ShowTagInfoScanResultView {
 
                     let imageSize = 10.0
 
-                    Text(String(itemTag.queueNumber))
+                    Text(String(itemTag.name))
                         .font(.uiTitle1)
                         .foregroundStyle(itemTagType == .server ? .serverForeground : .accent)
                     HStack(alignment: .firstTextBaseline) {
@@ -96,18 +96,7 @@ private extension ShowTagInfoScanResultView {
                                 .foregroundStyle(.secondaryText)
                         }
 
-                        if itemTag.scanState == ScanState.scanned, itemTag.customerReadAt != nil {
-                            GridRow {
-                                Image(systemName: "person.2")
-                                    .frame(width: imageSize, height: imageSize)
-                                    .foregroundStyle(.secondaryText)
-                                Text(itemTag.customerReadAt!.cardTimeString)
-                                    .font(.uiLabelBold)
-                                Text(verbatim: "scanned by a customer")
-                                    .font(.uiFootnote)
-                                    .foregroundStyle(.secondaryText)
-                            }
-                        }
+                        // TODO: removed in Phase 2A-2 — scanState/customerReadAt block dropped with ItemTag schema v2
 
                         if itemTag.state == ItemTagState.completed, itemTag.completedAt != nil {
                             GridRow {

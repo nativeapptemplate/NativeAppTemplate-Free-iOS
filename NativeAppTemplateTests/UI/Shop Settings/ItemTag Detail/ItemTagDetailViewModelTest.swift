@@ -26,14 +26,13 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
         ItemTag(
             id: itemTagId,
             shopId: shop.id,
-            queueNumber: "A01",
+            name: "A01",
+            description: "",
+            position: nil,
             state: .idled,
-            scanState: .unscanned,
             createdAt: Date(),
-            customerReadAt: nil,
             completedAt: nil,
-            shopName: shop.name,
-            alreadyCompleted: false
+            shopName: shop.name
         )
     }
 
@@ -112,7 +111,7 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.isFetching == false)
         #expect(viewModel.itemTag != nil)
         #expect(viewModel.itemTag?.id == itemTagId)
-        #expect(viewModel.itemTag?.queueNumber == "A01")
+        #expect(viewModel.itemTag?.name == "A01")
     }
 
     @Test
@@ -339,8 +338,7 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             timeZone: "Tokyo",
             itemTagsCount: 10,
             scannedItemTagsCount: 5,
-            completedItemTagsCount: 3,
-            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+            completedItemTagsCount: 3
         )
     }
 }

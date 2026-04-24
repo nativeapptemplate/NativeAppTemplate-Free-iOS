@@ -75,16 +75,9 @@ final class ShopDetailViewModel {
             isCompleting = true
 
             do {
-                let itemTag = try await itemTagRepository.complete(id: itemTagId)
-                if itemTag.alreadyCompleted == true {
-                    messageBus.post(message: Message(
-                        level: .warning,
-                        message: .itemTagAlreadyCompleted,
-                        autoDismiss: false
-                    ))
-                } else {
-                    messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
-                }
+                _ = try await itemTagRepository.complete(id: itemTagId)
+                // TODO: removed in Phase 2A-2 — alreadyCompleted branch dropped with ItemTag schema v2
+                messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
             } catch {
                 messageBus.post(
                     message: Message(
