@@ -51,7 +51,7 @@ private extension ItemTagCreateView {
                     Text(String.tagNumber)
                 } footer: {
                     VStack(alignment: .leading) {
-                        Text("Tag Number must be a 2-\(viewModel.maximumQueueNumberLength) alphanumeric characters.")
+                        Text("Name must be a 2-\(viewModel.maximumQueueNumberLength) alphanumeric characters.")
                             .font(.uiFootnote)
                         Text(String.zeroPadding)
                             .font(.uiFootnote)

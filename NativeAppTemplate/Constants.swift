@@ -165,7 +165,7 @@ extension String {
 
     static let shopSettingsLabel = "Shop Settings"
     static let shopSettingsBasicSettingsLabel = "Basic Settings"
-    static let shopSettingsManageNumberTagsLabel = "Manage Number Tags"
+    static let shopSettingsManageItemTagsLabel = "Manage Item Tags"
     static let shopSettingsNumberTagsWebpageLabel = "Number Tags Webpage"
     static let resetNumberTagsDescription = "Reset all number tag statuses."
     static let resetNumberTags = "Reset Number Tags"
@@ -177,13 +177,13 @@ extension String {
 
     // MARK: Item Tag View
 
-    static let tagNumber = "Tag Number"
+    static let tagNumber = "Name"
     static let editTag = "Edit Tag"
     static let addTag = "Add Tag"
-    static let addTagDescription = "Add a new number tag and start changing the tag status."
+    static let addTagDescription = "Add a new item tag and start changing the tag status."
     static let deleteTag = "Delete tag"
     static let buttonDeleteTag = "Delete Tag"
-    static let tagNumberIsInvalid = "Tag number is invalid."
+    static let tagNumberIsInvalid = "Item tag name is invalid."
     static let writeServerTag = "Write Server Tag"
     static let writeCustomerTag = "Write Customer Tag"
     static let youCannotUndoAfterLockingTag =
