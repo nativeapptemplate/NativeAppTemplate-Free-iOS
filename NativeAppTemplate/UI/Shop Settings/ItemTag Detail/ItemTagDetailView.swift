@@ -56,7 +56,7 @@ private extension ItemTagDetailView {
                         .padding(.top, NativeAppTemplateConstants.Spacing.sm)
 
                     if let itemTag = viewModel.itemTag {
-                        Text(String(itemTag.queueNumber))
+                        Text(String(itemTag.name))
                             .font(.largeTitle)
                             .bold()
                             .padding(.top, NativeAppTemplateConstants.Spacing.xxs)

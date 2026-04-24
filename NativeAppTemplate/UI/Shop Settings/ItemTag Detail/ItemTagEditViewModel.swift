@@ -9,7 +9,7 @@ import SwiftUI
 @Observable
 @MainActor
 final class ItemTagEditViewModel {
-    var queueNumber = ""
+    var name = ""
     var isFetching = true
     var isUpdating = false
     var shouldDismiss = false
@@ -39,27 +39,27 @@ final class ItemTagEditViewModel {
     var hasInvalidData: Bool {
         guard let itemTag else { return true }
 
-        if hasInvalidDataQueueNumber {
+        if hasInvalidDataName {
             return true
         }
 
-        if itemTag.queueNumber == queueNumber {
+        if itemTag.name == name {
             return true
         }
 
         return false
     }
 
-    var hasInvalidDataQueueNumber: Bool {
-        if Utility.isBlank(queueNumber) {
+    var hasInvalidDataName: Bool {
+        if Utility.isBlank(name) {
             return true
         }
 
-        if !queueNumber.isAlphanumeric(ignoreDiacritics: true) {
+        if !name.isAlphanumeric(ignoreDiacritics: true) {
             return true
         }
 
-        if !(queueNumber.count >= 2 && queueNumber.count <= maximumQueueNumberLength) {
+        if !(name.count >= 2 && name.count <= maximumQueueNumberLength) {
             return true
         }
 
@@ -74,8 +74,8 @@ final class ItemTagEditViewModel {
         fetchItemTagDetail()
     }
 
-    func validateQueueNumberLength() {
-        queueNumber = String(queueNumber.prefix(maximumQueueNumberLength))
+    func validateNameLength() {
+        name = String(name.prefix(maximumQueueNumberLength))
     }
 
     func updateItemTag() {
@@ -85,7 +85,7 @@ final class ItemTagEditViewModel {
             do {
                 let itemTag = ItemTag(
                     id: itemTagId,
-                    queueNumber: queueNumber
+                    name: name
                 )
 
                 _ = try await itemTagRepository.update(id: itemTagId, itemTag: itemTag)
@@ -106,7 +106,7 @@ final class ItemTagEditViewModel {
             do {
                 itemTag = try await itemTagRepository.fetchDetail(id: itemTagId)
                 if let itemTag {
-                    queueNumber = String(itemTag.queueNumber)
+                    name = String(itemTag.name)
                 }
             } catch {
                 messageBus.post(message: Message(error: error))

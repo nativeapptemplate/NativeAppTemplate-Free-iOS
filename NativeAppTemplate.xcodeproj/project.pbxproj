@@ -103,7 +103,6 @@
 		0172788C2D7D936E00CE424F /* IdlingTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278872D7D936E00CE424F /* IdlingTagView.swift */; };
 		0172788D2D7D936E00CE424F /* CustomerScannedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278862D7D936E00CE424F /* CustomerScannedTag.swift */; };
 		017278902D7D936E00CE424F /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278892D7D936E00CE424F /* TagView.swift */; };
-		017278922D7D99B900CE424F /* NumberTagsWebpageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */; };
 		0172789A2D7D99D100CE424F /* ItemTagListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278972D7D99D100CE424F /* ItemTagListCardView.swift */; };
 		0172789B2D7D99D100CE424F /* ItemTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278982D7D99D100CE424F /* ItemTagListView.swift */; };
 		0172789C2D7D99D100CE424F /* ItemTagDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278932D7D99D100CE424F /* ItemTagDetailView.swift */; };
@@ -137,7 +136,6 @@
 		01B6F5AB2601F84700397E66 /* PermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6F5AA2601F84700397E66 /* PermissionsRequest.swift */; };
 		01B9E45228A5070D00CAC681 /* ShopkeeperSignInAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */; };
 		01BE4F1D29CA6F8C002008BE /* TimeZoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */; };
-		01D85A962E07C78400A95798 /* NumberTagsWebpageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */; };
 		01D85A9A2E07C85900A95798 /* ShopBasicSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */; };
 		01D85A9E2E07C9BD00A95798 /* ShopSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */; };
 		01D85AE72E07CD4400A95798 /* ItemTagDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AE62E07CD4400A95798 /* ItemTagDetailViewModel.swift */; };
@@ -282,7 +280,6 @@
 		017278862D7D936E00CE424F /* CustomerScannedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerScannedTag.swift; sourceTree = "<group>"; };
 		017278872D7D936E00CE424F /* IdlingTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdlingTagView.swift; sourceTree = "<group>"; };
 		017278892D7D936E00CE424F /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagsWebpageListView.swift; sourceTree = "<group>"; };
 		017278932D7D99D100CE424F /* ItemTagDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagDetailView.swift; sourceTree = "<group>"; };
 		017278942D7D99D100CE424F /* ItemTagEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagEditView.swift; sourceTree = "<group>"; };
 		017278962D7D99D100CE424F /* ItemTagCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagCreateView.swift; sourceTree = "<group>"; };
@@ -316,7 +313,6 @@
 		01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperSignInAdapter.swift; sourceTree = "<group>"; };
 		01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneData.swift; sourceTree = "<group>"; };
 		01D19B432D4DE33500BDEAB7 /* NativeAppTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeAppTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagsWebpageListViewModel.swift; sourceTree = "<group>"; };
 		01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsViewModel.swift; sourceTree = "<group>"; };
 		01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsViewModel.swift; sourceTree = "<group>"; };
 		01D85AE62E07CD4400A95798 /* ItemTagDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagDetailViewModel.swift; sourceTree = "<group>"; };
@@ -477,8 +473,6 @@
 			children = (
 				017278952D7D99D100CE424F /* ItemTag Detail */,
 				017278992D7D99D100CE424F /* ItemTag List */,
-				017278912D7D99B900CE424F /* NumberTagsWebpageListView.swift */,
-				01D85A952E07C78400A95798 /* NumberTagsWebpageListViewModel.swift */,
 				01D8AE8A2AB453C1009AFFBA /* ShopBasicSettingsView.swift */,
 				01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */,
 				01467356299902230005423D /* ShopSettingsView.swift */,
@@ -987,7 +981,6 @@
 				0172040025AA6775008FD63B /* LoginRepository.swift in Sources */,
 				0172034B25A9642E008FD63B /* EntityAdapter.swift in Sources */,
 				010A30A528A4A285001D6BD1 /* DataCacheUpdate.swift in Sources */,
-				017278922D7D99B900CE424F /* NumberTagsWebpageListView.swift in Sources */,
 				01E0A60C25BD440300298D35 /* SignInEmailAndPasswordView.swift in Sources */,
 				0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */,
 				01B526562AF4E82A00655131 /* ScrollToTopID.swift in Sources */,
@@ -1030,7 +1023,6 @@
 				01E0A5B625BD0FCD00298D35 /* LoadingView.swift in Sources */,
 				0114F3AC2E079BD100F4A1DD /* ShopListViewModel.swift in Sources */,
 				0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */,
-				01D85A962E07C78400A95798 /* NumberTagsWebpageListViewModel.swift in Sources */,
 				017204D125AA8479008FD63B /* DataState.swift in Sources */,
 				012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */,
 				0172033E25A9642E008FD63B /* Parameters.swift in Sources */,

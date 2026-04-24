@@ -48,8 +48,7 @@ struct DemoShopRepositoryTest {
                 timeZone: "Tokyo",
                 itemTagsCount: 0,
                 scannedItemTagsCount: 0,
-                completedItemTagsCount: 0,
-                displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/99?type=server"
+                completedItemTagsCount: 0
             )
 
             let createdShop = try await repository.create(shop: newShop)

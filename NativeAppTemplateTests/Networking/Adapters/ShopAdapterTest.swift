@@ -14,7 +14,6 @@ struct ShopAdapterTest {
             "name": "Shop1",
             "description": "This is a Shop1",
             "time_zone": "Tokyo",
-            "display_shop_server_path": "https://api.nativeapptemplate.com/display/shops/1ed7ea32-65d5-4e64-97a0-0e00b6cee8c3?type=server", // swiftlint:disable:this line_length
             "item_tags_count": 10,
             "scanned_item_tags_count": 1,
             "completed_item_tags_count": 2

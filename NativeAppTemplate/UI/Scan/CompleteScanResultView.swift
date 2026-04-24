@@ -36,7 +36,7 @@ private extension CompleteScanResultView {
     @ViewBuilder var succeededView: some View {
         if let itemTag = completeScanResult.itemTag {
             GroupBox(label: Label(String("Result"), systemImage: "checkmark.circle")) {
-                Text(String(itemTag.queueNumber))
+                Text(String(itemTag.name))
                     .font(.uiTitle1)
 
                 if itemTag.state == .completed {

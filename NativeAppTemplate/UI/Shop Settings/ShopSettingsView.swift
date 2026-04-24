@@ -47,7 +47,7 @@ private extension ShopSettingsView {
         return contentView
     }
 
-    func shopSettingsView(shop: Shop) -> some View { // swiftlint:disable:this function_body_length
+    func shopSettingsView(shop: Shop) -> some View {
         VStack {
             Text(shop.name)
                 .font(.uiTitle1)
@@ -86,20 +86,6 @@ private extension ShopSettingsView {
                     }
                     .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
-
-                Section {
-                    NavigationLink {
-                        NumberTagsWebpageListView(
-                            viewModel: NumberTagsWebpageListViewModel(
-                                shop: shop,
-                                messageBus: messageBus
-                            )
-                        )
-                    } label: {
-                        Label(String.shopSettingsNumberTagsWebpageLabel, systemImage: "globe")
-                    }
-                }
-                .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section {
                     VStack(spacing: NativeAppTemplateConstants.Spacing.xxs) {

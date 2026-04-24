@@ -39,7 +39,7 @@ private final class NullSessionController: SessionControllerProtocol {
     var shouldUpdateApp: Bool = false
     var shouldUpdatePrivacy: Bool = false
     var shouldUpdateTerms: Bool = false
-    var maximumQueueNumberLength: Int = 0
+    var maximumQueueNumberLength: Int = 256
     var shopLimitCount: Int = 0
     var shopkeeper: Shopkeeper?
     var hasPermissions: Bool {

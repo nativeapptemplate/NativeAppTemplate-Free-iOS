@@ -14,24 +14,12 @@ struct ShopDetailCardView: View {
 
     var content: some View {
         HStack {
-            Text(String(itemTag.queueNumber))
+            Text(String(itemTag.name))
                 .font(.uiTitle4)
 
             Spacer()
 
-            VStack(alignment: .trailing) {
-                if itemTag.scanState == ScanState.scanned {
-                    CustomerScannedTag()
-
-                    if let customerReadAt = itemTag.customerReadAt {
-                        Text(customerReadAt.cardTimeString)
-                            .font(.uiFootnote)
-                            .foregroundStyle(.contentText)
-                    }
-                }
-            }
-
-            Spacer()
+            // TODO: removed in Phase 2A-2 — scanState/customerReadAt column dropped with ItemTag schema v2
 
             VStack(alignment: .trailing) {
                 if itemTag.state == .completed {

@@ -63,7 +63,7 @@ final class ItemTagDetailViewModel {
 
         customerTagQrCodeImage = qrCodeGenerator.generateWithCenterText(
             inputText: scanUrl.absoluteString,
-            centerText: String(itemTag.queueNumber)
+            centerText: String(itemTag.name)
         )
 
         isGeneratingQrCode = false

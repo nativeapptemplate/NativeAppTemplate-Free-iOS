@@ -26,7 +26,7 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        #expect(viewModel.queueNumber == "")
+        #expect(viewModel.name == "")
         #expect(viewModel.isCreating == false)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.isBusy == false)
@@ -69,9 +69,9 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        viewModel.queueNumber = queueNumber
+        viewModel.name = queueNumber
 
-        #expect(viewModel.hasInvalidDataQueueNumber == shouldBeInvalid)
+        #expect(viewModel.hasInvalidDataName == shouldBeInvalid)
         #expect(viewModel.hasInvalidData == shouldBeInvalid)
     }
 
@@ -86,10 +86,10 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        viewModel.queueNumber = "abcdefgh"
-        viewModel.validateQueueNumberLength()
+        viewModel.name = "abcdefgh"
+        viewModel.validateNameLength()
 
-        #expect(viewModel.queueNumber == "abcd")
+        #expect(viewModel.name == "abcd")
     }
 
     @Test
@@ -101,7 +101,7 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        viewModel.queueNumber = "ABC1"
+        viewModel.name = "ABC1"
 
         let createTask = Task {
             viewModel.createItemTag()
@@ -113,7 +113,7 @@ struct ItemTagCreateViewModelTest {
         #expect(messageBus.currentMessage?.level == .success)
         #expect(messageBus.currentMessage?.message == .itemTagCreated)
         #expect(itemTagRepository.itemTags.count == 1)
-        #expect(itemTagRepository.itemTags.first?.queueNumber == "ABC1")
+        #expect(itemTagRepository.itemTags.first?.name == "ABC1")
     }
 
     @Test
@@ -129,7 +129,7 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        viewModel.queueNumber = "ABC1"
+        viewModel.name = "ABC1"
 
         let createTask = Task {
             viewModel.createItemTag()
@@ -152,7 +152,7 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        viewModel.queueNumber = "ABC1"
+        viewModel.name = "ABC1"
 
         let createTask = Task {
             viewModel.createItemTag()
@@ -176,16 +176,16 @@ struct ItemTagCreateViewModelTest {
         )
 
         // Test exactly at the limit
-        viewModel.queueNumber = String(repeating: "A", count: maxLength)
+        viewModel.name = String(repeating: "A", count: maxLength)
         #expect(viewModel.hasInvalidData == false)
 
         // Test one over the limit
-        viewModel.queueNumber = String(repeating: "A", count: maxLength + 1)
+        viewModel.name = String(repeating: "A", count: maxLength + 1)
         #expect(viewModel.hasInvalidData == true)
 
         // Test truncation
-        viewModel.validateQueueNumberLength()
-        #expect(viewModel.queueNumber.count == maxLength)
+        viewModel.validateNameLength()
+        #expect(viewModel.name.count == maxLength)
         #expect(viewModel.hasInvalidData == false)
     }
 }

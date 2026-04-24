@@ -49,9 +49,7 @@ struct PermissionsRequest: Request {
             throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "should_update_terms")
         }
 
-        guard let maximumQueueNumberLength = doc.meta["maximum_queue_number_length"] as? Int else {
-            throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "maximum_queue_number_length")
-        }
+        let maximumQueueNumberLength = doc.meta["maximum_queue_number_length"] as? Int ?? 256
 
         guard let shopLimitCount = doc.meta["shop_limit_count"] as? Int else {
             throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "shop_limit_count")

@@ -134,9 +134,7 @@ final class ScanViewModel {
                     type: .completed
                 )
 
-                if itemTag.alreadyCompleted! {
-                    isShowingResetConfirmationDialog = true
-                }
+                // TODO: removed in Phase 2A-2 — alreadyCompleted branch dropped with ItemTag schema v2
             } catch {
                 sessionController.completeScanResult = CompleteScanResult(
                     type: .failed,

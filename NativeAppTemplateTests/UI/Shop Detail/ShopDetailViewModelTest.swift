@@ -19,9 +19,9 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
 
     var itemTags: [ItemTag] {
         [
-            mockItemTag(id: "1", shopId: "1", queueNumber: "A001"),
-            mockItemTag(id: "2", shopId: "1", queueNumber: "A002"),
-            mockItemTag(id: "3", shopId: "1", queueNumber: "A003")
+            mockItemTag(id: "1", shopId: "1", name: "A001"),
+            mockItemTag(id: "2", shopId: "1", name: "A002"),
+            mockItemTag(id: "3", shopId: "1", name: "A003")
         ]
     }
 
@@ -144,42 +144,6 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         await completeTagTask.value
 
         let message = String.itemTagCompleted
-
-        #expect(viewModel.messageBus.currentMessage?.message == message)
-    }
-
-    @Test
-    func completeTagWhenAlreadyCompleted() async throws {
-        shopRepository.setShops(shops: shops)
-        var modifiedItemTags = itemTags
-        modifiedItemTags[0].alreadyCompleted = true
-
-        itemTagRepository.setItemTags(itemTags: modifiedItemTags)
-
-        let viewModel = ShopDetailViewModel(
-            sessionController: sessionController,
-            shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
-            tabViewModel: tabViewModel,
-            mainTab: mainTab,
-            messageBus: messageBus,
-            shopId: shopId
-        )
-
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
-
-        let shop = try #require(shops.first { $0.id == shopId })
-        #expect(viewModel.shop == shop)
-
-        let completeTagTask = Task {
-            viewModel.completeTag(itemTagId: modifiedItemTags.first!.id)
-        }
-        await completeTagTask.value
-
-        let message = String.itemTagAlreadyCompleted
 
         #expect(viewModel.messageBus.currentMessage?.message == message)
     }
@@ -331,15 +295,14 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
             timeZone: "Tokyo",
             itemTagsCount: 10,
             scannedItemTagsCount: 5,
-            completedItemTagsCount: 3,
-            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+            completedItemTagsCount: 3
         )
     }
 
     private func mockItemTag(
         id: String = UUID().uuidString,
         shopId: String = UUID().uuidString,
-        queueNumber: String = "Mock ItemTag"
+        name: String = "Mock ItemTag"
     ) -> ItemTag {
         let dateString = "2025-05-18 18:00:00 UTC"
         let formatter = DateFormatter()
@@ -349,14 +312,13 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         return ItemTag(
             id: id,
             shopId: shopId,
-            queueNumber: queueNumber,
+            name: name,
+            description: "",
+            position: nil,
             state: .idled,
-            scanState: .unscanned,
             createdAt: date,
-            customerReadAt: nil,
             completedAt: nil,
-            shopName: "Mock ItemTag",
-            alreadyCompleted: false
+            shopName: "Mock ItemTag"
         )
     }
 }

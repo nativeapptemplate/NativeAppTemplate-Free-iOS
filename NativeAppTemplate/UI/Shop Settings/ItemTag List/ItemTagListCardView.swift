@@ -9,7 +9,7 @@ struct ItemTagListCardView: View {
     let itemTag: ItemTag
 
     var body: some View {
-        Text(String(itemTag.queueNumber))
+        Text(String(itemTag.name))
             .font(.uiTitle4)
     }
 }

@@ -80,9 +80,7 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
     func reset(id: String) async throws -> ItemTag {
         var itemTag = itemTags.first { $0.id == id }!
         itemTag.state = .idled
-        itemTag.scanState = .unscanned
         itemTag.completedAt = nil
-        itemTag.customerReadAt = nil
 
         let index = itemTags.firstIndex { $0.id == id }!
         itemTags[index] = itemTag
@@ -92,13 +90,13 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
 
     private func fetchAll() -> [ItemTag] {
         [
-            mockItemTag(id: "1", shopId: "1", queueNumber: "A001"),
-            mockItemTag(id: "2", shopId: "1", queueNumber: "A002"),
-            mockItemTag(id: "3", shopId: "1", queueNumber: "A003"),
-            mockItemTag(id: "4", shopId: "2", queueNumber: "A001"),
-            mockItemTag(id: "5", shopId: "2", queueNumber: "A002"),
-            mockItemTag(id: "6", shopId: "2", queueNumber: "A003"),
-            mockItemTag(id: "7", shopId: "2", queueNumber: "A004")
+            mockItemTag(id: "1", shopId: "1", name: "A001"),
+            mockItemTag(id: "2", shopId: "1", name: "A002"),
+            mockItemTag(id: "3", shopId: "1", name: "A003"),
+            mockItemTag(id: "4", shopId: "2", name: "A001"),
+            mockItemTag(id: "5", shopId: "2", name: "A002"),
+            mockItemTag(id: "6", shopId: "2", name: "A003"),
+            mockItemTag(id: "7", shopId: "2", name: "A004")
         ]
     }
 
@@ -107,19 +105,18 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
     private func mockItemTag(
         id: String = UUID().uuidString,
         shopId: String = UUID().uuidString,
-        queueNumber: String = "Mock ItemTag"
+        name: String = "Mock ItemTag"
     ) -> ItemTag {
         ItemTag(
             id: id,
             shopId: shopId,
-            queueNumber: queueNumber,
+            name: name,
+            description: "",
+            position: nil,
             state: .idled,
-            scanState: .unscanned,
             createdAt: .now,
-            customerReadAt: nil,
             completedAt: nil,
-            shopName: "Mock ItemTag",
-            alreadyCompleted: false
+            shopName: "Mock ItemTag"
         )
     }
 }

@@ -12,14 +12,13 @@ struct ItemTagAdapterTest {
         "type": "item_tag",
         "attributes": [
             "shop_id": "88705252-2FD2-4414-9E85-E6888033294A",
-            "queue_number": "A001",
+            "name": "A001",
+            "description": "",
+            "position": 1,
             "state": "idled",
-            "scan_state": "unscanned",
             "created_at": "2020-01-01T12:00:00.000Z",
             "shop_name": "Shop1",
-            "customer_read_at": "2020-01-02T12:00:00.000Z",
-            "completed_at": "2020-01-04T12:00:00.000Z",
-            "already_completed": false
+            "completed_at": "2020-01-04T12:00:00.000Z"
         ]
     ]
 
