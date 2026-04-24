@@ -82,7 +82,7 @@ private extension ShopSettingsView {
                             )
                         )
                     } label: {
-                        Label(String.shopSettingsManageNumberTagsLabel, systemImage: "rectangle.stack")
+                        Label(String.shopSettingsManageItemTagsLabel, systemImage: "rectangle.stack")
                     }
                     .listRowBackground(Color.cardBackground.opacity(0.7))
                 }

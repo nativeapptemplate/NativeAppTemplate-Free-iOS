@@ -85,7 +85,7 @@ private extension ItemTagListView {
                 }
             }
         }
-        .navigationTitle(String.shopSettingsManageNumberTagsLabel)
+        .navigationTitle(String.shopSettingsManageItemTagsLabel)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
