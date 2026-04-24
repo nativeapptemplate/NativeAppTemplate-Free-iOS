@@ -98,7 +98,7 @@ struct DemoItemTagRepositoryTest {
         }
 
         @Test
-        func reset() async throws {
+        func idle() async throws {
             repository.reload(shopId: "1")
 
             var itemTag = repository.findBy(id: "1")
@@ -106,9 +106,9 @@ struct DemoItemTagRepositoryTest {
             itemTag.completedAt = .now
             _ = try await repository.update(id: "1", itemTag: itemTag)
 
-            let resetItemTag = try await repository.reset(id: "1")
-            #expect(resetItemTag.state == .idled)
-            #expect(resetItemTag.completedAt == nil)
+            let idledItemTag = try await repository.idle(id: "1")
+            #expect(idledItemTag.state == .idled)
+            #expect(idledItemTag.completedAt == nil)
         }
     }
 }

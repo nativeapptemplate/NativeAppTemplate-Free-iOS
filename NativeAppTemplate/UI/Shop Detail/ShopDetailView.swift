@@ -61,6 +61,21 @@ private extension ShopDetailView {
     var cardsView: some View {
         ForEach(viewModel.itemTags, id: \.id) { itemTag in
             ShopDetailCardView(itemTag: itemTag)
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    if itemTag.state == ItemTagState.idled {
+                        Button { viewModel.completeTag(itemTagId: itemTag.id) } label: {
+                            Label(String.complete, systemImage: "bolt.fill")
+                                .labelStyle(.titleOnly)
+                        }
+                        .tint(.blue)
+                    } else {
+                        Button(role: .destructive) { viewModel.idleTag(itemTagId: itemTag.id) } label: {
+                            Label(String.idle, systemImage: "trash")
+                                .labelStyle(.titleOnly)
+                        }
+                        .tint(.validationError)
+                    }
+                }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
         }
     }

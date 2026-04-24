@@ -10,6 +10,8 @@ import SwiftUI
 @MainActor
 final class ShopDetailViewModel {
     var isFetching = true
+    var isIdling = false
+    var isCompleting = false
     var itemTags: [ItemTag] = []
     var shouldDismiss: Bool = false
     var shopId: String
@@ -41,7 +43,7 @@ final class ShopDetailViewModel {
     }
 
     var isBusy: Bool {
-        isFetching
+        isFetching || isIdling || isCompleting
     }
 
     var isLoggedIn: Bool {
@@ -65,6 +67,50 @@ final class ShopDetailViewModel {
                 messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
+        }
+    }
+
+    func completeTag(itemTagId: String) {
+        Task {
+            isCompleting = true
+
+            do {
+                _ = try await itemTagRepository.complete(id: itemTagId)
+                messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
+            } catch {
+                messageBus.post(
+                    message: Message(
+                        level: .error,
+                        message: "\(String.itemTagCompletedError) \(error.codedDescription)",
+                        autoDismiss: false
+                    )
+                )
+            }
+
+            isCompleting = false
+            reload()
+        }
+    }
+
+    func idleTag(itemTagId: String) {
+        Task {
+            isIdling = true
+
+            do {
+                _ = try await itemTagRepository.idle(id: itemTagId)
+                messageBus.post(message: Message(level: .success, message: .itemTagIdled))
+            } catch {
+                messageBus.post(
+                    message: Message(
+                        level: .error,
+                        message: "\(String.itemTagIdledError) \(error.codedDescription)",
+                        autoDismiss: false
+                    )
+                )
+            }
+
+            isIdling = false
+            reload()
         }
     }
 

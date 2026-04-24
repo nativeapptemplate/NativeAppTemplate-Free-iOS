@@ -204,6 +204,10 @@ extension String {
     static let itemTagUpdated = "Tag updated successfully."
     static let itemTagDeleted = "Tag deleted successfully."
     static let itemTagDeletedError = "There was a problem deleting the tag."
+    static let itemTagCompleted = "Tag completed successfully."
+    static let itemTagCompletedError = "There was a problem completing the tag."
+    static let itemTagIdled = "Tag idled successfully."
+    static let itemTagIdledError = "There was a problem idling the tag."
 
     static let shopkeeperCreated = "Account created successfully."
     static let shopkeeperCreatedError = "There was a problem creating the account."
@@ -298,7 +302,7 @@ extension String {
     static let backToStartScreen = "Back to Start Screen"
     static let fullName = "Full Name"
     static let fullNameIsRequired = "Full name is required."
-    static let reset = "Reset"
+    static let idle = "Idle"
 }
 
 extension TimeInterval {

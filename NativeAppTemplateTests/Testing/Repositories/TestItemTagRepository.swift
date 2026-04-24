@@ -126,7 +126,7 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
         return itemTag
     }
 
-    func reset(id: String) async throws -> ItemTag {
+    func idle(id: String) async throws -> ItemTag {
         guard error == nil else {
             state = .failed
             throw error!

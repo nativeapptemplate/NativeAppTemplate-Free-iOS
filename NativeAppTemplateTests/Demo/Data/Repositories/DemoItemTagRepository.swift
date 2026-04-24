@@ -77,7 +77,7 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
         return itemTag
     }
 
-    func reset(id: String) async throws -> ItemTag {
+    func idle(id: String) async throws -> ItemTag {
         var itemTag = itemTags.first { $0.id == id }!
         itemTag.state = .idled
         itemTag.completedAt = nil

@@ -9,7 +9,7 @@ import Testing
 
 @MainActor
 @Suite
-struct ShopDetailViewModelTest {
+struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
     var shops: [Shop] {
         [
             mockShop(id: "1", name: "Shop 1"),
@@ -113,6 +113,142 @@ struct ShopDetailViewModelTest {
 
         #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
+    }
+
+    @Test
+    func completeTag() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
+
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let completeTagTask = Task {
+            viewModel.completeTag(itemTagId: itemTags.first!.id)
+        }
+        await completeTagTask.value
+
+        let message = String.itemTagCompleted
+
+        #expect(viewModel.messageBus.currentMessage?.message == message)
+    }
+
+    @Test
+    func completeTagFailed() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
+
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let message = "Internal server error."
+        let httpResponseCode = 500
+        itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+
+        let completeTagTask = Task {
+            viewModel.completeTag(itemTagId: itemTags.first!.id)
+        }
+        await completeTagTask.value
+
+        #expect(viewModel.messageBus.currentMessage?.level == .error)
+    }
+
+    @Test
+    func idleTag() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
+
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let idleTagTask = Task {
+            viewModel.idleTag(itemTagId: itemTags.first!.id)
+        }
+        await idleTagTask.value
+
+        let message = String.itemTagIdled
+
+        #expect(viewModel.messageBus.currentMessage?.message == message)
+    }
+
+    @Test
+    func idleTagFailed() async throws {
+        shopRepository.setShops(shops: shops)
+        itemTagRepository.setItemTags(itemTags: itemTags)
+
+        let viewModel = ShopDetailViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            itemTagRepository: itemTagRepository,
+            tabViewModel: tabViewModel,
+            mainTab: mainTab,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let shop = try #require(shops.first { $0.id == shopId })
+        #expect(viewModel.shop == shop)
+
+        let message = "Internal server error."
+        let httpResponseCode = 500
+        itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
+
+        let idleTagTask = Task {
+            viewModel.idleTag(itemTagId: itemTags.first!.id)
+        }
+        await idleTagTask.value
+
+        #expect(viewModel.messageBus.currentMessage?.level == .error)
     }
 
     @Test
