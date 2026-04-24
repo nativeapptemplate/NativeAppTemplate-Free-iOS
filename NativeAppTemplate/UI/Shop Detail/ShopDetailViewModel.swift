@@ -10,8 +10,6 @@ import SwiftUI
 @MainActor
 final class ShopDetailViewModel {
     var isFetching = true
-    var isResetting = false
-    var isCompleting = false
     var itemTags: [ItemTag] = []
     var shouldDismiss: Bool = false
     var shopId: String
@@ -43,7 +41,7 @@ final class ShopDetailViewModel {
     }
 
     var isBusy: Bool {
-        isFetching || isResetting || isCompleting
+        isFetching
     }
 
     var isLoggedIn: Bool {
@@ -67,51 +65,6 @@ final class ShopDetailViewModel {
                 messageBus.post(message: Message(error: error))
                 shouldDismiss = true
             }
-        }
-    }
-
-    func completeTag(itemTagId: String) {
-        Task {
-            isCompleting = true
-
-            do {
-                _ = try await itemTagRepository.complete(id: itemTagId)
-                // TODO: removed in Phase 2A-2 — alreadyCompleted branch dropped with ItemTag schema v2
-                messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
-            } catch {
-                messageBus.post(
-                    message: Message(
-                        level: .error,
-                        message: "\(String.itemTagCompletedError) \(error.codedDescription)",
-                        autoDismiss: false
-                    )
-                )
-            }
-
-            isCompleting = false
-            reload()
-        }
-    }
-
-    func resetTag(itemTagId: String) {
-        Task {
-            isResetting = true
-
-            do {
-                _ = try await itemTagRepository.reset(id: itemTagId)
-                messageBus.post(message: Message(level: .success, message: .itemTagReset))
-            } catch {
-                messageBus.post(
-                    message: Message(
-                        level: .error,
-                        message: "\(String.itemTagResetError) \(error.codedDescription)",
-                        autoDismiss: false
-                    )
-                )
-            }
-
-            isResetting = false
-            reload()
         }
     }
 

@@ -3,8 +3,6 @@
 //  NativeAppTemplate
 //
 
-import CoreNFC
-import Photos
 import SwiftUI
 
 struct ItemTagDetailView: View {
@@ -31,94 +29,38 @@ struct ItemTagDetailView: View {
 // MARK: - private
 
 private extension ItemTagDetailView {
-    var contentView: some View {
-        @ViewBuilder var contentView: some View {
-            if viewModel.isBusy {
-                LoadingView()
-            } else {
-                itemTagDetailView
-            }
+    @ViewBuilder var contentView: some View {
+        if viewModel.isBusy {
+            LoadingView()
+        } else if let itemTag = viewModel.itemTag {
+            itemTagDetailView(itemTag: itemTag)
         }
-
-        return contentView
     }
 
-    private var itemTagDetailView: some View {
-        ScrollView {
-            VStack(alignment: .center) {
-                VStack(alignment: .center, spacing: 0) {
-                    Text(verbatim: "Write Info to Tag / Save Customer QR code")
-                        .font(.title2)
-                        .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
+    func itemTagDetailView(itemTag: ItemTag) -> some View {
+        VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.md) {
+            Text(itemTag.name)
+                .font(.largeTitle)
+                .bold()
 
-                    Text(viewModel.shop.name)
-                        .font(.title3)
-                        .padding(.top, NativeAppTemplateConstants.Spacing.sm)
-
-                    if let itemTag = viewModel.itemTag {
-                        Text(String(itemTag.name))
-                            .font(.largeTitle)
-                            .bold()
-                            .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
-                            .foregroundStyle(.lightestAccent)
-                    }
-                }
-
-                GroupBox(label: Label(String("Lock"), systemImage: "lock")) {
-                    Toggle(isOn: $viewModel.isLocked) {
-                        Text(verbatim: "Lock")
-                            .lineLimit(1)
-                    }
-                    .toggleStyle(.button)
-                    .dynamicTypeSize(...DynamicTypeSize.large)
-                    .tint(.lockForeground)
-
-                    if viewModel.isLocked {
-                        Text(String.youCannotUndoAfterLockingTag)
-                            .font(.uiFootnote)
-                            .foregroundStyle(.alarm)
-                    }
-                }
-                .foregroundStyle(.lockForeground)
-                .backgroundStyle(.ultraThinMaterial)
-
-                GroupBox(label: Label(String("Server"), systemImage: "storefront")) {
-                    MainButtonView(title: String.writeServerTag, type: .server(withArrow: false)) {
-                        viewModel.writeServerTag()
-                    }
-                    .padding()
-                }
-                .foregroundStyle(.serverForeground)
-                .backgroundStyle(.ultraThinMaterial)
-
-                GroupBox(label: Label(String("Customer"), systemImage: "person.2")) {
-                    MainButtonView(title: String.writeCustomerTag, type: .customer(withArrow: false)) {
-                        viewModel.writeCustomerTag()
-                    }
-                    .padding()
-
-                    if let customerTagQrCodeImage = viewModel.customerTagQrCodeImage {
-                        Image(uiImage: customerTagQrCodeImage)
-                            .resizable()
-                            .frame(
-                                width: NativeAppTemplateConstants.Spacing.xxxl,
-                                height: NativeAppTemplateConstants.Spacing.xxxl
-                            )
-
-                        Button {
-                            viewModel.saveImageToPhotoAlbum()
-                        } label: {
-                            Text(String.saveToPhotoAlbum)
-                        }
-                    } else {
-                        generateCustomerQrCodeView
-                    }
-                }
-                .padding(.top, NativeAppTemplateConstants.Spacing.md)
-                .foregroundStyle(.customerForeground)
-                .backgroundStyle(.ultraThinMaterial)
+            if !itemTag.description.isEmpty {
+                Text(itemTag.description)
+                    .font(.body)
+                    .foregroundStyle(.secondary)
             }
+
+            Text("State: \(itemTag.state.rawValue.capitalized)")
+                .font(.subheadline)
+
+            if let completedAt = itemTag.completedAt {
+                Text("Completed at: \(completedAt.formatted())")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
         }
+        .padding()
         .sheet(
             isPresented: $viewModel.isShowingEditSheet,
             onDismiss: {
@@ -162,16 +104,6 @@ private extension ItemTagDetailView {
                 } label: {
                     Image(systemName: "trash")
                 }
-            }
-        }
-    }
-
-    private var generateCustomerQrCodeView: some View {
-        VStack {
-            Button {
-                viewModel.generateCustomerQrCode()
-            } label: {
-                Text(String.generateCustomerQrCode)
             }
         }
     }

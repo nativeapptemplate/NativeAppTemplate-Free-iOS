@@ -56,8 +56,6 @@ private extension ItemTagEditView {
                     VStack(alignment: .leading) {
                         Text("Name must be a 2-\(viewModel.maximumQueueNumberLength) alphanumeric characters.")
                             .font(.uiFootnote)
-                        Text(String.zeroPadding)
-                            .font(.uiFootnote)
                         Text(String.tagNumberIsInvalid)
                             .font(.uiFootnote)
                             .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)

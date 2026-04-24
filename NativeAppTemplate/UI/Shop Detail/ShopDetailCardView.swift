@@ -19,8 +19,6 @@ struct ShopDetailCardView: View {
 
             Spacer()
 
-            // TODO: removed in Phase 2A-2 — scanState/customerReadAt column dropped with ItemTag schema v2
-
             VStack(alignment: .trailing) {
                 if itemTag.state == .completed {
                     CompletedTag()

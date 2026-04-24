@@ -14,10 +14,6 @@ import Observation
     private(set) var permissionState: PermissionState = .notLoaded
     private(set) var didFetchPermissions = false
     var shouldPopToRootView = false
-    var didBackgroundTagReading = false
-
-    var completeScanResult = CompleteScanResult()
-    var showTagInfoScanResult = ShowTagInfoScanResult()
 
     var shouldUpdateApp = false
     var shouldUpdatePrivacy = false

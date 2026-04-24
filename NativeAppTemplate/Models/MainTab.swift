@@ -8,7 +8,6 @@ import SwiftUI
 
 enum MainTab {
     case shops
-    case scan
     case settings
 }
 
