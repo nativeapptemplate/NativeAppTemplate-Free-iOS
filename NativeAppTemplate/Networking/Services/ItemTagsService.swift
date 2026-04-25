@@ -37,7 +37,7 @@ extension ItemTagsService {
         try await makeRequest(request: CompleteItemTagRequest(id: id))
     }
 
-    func resetItemTag(id: String) async throws -> ResetItemTagRequest.Response {
-        try await makeRequest(request: ResetItemTagRequest(id: id))
+    func idleItemTag(id: String) async throws -> IdleItemTagRequest.Response {
+        try await makeRequest(request: IdleItemTagRequest(id: id))
     }
 }

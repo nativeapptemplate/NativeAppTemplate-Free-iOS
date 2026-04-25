@@ -4,21 +4,6 @@
 //
 
 import SwiftUI
-import TipKit
-
-struct ReadInstructionsTip: Tip {
-    var title: Text {
-        Text(String.readInstructions)
-    }
-
-    var message: Text? {
-        Text(String.haveFun)
-    }
-
-    var image: Image? {
-        Image(systemName: "info.circle")
-    }
-}
 
 struct ShopDetailView: View {
     @Environment(\.dismiss) private var dismiss
@@ -68,28 +53,6 @@ private extension ShopDetailView {
     func header(shop: Shop) -> some View {
         ScrollView(.horizontal) {
             VStack(alignment: .leading, spacing: 0) {
-                let tip = ReadInstructionsTip()
-                TipView(tip, arrowEdge: .bottom)
-                    .tint(.alarm)
-
-                Text("\(String.instructions):")
-                    .foregroundStyle(.contentText)
-                HStack(alignment: .firstTextBaseline) {
-                    Text(verbatim: "1.")
-                        .font(.uiCaption)
-                        .foregroundStyle(.contentText)
-                    Text("\(String.swipeNumberTagBelow) \(String.tapDisplayedButton)")
-                        .font(.uiCaption)
-                        .foregroundStyle(.contentText)
-                }
-                HStack(alignment: .firstTextBaseline) {
-                    Text(verbatim: "2.")
-                        .font(.uiCaption)
-                        .foregroundStyle(.contentText)
-                    Text(String.serverNumberTagsWebpageWillBeUpdated)
-                        .font(.uiCaption)
-                        .foregroundStyle(.contentText)
-                }
                 Link(String.learnMore, destination: URL(string: String.howToUseUrl)!)
             }
         }
@@ -106,8 +69,8 @@ private extension ShopDetailView {
                         }
                         .tint(.blue)
                     } else {
-                        Button(role: .destructive) { viewModel.resetTag(itemTagId: itemTag.id) } label: {
-                            Label(String.reset, systemImage: "trash")
+                        Button(role: .destructive) { viewModel.idleTag(itemTagId: itemTag.id) } label: {
+                            Label(String.idle, systemImage: "trash")
                                 .labelStyle(.titleOnly)
                         }
                         .tint(.validationError)

@@ -230,7 +230,7 @@ struct CompleteItemTagRequest: Request {
     }
 }
 
-struct ResetItemTagRequest: Request {
+struct IdleItemTagRequest: Request {
     typealias Response = ItemTag
 
     // MARK: - Properties
@@ -240,7 +240,7 @@ struct ResetItemTagRequest: Request {
     }
 
     var path: String {
-        "/shopkeeper/item_tags/\(id)/reset"
+        "/shopkeeper/item_tags/\(id)/idle"
     }
 
     var additionalHeaders: [String: String] = [:]

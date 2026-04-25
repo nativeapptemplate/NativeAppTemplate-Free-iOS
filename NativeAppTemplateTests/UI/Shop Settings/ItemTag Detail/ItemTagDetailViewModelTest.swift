@@ -9,13 +9,12 @@ import Testing
 
 @MainActor
 @Suite
-struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
+struct ItemTagDetailViewModelTest {
     let sessionController = TestSessionController()
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
     )
     let messageBus = MessageBus()
-    let nfcManager = NFCManager()
     var shop: Shop {
         mockShop(id: "1", name: "Test Shop")
     }
@@ -42,18 +41,14 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        #expect(viewModel.isLocked == false)
         #expect(viewModel.isShowingEditSheet == false)
         #expect(viewModel.isShowingDeleteConfirmationDialog == false)
         #expect(viewModel.isFetching == true)
-        #expect(viewModel.isGeneratingQrCode == false)
         #expect(viewModel.isDeleting == false)
-        #expect(viewModel.customerTagQrCodeImage == nil)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.itemTag == nil)
         #expect(viewModel.shop.id == shop.id)
@@ -66,26 +61,17 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        // Initially fetching
         #expect(viewModel.isBusy == true)
         #expect(viewModel.isFetching == true)
 
-        // When generating QR code
-        viewModel.isGeneratingQrCode = true
-        #expect(viewModel.isBusy == true)
-
-        // When deleting
         viewModel.isFetching = false
-        viewModel.isGeneratingQrCode = false
         viewModel.isDeleting = true
         #expect(viewModel.isBusy == true)
 
-        // When none are busy
         viewModel.isDeleting = false
         #expect(viewModel.isBusy == false)
     }
@@ -98,7 +84,6 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -124,7 +109,6 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -142,48 +126,6 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
     }
 
     @Test
-    func generateCustomerQrCode() async {
-        itemTagRepository.setItemTags(itemTags: [testItemTag])
-
-        let viewModel = ItemTagDetailViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            nfcManager: nfcManager,
-            shop: shop,
-            itemTagId: itemTagId
-        )
-
-        // Load the item tag first
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
-
-        viewModel.generateCustomerQrCode()
-
-        #expect(viewModel.isGeneratingQrCode == false)
-        #expect(viewModel.customerTagQrCodeImage != nil)
-    }
-
-    @Test
-    func generateCustomerQrCodeWithoutItemTag() {
-        let viewModel = ItemTagDetailViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            nfcManager: nfcManager,
-            shop: shop,
-            itemTagId: itemTagId
-        )
-
-        // itemTag is nil
-        viewModel.generateCustomerQrCode()
-
-        #expect(viewModel.customerTagQrCodeImage == nil)
-    }
-
-    @Test
     func destroyItemTagSuccess() async {
         itemTagRepository.setItemTags(itemTags: [testItemTag])
 
@@ -191,12 +133,10 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
@@ -211,7 +151,7 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
         #expect(messageBus.currentMessage?.message == .itemTagDeleted)
-        #expect(itemTagRepository.itemTags.count == 0) // Item should be deleted
+        #expect(itemTagRepository.itemTags.count == 0)
     }
 
     @Test
@@ -222,18 +162,15 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
         await reloadTask.value
 
-        // Set error after loading
         let message = "Delete failed"
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
@@ -249,7 +186,7 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
         #expect(messageBus.currentMessage?.autoDismiss == false)
         let errorMessage = try #require(messageBus.currentMessage?.message)
         #expect(errorMessage.contains(String.itemTagDeletedError))
-        #expect(itemTagRepository.itemTags.count == 1) // Item should still exist
+        #expect(itemTagRepository.itemTags.count == 1)
     }
 
     @Test
@@ -258,12 +195,10 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        // itemTag is nil
         let destroyTask = Task {
             viewModel.destroyItemTag()
         }
@@ -271,7 +206,7 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
 
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.shouldDismiss == false)
-        #expect(messageBus.currentMessage == nil) // No message should be posted
+        #expect(messageBus.currentMessage == nil)
     }
 
     @Test
@@ -282,12 +217,10 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
@@ -297,7 +230,6 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             viewModel.destroyItemTag()
         }
 
-        // Check busy state immediately after starting
         #expect(viewModel.isBusy == viewModel.isDeleting)
 
         await destroyTask.value
@@ -309,25 +241,18 @@ struct ItemTagDetailViewModelTest { // swiftlint:disable:this type_body_length
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )
 
-        // Test initial state
         #expect(viewModel.isShowingEditSheet == false)
         #expect(viewModel.isShowingDeleteConfirmationDialog == false)
-        #expect(viewModel.isLocked == false)
 
-        // Test state changes
         viewModel.isShowingEditSheet = true
         #expect(viewModel.isShowingEditSheet == true)
 
         viewModel.isShowingDeleteConfirmationDialog = true
         #expect(viewModel.isShowingDeleteConfirmationDialog == true)
-
-        viewModel.isLocked = true
-        #expect(viewModel.isLocked == true)
     }
 
     private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {

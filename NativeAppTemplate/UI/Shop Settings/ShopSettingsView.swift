@@ -88,18 +88,6 @@ private extension ShopSettingsView {
                 }
 
                 Section {
-                    VStack(spacing: NativeAppTemplateConstants.Spacing.xxs) {
-                        MainButtonView(title: String.resetNumberTags, type: .destructive(withArrow: false)) {
-                            viewModel.isShowingResetConfirmationDialog = true
-                        }
-                        .listRowBackground(Color.clear)
-                        Text(String.resetNumberTagsDescription)
-                            .font(.uiFootnote)
-                            .foregroundStyle(.contentText)
-                            .listRowBackground(Color.clear)
-                    }
-                    .listRowBackground(Color.clear)
-
                     MainButtonView(title: String.deleteShop, type: .destructive(withArrow: false)) {
                         viewModel.isShowingDeleteConfirmationDialog = true
                     }
@@ -114,19 +102,6 @@ private extension ShopSettingsView {
             }
         }
         .navigationTitle(String.shopSettingsLabel)
-        .alert(
-            String.resetNumberTags,
-            isPresented: $viewModel.isShowingResetConfirmationDialog
-        ) {
-            Button(String.resetNumberTags, role: .destructive) {
-                viewModel.resetShop()
-            }
-            Button(String.cancel, role: .cancel) {
-                viewModel.isShowingResetConfirmationDialog = false
-            }
-        } message: {
-            Text(String.areYouSure)
-        }
         .alert(
             String.deleteShop,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog

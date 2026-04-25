@@ -26,7 +26,6 @@ struct TabViewModelTest {
 
         viewModel.showingDetailView[.shops] = true
         #expect(viewModel.showingDetailView[.shops] == true)
-        #expect(viewModel.showingDetailView[.scan] == false)
         #expect(viewModel.showingDetailView[.settings] == false)
 
         viewModel.showingDetailView[.shops] = false

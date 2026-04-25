@@ -82,7 +82,7 @@ struct SettingsViewModelTest {
     @Test
     func signOutSuccess() async {
         sessionController.userState = .loggedIn
-        tabViewModel.selectedTab = .scan
+        tabViewModel.selectedTab = .settings
 
         let viewModel = SettingsViewModel(
             sessionController: sessionController,
@@ -107,7 +107,7 @@ struct SettingsViewModelTest {
     @Test
     func signOutWithError() async {
         sessionController.userState = .loggedIn
-        tabViewModel.selectedTab = .scan
+        tabViewModel.selectedTab = .settings
 
         // Force an error by setting the session state to make logout fail
         // Note: TestSessionController doesn't naturally throw errors, so this test

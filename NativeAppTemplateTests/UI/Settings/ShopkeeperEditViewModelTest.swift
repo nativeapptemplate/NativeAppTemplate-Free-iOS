@@ -318,7 +318,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
     @Test
     func destroyShopkeeperSuccess() async {
         sessionController.shopkeeper = testShopkeeper
-        tabViewModel.selectedTab = .scan
+        tabViewModel.selectedTab = .settings
 
         let viewModel = ShopkeeperEditViewModel(
             signUpRepository: signUpRepository,

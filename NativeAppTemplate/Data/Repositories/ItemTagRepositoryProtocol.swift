@@ -24,5 +24,5 @@ import SwiftUI
     func update(id: String, itemTag: ItemTag) async throws -> ItemTag
     func destroy(id: String) async throws
     func complete(id: String) async throws -> ItemTag
-    func reset(id: String) async throws -> ItemTag
+    func idle(id: String) async throws -> ItemTag
 }

@@ -191,15 +191,15 @@ import SwiftUI
         }
     }
 
-    func reset(id: String) async throws -> ItemTag {
+    func idle(id: String) async throws -> ItemTag {
         do {
-            let resetItemTag = try await itemTagsService.resetItemTag(id: id)
-            let itemTagIndex = (itemTags.firstIndex { $0.id == resetItemTag.id })
+            let idledItemTag = try await itemTagsService.idleItemTag(id: id)
+            let itemTagIndex = (itemTags.firstIndex { $0.id == idledItemTag.id })
             if itemTagIndex != nil {
-                itemTags[itemTagIndex!] = resetItemTag
+                itemTags[itemTagIndex!] = idledItemTag
             }
 
-            return resetItemTag
+            return idledItemTag
         } catch {
             state = .failed
             Failure

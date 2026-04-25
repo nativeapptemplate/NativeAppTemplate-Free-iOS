@@ -8,22 +8,6 @@ import Foundation
 import Testing
 
 struct UtilityTest {
-    @Test
-    func scanUrlContainsExpectedParams() {
-        let url = Utility.scanUrl(itemTagId: "abc-123", itemTagType: "server")
-
-        #expect(url.absoluteString.contains("item_tag_id=abc-123"))
-        #expect(url.absoluteString.contains("type=server"))
-    }
-
-    @Test
-    func scanUrlCustomerType() {
-        let url = Utility.scanUrl(itemTagId: "xyz-456", itemTagType: "customer")
-
-        #expect(url.absoluteString.contains("item_tag_id=xyz-456"))
-        #expect(url.absoluteString.contains("type=customer"))
-    }
-
     @Test(arguments: [
         ("", true),
         ("   ", true),

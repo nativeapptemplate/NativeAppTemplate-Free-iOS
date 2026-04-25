@@ -90,7 +90,6 @@ final class ItemTagListViewModel {
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             sessionController: sessionController,
-            nfcManager: appSingletons.nfcManager,
             shop: shop,
             itemTagId: itemTagId
         )

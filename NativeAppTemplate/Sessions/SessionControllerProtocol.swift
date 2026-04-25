@@ -34,10 +34,6 @@ protocol SessionControllerProtocol: AnyObject, Observable, Sendable {
     var didFetchPermissions: Bool { get }
 
     var shouldPopToRootView: Bool { get set }
-    var didBackgroundTagReading: Bool { get set }
-
-    var completeScanResult: CompleteScanResult { get set }
-    var showTagInfoScanResult: ShowTagInfoScanResult { get set }
 
     var shouldUpdateApp: Bool { get set }
     var shouldUpdatePrivacy: Bool { get set }

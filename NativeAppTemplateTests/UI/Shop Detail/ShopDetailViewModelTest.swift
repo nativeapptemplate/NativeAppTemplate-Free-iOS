@@ -184,7 +184,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
     }
 
     @Test
-    func resetTag() async throws {
+    func idleTag() async throws {
         shopRepository.setShops(shops: shops)
         itemTagRepository.setItemTags(itemTags: itemTags)
 
@@ -206,18 +206,18 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
 
-        let resetTagTask = Task {
-            viewModel.resetTag(itemTagId: itemTags.first!.id)
+        let idleTagTask = Task {
+            viewModel.idleTag(itemTagId: itemTags.first!.id)
         }
-        await resetTagTask.value
+        await idleTagTask.value
 
-        let message = String.itemTagReset
+        let message = String.itemTagIdled
 
         #expect(viewModel.messageBus.currentMessage?.message == message)
     }
 
     @Test
-    func resetTagFailed() async throws {
+    func idleTagFailed() async throws {
         shopRepository.setShops(shops: shops)
         itemTagRepository.setItemTags(itemTags: itemTags)
 
@@ -243,10 +243,10 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        let resetTagTask = Task {
-            viewModel.resetTag(itemTagId: itemTags.first!.id)
+        let idleTagTask = Task {
+            viewModel.idleTag(itemTagId: itemTags.first!.id)
         }
-        await resetTagTask.value
+        await idleTagTask.value
 
         #expect(viewModel.messageBus.currentMessage?.level == .error)
     }

@@ -18,10 +18,6 @@ struct ItemTag: Codable, Hashable, Identifiable, Sendable {
 }
 
 extension ItemTag {
-    func scanUrl(itemTagType: ItemTagType) -> URL {
-        Utility.scanUrl(itemTagId: id, itemTagType: itemTagType.toJson())
-    }
-
     func toJson() -> [String: Any] {
         ["item_tag":
             [
