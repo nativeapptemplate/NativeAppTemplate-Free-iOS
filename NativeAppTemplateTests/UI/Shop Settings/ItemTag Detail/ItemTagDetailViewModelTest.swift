@@ -27,7 +27,7 @@ struct ItemTagDetailViewModelTest {
             shopId: shop.id,
             name: "A01",
             description: "",
-            position: nil,
+            position: 1,
             state: .idled,
             createdAt: Date(),
             completedAt: nil,
@@ -48,6 +48,7 @@ struct ItemTagDetailViewModelTest {
         #expect(viewModel.isShowingEditSheet == false)
         #expect(viewModel.isShowingDeleteConfirmationDialog == false)
         #expect(viewModel.isFetching == true)
+        #expect(viewModel.isToggling == false)
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.itemTag == nil)
@@ -69,6 +70,10 @@ struct ItemTagDetailViewModelTest {
         #expect(viewModel.isFetching == true)
 
         viewModel.isFetching = false
+        viewModel.isToggling = true
+        #expect(viewModel.isBusy == true)
+
+        viewModel.isToggling = false
         viewModel.isDeleting = true
         #expect(viewModel.isBusy == true)
 
@@ -123,6 +128,148 @@ struct ItemTagDetailViewModelTest {
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
+    }
+
+    @Test
+    func completeItemTagSuccess() async {
+        itemTagRepository.setItemTags(itemTags: [testItemTag])
+
+        let viewModel = ItemTagDetailViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop,
+            itemTagId: itemTagId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let completeTask = Task {
+            viewModel.completeItemTag()
+        }
+        await completeTask.value
+
+        #expect(viewModel.isToggling == false)
+        #expect(viewModel.itemTag?.state == .completed)
+    }
+
+    @Test
+    func completeItemTagFailure() async throws {
+        itemTagRepository.setItemTags(itemTags: [testItemTag])
+
+        let viewModel = ItemTagDetailViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop,
+            itemTagId: itemTagId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 500, "Boom")
+
+        let completeTask = Task {
+            viewModel.completeItemTag()
+        }
+        await completeTask.value
+
+        #expect(viewModel.isToggling == false)
+        #expect(messageBus.currentMessage?.level == .error)
+        let errorMessage = try #require(messageBus.currentMessage?.message)
+        #expect(errorMessage.contains(String.itemTagCompletedError))
+    }
+
+    @Test
+    func idleItemTagSuccess() async {
+        var completedItemTag = testItemTag
+        completedItemTag.state = .completed
+        completedItemTag.completedAt = .now
+        itemTagRepository.setItemTags(itemTags: [completedItemTag])
+
+        let viewModel = ItemTagDetailViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop,
+            itemTagId: itemTagId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        let idleTask = Task {
+            viewModel.idleItemTag()
+        }
+        await idleTask.value
+
+        #expect(viewModel.isToggling == false)
+        #expect(viewModel.itemTag?.state == .idled)
+    }
+
+    @Test
+    func idleItemTagFailure() async throws {
+        var completedItemTag = testItemTag
+        completedItemTag.state = .completed
+        completedItemTag.completedAt = .now
+        itemTagRepository.setItemTags(itemTags: [completedItemTag])
+
+        let viewModel = ItemTagDetailViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop,
+            itemTagId: itemTagId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 500, "Boom")
+
+        let idleTask = Task {
+            viewModel.idleItemTag()
+        }
+        await idleTask.value
+
+        #expect(viewModel.isToggling == false)
+        #expect(messageBus.currentMessage?.level == .error)
+        let errorMessage = try #require(messageBus.currentMessage?.message)
+        #expect(errorMessage.contains(String.itemTagIdledError))
+    }
+
+    @Test
+    func toggleWithoutItemTagDoesNothing() async {
+        let viewModel = ItemTagDetailViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            sessionController: sessionController,
+            shop: shop,
+            itemTagId: itemTagId
+        )
+
+        let completeTask = Task {
+            viewModel.completeItemTag()
+        }
+        await completeTask.value
+
+        let idleTask = Task {
+            viewModel.idleItemTag()
+        }
+        await idleTask.value
+
+        #expect(viewModel.isToggling == false)
+        #expect(messageBus.currentMessage == nil)
     }
 
     @Test
@@ -207,32 +354,6 @@ struct ItemTagDetailViewModelTest {
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.shouldDismiss == false)
         #expect(messageBus.currentMessage == nil)
-    }
-
-    @Test
-    func busyStateDuringDeletion() async {
-        itemTagRepository.setItemTags(itemTags: [testItemTag])
-
-        let viewModel = ItemTagDetailViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            shop: shop,
-            itemTagId: itemTagId
-        )
-
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
-
-        let destroyTask = Task {
-            viewModel.destroyItemTag()
-        }
-
-        #expect(viewModel.isBusy == viewModel.isDeleting)
-
-        await destroyTask.value
     }
 
     @Test

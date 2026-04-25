@@ -10,6 +10,7 @@ import SwiftUI
 @MainActor
 final class ItemTagEditViewModel {
     var name = ""
+    var description = ""
     var isFetching = true
     var isUpdating = false
     var shouldDismiss = false
@@ -43,7 +44,11 @@ final class ItemTagEditViewModel {
             return true
         }
 
-        if itemTag.name == name {
+        if hasInvalidDataDescription {
+            return true
+        }
+
+        if itemTag.name == name, itemTag.description == description {
             return true
         }
 
@@ -54,20 +59,22 @@ final class ItemTagEditViewModel {
         if Utility.isBlank(name) {
             return true
         }
-
-        if !name.isAlphanumeric(ignoreDiacritics: true) {
+        if name.count > maximumNameLength {
             return true
         }
-
-        if !(name.count >= 2 && name.count <= maximumQueueNumberLength) {
-            return true
-        }
-
         return false
     }
 
-    var maximumQueueNumberLength: Int {
-        sessionController.maximumQueueNumberLength
+    var hasInvalidDataDescription: Bool {
+        description.count > maximumDescriptionLength
+    }
+
+    var maximumNameLength: Int {
+        sessionController.maximumNameLength
+    }
+
+    var maximumDescriptionLength: Int {
+        NativeAppTemplateConstants.maximumItemTagDescriptionLength
     }
 
     func reload() {
@@ -75,7 +82,11 @@ final class ItemTagEditViewModel {
     }
 
     func validateNameLength() {
-        name = String(name.prefix(maximumQueueNumberLength))
+        name = String(name.prefix(maximumNameLength))
+    }
+
+    func validateDescriptionLength() {
+        description = String(description.prefix(maximumDescriptionLength))
     }
 
     func updateItemTag() {
@@ -85,10 +96,11 @@ final class ItemTagEditViewModel {
             do {
                 let itemTag = ItemTag(
                     id: itemTagId,
-                    name: name
+                    name: name,
+                    description: description
                 )
 
-                _ = try await itemTagRepository.update(id: itemTagId, itemTag: itemTag)
+                _ = try await itemTagRepository.update(id: itemTag.id, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: .itemTagUpdated))
             } catch {
                 messageBus.post(message: Message(error: error))
@@ -106,7 +118,8 @@ final class ItemTagEditViewModel {
             do {
                 itemTag = try await itemTagRepository.fetchDetail(id: itemTagId)
                 if let itemTag {
-                    name = String(itemTag.name)
+                    name = itemTag.name
+                    description = itemTag.description
                 }
             } catch {
                 messageBus.post(message: Message(error: error))

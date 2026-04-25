@@ -84,23 +84,4 @@ final class ItemTagListViewModel {
             isDeleting = false
         }
     }
-
-    func createItemTagDetailViewModel(itemTagId: String) -> ItemTagDetailViewModel {
-        ItemTagDetailViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            shop: shop,
-            itemTagId: itemTagId
-        )
-    }
-
-    func createItemTagCreateViewModel() -> ItemTagCreateViewModel {
-        ItemTagCreateViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            shopId: shop.id
-        )
-    }
 }

@@ -53,7 +53,7 @@ struct DemoItemTagRepositoryTest {
                 shopId: shopId,
                 name: newName,
                 description: "",
-                position: nil,
+                position: 1,
                 state: .idled,
                 createdAt: .now,
                 completedAt: nil,

@@ -112,7 +112,7 @@ final class DemoItemTagRepository: ItemTagRepositoryProtocol {
             shopId: shopId,
             name: name,
             description: "",
-            position: nil,
+            position: 1,
             state: .idled,
             createdAt: .now,
             completedAt: nil,

@@ -9,7 +9,7 @@ struct PermissionsResponse: Sendable {
     var iosAppVersion: Int
     var shouldUpdatePrivacy: Bool
     var shouldUpdateTerms: Bool
-    var maximumQueueNumberLength: Int
+    var maximumNameLength: Int
     var shopLimitCount: Int
 }
 
@@ -49,7 +49,7 @@ struct PermissionsRequest: Request {
             throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "should_update_terms")
         }
 
-        let maximumQueueNumberLength = doc.meta["maximum_queue_number_length"] as? Int ?? 256
+        let maximumNameLength = doc.meta["maximum_name_length"] as? Int ?? 100
 
         guard let shopLimitCount = doc.meta["shop_limit_count"] as? Int else {
             throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "shop_limit_count")
@@ -59,7 +59,7 @@ struct PermissionsRequest: Request {
             iosAppVersion: iosAppVersion,
             shouldUpdatePrivacy: shouldUpdatePrivacy,
             shouldUpdateTerms: shouldUpdateTerms,
-            maximumQueueNumberLength: maximumQueueNumberLength,
+            maximumNameLength: maximumNameLength,
             shopLimitCount: shopLimitCount
         )
     }

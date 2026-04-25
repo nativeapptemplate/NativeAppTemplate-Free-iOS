@@ -310,7 +310,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
             shopId: shopId,
             name: name,
             description: "",
-            position: nil,
+            position: 1,
             state: .idled,
             createdAt: date,
             completedAt: nil,

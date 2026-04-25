@@ -12,6 +12,7 @@ final class ItemTagDetailViewModel {
     var isShowingEditSheet = false
     var isShowingDeleteConfirmationDialog = false
     var isFetching = true
+    var isToggling = false
     var isDeleting = false
     var shouldDismiss = false
     private(set) var itemTag: ItemTag?
@@ -37,11 +38,53 @@ final class ItemTagDetailViewModel {
     }
 
     var isBusy: Bool {
-        isFetching || isDeleting
+        isFetching || isDeleting || isToggling
     }
 
     func reload() {
         fetchItemTagDetail()
+    }
+
+    func completeItemTag() {
+        guard let itemTag else { return }
+
+        Task {
+            isToggling = true
+
+            do {
+                let updated = try await itemTagRepository.complete(id: itemTag.id)
+                self.itemTag = updated
+            } catch {
+                messageBus.post(message: Message(
+                    level: .error,
+                    message: "\(String.itemTagCompletedError) \(error.codedDescription)",
+                    autoDismiss: false
+                ))
+            }
+
+            isToggling = false
+        }
+    }
+
+    func idleItemTag() {
+        guard let itemTag else { return }
+
+        Task {
+            isToggling = true
+
+            do {
+                let updated = try await itemTagRepository.idle(id: itemTag.id)
+                self.itemTag = updated
+            } catch {
+                messageBus.post(message: Message(
+                    level: .error,
+                    message: "\(String.itemTagIdledError) \(error.codedDescription)",
+                    autoDismiss: false
+                ))
+            }
+
+            isToggling = false
+        }
     }
 
     func destroyItemTag() {

@@ -419,13 +419,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0135E7182D7E33F9004AD8FA /* Scan */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Scan;
-			sourceTree = "<group>";
-		};
 		0135E8E32D7E4478004AD8FA /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,7 +623,6 @@
 			children = (
 				0172045625AA8275008FD63B /* App Root */,
 				01E0A5B125BD0FC600298D35 /* Empty States */,
-				0135E7182D7E33F9004AD8FA /* Scan */,
 				01E0A59025BD087E00298D35 /* Settings */,
 				01E0A5DF25BD148800298D35 /* Shared */,
 				01011B542864434900B70D04 /* Shop Detail */,

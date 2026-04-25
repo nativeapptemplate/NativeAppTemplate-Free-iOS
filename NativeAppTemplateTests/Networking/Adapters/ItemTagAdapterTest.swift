@@ -65,4 +65,19 @@ struct ItemTagAdapterTest {
             return EntityAdapterError.invalidOrMissingAttributes == entityAdapterError
         }
     }
+
+    @Test func missingPositionThrows() throws {
+        var sample = sampleResource
+        if var attributes = sample["attributes"] as? [String: Any] {
+            attributes.removeValue(forKey: "position")
+            sample["attributes"] = attributes
+        }
+
+        let resource = try makeJsonAPIResource(for: sample)
+
+        #expect { try ItemTagAdapter.process(resource: resource) } throws: { error in
+            let entityAdapterError = error as? EntityAdapterError
+            return EntityAdapterError.invalidOrMissingAttributes == entityAdapterError
+        }
+    }
 }

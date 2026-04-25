@@ -15,6 +15,7 @@ struct ItemTagAdapter: EntityAdapter {
 
         guard let shopId = resource.attributes["shop_id"] as? String,
               let name = resource.attributes["name"] as? String,
+              let position = resource.attributes["position"] as? Int,
               let state = resource.attributes["state"] as? String,
               let createdAtString = resource.attributes["created_at"] as? String,
               let shopName = resource.attributes["shop_name"] as? String
@@ -25,7 +26,6 @@ struct ItemTagAdapter: EntityAdapter {
         let createdAt = createdAtString.iso8601!
 
         let description = resource.attributes["description"] as? String ?? ""
-        let position = resource.attributes["position"] as? Int
 
         let completedAtString = resource.attributes["completed_at"] as? String
         let completedAt = completedAtString?.iso8601
