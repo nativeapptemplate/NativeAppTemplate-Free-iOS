@@ -10,7 +10,7 @@ struct ItemTag: Codable, Hashable, Identifiable, Sendable {
     var shopId: String = ""
     var name: String = ""
     var description: String = ""
-    var position: Int?
+    var position: Int = 0
     var state = ItemTagState.idled
     var createdAt = Date.now
     var completedAt: Date?
@@ -22,8 +22,7 @@ extension ItemTag {
         ["item_tag":
             [
                 "name": name,
-                "description": description,
-                "position": position as Any
+                "description": description
             ]
         ]
     }

@@ -72,6 +72,10 @@ enum NativeAppTemplateConstants {
         static let shadowRadius: CGFloat = 8
     }
 
+    // MARK: - ItemTag
+
+    static let maximumItemTagDescriptionLength = 1_000
+
     // MARK: - Corner Radius
 
     enum CornerRadius {
@@ -154,13 +158,27 @@ extension String {
 
     // MARK: Item Tag View
 
-    static let tagNumber = "Name"
+    static let nameLabel = "Name"
+    static let descriptionLabel = "Description"
+    static let itemTagNamePlaceholder = "Name"
     static let editTag = "Edit Tag"
     static let addTag = "Add Tag"
     static let addTagDescription = "Add a new item tag and start changing the tag status."
     static let deleteTag = "Delete tag"
     static let buttonDeleteTag = "Delete Tag"
-    static let tagNumberIsInvalid = "Item tag name is invalid."
+    static let itemTagNameIsInvalid = "Item tag name is invalid."
+    static let itemTagDescriptionIsInvalid = "Item tag description is too long."
+    static let completedAtLabel = "Completed at"
+    static let markAsCompleted = "Mark as completed"
+    static let markAsIdled = "Mark as idled"
+
+    static func itemTagNameHelp(maximumLength: Int) -> String {
+        "Name must be 1–\(maximumLength) characters."
+    }
+
+    static func itemTagDescriptionHelp(maximumLength: Int) -> String {
+        "Description can be up to \(maximumLength) characters."
+    }
 
     // MARK: Settings View
 

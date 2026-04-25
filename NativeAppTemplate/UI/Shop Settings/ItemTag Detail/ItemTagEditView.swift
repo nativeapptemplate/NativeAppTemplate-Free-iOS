@@ -33,7 +33,7 @@ private extension ItemTagEditView {
         @ViewBuilder var contentView: some View {
             if viewModel.isBusy {
                 LoadingView()
-            } else {
+            } else if viewModel.itemTag != nil {
                 itemTagEditView
             }
         }
@@ -45,20 +45,37 @@ private extension ItemTagEditView {
         NavigationStack {
             Form {
                 Section {
-                    TextField(String("A001"), text: $viewModel.name)
-                        .keyboardType(.asciiCapable)
-                        .onChange(of: viewModel.name) { _, _ in
+                    TextField(String.itemTagNamePlaceholder, text: $viewModel.name)
+                        .onChange(of: viewModel.name) {
                             viewModel.validateNameLength()
                         }
                 } header: {
-                    Text(String.tagNumber)
+                    Text(String.nameLabel)
                 } footer: {
                     VStack(alignment: .leading) {
-                        Text("Name must be a 2-\(viewModel.maximumQueueNumberLength) alphanumeric characters.")
+                        Text(String.itemTagNameHelp(maximumLength: viewModel.maximumNameLength))
                             .font(.uiFootnote)
-                        Text(String.tagNumberIsInvalid)
+                        Text(String.itemTagNameIsInvalid)
                             .font(.uiFootnote)
                             .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
+                    }
+                }
+
+                Section {
+                    TextEditor(text: $viewModel.description)
+                        .frame(minHeight: 100)
+                        .onChange(of: viewModel.description) {
+                            viewModel.validateDescriptionLength()
+                        }
+                } header: {
+                    Text(String.descriptionLabel)
+                } footer: {
+                    VStack(alignment: .leading) {
+                        Text(String.itemTagDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
+                            .font(.uiFootnote)
+                        Text(String.itemTagDescriptionIsInvalid)
+                            .font(.uiFootnote)
+                            .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
                     }
                 }
             }

@@ -7,6 +7,8 @@ import SwiftUI
 
 struct ItemTagDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(DataManager.self) private var dataManager
+    @Environment(MessageBus.self) private var messageBus
     @State private var viewModel: ItemTagDetailViewModel
 
     init(viewModel: ItemTagDetailViewModel) {
@@ -30,7 +32,7 @@ struct ItemTagDetailView: View {
 
 private extension ItemTagDetailView {
     @ViewBuilder var contentView: some View {
-        if viewModel.isBusy {
+        if viewModel.isBusy, viewModel.itemTag == nil {
             LoadingView()
         } else if let itemTag = viewModel.itemTag {
             itemTagDetailView(itemTag: itemTag)
@@ -38,29 +40,17 @@ private extension ItemTagDetailView {
     }
 
     func itemTagDetailView(itemTag: ItemTag) -> some View {
-        VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.md) {
-            Text(itemTag.name)
-                .font(.largeTitle)
-                .bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.md) {
+                headerRow(itemTag: itemTag)
+                descriptionSection(itemTag: itemTag)
+                completedAtRow(itemTag: itemTag)
+                stateToggleButton(itemTag: itemTag)
 
-            if !itemTag.description.isEmpty {
-                Text(itemTag.description)
-                    .font(.body)
-                    .foregroundStyle(.secondary)
+                Spacer()
             }
-
-            Text("State: \(itemTag.state.rawValue.capitalized)")
-                .font(.subheadline)
-
-            if let completedAt = itemTag.completedAt {
-                Text("Completed at: \(completedAt.formatted())")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer()
+            .padding()
         }
-        .padding()
         .sheet(
             isPresented: $viewModel.isShowingEditSheet,
             onDismiss: {
@@ -69,9 +59,9 @@ private extension ItemTagDetailView {
             content: {
                 ItemTagEditView(
                     viewModel: ItemTagEditViewModel(
-                        itemTagRepository: viewModel.itemTagRepository,
-                        messageBus: viewModel.messageBus,
-                        sessionController: viewModel.sessionController,
+                        itemTagRepository: dataManager.itemTagRepository,
+                        messageBus: messageBus,
+                        sessionController: dataManager.sessionController,
                         itemTagId: viewModel.itemTagId
                     )
                 )
@@ -90,20 +80,88 @@ private extension ItemTagDetailView {
         } message: {
             Text(String.areYouSure)
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.isShowingEditSheet.toggle()
-                } label: {
-                    Text(String.edit)
-                }
+        .toolbar { toolbarContent }
+    }
+
+    func headerRow(itemTag: ItemTag) -> some View {
+        HStack {
+            Text(itemTag.name)
+                .font(.largeTitle)
+                .bold()
+
+            Spacer()
+
+            if itemTag.state == .completed {
+                CompletedTag()
+            } else {
+                IdlingTag()
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.isShowingDeleteConfirmationDialog.toggle()
-                } label: {
-                    Image(systemName: "trash")
-                }
+        }
+    }
+
+    @ViewBuilder
+    func descriptionSection(itemTag: ItemTag) -> some View {
+        if !itemTag.description.isEmpty {
+            VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.xxs) {
+                Text(String.descriptionLabel)
+                    .font(.uiTitle4)
+                    .foregroundStyle(.titleText)
+                Text(itemTag.description)
+                    .font(.body)
+                    .foregroundStyle(.contentText)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func completedAtRow(itemTag: ItemTag) -> some View {
+        if let completedAt = itemTag.completedAt, itemTag.state == .completed {
+            HStack {
+                Text(String.completedAtLabel)
+                    .font(.uiFootnote)
+                    .foregroundStyle(.contentText)
+                Text(completedAt.formatted())
+                    .font(.uiFootnote)
+                    .foregroundStyle(.contentText)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func stateToggleButton(itemTag: ItemTag) -> some View {
+        if itemTag.state == .idled {
+            MainButtonView(
+                title: String.markAsCompleted,
+                type: .primary(withArrow: false)
+            ) {
+                viewModel.completeItemTag()
+            }
+            .disabled(viewModel.isToggling)
+        } else {
+            MainButtonView(
+                title: String.markAsIdled,
+                type: .secondary(withArrow: false)
+            ) {
+                viewModel.idleItemTag()
+            }
+            .disabled(viewModel.isToggling)
+        }
+    }
+
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                viewModel.isShowingEditSheet.toggle()
+            } label: {
+                Text(String.edit)
+            }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                viewModel.isShowingDeleteConfirmationDialog.toggle()
+            } label: {
+                Image(systemName: "trash")
             }
         }
     }

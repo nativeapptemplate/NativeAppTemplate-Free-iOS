@@ -38,7 +38,7 @@ protocol SessionControllerProtocol: AnyObject, Observable, Sendable {
     var shouldUpdateApp: Bool { get set }
     var shouldUpdatePrivacy: Bool { get set }
     var shouldUpdateTerms: Bool { get set }
-    var maximumQueueNumberLength: Int { get set }
+    var maximumNameLength: Int { get set }
     var shopLimitCount: Int { get set }
 
     var shopkeeper: Shopkeeper? { get set }
