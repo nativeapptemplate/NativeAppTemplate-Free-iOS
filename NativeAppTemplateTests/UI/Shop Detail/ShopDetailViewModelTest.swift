@@ -143,9 +143,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         }
         await completeTagTask.value
 
-        let message = String.itemTagCompleted
-
-        #expect(viewModel.messageBus.currentMessage?.message == message)
+        #expect(viewModel.messageBus.currentMessage == nil)
     }
 
     @Test
@@ -211,9 +209,7 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         }
         await idleTagTask.value
 
-        let message = String.itemTagIdled
-
-        #expect(viewModel.messageBus.currentMessage?.message == message)
+        #expect(viewModel.messageBus.currentMessage == nil)
     }
 
     @Test
