@@ -76,7 +76,6 @@ final class ShopDetailViewModel {
 
             do {
                 _ = try await itemTagRepository.complete(id: itemTagId)
-                messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
             } catch {
                 messageBus.post(
                     message: Message(
@@ -98,7 +97,6 @@ final class ShopDetailViewModel {
 
             do {
                 _ = try await itemTagRepository.idle(id: itemTagId)
-                messageBus.post(message: Message(level: .success, message: .itemTagIdled))
             } catch {
                 messageBus.post(
                     message: Message(
