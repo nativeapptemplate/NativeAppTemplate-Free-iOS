@@ -21,7 +21,7 @@ import Foundation
     public var shouldUpdateTerms: Bool = false
     public var shouldThrowPrivacyError: Bool = false
     public var shouldThrowTermsError: Bool = false
-    public var maximumNameLength: Int = 4
+    public var maximumNameLength: Int = 100
     public var shopLimitCount: Int = 1
 
     public var shopkeeper: Shopkeeper?
