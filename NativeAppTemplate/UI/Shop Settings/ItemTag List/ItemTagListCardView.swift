@@ -29,7 +29,7 @@ struct ItemTagListCardView: View {
                 if itemTag.state == .completed {
                     CompletedTag()
                     if let completedAt = itemTag.completedAt {
-                        Text(completedAt.cardTimeString)
+                        Text(completedAt.cardDateTimeString)
                             .font(.uiFootnote)
                             .foregroundStyle(.contentText)
                     }

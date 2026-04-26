@@ -21,6 +21,10 @@ extension Date {
         return formatter.string(from: self)
     }
 
+    var cardDateTimeString: String {
+        "\(cardDateString) \(cardTimeString)"
+    }
+
     var cardTimeAgoInWordsDateString: String {
         let formatter = DateFormatter.timeAgoInWordsDateFormatter
         return formatter.string(from: self)
