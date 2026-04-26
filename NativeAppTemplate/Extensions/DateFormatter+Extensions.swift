@@ -6,7 +6,7 @@
 import Foundation
 
 extension String {
-    static let cardDateString: String = "MMM dd yyyy"
+    static let cardDateString: String = "yyyy/MM/dd"
     static let cardTimeString: String = "HH:mm"
 }
 
@@ -49,6 +49,7 @@ extension DateFormatter {
     static func formatter(for dateString: String) -> DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateString
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         return dateFormatter
     }
 }

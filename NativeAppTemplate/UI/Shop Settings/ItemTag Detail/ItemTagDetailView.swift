@@ -120,7 +120,7 @@ private extension ItemTagDetailView {
                 Text(String.completedAtLabel)
                     .font(.uiFootnote)
                     .foregroundStyle(.contentText)
-                Text(completedAt.formatted())
+                Text(completedAt.cardDateTimeString)
                     .font(.uiFootnote)
                     .foregroundStyle(.contentText)
             }
