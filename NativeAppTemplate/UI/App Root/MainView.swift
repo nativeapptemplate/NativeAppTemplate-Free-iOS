@@ -19,27 +19,6 @@ struct MainView: View {
             contentView
                 .background(Color.backgroundColor)
                 .overlay(MessageBarView(messageBus: messageBus), alignment: .bottom)
-                .onContinueUserActivity(NSUserActivityTypeBrowsingWeb, perform: { userActivity in
-                    if let viewModel {
-                        viewModel.handleBackgroundTagReading(userActivity)
-                    }
-                })
-                .alert(
-                    String.itemTagAlreadyCompleted,
-                    isPresented: Binding(
-                        get: { viewModel?.isShowingResetConfirmationDialog ?? false },
-                        set: { viewModel?.isShowingResetConfirmationDialog = $0 }
-                    )
-                ) {
-                    Button(String.reset, role: .destructive) {
-                        viewModel?.resetTag()
-                    }
-                    Button(String.cancel, role: .cancel) {
-                        viewModel?.cancelResetDialog()
-                    }
-                } message: {
-                    Text(String.areYouSure)
-                }
                 .onAppear {
                     if viewModel == nil {
                         viewModel = MainViewModel(
@@ -115,7 +94,6 @@ private extension MainView {
             if dataManager.isRebuildingRepositories {
                 AppTabView(
                     shopListView: LoadingView.init,
-                    scanView: LoadingView.init,
                     settingsView: LoadingView.init
                 )
                 .environment(tabViewModel)
@@ -123,14 +101,12 @@ private extension MainView {
                 if sessionController.shouldUpdateApp {
                     AppTabView(
                         shopListView: NeedAppUpdatesView.init,
-                        scanView: NeedAppUpdatesView.init,
                         settingsView: NeedAppUpdatesView.init
                     )
                     .environment(tabViewModel)
                 } else {
                     AppTabView(
                         shopListView: shopListView,
-                        scanView: scanView,
                         settingsView: settingsView
                     )
                     .environment(tabViewModel)
@@ -139,7 +115,6 @@ private extension MainView {
         case .offline:
             AppTabView(
                 shopListView: OfflineView.init,
-                scanView: OfflineView.init,
                 settingsView: OfflineView.init
             )
             .environment(tabViewModel)
@@ -155,17 +130,6 @@ private extension MainView {
                 shopRepository: dataManager.shopRepository,
                 tabViewModel: tabViewModel,
                 mainTab: mainTab
-            )
-        )
-    }
-
-    func scanView() -> ScanView {
-        .init(
-            viewModel: ScanViewModel(
-                itemTagRepository: dataManager.itemTagRepository,
-                sessionController: dataManager.sessionController,
-                messageBus: messageBus,
-                nfcManager: appSingletons.nfcManager
             )
         )
     }

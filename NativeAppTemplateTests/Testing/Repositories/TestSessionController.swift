@@ -15,17 +15,13 @@ import Foundation
     public var didFetchPermissions: Bool = false
 
     public var shouldPopToRootView: Bool = false
-    public var didBackgroundTagReading: Bool = false
-
-    public var completeScanResult: CompleteScanResult = .init()
-    public var showTagInfoScanResult: ShowTagInfoScanResult = .init()
 
     public var shouldUpdateApp: Bool = false
     public var shouldUpdatePrivacy: Bool = false
     public var shouldUpdateTerms: Bool = false
     public var shouldThrowPrivacyError: Bool = false
     public var shouldThrowTermsError: Bool = false
-    public var maximumQueueNumberLength: Int = 4
+    public var maximumNameLength: Int = 100
     public var shopLimitCount: Int = 1
 
     public var shopkeeper: Shopkeeper?

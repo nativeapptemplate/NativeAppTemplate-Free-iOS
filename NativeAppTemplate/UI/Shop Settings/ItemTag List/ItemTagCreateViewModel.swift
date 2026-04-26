@@ -9,7 +9,8 @@ import SwiftUI
 @Observable
 @MainActor
 final class ItemTagCreateViewModel {
-    var queueNumber = ""
+    var name = ""
+    var description = ""
     var isCreating = false
     var shouldDismiss = false
 
@@ -35,31 +36,37 @@ final class ItemTagCreateViewModel {
     }
 
     var hasInvalidData: Bool {
-        hasInvalidDataQueueNumber
+        hasInvalidDataName || hasInvalidDataDescription
     }
 
-    var hasInvalidDataQueueNumber: Bool {
-        if Utility.isBlank(queueNumber) {
+    var hasInvalidDataName: Bool {
+        if Utility.isBlank(name) {
             return true
         }
-
-        if !queueNumber.isAlphanumeric(ignoreDiacritics: true) {
+        if name.count > maximumNameLength {
             return true
         }
-
-        if !(queueNumber.count >= 2 && queueNumber.count <= maximumQueueNumberLength) {
-            return true
-        }
-
         return false
     }
 
-    var maximumQueueNumberLength: Int {
-        sessionController.maximumQueueNumberLength
+    var hasInvalidDataDescription: Bool {
+        description.count > maximumDescriptionLength
     }
 
-    func validateQueueNumberLength() {
-        queueNumber = String(queueNumber.prefix(maximumQueueNumberLength))
+    var maximumNameLength: Int {
+        sessionController.maximumNameLength
+    }
+
+    var maximumDescriptionLength: Int {
+        NativeAppTemplateConstants.maximumItemTagDescriptionLength
+    }
+
+    func validateNameLength() {
+        name = String(name.prefix(maximumNameLength))
+    }
+
+    func validateDescriptionLength() {
+        description = String(description.prefix(maximumDescriptionLength))
     }
 
     func createItemTag() {
@@ -67,7 +74,7 @@ final class ItemTagCreateViewModel {
             isCreating = true
 
             do {
-                let itemTag = ItemTag(queueNumber: queueNumber)
+                let itemTag = ItemTag(name: name, description: description)
                 _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: .itemTagCreated))
             } catch {

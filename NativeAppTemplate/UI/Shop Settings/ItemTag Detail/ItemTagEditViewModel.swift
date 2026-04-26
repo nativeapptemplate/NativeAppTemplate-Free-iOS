@@ -9,7 +9,8 @@ import SwiftUI
 @Observable
 @MainActor
 final class ItemTagEditViewModel {
-    var queueNumber = ""
+    var name = ""
+    var description = ""
     var isFetching = true
     var isUpdating = false
     var shouldDismiss = false
@@ -39,43 +40,53 @@ final class ItemTagEditViewModel {
     var hasInvalidData: Bool {
         guard let itemTag else { return true }
 
-        if hasInvalidDataQueueNumber {
+        if hasInvalidDataName {
             return true
         }
 
-        if itemTag.queueNumber == queueNumber {
+        if hasInvalidDataDescription {
             return true
         }
 
-        return false
-    }
-
-    var hasInvalidDataQueueNumber: Bool {
-        if Utility.isBlank(queueNumber) {
-            return true
-        }
-
-        if !queueNumber.isAlphanumeric(ignoreDiacritics: true) {
-            return true
-        }
-
-        if !(queueNumber.count >= 2 && queueNumber.count <= maximumQueueNumberLength) {
+        if itemTag.name == name, itemTag.description == description {
             return true
         }
 
         return false
     }
 
-    var maximumQueueNumberLength: Int {
-        sessionController.maximumQueueNumberLength
+    var hasInvalidDataName: Bool {
+        if Utility.isBlank(name) {
+            return true
+        }
+        if name.count > maximumNameLength {
+            return true
+        }
+        return false
+    }
+
+    var hasInvalidDataDescription: Bool {
+        description.count > maximumDescriptionLength
+    }
+
+    var maximumNameLength: Int {
+        sessionController.maximumNameLength
+    }
+
+    var maximumDescriptionLength: Int {
+        NativeAppTemplateConstants.maximumItemTagDescriptionLength
     }
 
     func reload() {
         fetchItemTagDetail()
     }
 
-    func validateQueueNumberLength() {
-        queueNumber = String(queueNumber.prefix(maximumQueueNumberLength))
+    func validateNameLength() {
+        name = String(name.prefix(maximumNameLength))
+    }
+
+    func validateDescriptionLength() {
+        description = String(description.prefix(maximumDescriptionLength))
     }
 
     func updateItemTag() {
@@ -85,10 +96,11 @@ final class ItemTagEditViewModel {
             do {
                 let itemTag = ItemTag(
                     id: itemTagId,
-                    queueNumber: queueNumber
+                    name: name,
+                    description: description
                 )
 
-                _ = try await itemTagRepository.update(id: itemTagId, itemTag: itemTag)
+                _ = try await itemTagRepository.update(id: itemTag.id, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: .itemTagUpdated))
             } catch {
                 messageBus.post(message: Message(error: error))
@@ -106,7 +118,8 @@ final class ItemTagEditViewModel {
             do {
                 itemTag = try await itemTagRepository.fetchDetail(id: itemTagId)
                 if let itemTag {
-                    queueNumber = String(itemTag.queueNumber)
+                    name = itemTag.name
+                    description = itemTag.description
                 }
             } catch {
                 messageBus.post(message: Message(error: error))

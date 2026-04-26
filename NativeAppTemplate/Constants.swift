@@ -72,6 +72,10 @@ enum NativeAppTemplateConstants {
         static let shadowRadius: CGFloat = 8
     }
 
+    // MARK: - ItemTag
+
+    static let maximumItemTagDescriptionLength = 1_000
+
     // MARK: - Corner Radius
 
     enum CornerRadius {
@@ -104,14 +108,8 @@ extension String {
     static let port: String = ""
     #endif
 
-    static let androidAar: String = "com.nativeapptemplate.nativeapptemplatefree"
-    static let androidAarNfcndefPayloadType: String = "android.com:pkg"
-
     /// This is for MyTurnTag Creator. Replace this.
     static let appStoreUrl: String = "https://apps.apple.com/app/myturntag-creator/id1516198303"
-
-    static let scanPath: String = "scan"
-    static let scanPathCustomer: String = "scan_customer"
 
     static let placeholderFullName: String = "John Smith"
     static let placeholderEmail: String = "you@example.com"
@@ -125,7 +123,6 @@ extension String {
         "com.nativeapptemplate.NativeAppTemplateFree.LoggedInShopkeeperService"
 
     static let shops = "Shops"
-    static let scan = "Scan"
     static let settings = "Settings"
     static let loading = "Loading..."
 
@@ -153,59 +150,35 @@ extension String {
     static let tapShopBelow = "Tap a shop below."
     static let haveFun = "Have fun!"
 
-    // MARK: Shop Detail View
-
-    static let swipeNumberTagBelow = "Swipe a number tag below."
-    static let tapDisplayedButton = "Tap the displayed button."
-    static let serverNumberTagsWebpageWillBeUpdated = "The Server Number Tags Webpage will be updated."
-    static let readInstructions = "Read Instructions"
-    static let serverNumberTagsWebpage = "Server Number Tags Webpage"
-
     // MARK: Shop Settings View
 
     static let shopSettingsLabel = "Shop Settings"
     static let shopSettingsBasicSettingsLabel = "Basic Settings"
     static let shopSettingsManageItemTagsLabel = "Manage Item Tags"
-    static let shopSettingsNumberTagsWebpageLabel = "Number Tags Webpage"
-    static let resetNumberTagsDescription = "Reset all number tag statuses."
-    static let resetNumberTags = "Reset Number Tags"
-
-    // MARK: Number Tags Web Pages
-
-    static let copyWebpageUrl = "Copy the above webpage URL"
-    static let webpageUrlCopied = "Webpage URL copied."
 
     // MARK: Item Tag View
 
-    static let tagNumber = "Name"
+    static let nameLabel = "Name"
+    static let descriptionLabel = "Description"
+    static let itemTagNamePlaceholder = "Name"
     static let editTag = "Edit Tag"
     static let addTag = "Add Tag"
     static let addTagDescription = "Add a new item tag and start changing the tag status."
     static let deleteTag = "Delete tag"
     static let buttonDeleteTag = "Delete Tag"
-    static let tagNumberIsInvalid = "Item tag name is invalid."
-    static let writeServerTag = "Write Server Tag"
-    static let writeCustomerTag = "Write Customer Tag"
-    static let youCannotUndoAfterLockingTag =
-        "You cannot undo. After locking the tag, you can no longer write data to it."
-    static let zeroPadding = "Zero padding(e.g. 07)."
-    static let writingSucceeded = "Writing succeeded!"
+    static let itemTagNameIsInvalid = "Item tag name is invalid."
+    static let itemTagDescriptionIsInvalid = "Item tag description is too long."
+    static let completedAtLabel = "Completed at"
+    static let markAsCompleted = "Mark as completed"
+    static let markAsIdled = "Mark as idled"
 
-    // MARK: Scan View
+    static func itemTagNameHelp(maximumLength: Int) -> String {
+        "Name must be 1–\(maximumLength) characters."
+    }
 
-    static let completeScan = "Complete Scan"
-    static let showTagInfoScan = "Show Tag Info Scan"
-    static let tagInfo = "Tag info"
-    static let readOnly = "Read Only"
-    static let writable = "Writable"
-    static let completeScanHelp = "Read a NFC Number Tag for changing the Number Tag status."
-    static let showTagInfoScanHelp = "Read a NFC Number Tag for showing the Number Tag information."
-    static let deviceDoesNotSupportScan = "This device doesn't support tag scanning."
-    static let holdYourIPhoneNearTheItem = "Hold your iPhone near the item to learn more about it."
-    static let tagNotValid = "Tag not valid."
-    static let moreThan1TagsWasFound = "More than 1 tags was found. Please present only 1 tag."
-    static let tagIsNotWritable = "Tag is not writable."
-    static let tagIsNotNdefFormatted = "Tag is not NDEF formatted."
+    static func itemTagDescriptionHelp(maximumLength: Int) -> String {
+        "Description can be up to \(maximumLength) characters."
+    }
 
     // MARK: Settings View
 
@@ -244,26 +217,13 @@ extension String {
     static let basicSettingsUpdated = "Basic settings updated successfully."
     static let shopDeleted = "Shop deleted successfully."
     static let shopDeletedError = "There was a problem deleting the shop."
-    static let shopReset = "All number tags reset."
-    static let shopResetError = "There was a problem resetting number tags."
 
     static let itemTagCreated = "Tag created successfully."
     static let itemTagUpdated = "Tag updated successfully."
     static let itemTagDeleted = "Tag deleted successfully."
     static let itemTagDeletedError = "There was a problem deleting the tag."
-    static let itemTagCompleted = "Tag completed successfully."
     static let itemTagCompletedError = "There was a problem completing the tag."
-    static let itemTagReset = "Tag reset successfully."
-    static let itemTagResetError = "There was a problem resetting the tag."
-    static let itemTagAlreadyCompleted = "Tag already completed."
-    static let messageWrittenOnTagIsWrong = "The message written on the tag is wrong."
-    static let scanServerTag = "This tag is a \"CUSTOMER\" tag. Scan a \"SERVER\" tag!"
-
-    static let customerQrCodeImageSavedToPhotoAlbum = "Customer QR code image saved to Photo Album successfully."
-    static let customerQrCodeImageSavedToPhotoAlbumError =
-        "There was a problem saving Customer QR code image to Photo Album."
-    static let saveToPhotoAlbum = "Save to Photo Album"
-    static let generateCustomerQrCode = "Generate Customer QR code"
+    static let itemTagIdledError = "There was a problem idling the tag."
 
     static let shopkeeperCreated = "Account created successfully."
     static let shopkeeperCreatedError = "There was a problem creating the account."
@@ -308,24 +268,19 @@ extension String {
     static let email = "Email"
     static let password = "Password"
 
-    static let onboardingDescription1 = String(localized: "A **Server Tag** and a **Customer Tag** are NFCs.")
-    static let onboardingDescription2 = String(localized: "The staff gives the **Customer Tag** to the customer.")
-    static let onboardingDescription3 =
-        String(localized: "The customer scans the **Customer Tag** or the **Customer QR code**.")
-    static let onboardingDescription4 =
-        String(localized: "The customer can view the **Number Tags Webpage** on his mobile browser.")
-    static let onboardingDescription5 = String(localized: "The staff is cooking KILITANPOs.")
-    static let onboardingDescription6 =
-        String(localized: "The staff completed cooking KILITANPOs. The staff scans the **Server Tag**.")
-    static let onboardingDescription7 = String(localized: "Tag completed with Background Tag Reading.")
-    static let onboardingDescription8 =
-        String(localized: "If you do not want to scan, you can complete the tag by swiping the tag(Shops > [Shop]).")
-    static let onboardingDescription9 = String(localized: "**Number Tags Webpage** displays the completed number tag.")
-    static let onboardingDescription10 = String(localized: "The customer's **Number Tags Webpage** updated.")
-    static let onboardingDescription11 =
-        String(localized: "The customer\'s **Number Tags Webpage** displays the completed **Customer Tag**(A07).")
-    static let onboardingDescription12 = String(localized: "The customer returns the **Customer Tag**.")
-    static let onboardingDescription13 = String(localized: "The customer finally got the delicious KILITANPO!")
+    static let onboardingDescription1 = String(localized: "Welcome to NativeAppTemplate.")
+    static let onboardingDescription2 = String(localized: "Sign in to manage your shops and item tags.")
+    static let onboardingDescription3 = String(localized: "Organize your work across multiple organizations.")
+    static let onboardingDescription4 = String(localized: "Invite teammates to collaborate.")
+    static let onboardingDescription5 = String(localized: "Track item tags with a simple idle/completed state.")
+    static let onboardingDescription6 = String(localized: "Create, edit, and delete item tags from your shop.")
+    static let onboardingDescription7 = String(localized: "Switch between personal and shared organizations.")
+    static let onboardingDescription8 = String(localized: "Have fun!")
+    static let onboardingDescription9 = String(localized: "Have fun!")
+    static let onboardingDescription10 = String(localized: "Have fun!")
+    static let onboardingDescription11 = String(localized: "Have fun!")
+    static let onboardingDescription12 = String(localized: "Have fun!")
+    static let onboardingDescription13 = String(localized: "Have fun!")
 
     // MARK: Other
 
@@ -363,10 +318,7 @@ extension String {
     static let backToStartScreen = "Back to Start Screen"
     static let fullName = "Full Name"
     static let fullNameIsRequired = "Full name is required."
-    static let reset = "Reset"
-    static let unknownNdefStatus = "Unknown NDEF status"
-    static let noRecrodsFound = "No recrods found"
-    static let thisDeviceDoesNotSupportTagScanning = "This device doesn't support tag scanning."
+    static let idle = "Idle"
 }
 
 extension TimeInterval {

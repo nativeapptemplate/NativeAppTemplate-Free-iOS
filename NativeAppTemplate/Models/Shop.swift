@@ -13,14 +13,9 @@ struct Shop: Codable, Identifiable, Sendable {
     var itemTagsCount: Int = 0
     var scannedItemTagsCount: Int = 0
     var completedItemTagsCount: Int = 0
-    var displayShopServerPath: String = ""
 }
 
 extension Shop {
-    var displayShopServerUrl: URL {
-        URL(string: "\(NativeAppTemplateEnvironment.prod.baseURL.absoluteString)\(displayShopServerPath)")!
-    }
-
     func toJsonForCreate() -> [String: Any] {
         [
             "shop": [

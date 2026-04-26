@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 final class ShopDetailViewModel {
     var isFetching = true
-    var isResetting = false
+    var isIdling = false
     var isCompleting = false
     var itemTags: [ItemTag] = []
     var shouldDismiss: Bool = false
@@ -43,7 +43,7 @@ final class ShopDetailViewModel {
     }
 
     var isBusy: Bool {
-        isFetching || isResetting || isCompleting
+        isFetching || isIdling || isCompleting
     }
 
     var isLoggedIn: Bool {
@@ -75,16 +75,7 @@ final class ShopDetailViewModel {
             isCompleting = true
 
             do {
-                let itemTag = try await itemTagRepository.complete(id: itemTagId)
-                if itemTag.alreadyCompleted == true {
-                    messageBus.post(message: Message(
-                        level: .warning,
-                        message: .itemTagAlreadyCompleted,
-                        autoDismiss: false
-                    ))
-                } else {
-                    messageBus.post(message: Message(level: .success, message: .itemTagCompleted))
-                }
+                _ = try await itemTagRepository.complete(id: itemTagId)
             } catch {
                 messageBus.post(
                     message: Message(
@@ -100,24 +91,23 @@ final class ShopDetailViewModel {
         }
     }
 
-    func resetTag(itemTagId: String) {
+    func idleTag(itemTagId: String) {
         Task {
-            isResetting = true
+            isIdling = true
 
             do {
-                _ = try await itemTagRepository.reset(id: itemTagId)
-                messageBus.post(message: Message(level: .success, message: .itemTagReset))
+                _ = try await itemTagRepository.idle(id: itemTagId)
             } catch {
                 messageBus.post(
                     message: Message(
                         level: .error,
-                        message: "\(String.itemTagResetError) \(error.codedDescription)",
+                        message: "\(String.itemTagIdledError) \(error.codedDescription)",
                         autoDismiss: false
                     )
                 )
             }
 
-            isResetting = false
+            isIdling = false
             reload()
         }
     }

@@ -33,13 +33,10 @@ private final class NullSessionController: SessionControllerProtocol {
     }
 
     var shouldPopToRootView: Bool = false
-    var didBackgroundTagReading: Bool = false
-    var completeScanResult = CompleteScanResult()
-    var showTagInfoScanResult = ShowTagInfoScanResult()
     var shouldUpdateApp: Bool = false
     var shouldUpdatePrivacy: Bool = false
     var shouldUpdateTerms: Bool = false
-    var maximumQueueNumberLength: Int = 0
+    var maximumNameLength: Int = 100
     var shopLimitCount: Int = 0
     var shopkeeper: Shopkeeper?
     var hasPermissions: Bool {

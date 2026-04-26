@@ -119,18 +119,14 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
         }
 
         var itemTag = findBy(id: id)
-        let wasAlreadyCompleted = itemTag.alreadyCompleted
         itemTag.state = .completed
         itemTag.completedAt = Date()
         _ = try await update(id: id, itemTag: itemTag)
 
-        // Preserve the alreadyCompleted flag for testing
-        itemTag.alreadyCompleted = wasAlreadyCompleted
-
         return itemTag
     }
 
-    func reset(id: String) async throws -> ItemTag {
+    func idle(id: String) async throws -> ItemTag {
         guard error == nil else {
             state = .failed
             throw error!
@@ -138,7 +134,6 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
 
         var itemTag = findBy(id: id)
         itemTag.state = .idled
-        itemTag.scanState = .unscanned
         itemTag.completedAt = nil
         _ = try await update(id: id, itemTag: itemTag)
 

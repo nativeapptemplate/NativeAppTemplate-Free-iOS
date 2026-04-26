@@ -14,9 +14,9 @@ struct ItemTagAdapter: EntityAdapter {
         guard resource.entityType == .itemTag else { throw EntityAdapterError.invalidResourceTypeForAdapter }
 
         guard let shopId = resource.attributes["shop_id"] as? String,
-              let queueNumber = resource.attributes["queue_number"] as? String,
+              let name = resource.attributes["name"] as? String,
+              let position = resource.attributes["position"] as? Int,
               let state = resource.attributes["state"] as? String,
-              let scanState = resource.attributes["scan_state"] as? String,
               let createdAtString = resource.attributes["created_at"] as? String,
               let shopName = resource.attributes["shop_name"] as? String
         else {
@@ -25,25 +25,21 @@ struct ItemTagAdapter: EntityAdapter {
 
         let createdAt = createdAtString.iso8601!
 
-        let customerReadAtString = resource.attributes["customer_read_at"] as? String
-        let customerReadAt = customerReadAtString?.iso8601
+        let description = resource.attributes["description"] as? String ?? ""
 
         let completedAtString = resource.attributes["completed_at"] as? String
         let completedAt = completedAtString?.iso8601
 
-        let alreadyCompleted = resource.attributes["already_completed"] as? Bool
-
         return ItemTag(
             id: resource.id,
             shopId: shopId,
-            queueNumber: queueNumber,
+            name: name,
+            description: description,
+            position: position,
             state: ItemTagState(string: state),
-            scanState: ScanState(string: scanState),
             createdAt: createdAt,
-            customerReadAt: customerReadAt,
             completedAt: completedAt,
-            shopName: shopName,
-            alreadyCompleted: alreadyCompleted
+            shopName: shopName
         )
     }
 }

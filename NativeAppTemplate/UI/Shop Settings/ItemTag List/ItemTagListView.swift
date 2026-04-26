@@ -59,7 +59,13 @@ private extension ItemTagListView {
                     ForEach(viewModel.itemTags) { itemTag in
                         NavigationLink(
                             destination: ItemTagDetailView(
-                                viewModel: viewModel.createItemTagDetailViewModel(itemTagId: itemTag.id)
+                                viewModel: ItemTagDetailViewModel(
+                                    itemTagRepository: dataManager.itemTagRepository,
+                                    messageBus: messageBus,
+                                    sessionController: dataManager.sessionController,
+                                    shop: viewModel.shop,
+                                    itemTagId: itemTag.id
+                                )
                             )
                         ) {
                             ItemTagListCardView(
@@ -102,7 +108,12 @@ private extension ItemTagListView {
             },
             content: {
                 ItemTagCreateView(
-                    viewModel: viewModel.createItemTagCreateViewModel()
+                    viewModel: ItemTagCreateViewModel(
+                        itemTagRepository: dataManager.itemTagRepository,
+                        messageBus: messageBus,
+                        sessionController: dataManager.sessionController,
+                        shopId: viewModel.shop.id
+                    )
                 )
             }
         )
