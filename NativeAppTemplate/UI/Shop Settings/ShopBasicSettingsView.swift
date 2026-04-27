@@ -45,19 +45,37 @@ private extension ShopBasicSettingsView {
         Form {
             Section {
                 TextField(String.shopName, text: $viewModel.name)
+                    .onChange(of: viewModel.name) {
+                        viewModel.validateNameLength()
+                    }
             } header: {
                 Text(String.shopName)
             } footer: {
-                Text(String.shopNameIsRequired)
-                    .font(.uiFootnote)
-                    .foregroundStyle(Utility.isBlank(viewModel.name) ? .validationError : .clear)
+                VStack(alignment: .leading) {
+                    Text(String.shopNameHelp(maximumLength: viewModel.maximumNameLength))
+                        .font(.uiFootnote)
+                    Text(String.shopNameIsInvalid)
+                        .font(.uiFootnote)
+                        .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
+                }
             }
 
             Section {
                 TextField(String.descriptionString, text: $viewModel.description, axis: .vertical)
                     .lineLimit(10, reservesSpace: true)
+                    .onChange(of: viewModel.description) {
+                        viewModel.validateDescriptionLength()
+                    }
             } header: {
                 Text(String.descriptionString)
+            } footer: {
+                VStack(alignment: .leading) {
+                    Text(String.shopDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
+                        .font(.uiFootnote)
+                    Text(String.shopDescriptionIsInvalid)
+                        .font(.uiFootnote)
+                        .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
+                }
             }
 
             Section {

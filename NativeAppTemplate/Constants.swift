@@ -72,6 +72,11 @@ enum NativeAppTemplateConstants {
         static let shadowRadius: CGFloat = 8
     }
 
+    // MARK: - Shop
+
+    static let maximumShopNameLength = 100
+    static let maximumShopDescriptionLength = 1_000
+
     // MARK: - ItemTag
 
     static let maximumItemTagNameLength = 100
@@ -146,6 +151,17 @@ extension String {
     static let addShopDescription = "Add a new shop."
     static let deleteShop = "Delete Shop"
     static let shopNameIsRequired = "Shop name is required."
+    static let shopNameIsInvalid = "Shop name is invalid."
+    static let shopDescriptionIsInvalid = "Shop description is too long."
+
+    static func shopNameHelp(maximumLength: Int) -> String {
+        "Name must be 1–\(maximumLength) characters."
+    }
+
+    static func shopDescriptionHelp(maximumLength: Int) -> String {
+        "Description can be up to \(maximumLength) characters."
+    }
+
     static let timeZone = "Time Zone"
     static let createShopsLabel = "Create shops"
     static let tapShopBelow = "Tap a shop below."

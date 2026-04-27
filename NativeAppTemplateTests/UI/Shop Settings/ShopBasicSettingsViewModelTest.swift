@@ -86,6 +86,127 @@ struct ShopBasicSettingsViewModelTest {
     }
 
     @Test
+    func maximumNameLength() {
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        #expect(viewModel.maximumNameLength == 100)
+    }
+
+    @Test
+    func maximumDescriptionLength() {
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        #expect(viewModel.maximumDescriptionLength == 1_000)
+    }
+
+    @Test("Name validation", arguments: [
+        ("", true),                                  // blank → invalid
+        ("a", false),                                // 1 char → valid
+        ("Shop Name 1", false),                      // normal → valid
+        (String(repeating: "a", count: 100), false), // exactly 100 → valid
+        (String(repeating: "a", count: 101), true)   // 101 → invalid
+    ])
+    func nameValidation(name: String, shouldBeInvalid: Bool) async {
+        shopRepository.setShops(shops: shops)
+
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        viewModel.name = name
+
+        #expect(viewModel.hasInvalidDataName == shouldBeInvalid)
+    }
+
+    @Test("Description validation", arguments: [
+        ("", false),                                  // empty → valid
+        ("Short note.", false),                       // short → valid
+        (String(repeating: "x", count: 1000), false), // exactly 1000 → valid
+        (String(repeating: "x", count: 1001), true)   // 1001 → invalid
+    ])
+    func descriptionValidation(description: String, shouldBeInvalid: Bool) async {
+        shopRepository.setShops(shops: shops)
+
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        viewModel.description = description
+
+        #expect(viewModel.hasInvalidDataDescription == shouldBeInvalid)
+    }
+
+    @Test
+    func validateNameLengthTruncatesCorrectly() async {
+        shopRepository.setShops(shops: shops)
+
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        viewModel.name = String(repeating: "a", count: 100) + "EXTRA"
+        viewModel.validateNameLength()
+
+        #expect(viewModel.name == String(repeating: "a", count: 100))
+    }
+
+    @Test
+    func validateDescriptionLengthTruncatesCorrectly() async {
+        shopRepository.setShops(shops: shops)
+
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        viewModel.description = String(repeating: "x", count: 1500)
+        viewModel.validateDescriptionLength()
+
+        #expect(viewModel.description.count == 1_000)
+    }
+
+    @Test
     func reload() async throws {
         shopRepository.setShops(shops: shops)
 
