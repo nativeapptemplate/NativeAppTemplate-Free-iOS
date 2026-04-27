@@ -18,7 +18,6 @@ import Observation
     var shouldUpdateApp = false
     var shouldUpdatePrivacy = false
     var shouldUpdateTerms = false
-    var maximumNameLength = 100
     var shopLimitCount = 0
 
     var shopkeeper: Shopkeeper? {
@@ -171,8 +170,6 @@ import Observation
                 shouldUpdateApp = Int(Bundle.main.appBuild)! < permissionsResponse.iosAppVersion
                 shouldUpdatePrivacy = permissionsResponse.shouldUpdatePrivacy
                 shouldUpdateTerms = permissionsResponse.shouldUpdateTerms
-                maximumNameLength = permissionsResponse.maximumNameLength
-
                 shopLimitCount = permissionsResponse.shopLimitCount
 
                 didFetchPermissions = true

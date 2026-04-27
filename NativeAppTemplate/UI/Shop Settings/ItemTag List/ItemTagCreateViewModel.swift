@@ -16,18 +16,15 @@ final class ItemTagCreateViewModel {
 
     private let itemTagRepository: ItemTagRepositoryProtocol
     private let messageBus: MessageBus
-    private let sessionController: SessionControllerProtocol
     private let shopId: String
 
     init(
         itemTagRepository: ItemTagRepositoryProtocol,
         messageBus: MessageBus,
-        sessionController: SessionControllerProtocol,
         shopId: String
     ) {
         self.itemTagRepository = itemTagRepository
         self.messageBus = messageBus
-        self.sessionController = sessionController
         self.shopId = shopId
     }
 
@@ -54,7 +51,7 @@ final class ItemTagCreateViewModel {
     }
 
     var maximumNameLength: Int {
-        sessionController.maximumNameLength
+        NativeAppTemplateConstants.maximumItemTagNameLength
     }
 
     var maximumDescriptionLength: Int {
