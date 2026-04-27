@@ -61,7 +61,6 @@ private extension ItemTagDetailView {
                     viewModel: ItemTagEditViewModel(
                         itemTagRepository: dataManager.itemTagRepository,
                         messageBus: messageBus,
-                        sessionController: dataManager.sessionController,
                         itemTagId: viewModel.itemTagId
                     )
                 )

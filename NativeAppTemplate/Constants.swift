@@ -74,6 +74,7 @@ enum NativeAppTemplateConstants {
 
     // MARK: - ItemTag
 
+    static let maximumItemTagNameLength = 100
     static let maximumItemTagDescriptionLength = 1_000
 
     // MARK: - Corner Radius

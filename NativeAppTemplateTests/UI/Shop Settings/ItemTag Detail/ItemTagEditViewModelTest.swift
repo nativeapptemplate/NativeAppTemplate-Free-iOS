@@ -10,7 +10,6 @@ import Testing
 @MainActor
 @Suite
 struct ItemTagEditViewModelTest {
-    let sessionController = TestSessionController()
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
     )
@@ -36,7 +35,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -50,16 +48,14 @@ struct ItemTagEditViewModelTest {
 
     @Test
     func maximumNameLength() {
-        sessionController.maximumNameLength = 6
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        #expect(viewModel.maximumNameLength == 6)
+        #expect(viewModel.maximumNameLength == 100)
     }
 
     @Test
@@ -67,7 +63,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -79,7 +74,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -101,7 +95,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -126,7 +119,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -151,13 +143,11 @@ struct ItemTagEditViewModelTest {
         (String(repeating: "x", count: 101), true)   // 101 → invalid
     ])
     func nameValidation(name: String, shouldBeInvalid: Bool) async {
-        sessionController.maximumNameLength = 100
         itemTagRepository.setItemTags(itemTags: [testItemTag])
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -183,7 +173,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -204,7 +193,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -238,19 +226,17 @@ struct ItemTagEditViewModelTest {
 
     @Test
     func validateNameLengthTruncatesCorrectly() {
-        sessionController.maximumNameLength = 3
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        viewModel.name = "ABCDEFGH"
+        viewModel.name = String(repeating: "A", count: 100) + "EXTRA"
         viewModel.validateNameLength()
 
-        #expect(viewModel.name == "ABC")
+        #expect(viewModel.name == String(repeating: "A", count: 100))
     }
 
     @Test
@@ -258,7 +244,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -275,7 +260,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -310,7 +294,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -344,7 +327,6 @@ struct ItemTagEditViewModelTest {
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
