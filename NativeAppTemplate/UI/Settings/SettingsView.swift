@@ -53,10 +53,6 @@ struct SettingsView: View {
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section(header: Text(verbatim: "Support")) {
-                    Link(destination: URL(string: String.howToUseUrl)!) {
-                        Label(String.howToUse, systemImage: "info")
-                    }
-
                     Link(destination: URL(string: String.faqsUrl)!) {
                         Label(String.faqs, systemImage: "questionmark")
                     }
