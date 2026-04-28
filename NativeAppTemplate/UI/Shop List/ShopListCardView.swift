@@ -22,18 +22,6 @@ struct ShopListCardView: View {
                 verticalSpacing: NativeAppTemplateConstants.Spacing.xxxs
             ) {
                 GridRow {
-                    Image(systemName: "person.2")
-                        .frame(width: statImageSize, height: statImageSize)
-                        .foregroundStyle(.secondaryText)
-                    Text(String(shop.scannedItemTagsCount))
-                        .font(.uiLabelBold)
-                        .gridColumnAlignment(.trailing)
-                    Text(verbatim: "tags scanned by customers")
-                        .font(.uiFootnote)
-                        .foregroundStyle(.contentText)
-                }
-
-                GridRow {
                     Image(systemName: "flag.checkered")
                         .frame(width: statImageSize, height: statImageSize)
                         .foregroundStyle(.secondaryText)

@@ -67,7 +67,6 @@ final class DemoShopRepository: ShopRepositoryProtocol {
             description: "This is a mock shop for testing",
             timeZone: "Tokyo",
             itemTagsCount: 10,
-            scannedItemTagsCount: 5,
             completedItemTagsCount: 3
         )
     }

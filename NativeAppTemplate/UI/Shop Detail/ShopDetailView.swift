@@ -51,11 +51,10 @@ private extension ShopDetailView {
     }
 
     func header(shop: Shop) -> some View {
-        ScrollView(.horizontal) {
-            VStack(alignment: .leading, spacing: 0) {
-                Link(String.learnMore, destination: URL(string: String.howToUseUrl)!)
-            }
-        }
+        Text(String.shopDetailInstruction)
+            .foregroundStyle(.contentText)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading)
     }
 
     var cardsView: some View {

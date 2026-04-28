@@ -96,7 +96,7 @@ struct OnboardingViewModelTest {
 
     @Test
     func onboardingDescriptionAllSteps() {
-        let onboardings = (1...13).map { mockOnboarding(id: $0) }
+        let onboardings = (1...8).map { mockOnboarding(id: $0) }
         onboardingRepository.setOnboardings(onboardings: onboardings)
 
         let viewModel = OnboardingViewModel(
@@ -105,16 +105,13 @@ struct OnboardingViewModelTest {
 
         viewModel.reload()
 
-        // Test all 13 onboarding steps (1-based indexing)
         let expectedDescriptions = [
             String.onboardingDescription1, String.onboardingDescription2, String.onboardingDescription3,
             String.onboardingDescription4, String.onboardingDescription5, String.onboardingDescription6,
-            String.onboardingDescription7, String.onboardingDescription8, String.onboardingDescription9,
-            String.onboardingDescription10, String.onboardingDescription11, String.onboardingDescription12,
-            String.onboardingDescription13
+            String.onboardingDescription7, String.onboardingDescription8
         ]
 
-        for index in 1...13 {
+        for index in 1...8 {
             #expect(viewModel.onboardingDescription(index: index) == expectedDescriptions[index - 1])
         }
     }

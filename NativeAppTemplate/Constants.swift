@@ -166,6 +166,7 @@ extension String {
     static let createShopsLabel = "Create shops"
     static let tapShopBelow = "Tap a shop below."
     static let haveFun = "Have fun!"
+    static let shopDetailInstruction = "Swipe an item tag to change its status."
 
     // MARK: Shop Settings View
 
@@ -178,11 +179,11 @@ extension String {
     static let nameLabel = "Name"
     static let descriptionLabel = "Description"
     static let itemTagNamePlaceholder = "Name"
-    static let editTag = "Edit Tag"
-    static let addTag = "Add Tag"
-    static let addTagDescription = "Add a new item tag and start changing the tag status."
-    static let deleteTag = "Delete tag"
-    static let buttonDeleteTag = "Delete Tag"
+    static let editItemTag = "Edit Item Tag"
+    static let addItemTag = "Add Item Tag"
+    static let addItemTagDescription = "Add a new item tag and start changing the item tag status."
+    static let deleteItemTag = "Delete item tag"
+    static let buttonDeleteItemTag = "Delete Item Tag"
     static let itemTagNameIsInvalid = "Item tag name is invalid."
     static let itemTagDescriptionIsInvalid = "Item tag description is too long."
     static let completedAtLabel = "Completed at"
@@ -201,7 +202,6 @@ extension String {
 
     static let supportMail: String = "support@nativeapptemplate.com"
     static let supportWebsiteUrl: String = "https://nativeapptemplate.com"
-    static let howToUseUrl: String = "https://myturntag.com/how"
     static let faqsUrl: String = "https://nativeapptemplate.com/faqs"
     static let privacyPolicyUrl: String = "https://nativeapptemplate.com/privacy"
     static let termsOfUseUrl: String = "https://nativeapptemplate.com/terms"
@@ -235,12 +235,12 @@ extension String {
     static let shopDeleted = "Shop deleted successfully."
     static let shopDeletedError = "There was a problem deleting the shop."
 
-    static let itemTagCreated = "Tag created successfully."
-    static let itemTagUpdated = "Tag updated successfully."
-    static let itemTagDeleted = "Tag deleted successfully."
-    static let itemTagDeletedError = "There was a problem deleting the tag."
-    static let itemTagCompletedError = "There was a problem completing the tag."
-    static let itemTagIdledError = "There was a problem idling the tag."
+    static let itemTagCreated = "Item tag created successfully."
+    static let itemTagUpdated = "Item tag updated successfully."
+    static let itemTagDeleted = "Item tag deleted successfully."
+    static let itemTagDeletedError = "There was a problem deleting the item tag."
+    static let itemTagCompletedError = "There was a problem completing the item tag."
+    static let itemTagIdledError = "There was a problem idling the item tag."
 
     static let shopkeeperCreated = "Account created successfully."
     static let shopkeeperCreatedError = "There was a problem creating the account."
@@ -285,19 +285,14 @@ extension String {
     static let email = "Email"
     static let password = "Password"
 
-    static let onboardingDescription1 = String(localized: "Welcome to NativeAppTemplate.")
-    static let onboardingDescription2 = String(localized: "Sign in to manage your shops and item tags.")
-    static let onboardingDescription3 = String(localized: "Organize your work across multiple organizations.")
-    static let onboardingDescription4 = String(localized: "Invite teammates to collaborate.")
-    static let onboardingDescription5 = String(localized: "Track item tags with a simple idle/completed state.")
-    static let onboardingDescription6 = String(localized: "Create, edit, and delete item tags from your shop.")
-    static let onboardingDescription7 = String(localized: "Switch between personal and shared organizations.")
-    static let onboardingDescription8 = String(localized: "Have fun!")
-    static let onboardingDescription9 = String(localized: "Have fun!")
-    static let onboardingDescription10 = String(localized: "Have fun!")
-    static let onboardingDescription11 = String(localized: "Have fun!")
-    static let onboardingDescription12 = String(localized: "Have fun!")
-    static let onboardingDescription13 = String(localized: "Have fun!")
+    static let onboardingDescription1 = "Welcome to NativeAppTemplate."
+    static let onboardingDescription2 = "Sign in to manage your shops and item tags."
+    static let onboardingDescription3 = "Organize your work across multiple organizations."
+    static let onboardingDescription4 = "Invite teammates to collaborate."
+    static let onboardingDescription5 = "Track item tags with a simple idle/completed state."
+    static let onboardingDescription6 = "Create, edit, and delete item tags from your shop."
+    static let onboardingDescription7 = "Switch between personal and shared organizations."
+    static let onboardingDescription8 = "Have fun!"
 
     // MARK: Other
 
@@ -320,11 +315,8 @@ extension String {
     static let passwordIsRequired = "Password is required."
     static let passwordIsInvalid = "Password is invalid."
     static let role = "Role"
-    static let createShops = "Create shops."
-    static let createTags = "Create tags."
     static let complete = "Complete"
     static let open = "Open"
-    static let learnMore = "Learn More"
     static let instructions = "Instructions"
     static let forceSignOut = "Force Sign Out?"
     static let signOut = "Sign Out"

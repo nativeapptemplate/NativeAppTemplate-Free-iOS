@@ -11,7 +11,6 @@ struct Shop: Codable, Identifiable, Sendable {
     var description: String
     var timeZone: String
     var itemTagsCount: Int = 0
-    var scannedItemTagsCount: Int = 0
     var completedItemTagsCount: Int = 0
 }
 

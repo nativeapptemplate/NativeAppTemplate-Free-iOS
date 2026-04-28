@@ -138,12 +138,11 @@ private extension ItemTagListView {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .padding()
-
-            Text(String.addTagDescription)
+            Text(String.addItemTagDescription)
                 .foregroundStyle(.contentText)
                 .padding()
 
-            MainButtonView(title: String.addTag, type: .primary(withArrow: false)) {
+            MainButtonView(title: String.addItemTag, type: .primary(withArrow: false)) {
                 viewModel.isShowingCreateSheet.toggle()
             }
             .padding()
