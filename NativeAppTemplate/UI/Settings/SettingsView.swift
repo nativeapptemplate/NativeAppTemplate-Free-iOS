@@ -22,7 +22,7 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             List {
-                Section(header: Text(String.myAccount)) {
+                Section(header: Text(Strings.myAccount)) {
                     if let shopkeeper = viewModel.shopkeeper {
                         NavigationLink(
                             destination: ShopkeeperEditView(
@@ -35,7 +35,7 @@ struct SettingsView: View {
                                 )
                             )
                         ) {
-                            Label(String.profile, systemImage: "person")
+                            Label(Strings.profile, systemImage: "person")
                         }
                     }
 
@@ -47,37 +47,37 @@ struct SettingsView: View {
                             )
                         )
                     ) {
-                        Label(String.password, systemImage: "key")
+                        Label(Strings.password, systemImage: "key")
                     }
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section(header: Text(verbatim: "Support")) {
-                    Link(destination: URL(string: String.faqsUrl)!) {
-                        Label(String.faqs, systemImage: "questionmark")
+                    Link(destination: URL(string: Strings.faqsUrl)!) {
+                        Label(Strings.faqs, systemImage: "questionmark")
                     }
 
                     Link(destination: supportEmailURL) {
-                        Label(String.contact, systemImage: "envelope")
+                        Label(Strings.contact, systemImage: "envelope")
                     }
 
                     Button {
                         requestReview()
                     } label: {
-                        Label(String.rateApp, systemImage: "hand.thumbsup")
+                        Label(Strings.rateApp, systemImage: "hand.thumbsup")
                     }
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
                 Section(header: Text(verbatim: "About")) {
-                    Link(destination: URL(string: String.supportWebsiteUrl)!) {
+                    Link(destination: URL(string: Strings.supportWebsiteUrl)!) {
                         Label("Website", systemImage: "globe")
                     }
-                    Link(destination: URL(string: String.privacyPolicyUrl)!) {
-                        Label(String.privacyPolicy, systemImage: "hand.raised")
+                    Link(destination: URL(string: Strings.privacyPolicyUrl)!) {
+                        Label(Strings.privacyPolicy, systemImage: "hand.raised")
                     }
-                    Link(destination: URL(string: String.termsOfUseUrl)!) {
-                        Label(String.termsOfUse, systemImage: "doc.text")
+                    Link(destination: URL(string: Strings.termsOfUseUrl)!) {
+                        Label(Strings.termsOfUse, systemImage: "doc.text")
                     }
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
@@ -113,7 +113,7 @@ struct SettingsView: View {
                 #endif
             }
         }
-        .navigationTitle(String.settings)
+        .navigationTitle(Strings.settings)
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -142,6 +142,6 @@ struct SettingsView: View {
         """
 
         let encodedBody = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        return URL(string: "mailto:\(String.supportMail)?body=\(encodedBody)")!
+        return URL(string: "mailto:\(Strings.supportMail)?body=\(encodedBody)")!
     }
 }

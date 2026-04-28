@@ -291,7 +291,7 @@ struct ShopBasicSettingsViewModelTest {
         #expect(latestShop.timeZone == newTimeZone)
         #expect(latestShop.description == newDescription)
 
-        let message = String.basicSettingsUpdated
+        let message = Strings.basicSettingsUpdated
 
         #expect(viewModel.messageBus.currentMessage?.message == message)
         #expect(viewModel.isUpdating == false)

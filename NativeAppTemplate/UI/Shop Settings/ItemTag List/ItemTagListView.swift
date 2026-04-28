@@ -73,7 +73,7 @@ private extension ItemTagListView {
                             )
                             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                 Button(role: .destructive) { viewModel.destroyItemTag(itemTagId: itemTag.id) } label: {
-                                    Label(String.delete, systemImage: "trash")
+                                    Label(Strings.delete, systemImage: "trash")
                                         .labelStyle(.titleOnly)
                                 }
                                 .tint(.validationError)
@@ -91,7 +91,7 @@ private extension ItemTagListView {
                 }
             }
         }
-        .navigationTitle(String.shopSettingsManageItemTagsLabel)
+        .navigationTitle(Strings.shopSettingsManageItemTagsLabel)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -138,11 +138,11 @@ private extension ItemTagListView {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .padding()
-            Text(String.addItemTagDescription)
+            Text(Strings.addItemTagDescription)
                 .foregroundStyle(.contentText)
                 .padding()
 
-            MainButtonView(title: String.addItemTag, type: .primary(withArrow: false)) {
+            MainButtonView(title: Strings.addItemTag, type: .primary(withArrow: false)) {
                 viewModel.isShowingCreateSheet.toggle()
             }
             .padding()

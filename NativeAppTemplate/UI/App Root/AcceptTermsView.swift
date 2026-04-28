@@ -42,18 +42,18 @@ private extension AcceptTermsView {
 
     var acceptTermsView: some View {
         VStack {
-            let agreement = "Please accept updated [\(String.termsOfUse)](\(String.termsOfUseUrl))."
+            let agreement = "Please accept updated [\(Strings.termsOfUse)](\(Strings.termsOfUseUrl))."
             Text(.init(agreement))
                 .padding(.top, NativeAppTemplateConstants.Spacing.xl)
 
-            MainButtonView(title: String.accept, type: .primary(withArrow: false)) {
+            MainButtonView(title: Strings.accept, type: .primary(withArrow: false)) {
                 viewModel.updateConfirmedTermsVersion()
             }
             .padding(NativeAppTemplateConstants.Spacing.md)
 
             Spacer()
         }
-        .navigationTitle(String.termsOfUseUpdated)
+        .navigationTitle(Strings.termsOfUseUpdated)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

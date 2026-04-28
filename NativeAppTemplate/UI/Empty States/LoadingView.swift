@@ -11,7 +11,7 @@ struct LoadingView: View {
             VStack {
                 ProgressView().scaleEffect(1.0, anchor: .center)
                     .padding([.bottom], NativeAppTemplateConstants.Spacing.xs)
-                Text(String.loading)
+                Text(Strings.loading)
                     .font(.uiHeadline)
             }
         }

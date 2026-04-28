@@ -41,7 +41,7 @@ private extension OnboardingView {
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Link(String.supportWebsite, destination: URL(string: String.supportWebsiteUrl)!)
+                        Link(Strings.supportWebsite, destination: URL(string: Strings.supportWebsiteUrl)!)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink(destination: SignUpOrSignInView()) {

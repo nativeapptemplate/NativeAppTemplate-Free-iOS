@@ -41,64 +41,64 @@ private extension PasswordEditView {
     var passwordEditView: some View {
         Form {
             Section {
-                SecureField(String.currentPassword, text: $viewModel.currentPassword)
+                SecureField(Strings.currentPassword, text: $viewModel.currentPassword)
                     .textContentType(.password)
                     .autocapitalization(.none)
                     .autocorrectionDisabled(true)
             } header: {
-                Text(String.currentPassword)
+                Text(Strings.currentPassword)
             } footer: {
                 VStack(alignment: .leading) {
-                    Text(String.weNeedYourCurrentPassword)
+                    Text(Strings.weNeedYourCurrentPassword)
                         .font(.uiFootnote)
-                    Text(String.currentPasswordIsRequired)
+                    Text(Strings.currentPasswordIsRequired)
                         .foregroundStyle(Utility.isBlank(viewModel.currentPassword) ? .validationError : .clear)
                         .font(.uiFootnote)
                 }
             }
             Section {
-                SecureField(String.newPassword, text: $viewModel.password)
+                SecureField(Strings.newPassword, text: $viewModel.password)
                     .textContentType(.password)
                     .autocapitalization(.none)
                     .autocorrectionDisabled(true)
             } header: {
-                Text(String.newPassword)
+                Text(Strings.newPassword)
             } footer: {
                 VStack(alignment: .leading) {
                     Text("\(viewModel.minimumPasswordLength) characters minimum.")
                         .font(.uiFootnote)
 
                     if Utility.isBlank(viewModel.password) {
-                        Text(String.newPasswordIsRequired)
+                        Text(Strings.newPasswordIsRequired)
                             .foregroundStyle(.validationError)
                             .font(.uiFootnote)
                     } else if viewModel.hasInvalidDataPassword {
-                        Text(String.passwordIsInvalid)
+                        Text(Strings.passwordIsInvalid)
                             .foregroundStyle(.validationError)
                             .font(.uiFootnote)
                     }
                 }
             }
             Section {
-                SecureField(String.confirmNewPassword, text: $viewModel.passwordConfirmation)
+                SecureField(Strings.confirmNewPassword, text: $viewModel.passwordConfirmation)
                     .textContentType(.password)
                     .autocapitalization(.none)
                     .autocorrectionDisabled(true)
             } header: {
-                Text(String.confirmNewPassword)
+                Text(Strings.confirmNewPassword)
             } footer: {
-                Text(String.confirmNewPasswordIsRequired)
+                Text(Strings.confirmNewPasswordIsRequired)
                     .font(.uiFootnote)
                     .foregroundStyle(Utility.isBlank(viewModel.passwordConfirmation) ? .validationError : .clear)
             }
         }
-        .navigationTitle(String.updatePassword)
+        .navigationTitle(Strings.updatePassword)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     viewModel.updatePassword()
                 } label: {
-                    Text(String.save)
+                    Text(Strings.save)
                 }
                 .disabled(viewModel.hasInvalidData)
             }

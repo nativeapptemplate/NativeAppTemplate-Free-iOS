@@ -51,7 +51,7 @@ private extension ShopDetailView {
     }
 
     func header(shop: Shop) -> some View {
-        Text(String.shopDetailInstruction)
+        Text(Strings.shopDetailInstruction)
             .foregroundStyle(.contentText)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading)
@@ -63,13 +63,13 @@ private extension ShopDetailView {
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     if itemTag.state == ItemTagState.idled {
                         Button { viewModel.completeTag(itemTagId: itemTag.id) } label: {
-                            Label(String.complete, systemImage: "bolt.fill")
+                            Label(Strings.complete, systemImage: "bolt.fill")
                                 .labelStyle(.titleOnly)
                         }
                         .tint(.blue)
                     } else {
                         Button(role: .destructive) { viewModel.idleTag(itemTagId: itemTag.id) } label: {
-                            Label(String.idle, systemImage: "trash")
+                            Label(Strings.idle, systemImage: "trash")
                                 .labelStyle(.titleOnly)
                         }
                         .tint(.validationError)

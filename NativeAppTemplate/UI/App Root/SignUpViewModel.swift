@@ -102,7 +102,7 @@ final class SignUpViewModel {
 
                 messageBus.post(message: Message(
                     level: .success,
-                    message: String.signedUpButUnconfirmed,
+                    message: Strings.signedUpButUnconfirmed,
                     autoDismiss: false
                 ))
                 shouldDismiss = true

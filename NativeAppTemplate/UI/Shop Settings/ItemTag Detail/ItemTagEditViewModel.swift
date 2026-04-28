@@ -98,7 +98,7 @@ final class ItemTagEditViewModel {
                 )
 
                 _ = try await itemTagRepository.update(id: itemTag.id, itemTag: itemTag)
-                messageBus.post(message: Message(level: .success, message: .itemTagUpdated))
+                messageBus.post(message: Message(level: .success, message: Strings.itemTagUpdated))
             } catch {
                 messageBus.post(message: Message(error: error))
             }

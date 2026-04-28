@@ -142,7 +142,7 @@ struct ItemTagCreateViewModelTest {
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagCreated)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagCreated)
         #expect(itemTagRepository.itemTags.count == 1)
         #expect(itemTagRepository.itemTags.first?.name == "Buy milk")
         #expect(itemTagRepository.itemTags.first?.description == "From the corner store.")

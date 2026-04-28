@@ -8,7 +8,7 @@ import os
 
 enum Utility {
     static func currentTimeZone() -> String {
-        let defaultTimeZone = String.defaultTimeZone
+        let defaultTimeZone = Strings.defaultTimeZone
         let timeZoneHourFormatted = currentTimeZoneHourFormatted()
 
         let timeZoneArray = TimeZone.current.identifier.components(separatedBy: "/")

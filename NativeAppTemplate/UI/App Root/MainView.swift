@@ -52,7 +52,7 @@ private extension MainView {
             case .error:
                 ErrorView(
                     buttonAction: { viewModel?.logout() },
-                    buttonTitle: .backToStartScreen
+                    buttonTitle: Strings.backToStartScreen
                 )
             }
         }

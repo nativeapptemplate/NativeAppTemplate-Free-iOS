@@ -19,13 +19,13 @@ struct OfflineView: View {
                         .padding()
                         .foregroundStyle(.titleText)
 
-                    Text(String.noConnection)
+                    Text(Strings.noConnection)
                         .font(.uiTitle1)
                         .foregroundStyle(.titleText)
                         .multilineTextAlignment(.center)
                         .padding(.top)
 
-                    Text(String.checkInternetConnection)
+                    Text(Strings.checkInternetConnection)
                         .font(.uiLabel)
                         .lineSpacing(NativeAppTemplateConstants.Spacing.xxs)
                         .foregroundStyle(.contentText)

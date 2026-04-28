@@ -80,7 +80,7 @@ final class ShopDetailViewModel {
                 messageBus.post(
                     message: Message(
                         level: .error,
-                        message: "\(String.itemTagCompletedError) \(error.codedDescription)",
+                        message: "\(Strings.itemTagCompletedError) \(error.codedDescription)",
                         autoDismiss: false
                     )
                 )
@@ -101,7 +101,7 @@ final class ShopDetailViewModel {
                 messageBus.post(
                     message: Message(
                         level: .error,
-                        message: "\(String.itemTagIdledError) \(error.codedDescription)",
+                        message: "\(Strings.itemTagIdledError) \(error.codedDescription)",
                         autoDismiss: false
                     )
                 )

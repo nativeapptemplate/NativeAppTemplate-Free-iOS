@@ -71,12 +71,12 @@ final class ItemTagListViewModel {
 
             do {
                 try await itemTagRepository.destroy(id: itemTagId)
-                messageBus.post(message: Message(level: .success, message: .itemTagDeleted))
+                messageBus.post(message: Message(level: .success, message: Strings.itemTagDeleted))
                 reload()
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.itemTagDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.itemTagDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

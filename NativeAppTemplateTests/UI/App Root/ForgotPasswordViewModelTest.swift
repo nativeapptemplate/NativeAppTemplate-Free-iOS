@@ -104,7 +104,7 @@ struct ForgotPasswordViewModelTest {
     @Test
     func messageTypesForForgotPassword() {
         // Test the types of messages that would be posted
-        let successMessage = Message(level: .success, message: .sentResetPasswordInstruction)
+        let successMessage = Message(level: .success, message: Strings.sentResetPasswordInstruction)
         let errorMessage = Message(level: .error, message: "Email not found", autoDismiss: false)
 
         #expect(successMessage.level == .success)

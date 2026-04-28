@@ -57,7 +57,7 @@ final class ItemTagDetailViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.itemTagCompletedError) \(error.codedDescription)",
+                    message: "\(Strings.itemTagCompletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
@@ -78,7 +78,7 @@ final class ItemTagDetailViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.itemTagIdledError) \(error.codedDescription)",
+                    message: "\(Strings.itemTagIdledError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
@@ -95,11 +95,11 @@ final class ItemTagDetailViewModel {
 
             do {
                 try await itemTagRepository.destroy(id: itemTag.id)
-                messageBus.post(message: Message(level: .success, message: .itemTagDeleted))
+                messageBus.post(message: Message(level: .success, message: Strings.itemTagDeleted))
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.itemTagDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.itemTagDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

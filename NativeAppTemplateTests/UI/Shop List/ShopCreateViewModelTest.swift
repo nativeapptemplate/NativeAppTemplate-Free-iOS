@@ -140,7 +140,7 @@ struct ShopCreateViewModelTest {
 
         let latestShop = try #require(shopRepository.shops.last)
 
-        let message = String.shopCreated
+        let message = Strings.shopCreated
 
         #expect(viewModel.messageBus.currentMessage?.message == message)
         #expect(viewModel.isCreating)

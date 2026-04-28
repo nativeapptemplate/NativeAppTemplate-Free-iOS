@@ -40,13 +40,13 @@ final class SettingsViewModel {
             do {
                 try await sessionController.logout()
                 #if DEBUG
-                messageBus.post(message: Message(level: .success, message: .signedOut))
+                messageBus.post(message: Message(level: .success, message: Strings.signedOut))
                 #endif
             } catch {
                 #if DEBUG
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.signedOutError) \(error.codedDescription)",
+                    message: "\(Strings.signedOutError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
                 #endif

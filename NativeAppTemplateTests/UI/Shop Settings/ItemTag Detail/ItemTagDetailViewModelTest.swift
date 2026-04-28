@@ -183,7 +183,7 @@ struct ItemTagDetailViewModelTest {
         #expect(viewModel.isToggling == false)
         #expect(messageBus.currentMessage?.level == .error)
         let errorMessage = try #require(messageBus.currentMessage?.message)
-        #expect(errorMessage.contains(String.itemTagCompletedError))
+        #expect(errorMessage.contains(Strings.itemTagCompletedError))
     }
 
     @Test
@@ -245,7 +245,7 @@ struct ItemTagDetailViewModelTest {
         #expect(viewModel.isToggling == false)
         #expect(messageBus.currentMessage?.level == .error)
         let errorMessage = try #require(messageBus.currentMessage?.message)
-        #expect(errorMessage.contains(String.itemTagIdledError))
+        #expect(errorMessage.contains(Strings.itemTagIdledError))
     }
 
     @Test
@@ -297,7 +297,7 @@ struct ItemTagDetailViewModelTest {
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagDeleted)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagDeleted)
         #expect(itemTagRepository.itemTags.count == 0)
     }
 
@@ -332,7 +332,7 @@ struct ItemTagDetailViewModelTest {
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         let errorMessage = try #require(messageBus.currentMessage?.message)
-        #expect(errorMessage.contains(String.itemTagDeletedError))
+        #expect(errorMessage.contains(Strings.itemTagDeletedError))
         #expect(itemTagRepository.itemTags.count == 1)
     }
 

@@ -5,11 +5,6 @@
 
 import Foundation
 
-extension String {
-    static let cardDateString: String = "yyyy/MM/dd"
-    static let cardTimeString: String = "HH:mm"
-}
-
 extension ISO8601DateFormatter {
     convenience init(_ formatOptions: Options, timeZone: TimeZone = TimeZone(secondsFromGMT: 0)!) {
         self.init()
@@ -34,9 +29,9 @@ extension String {
 }
 
 extension DateFormatter {
-    static let cardDateFormatter: DateFormatter = .formatter(for: .cardDateString)
+    static let cardDateFormatter: DateFormatter = .formatter(for: "yyyy/MM/dd")
 
-    static let cardTimeFormatter: DateFormatter = .formatter(for: .cardTimeString)
+    static let cardTimeFormatter: DateFormatter = .formatter(for: "HH:mm")
 
     static let timeAgoInWordsDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()

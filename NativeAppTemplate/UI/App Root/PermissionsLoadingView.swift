@@ -15,13 +15,13 @@ struct PermissionsLoadingView: View {
                 isShowingLogoutAlert.toggle()
             }
             .alert(
-                String.forceSignOut,
+                Strings.forceSignOut,
                 isPresented: $isShowingLogoutAlert
             ) {
                 Button(role: .destructive) {
                     logout()
                 } label: {
-                    Text(String.signOut)
+                    Text(Strings.signOut)
                 }
             }
     }

@@ -248,7 +248,7 @@ struct ItemTagListViewModelTest {
         #expect(viewModel.isDeleting == false)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagDeleted)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagDeleted)
         #expect(itemTagRepository.itemTags.count == 4) // One deleted
         #expect(itemTagRepository.itemTags.first { $0.id == itemTagIdToDelete } == nil)
     }
@@ -277,7 +277,7 @@ struct ItemTagListViewModelTest {
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         let errorMessage = try #require(messageBus.currentMessage?.message)
-        #expect(errorMessage.contains(String.itemTagDeletedError))
+        #expect(errorMessage.contains(Strings.itemTagDeletedError))
         #expect(itemTagRepository.itemTags.count == 5) // Nothing deleted
     }
 

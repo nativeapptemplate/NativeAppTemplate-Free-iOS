@@ -25,23 +25,23 @@ final class OnboardingViewModel {
     func onboardingDescription(index: Int) -> String {
         switch index {
         case 1:
-            String.onboardingDescription1
+            Strings.onboardingDescription1
         case 2:
-            String.onboardingDescription2
+            Strings.onboardingDescription2
         case 3:
-            String.onboardingDescription3
+            Strings.onboardingDescription3
         case 4:
-            String.onboardingDescription4
+            Strings.onboardingDescription4
         case 5:
-            String.onboardingDescription5
+            Strings.onboardingDescription5
         case 6:
-            String.onboardingDescription6
+            Strings.onboardingDescription6
         case 7:
-            String.onboardingDescription7
+            Strings.onboardingDescription7
         case 8:
-            String.onboardingDescription8
+            Strings.onboardingDescription8
         default:
-            String.onboardingDescription1
+            Strings.onboardingDescription1
         }
     }
 }

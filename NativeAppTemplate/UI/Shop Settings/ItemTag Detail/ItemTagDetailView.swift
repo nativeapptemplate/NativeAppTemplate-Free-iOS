@@ -67,17 +67,17 @@ private extension ItemTagDetailView {
             }
         )
         .alert(
-            String.buttonDeleteItemTag,
+            Strings.buttonDeleteItemTag,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {
-            Button(String.buttonDeleteItemTag, role: .destructive) {
+            Button(Strings.buttonDeleteItemTag, role: .destructive) {
                 viewModel.destroyItemTag()
             }
-            Button(String.cancel, role: .cancel) {
+            Button(Strings.cancel, role: .cancel) {
                 viewModel.isShowingDeleteConfirmationDialog = false
             }
         } message: {
-            Text(String.areYouSure)
+            Text(Strings.areYouSure)
         }
         .toolbar { toolbarContent }
     }
@@ -102,7 +102,7 @@ private extension ItemTagDetailView {
     func descriptionSection(itemTag: ItemTag) -> some View {
         if !itemTag.description.isEmpty {
             VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.xxs) {
-                Text(String.descriptionLabel)
+                Text(Strings.descriptionLabel)
                     .font(.uiTitle4)
                     .foregroundStyle(.titleText)
                 Text(itemTag.description)
@@ -116,7 +116,7 @@ private extension ItemTagDetailView {
     func completedAtRow(itemTag: ItemTag) -> some View {
         if let completedAt = itemTag.completedAt, itemTag.state == .completed {
             HStack {
-                Text(String.completedAtLabel)
+                Text(Strings.completedAtLabel)
                     .font(.uiFootnote)
                     .foregroundStyle(.contentText)
                 Text(completedAt.cardDateTimeString)
@@ -130,7 +130,7 @@ private extension ItemTagDetailView {
     func stateToggleButton(itemTag: ItemTag) -> some View {
         if itemTag.state == .idled {
             MainButtonView(
-                title: String.markAsCompleted,
+                title: Strings.markAsCompleted,
                 type: .primary(withArrow: false)
             ) {
                 viewModel.completeItemTag()
@@ -138,7 +138,7 @@ private extension ItemTagDetailView {
             .disabled(viewModel.isToggling)
         } else {
             MainButtonView(
-                title: String.markAsIdled,
+                title: Strings.markAsIdled,
                 type: .secondary(withArrow: false)
             ) {
                 viewModel.idleItemTag()
@@ -153,7 +153,7 @@ private extension ItemTagDetailView {
             Button {
                 viewModel.isShowingEditSheet.toggle()
             } label: {
-                Text(String.edit)
+                Text(Strings.edit)
             }
         }
         ToolbarItem(placement: .navigationBarTrailing) {

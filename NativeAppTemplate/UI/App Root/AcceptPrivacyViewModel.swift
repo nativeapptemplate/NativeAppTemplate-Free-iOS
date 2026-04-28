@@ -29,11 +29,11 @@ final class AcceptPrivacyViewModel {
             do {
                 isUpdating = true
                 try await sessionController.updateConfirmedPrivacyVersion()
-                messageBus.post(message: Message(level: .success, message: .confirmedPrivacyVersionUpdated))
+                messageBus.post(message: Message(level: .success, message: Strings.confirmedPrivacyVersionUpdated))
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.confirmedPrivacyVersionUpdatedError) \(error.codedDescription)",
+                    message: "\(Strings.confirmedPrivacyVersionUpdatedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

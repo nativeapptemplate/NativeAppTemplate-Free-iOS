@@ -45,17 +45,17 @@ private extension ItemTagEditView {
         NavigationStack {
             Form {
                 Section {
-                    TextField(String.itemTagNamePlaceholder, text: $viewModel.name)
+                    TextField(Strings.itemTagNamePlaceholder, text: $viewModel.name)
                         .onChange(of: viewModel.name) {
                             viewModel.validateNameLength()
                         }
                 } header: {
-                    Text(String.nameLabel)
+                    Text(Strings.nameLabel)
                 } footer: {
                     VStack(alignment: .leading) {
-                        Text(String.itemTagNameHelp(maximumLength: viewModel.maximumNameLength))
+                        Text(Strings.itemTagNameHelp(maximumLength: viewModel.maximumNameLength))
                             .font(.uiFootnote)
-                        Text(String.itemTagNameIsInvalid)
+                        Text(Strings.itemTagNameIsInvalid)
                             .font(.uiFootnote)
                             .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
                     }
@@ -68,24 +68,24 @@ private extension ItemTagEditView {
                             viewModel.validateDescriptionLength()
                         }
                 } header: {
-                    Text(String.descriptionLabel)
+                    Text(Strings.descriptionLabel)
                 } footer: {
                     VStack(alignment: .leading) {
-                        Text(String.itemTagDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
+                        Text(Strings.itemTagDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
                             .font(.uiFootnote)
-                        Text(String.itemTagDescriptionIsInvalid)
+                        Text(Strings.itemTagDescriptionIsInvalid)
                             .font(.uiFootnote)
                             .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
                     }
                 }
             }
-            .navigationTitle(String.editItemTag)
+            .navigationTitle(Strings.editItemTag)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.updateItemTag()
                     } label: {
-                        Text(String.save)
+                        Text(Strings.save)
                     }
                     .disabled(viewModel.hasInvalidData)
                 }
@@ -93,7 +93,7 @@ private extension ItemTagEditView {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String.cancel)
+                        Text(Strings.cancel)
                     }
                 }
             }

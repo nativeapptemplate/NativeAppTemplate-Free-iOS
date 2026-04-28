@@ -280,7 +280,7 @@ struct ItemTagEditViewModelTest {
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagUpdated)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagUpdated)
 
         let updatedItemTag = itemTagRepository.findBy(id: itemTagId)
         #expect(updatedItemTag.name == "Updated name")
