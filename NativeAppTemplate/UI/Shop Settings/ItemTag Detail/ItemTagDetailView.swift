@@ -67,10 +67,10 @@ private extension ItemTagDetailView {
             }
         )
         .alert(
-            String.buttonDeleteTag,
+            String.buttonDeleteItemTag,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {
-            Button(String.buttonDeleteTag, role: .destructive) {
+            Button(String.buttonDeleteItemTag, role: .destructive) {
                 viewModel.destroyItemTag()
             }
             Button(String.cancel, role: .cancel) {

@@ -79,7 +79,7 @@ private extension ItemTagEditView {
                     }
                 }
             }
-            .navigationTitle(String.editTag)
+            .navigationTitle(String.editItemTag)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

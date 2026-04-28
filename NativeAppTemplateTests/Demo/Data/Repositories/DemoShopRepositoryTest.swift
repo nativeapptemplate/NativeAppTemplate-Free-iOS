@@ -47,7 +47,6 @@ struct DemoShopRepositoryTest {
                 description: "A new shop",
                 timeZone: "Tokyo",
                 itemTagsCount: 0,
-                scannedItemTagsCount: 0,
                 completedItemTagsCount: 0
             )
 

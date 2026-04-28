@@ -76,7 +76,7 @@ private extension ItemTagCreateView {
                     }
                 }
             }
-            .navigationTitle(String.addTag)
+            .navigationTitle(String.addItemTag)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

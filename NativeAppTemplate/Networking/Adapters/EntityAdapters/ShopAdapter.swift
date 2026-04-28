@@ -25,7 +25,6 @@ struct ShopAdapter: EntityAdapter {
             description: resource.attributes["description"] as? String ?? "",
             timeZone: timeZone,
             itemTagsCount: resource.attributes["item_tags_count"] as? Int ?? 0,
-            scannedItemTagsCount: resource.attributes["scanned_item_tags_count"] as? Int ?? 0,
             completedItemTagsCount: resource.attributes["completed_item_tags_count"] as? Int ?? 0
         )
     }

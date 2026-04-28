@@ -6,7 +6,6 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    let isAppStorePromotion = false
     @State private var viewModel: OnboardingViewModel
 
     init(onboardingRepository: OnboardingRepositoryProtocol) {
@@ -39,17 +38,15 @@ private extension OnboardingView {
                         )
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: isAppStorePromotion ? .never : .always))
+                .tabViewStyle(.page(indexDisplayMode: .always))
                 .toolbar {
-                    if !isAppStorePromotion {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Link(String.howToUse, destination: URL(string: String.howToUseUrl)!)
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: SignUpOrSignInView()) {
-                                Text(verbatim: "Start")
-                                    .font(.title)
-                            }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Link(String.supportWebsite, destination: URL(string: String.supportWebsiteUrl)!)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: SignUpOrSignInView()) {
+                            Text(verbatim: "Start")
+                                .font(.title)
                         }
                     }
                 }
