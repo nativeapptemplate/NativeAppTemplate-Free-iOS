@@ -56,7 +56,7 @@ final class ForgotPasswordViewModel {
                 try await signUpRepository.sendResetPasswordInstruction(sendResetPassword: sendResetPassword)
                 messageBus.post(message: Message(
                     level: .success,
-                    message: .sentResetPasswordInstruction,
+                    message: Strings.sentResetPasswordInstruction,
                     autoDismiss: false
                 ))
                 shouldDismiss = true
@@ -64,7 +64,7 @@ final class ForgotPasswordViewModel {
                 UIApplication.dismissKeyboard()
                 messageBus.post(message: Message(
                     level: .error,
-                    message: String.sentResetPasswordInstructionError,
+                    message: Strings.sentResetPasswordInstructionError,
                     autoDismiss: false
                 ))
             }

@@ -13,7 +13,7 @@ final class ShopBasicSettingsViewModel {
     var isUpdating = false
     var name = ""
     var description = ""
-    var selectedTimeZone = String.defaultTimeZone
+    var selectedTimeZone = Strings.defaultTimeZone
     var shouldDismiss: Bool = false
     private(set) var shop: Shop?
 
@@ -125,7 +125,7 @@ final class ShopBasicSettingsViewModel {
                     timeZone: selectedTimeZone
                 )
                 _ = try await shopRepository.update(id: shop.id, shop: shop)
-                messageBus.post(message: Message(level: .success, message: .basicSettingsUpdated))
+                messageBus.post(message: Message(level: .success, message: Strings.basicSettingsUpdated))
             } catch {
                 messageBus.post(message: Message(error: error))
             }

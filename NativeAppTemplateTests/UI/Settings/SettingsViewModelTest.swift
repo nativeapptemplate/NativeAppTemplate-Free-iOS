@@ -100,7 +100,7 @@ struct SettingsViewModelTest {
         #if DEBUG
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .signedOut)
+        #expect(messageBus.currentMessage?.message == Strings.signedOut)
         #endif
     }
 

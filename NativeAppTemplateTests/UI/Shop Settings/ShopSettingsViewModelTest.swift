@@ -168,7 +168,7 @@ struct ShopSettingsViewModelTest {
         await destroyShopTask.value
 
         #expect(viewModel.messageBus.currentMessage?.message ==
-            "\(String.shopDeletedError) [NATI-2001] \(message) [Status: \(httpResponseCode)]")
+            "\(Strings.shopDeletedError) [NATI-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isDeleting)
         #expect(viewModel.isBusy)
         #expect(sessionController.userState == .notLoggedIn)

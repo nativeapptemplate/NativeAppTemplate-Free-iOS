@@ -44,69 +44,69 @@ private extension SignUpView {
         NavigationStack {
             Form {
                 Section {
-                    TextField(String.placeholderFullName, text: $viewModel.name)
+                    TextField(Strings.placeholderFullName, text: $viewModel.name)
                 } header: {
-                    Text(String.fullName)
+                    Text(Strings.fullName)
                 } footer: {
-                    Text(String.fullNameIsRequired)
+                    Text(Strings.fullNameIsRequired)
                         .font(.caption)
                         .foregroundStyle(viewModel.isNameBlank ? .validationError : .clear)
                 }
 
                 Section {
-                    TextField(String.placeholderEmail, text: $viewModel.email)
+                    TextField(Strings.placeholderEmail, text: $viewModel.email)
                         .textContentType(.emailAddress)
                         .autocapitalization(.none)
                 } header: {
-                    Text(String.email)
+                    Text(Strings.email)
                 } footer: {
                     if viewModel.isEmailBlank {
-                        Text(String.emailIsRequired)
+                        Text(Strings.emailIsRequired)
                             .foregroundStyle(.validationError)
                     } else if viewModel.hasInvalidDataEmail {
-                        Text(String.emailIsInvalid)
+                        Text(Strings.emailIsInvalid)
                             .foregroundStyle(.validationError)
                     }
                 }
 
-                Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
+                Picker(Strings.timeZone, selection: $viewModel.selectedTimeZone) {
                     ForEach(timeZones.keys, id: \.self) { key in
                         Text(timeZones[key]!).tag(key)
                     }
                 }
 
                 Section {
-                    SecureField(String.placeholderPassword, text: $viewModel.password)
+                    SecureField(Strings.placeholderPassword, text: $viewModel.password)
                         .textContentType(.password)
                         .autocapitalization(.none)
                         .autocorrectionDisabled(true)
                 } header: {
-                    Text(String.password)
+                    Text(Strings.password)
                 } footer: {
                     VStack(alignment: .leading) {
                         Text("\(Int.minimumPasswordLength) characters minimum.")
 
                         if viewModel.isPasswordBlank {
-                            Text(String.passwordIsRequired)
+                            Text(Strings.passwordIsRequired)
                                 .foregroundStyle(.validationError)
                         } else if viewModel.hasInvalidDataPassword {
-                            Text(String.passwordIsInvalid)
+                            Text(Strings.passwordIsInvalid)
                                 .foregroundStyle(.validationError)
                         }
                     }
                 }
                 Section {
-                    MainButtonView(title: String.signUp, type: .primary(withArrow: false)) {
+                    MainButtonView(title: Strings.signUp, type: .primary(withArrow: false)) {
                         viewModel.createShopkeeper()
                     }
                     .disabled(viewModel.hasInvalidData)
                     .listRowBackground(Color.clear)
                 }
             }
-            .navigationTitle(String.signUp)
+            .navigationTitle(Strings.signUp)
         }
         .alert(
-            String.shopkeeperCreatedError,
+            Strings.shopkeeperCreatedError,
             isPresented: $viewModel.isShowingAlert
         ) {} message: {
             Text(viewModel.errorMessage)

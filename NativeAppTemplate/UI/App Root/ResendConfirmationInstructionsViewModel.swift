@@ -56,7 +56,7 @@ final class ResendConfirmationInstructionsViewModel {
                 try await signUpRepository.sendConfirmationInstruction(sendConfirmation: sendConfirmation)
                 messageBus.post(message: Message(
                     level: .success,
-                    message: .sentConfirmationInstruction,
+                    message: Strings.sentConfirmationInstruction,
                     autoDismiss: false
                 ))
                 shouldDismiss = true
@@ -64,7 +64,7 @@ final class ResendConfirmationInstructionsViewModel {
                 UIApplication.dismissKeyboard()
                 messageBus.post(message: Message(
                     level: .error,
-                    message: String.sentConfirmationInstructionError,
+                    message: Strings.sentConfirmationInstructionError,
                     autoDismiss: false
                 ))
             }

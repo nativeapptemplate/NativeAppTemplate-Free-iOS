@@ -102,7 +102,7 @@ enum NativeAppTemplateConstants {
     }
 }
 
-extension String {
+enum Strings {
     #if DEBUG
     private static let env = ProcessInfo.processInfo.environment
     static let scheme: String = env["NATEMPLATE_API_SCHEME"] ?? "https"

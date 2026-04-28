@@ -53,7 +53,7 @@ extension AppTabView: View {
                 tab(
                     content: shopListView,
                     navigationPath: $navigationPathShops,
-                    text: .shops,
+                    text: Strings.shops,
                     imageName: "storefront.fill",
                     tab: .shops
                 )
@@ -61,7 +61,7 @@ extension AppTabView: View {
                 tab(
                     content: settingsView,
                     navigationPath: nil,
-                    text: .settings,
+                    text: Strings.settings,
                     imageName: "gearshape.fill",
                     tab: .settings
                 )

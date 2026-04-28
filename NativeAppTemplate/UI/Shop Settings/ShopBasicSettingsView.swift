@@ -44,42 +44,42 @@ private extension ShopBasicSettingsView {
     var shopBasicSettingsView: some View {
         Form {
             Section {
-                TextField(String.shopName, text: $viewModel.name)
+                TextField(Strings.shopName, text: $viewModel.name)
                     .onChange(of: viewModel.name) {
                         viewModel.validateNameLength()
                     }
             } header: {
-                Text(String.shopName)
+                Text(Strings.shopName)
             } footer: {
                 VStack(alignment: .leading) {
-                    Text(String.shopNameHelp(maximumLength: viewModel.maximumNameLength))
+                    Text(Strings.shopNameHelp(maximumLength: viewModel.maximumNameLength))
                         .font(.uiFootnote)
-                    Text(String.shopNameIsInvalid)
+                    Text(Strings.shopNameIsInvalid)
                         .font(.uiFootnote)
                         .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
                 }
             }
 
             Section {
-                TextField(String.descriptionString, text: $viewModel.description, axis: .vertical)
+                TextField(Strings.descriptionString, text: $viewModel.description, axis: .vertical)
                     .lineLimit(10, reservesSpace: true)
                     .onChange(of: viewModel.description) {
                         viewModel.validateDescriptionLength()
                     }
             } header: {
-                Text(String.descriptionString)
+                Text(Strings.descriptionString)
             } footer: {
                 VStack(alignment: .leading) {
-                    Text(String.shopDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
+                    Text(Strings.shopDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
                         .font(.uiFootnote)
-                    Text(String.shopDescriptionIsInvalid)
+                    Text(Strings.shopDescriptionIsInvalid)
                         .font(.uiFootnote)
                         .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
                 }
             }
 
             Section {
-                Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
+                Picker(Strings.timeZone, selection: $viewModel.selectedTimeZone) {
                     ForEach(timeZones.keys, id: \.self) { key in
                         Text(timeZones[key]!).tag(key)
                     }
@@ -87,13 +87,13 @@ private extension ShopBasicSettingsView {
             }
         }
         .padding()
-        .navigationTitle(String.shopSettingsBasicSettingsLabel)
+        .navigationTitle(Strings.shopSettingsBasicSettingsLabel)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     viewModel.updateShop()
                 } label: {
-                    Text(String.save)
+                    Text(Strings.save)
                 }
                 .disabled(viewModel.hasInvalidData)
             }

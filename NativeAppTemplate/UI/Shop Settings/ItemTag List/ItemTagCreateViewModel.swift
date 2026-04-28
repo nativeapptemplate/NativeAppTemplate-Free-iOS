@@ -73,7 +73,7 @@ final class ItemTagCreateViewModel {
             do {
                 let itemTag = ItemTag(name: name, description: description)
                 _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
-                messageBus.post(message: Message(level: .success, message: .itemTagCreated))
+                messageBus.post(message: Message(level: .success, message: Strings.itemTagCreated))
             } catch {
                 messageBus.post(message: Message(error: error))
             }

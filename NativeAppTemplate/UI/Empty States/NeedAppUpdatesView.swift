@@ -20,17 +20,17 @@ struct NeedAppUpdatesView: View {
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .foregroundStyle(.titleText)
                         .padding()
-                    Text(String.updateApp)
+                    Text(Strings.updateApp)
                         .font(.uiTitle1)
                         .foregroundStyle(.titleText)
                         .padding(.top)
-                    Text(String.installNewVersionApp)
+                    Text(Strings.installNewVersionApp)
                         .foregroundStyle(.contentText)
                         .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
                     Button {
-                        openURL(URL(string: String.appStoreUrl)!)
+                        openURL(URL(string: Strings.appStoreUrl)!)
                     } label: {
-                        Text(String.updateApp)
+                        Text(Strings.updateApp)
                     }
                     .padding(.top)
                 }

@@ -59,12 +59,12 @@ final class ShopSettingsViewModel {
             isDeleting = true
             do {
                 try await shopRepository.destroy(id: shop.id)
-                messageBus.post(message: .init(level: .success, message: .shopDeleted))
+                messageBus.post(message: .init(level: .success, message: Strings.shopDeleted))
                 sessionController.shouldPopToRootView = true
             } catch {
                 messageBus.post(message: .init(
                     level: .error,
-                    message: "\(String.shopDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.shopDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
                 try await sessionController.logout()

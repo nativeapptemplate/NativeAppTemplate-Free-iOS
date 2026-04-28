@@ -77,7 +77,7 @@ final class PasswordEditViewModel {
                 )
 
                 try await accountPasswordRepository.update(updatePassword: updatePassword)
-                messageBus.post(message: Message(level: .success, message: .passwordUpdated))
+                messageBus.post(message: Message(level: .success, message: Strings.passwordUpdated))
                 shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(error: error))

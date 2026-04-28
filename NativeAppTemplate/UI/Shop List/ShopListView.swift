@@ -8,11 +8,11 @@ import TipKit
 
 struct TapShopBelowTip: Tip {
     var title: Text {
-        Text(String.tapShopBelow)
+        Text(Strings.tapShopBelow)
     }
 
     var message: Text? {
-        Text(String.haveFun)
+        Text(Strings.haveFun)
     }
 
     var image: Image? {
@@ -129,7 +129,7 @@ private extension ShopListView {
                 }
             }
         }
-        .navigationTitle(String.shops)
+        .navigationTitle(Strings.shops)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if viewModel.leftInShopSlots > 0 {
@@ -172,11 +172,11 @@ private extension ShopListView {
                     .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
 
-                Text(String.addShopDescription)
+                Text(Strings.addShopDescription)
                     .foregroundStyle(.contentText)
                     .padding()
 
-                MainButtonView(title: String.addShop, type: .primary(withArrow: false)) {
+                MainButtonView(title: Strings.addShop, type: .primary(withArrow: false)) {
                     viewModel.showCreateView()
                 }
                 .padding()

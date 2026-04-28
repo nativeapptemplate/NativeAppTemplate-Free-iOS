@@ -17,7 +17,7 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
         "kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4="
     ]
 
-    static let pinnedDomain = String.domain
+    static let pinnedDomain = Strings.domain
 
     /// ASN.1 header for EC 256-bit public key (SPKI prefix)
     private static let ecDsaSecp256r1Asn1Header: [UInt8] = [

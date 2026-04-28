@@ -45,27 +45,27 @@ private extension ResendConfirmationInstructionsView {
     var resendConfirmationInstructionsView: some View {
         Form {
             Section {
-                TextField(String.placeholderEmail, text: $viewModel.email)
+                TextField(Strings.placeholderEmail, text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
             } header: {
-                Text(String.email)
+                Text(Strings.email)
             } footer: {
                 if viewModel.isEmailBlank {
-                    Text(String.emailIsRequired)
+                    Text(Strings.emailIsRequired)
                         .foregroundStyle(.validationError)
                 } else if viewModel.isEmailInvalid {
-                    Text(String.emailIsInvalid)
+                    Text(Strings.emailIsInvalid)
                         .foregroundStyle(.validationError)
                 }
             }
 
-            MainButtonView(title: String.buttonSendMeConfirmationInstructions, type: .primary(withArrow: false)) {
+            MainButtonView(title: Strings.buttonSendMeConfirmationInstructions, type: .primary(withArrow: false)) {
                 viewModel.sendMeConfirmationInstructionsTapped()
             }
             .disabled(viewModel.hasInvalidData)
             .listRowBackground(Color.clear)
         }
-        .navigationTitle(String.didntReceiveConfirmationInstructions)
+        .navigationTitle(Strings.didntReceiveConfirmationInstructions)
     }
 }

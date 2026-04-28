@@ -68,9 +68,9 @@ struct OnboardingViewModelTest {
         viewModel.reload()
 
         // Test valid indices (1-based indexing in the switch case)
-        #expect(viewModel.onboardingDescription(index: 1) == String.onboardingDescription1)
-        #expect(viewModel.onboardingDescription(index: 2) == String.onboardingDescription2)
-        #expect(viewModel.onboardingDescription(index: 3) == String.onboardingDescription3)
+        #expect(viewModel.onboardingDescription(index: 1) == Strings.onboardingDescription1)
+        #expect(viewModel.onboardingDescription(index: 2) == Strings.onboardingDescription2)
+        #expect(viewModel.onboardingDescription(index: 3) == Strings.onboardingDescription3)
     }
 
     @Test
@@ -89,9 +89,9 @@ struct OnboardingViewModelTest {
 
         // Test invalid indices - should return default (onboardingDescription1)
         let result = viewModel.onboardingDescription(index: 0)
-        #expect(result == String.onboardingDescription1)
+        #expect(result == Strings.onboardingDescription1)
         let result2 = viewModel.onboardingDescription(index: 99)
-        #expect(result2 == String.onboardingDescription1)
+        #expect(result2 == Strings.onboardingDescription1)
     }
 
     @Test
@@ -106,9 +106,9 @@ struct OnboardingViewModelTest {
         viewModel.reload()
 
         let expectedDescriptions = [
-            String.onboardingDescription1, String.onboardingDescription2, String.onboardingDescription3,
-            String.onboardingDescription4, String.onboardingDescription5, String.onboardingDescription6,
-            String.onboardingDescription7, String.onboardingDescription8
+            Strings.onboardingDescription1, Strings.onboardingDescription2, Strings.onboardingDescription3,
+            Strings.onboardingDescription4, Strings.onboardingDescription5, Strings.onboardingDescription6,
+            Strings.onboardingDescription7, Strings.onboardingDescription8
         ]
 
         for index in 1...8 {

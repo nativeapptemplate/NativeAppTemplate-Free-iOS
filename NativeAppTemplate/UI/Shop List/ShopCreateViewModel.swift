@@ -76,7 +76,7 @@ final class ShopCreateViewModel {
                     timeZone: selectedTimeZone
                 )
                 _ = try await shopRepository.create(shop: shop)
-                messageBus.post(message: Message(level: .success, message: .shopCreated))
+                messageBus.post(message: Message(level: .success, message: Strings.shopCreated))
                 shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(error: error))
