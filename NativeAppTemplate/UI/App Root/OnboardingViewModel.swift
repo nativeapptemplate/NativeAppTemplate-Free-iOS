@@ -9,17 +9,14 @@ import SwiftUI
 @Observable
 @MainActor
 final class OnboardingViewModel {
-    var onboardings: [Onboarding] = []
-
     private let onboardingRepository: OnboardingRepositoryProtocol
+
+    var onboardings: [Onboarding] {
+        onboardingRepository.onboardings
+    }
 
     init(onboardingRepository: OnboardingRepositoryProtocol) {
         self.onboardingRepository = onboardingRepository
-    }
-
-    func reload() {
-        onboardingRepository.reload()
-        onboardings = onboardingRepository.onboardings
     }
 
     func onboardingDescription(index: Int) -> String {

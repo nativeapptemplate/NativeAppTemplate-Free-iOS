@@ -12,6 +12,4 @@ import Foundation
         Onboarding(id: 3, imageOrientation: .portrait),
         Onboarding(id: 4, imageOrientation: .portrait)
     ]
-
-    func reload() {}
 }

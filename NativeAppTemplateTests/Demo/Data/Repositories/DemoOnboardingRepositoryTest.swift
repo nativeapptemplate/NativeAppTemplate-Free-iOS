@@ -34,18 +34,6 @@ struct DemoOnboardingRepositoryTest {
         }
 
         @Test
-        func reload() {
-            repository.resetState()
-
-            repository.onboardings.removeAll()
-            #expect(repository.onboardings.isEmpty)
-
-            repository.reload()
-
-            #expect(repository.onboardings.count == 5)
-        }
-
-        @Test
         func addOnboarding() throws {
             repository.resetState()
 

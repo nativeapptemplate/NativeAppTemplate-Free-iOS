@@ -14,10 +14,6 @@ final class DemoOnboardingRepository: OnboardingRepositoryProtocol {
         setupMockOnboardings()
     }
 
-    func reload() {
-        setupMockOnboardings()
-    }
-
     // MARK: - Test Helpers
 
     func resetState() {
