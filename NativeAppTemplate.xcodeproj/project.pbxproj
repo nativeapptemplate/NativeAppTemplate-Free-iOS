@@ -89,7 +89,6 @@
 		017278832D7D935700CE424F /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278802D7D935700CE424F /* ImageSaver.swift */; };
 		0172788B2D7D936E00CE424F /* CompletedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278842D7D936E00CE424F /* CompletedTag.swift */; };
 		0172788C2D7D936E00CE424F /* IdlingTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278872D7D936E00CE424F /* IdlingTagView.swift */; };
-		0172788D2D7D936E00CE424F /* CustomerScannedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278862D7D936E00CE424F /* CustomerScannedTag.swift */; };
 		017278902D7D936E00CE424F /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278892D7D936E00CE424F /* TagView.swift */; };
 		0172789A2D7D99D100CE424F /* ItemTagListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278972D7D99D100CE424F /* ItemTagListCardView.swift */; };
 		0172789B2D7D99D100CE424F /* ItemTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278982D7D99D100CE424F /* ItemTagListView.swift */; };
@@ -250,7 +249,6 @@
 		0172787E2D7D933000CE424F /* ShopDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailCardView.swift; sourceTree = "<group>"; };
 		017278802D7D935700CE424F /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		017278842D7D936E00CE424F /* CompletedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTag.swift; sourceTree = "<group>"; };
-		017278862D7D936E00CE424F /* CustomerScannedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerScannedTag.swift; sourceTree = "<group>"; };
 		017278872D7D936E00CE424F /* IdlingTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdlingTagView.swift; sourceTree = "<group>"; };
 		017278892D7D936E00CE424F /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		017278932D7D99D100CE424F /* ItemTagDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagDetailView.swift; sourceTree = "<group>"; };
@@ -701,7 +699,6 @@
 			isa = PBXGroup;
 			children = (
 				017278842D7D936E00CE424F /* CompletedTag.swift */,
-				017278862D7D936E00CE424F /* CustomerScannedTag.swift */,
 				017278872D7D936E00CE424F /* IdlingTagView.swift */,
 				017278892D7D936E00CE424F /* TagView.swift */,
 			);
@@ -989,7 +986,6 @@
 				0172788B2D7D936E00CE424F /* CompletedTag.swift in Sources */,
 				0172788C2D7D936E00CE424F /* IdlingTagView.swift in Sources */,
 				01A1339F2E08B2FD000AD24A /* AcceptTermsViewModel.swift in Sources */,
-				0172788D2D7D936E00CE424F /* CustomerScannedTag.swift in Sources */,
 				017278902D7D936E00CE424F /* TagView.swift in Sources */,
 				0106414429AA061100B46FED /* PasswordEditView.swift in Sources */,
 				0114F4032E07A88000F4A1DD /* ShopCreateViewModel.swift in Sources */,

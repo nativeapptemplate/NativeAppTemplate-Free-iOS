@@ -5,7 +5,7 @@
 
 // Error codes use the `NATI-XXXX` prefix (NativeAppTemplate iOS).
 // Android uses `NATA-XXXX`.
-// Ranges: 1xxx App errors, 2xxx API errors, 3xxx NFC errors.
+// Ranges: 1xxx App errors, 2xxx API errors.
 
 import Foundation
 
