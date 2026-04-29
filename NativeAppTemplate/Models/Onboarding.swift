@@ -3,7 +3,12 @@
 //  NativeAppTemplate
 //
 
+enum ImageOrientation: String, Hashable, Codable {
+    case portrait
+    case landscape
+}
+
 struct Onboarding: Hashable, Codable, Identifiable {
     var id: Int
-    var isPortraitImage: Bool = false
+    var imageOrientation: ImageOrientation = .landscape
 }

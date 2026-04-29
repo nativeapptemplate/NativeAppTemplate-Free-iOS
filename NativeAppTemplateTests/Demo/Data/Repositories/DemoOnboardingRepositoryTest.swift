@@ -13,70 +13,98 @@ struct DemoOnboardingRepositoryTest {
         let repository = DemoOnboardingRepository()
 
         @Test
+        func initialSetup() {
+            repository.resetState()
+
+            #expect(repository.onboardings.count == 5)
+        }
+
+        @Test
+        func onboardingProperties() throws {
+            repository.resetState()
+
+            let onboarding1 = try #require(repository.onboardings.first { $0.id == 1 })
+            #expect(onboarding1.imageOrientation == .portrait)
+
+            let onboarding2 = try #require(repository.onboardings.first { $0.id == 2 })
+            #expect(onboarding2.imageOrientation == .landscape)
+
+            let onboarding3 = try #require(repository.onboardings.first { $0.id == 3 })
+            #expect(onboarding3.imageOrientation == .portrait)
+        }
+
+        @Test
         func reload() {
+            repository.resetState()
+
+            repository.onboardings.removeAll()
+            #expect(repository.onboardings.isEmpty)
+
             repository.reload()
 
-            #expect(repository.onboardings.count == 13)
-            #expect(!repository.onboardings.isEmpty)
+            #expect(repository.onboardings.count == 5)
         }
 
         @Test
-        func onboardingsDictionary() {
-            repository.reload()
+        func addOnboarding() throws {
+            repository.resetState()
 
-            let dictionary = repository.onboardingsDictionary
-            #expect(dictionary.count == 13)
-            // Test specific values from the demo data
-            #expect(dictionary[1] == false) // Landscape
-            #expect(dictionary[4] == true) // Portrait
-            #expect(dictionary[7] == true) // Portrait
-            #expect(dictionary[8] == true) // Portrait
-            #expect(dictionary[11] == true) // Portrait
-            #expect(dictionary[13] == false) // Landscape
+            let newOnboarding = Onboarding(id: 99, imageOrientation: .portrait)
+            repository.addOnboarding(newOnboarding)
+
+            #expect(repository.onboardings.count == 6)
+
+            let addedOnboarding = try #require(repository.onboardings.first { $0.id == 99 })
+            #expect(addedOnboarding.imageOrientation == .portrait)
         }
 
         @Test
-        func onboardingProperties() {
-            repository.reload()
+        func clearOnboardings() {
+            repository.resetState()
 
-            let firstOnboarding = repository.onboardings.first { $0.id == 1 }
-            #expect(firstOnboarding != nil)
-            #expect(firstOnboarding?.isPortraitImage == false)
+            #expect(repository.onboardings.count == 5)
 
-            let portraitOnboarding = repository.onboardings.first { $0.id == 4 }
-            #expect(portraitOnboarding != nil)
-            #expect(portraitOnboarding?.isPortraitImage == true)
+            repository.clearOnboardings()
+
+            #expect(repository.onboardings.isEmpty)
         }
 
         @Test
-        func onboardingIds() {
-            repository.reload()
+        func onboardingOrdering() {
+            repository.resetState()
 
-            let ids = repository.onboardings.map(\.id).sorted()
-            let expectedIds = Array(1...13)
-            #expect(ids == expectedIds)
+            let ids = repository.onboardings.map(\.id)
+            #expect(ids == [1, 2, 3, 4, 5])
+
+            let newOnboarding = Onboarding(id: 0, imageOrientation: .portrait)
+            repository.addOnboarding(newOnboarding)
+
+            let updatedIds = repository.onboardings.map(\.id)
+            #expect(updatedIds == [1, 2, 3, 4, 5, 0])
         }
 
         @Test
-        func portraitImageCounts() {
-            repository.reload()
+        func onboardingIdentifiability() throws {
+            repository.resetState()
 
-            let portraitCount = repository.onboardings.count(where: { $0.isPortraitImage })
-            let landscapeCount = repository.onboardings.count(where: { !$0.isPortraitImage })
-
-            #expect(portraitCount == 4) // IDs: 4, 7, 8, 11
-            #expect(landscapeCount == 9) // All others
-            #expect(portraitCount + landscapeCount == 13)
+            let ids = repository.onboardings.map(\.id)
+            let uniqueIds = Set(ids)
+            #expect(ids.count == uniqueIds.count)
         }
 
         @Test
-        func dictionaryConsistency() {
-            repository.reload()
+        func onboardingHashability() throws {
+            repository.resetState()
 
-            // Verify that the dictionary computed property matches the onboardings array
-            for onboarding in repository.onboardings {
-                #expect(repository.onboardingsDictionary[onboarding.id] == onboarding.isPortraitImage)
-            }
+            let onboarding1 = try #require(repository.onboardings.first { $0.id == 1 })
+            let onboarding2 = try #require(repository.onboardings.first { $0.id == 1 })
+            let onboarding3 = try #require(repository.onboardings.first { $0.id == 2 })
+
+            #expect(onboarding1 == onboarding2)
+            #expect(onboarding1 != onboarding3)
+
+            let onboardingSet: Set<Onboarding> = [onboarding1, onboarding2, onboarding3]
+            #expect(onboardingSet.count == 2)
         }
     }
 }

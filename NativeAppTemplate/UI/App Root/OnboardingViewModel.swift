@@ -32,14 +32,6 @@ final class OnboardingViewModel {
             Strings.onboardingDescription3
         case 4:
             Strings.onboardingDescription4
-        case 5:
-            Strings.onboardingDescription5
-        case 6:
-            Strings.onboardingDescription6
-        case 7:
-            Strings.onboardingDescription7
-        case 8:
-            Strings.onboardingDescription8
         default:
             Strings.onboardingDescription1
         }

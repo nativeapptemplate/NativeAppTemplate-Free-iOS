@@ -28,7 +28,7 @@ private extension SignUpOrSignInView {
                         .frame(width: 384, height: 24)
                         .padding()
 
-                    Image("onboarding1Slim")
+                    Image("hero")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 256)

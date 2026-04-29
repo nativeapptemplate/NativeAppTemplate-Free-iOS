@@ -285,14 +285,10 @@ enum Strings {
     static let email = "Email"
     static let password = "Password"
 
-    static let onboardingDescription1 = "Welcome to NativeAppTemplate."
-    static let onboardingDescription2 = "Sign in to manage your shops and item tags."
-    static let onboardingDescription3 = "Organize your work across multiple organizations."
-    static let onboardingDescription4 = "Invite teammates to collaborate."
-    static let onboardingDescription5 = "Track item tags with a simple idle/completed state."
-    static let onboardingDescription6 = "Create, edit, and delete item tags from your shop."
-    static let onboardingDescription7 = "Switch between personal and shared organizations."
-    static let onboardingDescription8 = "Have fun!"
+    static let onboardingDescription1 = "Onboarding description 1."
+    static let onboardingDescription2 = "Onboarding description 2."
+    static let onboardingDescription3 = "Onboarding description 3."
+    static let onboardingDescription4 = "Onboarding description 4."
 
     // MARK: Other
 
