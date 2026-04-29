@@ -34,7 +34,7 @@ private extension OnboardingView {
                         page(
                             image: "onboarding\(id)",
                             text: viewModel.onboardingDescription(index: id),
-                            isPortraitImage: onboarding.isPortraitImage
+                            imageOrientation: onboarding.imageOrientation
                         )
                     }
                 }
@@ -63,13 +63,13 @@ private extension OnboardingView {
             .frame(width: 256, height: 24)
     }
 
-    private func page(image: String, text: String, isPortraitImage: Bool) -> some View {
+    private func page(image: String, text: String, imageOrientation: ImageOrientation) -> some View {
         ZStack(alignment: .bottom) {
             Image(image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.top, NativeAppTemplateConstants.Spacing.md)
-                .padding(.bottom, isPortraitImage ? 0 : 192)
+                .padding(.bottom, imageOrientation == .portrait ? 0 : 192)
 
             ZStack(alignment: .top) {
                 VStack {

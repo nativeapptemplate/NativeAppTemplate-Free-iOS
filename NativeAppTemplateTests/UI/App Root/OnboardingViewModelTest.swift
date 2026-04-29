@@ -14,11 +14,11 @@ struct OnboardingViewModelTest {
 
     func mockOnboarding(
         id: Int = 1,
-        isPortraitImage: Bool = true
+        imageOrientation: ImageOrientation = .portrait
     ) -> Onboarding {
         Onboarding(
             id: id,
-            isPortraitImage: isPortraitImage
+            imageOrientation: imageOrientation
         )
     }
 
@@ -34,9 +34,9 @@ struct OnboardingViewModelTest {
     @Test
     func reload() {
         let onboardings = [
-            mockOnboarding(id: 1, isPortraitImage: true),
-            mockOnboarding(id: 2, isPortraitImage: false),
-            mockOnboarding(id: 3, isPortraitImage: true)
+            mockOnboarding(id: 1, imageOrientation: .portrait),
+            mockOnboarding(id: 2, imageOrientation: .landscape),
+            mockOnboarding(id: 3, imageOrientation: .portrait)
         ]
 
         onboardingRepository.setOnboardings(onboardings: onboardings)
@@ -96,7 +96,7 @@ struct OnboardingViewModelTest {
 
     @Test
     func onboardingDescriptionAllSteps() {
-        let onboardings = (1...8).map { mockOnboarding(id: $0) }
+        let onboardings = (1...4).map { mockOnboarding(id: $0) }
         onboardingRepository.setOnboardings(onboardings: onboardings)
 
         let viewModel = OnboardingViewModel(
@@ -106,12 +106,13 @@ struct OnboardingViewModelTest {
         viewModel.reload()
 
         let expectedDescriptions = [
-            Strings.onboardingDescription1, Strings.onboardingDescription2, Strings.onboardingDescription3,
-            Strings.onboardingDescription4, Strings.onboardingDescription5, Strings.onboardingDescription6,
-            Strings.onboardingDescription7, Strings.onboardingDescription8
+            Strings.onboardingDescription1,
+            Strings.onboardingDescription2,
+            Strings.onboardingDescription3,
+            Strings.onboardingDescription4
         ]
 
-        for index in 1...8 {
+        for index in 1...4 {
             #expect(viewModel.onboardingDescription(index: index) == expectedDescriptions[index - 1])
         }
     }
@@ -133,10 +134,10 @@ struct OnboardingViewModelTest {
     @Test
     func onboardingWithMixedImageTypes() {
         let onboardings = [
-            mockOnboarding(id: 1, isPortraitImage: true),
-            mockOnboarding(id: 2, isPortraitImage: false),
-            mockOnboarding(id: 3, isPortraitImage: true),
-            mockOnboarding(id: 4, isPortraitImage: false)
+            mockOnboarding(id: 1, imageOrientation: .portrait),
+            mockOnboarding(id: 2, imageOrientation: .landscape),
+            mockOnboarding(id: 3, imageOrientation: .portrait),
+            mockOnboarding(id: 4, imageOrientation: .landscape)
         ]
 
         onboardingRepository.setOnboardings(onboardings: onboardings)
@@ -148,9 +149,9 @@ struct OnboardingViewModelTest {
         viewModel.reload()
 
         #expect(viewModel.onboardings.count == 4)
-        #expect(viewModel.onboardings[0].isPortraitImage == true)
-        #expect(viewModel.onboardings[1].isPortraitImage == false)
-        #expect(viewModel.onboardings[2].isPortraitImage == true)
-        #expect(viewModel.onboardings[3].isPortraitImage == false)
+        #expect(viewModel.onboardings[0].imageOrientation == .portrait)
+        #expect(viewModel.onboardings[1].imageOrientation == .landscape)
+        #expect(viewModel.onboardings[2].imageOrientation == .portrait)
+        #expect(viewModel.onboardings[3].imageOrientation == .landscape)
     }
 }

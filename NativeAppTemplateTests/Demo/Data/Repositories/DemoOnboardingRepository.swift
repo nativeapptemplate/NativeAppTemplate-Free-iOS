@@ -5,39 +5,40 @@
 
 import Foundation
 @testable import NativeAppTemplate
-import OrderedCollections
 
 @MainActor
 final class DemoOnboardingRepository: OnboardingRepositoryProtocol {
     var onboardings: [Onboarding] = []
-    var onboardingsDictionary: OrderedDictionary<Int, Bool> {
-        var dict = OrderedDictionary<Int, Bool>()
-        for onboarding in onboardings {
-            dict[onboarding.id] = onboarding.isPortraitImage
-        }
-        return dict
+
+    init() {
+        setupMockOnboardings()
     }
 
     func reload() {
-        // Demo data with predefined onboarding items
-        let demoOnboardingData: OrderedDictionary = [
-            1: false, // Landscape image
-            2: false, // Landscape image
-            3: false, // Landscape image
-            4: true, // Portrait image
-            5: false, // Landscape image
-            6: false, // Landscape image
-            7: true, // Portrait image
-            8: true, // Portrait image
-            9: false, // Landscape image
-            10: false, // Landscape image
-            11: true, // Portrait image
-            12: false, // Landscape image
-            13: false // Landscape image
-        ]
+        setupMockOnboardings()
+    }
 
-        onboardings = demoOnboardingData.map { key, value in
-            Onboarding(id: key, isPortraitImage: value)
-        }
+    // MARK: - Test Helpers
+
+    func resetState() {
+        setupMockOnboardings()
+    }
+
+    func addOnboarding(_ onboarding: Onboarding) {
+        onboardings.append(onboarding)
+    }
+
+    func clearOnboardings() {
+        onboardings.removeAll()
+    }
+
+    private func setupMockOnboardings() {
+        onboardings = [
+            Onboarding(id: 1, imageOrientation: .portrait),
+            Onboarding(id: 2, imageOrientation: .landscape),
+            Onboarding(id: 3, imageOrientation: .portrait),
+            Onboarding(id: 4, imageOrientation: .landscape),
+            Onboarding(id: 5, imageOrientation: .portrait)
+        ]
     }
 }

@@ -4,24 +4,14 @@
 //
 
 import Foundation
-import OrderedCollections
 
 @MainActor @Observable class OnboardingRepository: OnboardingRepositoryProtocol {
-    var onboardings: [Onboarding] = []
-    let onboardingsDictionary: OrderedDictionary = [
-        1: false,
-        2: false,
-        3: false,
-        4: true,
-        5: false,
-        6: false,
-        7: true,
-        8: true
+    var onboardings: [Onboarding] = [
+        Onboarding(id: 1, imageOrientation: .landscape),
+        Onboarding(id: 2, imageOrientation: .landscape),
+        Onboarding(id: 3, imageOrientation: .portrait),
+        Onboarding(id: 4, imageOrientation: .portrait)
     ]
 
-    func reload() {
-        onboardings = onboardingsDictionary.map { key, value in
-            Onboarding(id: key, isPortraitImage: value)
-        }
-    }
+    func reload() {}
 }
