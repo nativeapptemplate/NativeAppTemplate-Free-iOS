@@ -73,11 +73,6 @@ struct MainButtonView: View {
                             .font(.uiButtonLabelLarge)
                             .foregroundStyle(type.color)
                             .padding(NativeAppTemplateConstants.Spacing.sm)
-                        // If commenting out below and select max large font size on settings accessibility, you will
-                        // not be enable to tap Scan button on Scan tab.
-//              .background(GeometryReader { proxy in
-//                Color.clear.preference(key: SizeKey.self, value: proxy.size)
-//              })
 
                         Spacer()
                     }

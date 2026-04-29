@@ -141,18 +141,6 @@ extension Color {
     static let idlingTagBorder = coolGrey10 // #F5F7FA
     static let idlingTagForeground = coolGrey2 // #323F4B
 
-    // MARK: Tags - Preparing
-
-    static let preparingTagBackground = yellow9 // #FFF3C4
-    static let preparingTagBorder = yellow1 // #8D2B0B
-    static let preparingTagForeground = yellow1 // #8D2B0B
-
-    // MARK: Tags - Customer Scanned
-
-    static let customerScannedTagBackground = red9 // #FFBDBD
-    static let customerScannedTagBorder = coolGrey10 // #F5F7FA
-    static let customerScannedTagForeground = red1 // #610316
-
     // MARK: Tags - Completed
 
     static let completedTagBackground = green9 // #C1F2C7
@@ -337,30 +325,6 @@ extension ShapeStyle where Self == Color {
 
     static var idlingTagForeground: Color {
         Color.idlingTagForeground
-    }
-
-    static var preparingTagBackground: Color {
-        Color.preparingTagBackground
-    }
-
-    static var preparingTagBorder: Color {
-        Color.preparingTagBorder
-    }
-
-    static var preparingTagForeground: Color {
-        Color.preparingTagForeground
-    }
-
-    static var customerScannedTagBackground: Color {
-        Color.customerScannedTagBackground
-    }
-
-    static var customerScannedTagBorder: Color {
-        Color.customerScannedTagBorder
-    }
-
-    static var customerScannedTagForeground: Color {
-        Color.customerScannedTagForeground
     }
 
     static var completedTagBackground: Color {
