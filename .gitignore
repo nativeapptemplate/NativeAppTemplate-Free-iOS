@@ -89,3 +89,4 @@ secrets.*.xcconfig
 .claude/logs/
 .claude/tmp/
 .claude/*.log
+.claude/scheduled_tasks.lock
