@@ -15,9 +15,6 @@ struct OnboardingView: View {
     var body: some View {
         NavigationStack {
             contentView
-                .task {
-                    viewModel.reload()
-                }
         }
     }
 }
