@@ -157,6 +157,8 @@ git restore --source=HEAD --staged --worktree NativeAppTemplate.xcodeproj/xcshar
 
 Debug builds read these at launch via `ProcessInfo.processInfo.environment` in `Constants.swift`; when unset, they fall back to the production defaults (`https://api.nativeapptemplate.com`). Release builds always use the production defaults.
 
+In practice, only Xcode injects these env vars (via the scheme), so a Debug build launched any other way — tapped from the Home Screen (SpringBoard), opened on a physical device after Xcode disconnects, etc. — sees them unset and falls through to the production defaults. The hardcoded fallbacks are what keep the app working without Xcode in the loop.
+
 ## SwiftLint
 
 SwiftLint runs as part of the build process in Xcode, and errors/warnings are surfaced in Xcode as well. Please ensure that you run SwiftLint before submitting a pull request.

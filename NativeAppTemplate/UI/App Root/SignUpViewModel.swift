@@ -31,7 +31,7 @@ final class SignUpViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(name) {
+        if name.isBlank {
             return true
         }
 
@@ -47,11 +47,11 @@ final class SignUpViewModel {
     }
 
     var hasInvalidDataEmail: Bool {
-        if Utility.isBlank(email) {
+        if email.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 
@@ -59,7 +59,7 @@ final class SignUpViewModel {
     }
 
     var hasInvalidDataPassword: Bool {
-        if Utility.isBlank(password) {
+        if password.isBlank {
             return true
         }
 
@@ -71,15 +71,15 @@ final class SignUpViewModel {
     }
 
     var isNameBlank: Bool {
-        Utility.isBlank(name)
+        name.isBlank
     }
 
     var isEmailBlank: Bool {
-        Utility.isBlank(email)
+        email.isBlank
     }
 
     var isPasswordBlank: Bool {
-        Utility.isBlank(password)
+        password.isBlank
     }
 
     func createShopkeeper() {

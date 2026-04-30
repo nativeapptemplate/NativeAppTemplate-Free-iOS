@@ -45,7 +45,7 @@ final class ShopkeeperEditViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(name) {
+        if name.isBlank {
             return true
         }
 
@@ -63,11 +63,11 @@ final class ShopkeeperEditViewModel {
     }
 
     var hasInvalidDataEmail: Bool {
-        if Utility.isBlank(email) {
+        if email.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 

@@ -53,7 +53,7 @@ final class ItemTagEditViewModel {
     }
 
     var hasInvalidDataName: Bool {
-        if Utility.isBlank(name) {
+        if name.isBlank {
             return true
         }
         if name.count > maximumNameLength {

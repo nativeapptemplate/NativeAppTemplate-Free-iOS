@@ -31,9 +31,9 @@ final class PasswordEditViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(currentPassword) ||
-            Utility.isBlank(password) ||
-            Utility.isBlank(passwordConfirmation) {
+        if currentPassword.isBlank ||
+            password.isBlank ||
+            passwordConfirmation.isBlank {
             return true
         }
 
@@ -45,7 +45,7 @@ final class PasswordEditViewModel {
     }
 
     var hasInvalidDataPassword: Bool {
-        if Utility.isBlank(password) {
+        if password.isBlank {
             return true
         }
 
