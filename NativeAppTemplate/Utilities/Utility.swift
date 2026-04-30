@@ -46,16 +46,6 @@ enum Utility {
         return optionalString ?? "N/A"
     }
 
-    static func isBlank(_ text: String) -> Bool {
-        let trimmed = text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        return trimmed.isEmpty
-    }
-
-    static func validateEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
-    }
-
     private static func currentTimeZoneHour() -> (Int, Int) {
         let secondsFromGmt: Int = TimeZone.current.secondsFromGMT()
         let hoursFromGmt = (secondsFromGmt / 3_600)

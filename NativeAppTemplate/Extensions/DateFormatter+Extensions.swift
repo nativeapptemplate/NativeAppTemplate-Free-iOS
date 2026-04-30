@@ -33,14 +33,6 @@ extension DateFormatter {
 
     static let cardTimeFormatter: DateFormatter = .formatter(for: "HH:mm")
 
-    static let timeAgoInWordsDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .medium
-        dateFormatter.doesRelativeDateFormatting = true
-        return dateFormatter
-    }()
-
     static func formatter(for dateString: String) -> DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateString

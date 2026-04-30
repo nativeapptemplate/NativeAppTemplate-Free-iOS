@@ -25,11 +25,11 @@ final class ResendConfirmationInstructionsViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(email) {
+        if email.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 
@@ -37,11 +37,11 @@ final class ResendConfirmationInstructionsViewModel {
     }
 
     var isEmailBlank: Bool {
-        Utility.isBlank(email)
+        email.isBlank
     }
 
     var isEmailInvalid: Bool {
-        !Utility.isBlank(email) && !Utility.validateEmail(email)
+        !email.isBlank && !email.isValidEmail
     }
 
     func sendMeConfirmationInstructionsTapped() {
