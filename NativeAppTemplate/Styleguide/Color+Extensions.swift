@@ -172,10 +172,6 @@ extension Color {
 
     static let validationError = red5 // #E12D39
 
-    // MARK: Calendar
-
-    static let todayIndicator = red5 // #E12D39
-
     // MARK: Glass
 
     static let glassBorder = coolGrey10 // #F5F7FA
@@ -185,10 +181,6 @@ extension Color {
     // MARK: Button Arrow
 
     static let arrowBackground = coolGrey10 // #F5F7FA
-
-    // MARK: Tag Webpage Preview
-
-    static let tagWebpagePreviewBackground = coolGrey1 // #1F2933
 
     // MARK: Accent
 
@@ -393,11 +385,6 @@ extension ShapeStyle where Self == Color {
         Color.validationError
     }
 
-    /// Calendar
-    static var todayIndicator: Color {
-        Color.todayIndicator
-    }
-
     /// Glass
     static var glassBorder: Color {
         Color.glassBorder
@@ -414,11 +401,6 @@ extension ShapeStyle where Self == Color {
     /// Button Arrow
     static var arrowBackground: Color {
         Color.arrowBackground
-    }
-
-    /// Tag Webpage Preview
-    static var tagWebpagePreviewBackground: Color {
-        Color.tagWebpagePreviewBackground
     }
 
     /// Accent
