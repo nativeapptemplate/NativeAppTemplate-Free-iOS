@@ -34,10 +34,6 @@ extension Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).weight(.semibold)
     }
 
-    static var uiNumberBox: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 12.0)).weight(.bold)
-    }
-
     static var uiBodyAppleDefault: Font {
         .body
     }
@@ -73,10 +69,6 @@ extension Font {
 
     static var uiCaption: Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 14.0))
-    }
-
-    static var uiUppercase: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 12.0)).weight(.semibold)
     }
 
     static var uiUppercaseTag: Font {
