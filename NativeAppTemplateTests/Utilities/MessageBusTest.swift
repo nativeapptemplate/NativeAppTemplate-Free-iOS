@@ -79,7 +79,7 @@ struct MessageBusTest {
         let message = Message(error: error)
 
         #expect(message.level == .error)
-        #expect(message.message == "[NATI-2005] NativeAppTemplateAPIError::NoData")
+        #expect(message.message == "[NATIVEAPPTEMPLATE-2005] NativeAppTemplateAPIError::NoData")
         #expect(message.autoDismiss == false)
     }
 

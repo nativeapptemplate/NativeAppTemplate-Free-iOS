@@ -15,15 +15,15 @@ enum NativeAppTemplateAPIError: CodedError {
     nonisolated var errorCode: String {
         switch self {
         case .requestFailed:
-            "NATI-2001"
+            "NATIVEAPPTEMPLATE-2001"
         case .processingError:
-            "NATI-2002"
+            "NATIVEAPPTEMPLATE-2002"
         case .responseMissingRequiredMeta:
-            "NATI-2003"
+            "NATIVEAPPTEMPLATE-2003"
         case .responseHasIncorrectNumberOfElements:
-            "NATI-2004"
+            "NATIVEAPPTEMPLATE-2004"
         case .noData:
-            "NATI-2005"
+            "NATIVEAPPTEMPLATE-2005"
         }
     }
 

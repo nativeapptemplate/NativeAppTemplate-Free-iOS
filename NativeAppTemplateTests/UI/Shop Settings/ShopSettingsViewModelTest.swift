@@ -96,7 +96,7 @@ struct ShopSettingsViewModelTest {
         }
         await reloadTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
         #expect(viewModel.isFetching == false)
         #expect(viewModel.isBusy == false)
@@ -168,7 +168,7 @@ struct ShopSettingsViewModelTest {
         await destroyShopTask.value
 
         #expect(viewModel.messageBus.currentMessage?.message ==
-            "\(Strings.shopDeletedError) [NATI-2001] \(message) [Status: \(httpResponseCode)]")
+            "\(Strings.shopDeletedError) [NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isDeleting)
         #expect(viewModel.isBusy)
         #expect(sessionController.userState == .notLoggedIn)
