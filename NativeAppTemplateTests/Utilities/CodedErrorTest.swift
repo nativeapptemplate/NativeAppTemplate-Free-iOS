@@ -10,20 +10,20 @@ import Testing
 @Suite
 struct CodedErrorTest {
     struct TestCodedError: CodedError {
-        var errorCode: String { "NATI-9999" }
+        var errorCode: String { "NATIVEAPPTEMPLATE-9999" }
         var errorDescription: String? { "Test error description" }
     }
 
     @Test
     func formattedDescription() {
         let error = TestCodedError()
-        #expect(error.formattedDescription == "[NATI-9999] Test error description")
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-9999] Test error description")
     }
 
     @Test
     func codedDescriptionWithCodedError() {
         let error: Error = TestCodedError()
-        #expect(error.codedDescription == "[NATI-9999] Test error description")
+        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-9999] Test error description")
     }
 
     @Test
@@ -37,13 +37,13 @@ struct CodedErrorTest {
     }
 
     struct NilDescriptionError: CodedError {
-        var errorCode: String { "NATI-0000" }
+        var errorCode: String { "NATIVEAPPTEMPLATE-0000" }
         var errorDescription: String? { nil }
     }
 
     @Test
     func formattedDescriptionWithNilErrorDescription() {
         let error = NilDescriptionError()
-        #expect(error.formattedDescription == "[NATI-0000] Unknown error")
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-0000] Unknown error")
     }
 }

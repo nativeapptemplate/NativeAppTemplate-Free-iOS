@@ -11,7 +11,7 @@ struct AppErrorTest {
     @Test
     func unexpectedErrorCode() {
         let error = AppError.unexpected(description: "Something broke")
-        #expect(error.errorCode == "NATI-1001")
+        #expect(error.errorCode == "NATIVEAPPTEMPLATE-1001")
     }
 
     @Test
@@ -23,7 +23,7 @@ struct AppErrorTest {
     @Test
     func unexpectedFormattedDescription() {
         let error = AppError.unexpected(description: "Something broke")
-        #expect(error.formattedDescription == "[NATI-1001] An unexpected error occurred. Something broke")
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-1001] An unexpected error occurred. Something broke")
     }
 
     @Test
@@ -34,7 +34,7 @@ struct AppErrorTest {
             line: 42,
             function: "testFunc()"
         )
-        #expect(error.debugDescription.contains("NATI-1001"))
+        #expect(error.debugDescription.contains("NATIVEAPPTEMPLATE-1001"))
         #expect(error.debugDescription.contains("Something broke"))
         #expect(error.debugDescription.contains("TestFile.swift"))
         #expect(error.debugDescription.contains("42"))
@@ -44,6 +44,6 @@ struct AppErrorTest {
     @Test
     func codedDescriptionViaErrorExtension() {
         let error: Error = AppError.unexpected(description: "Test")
-        #expect(error.codedDescription == "[NATI-1001] An unexpected error occurred. Test")
+        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-1001] An unexpected error occurred. Test")
     }
 }

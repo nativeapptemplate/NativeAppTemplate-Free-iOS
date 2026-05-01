@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Pagination support for item tags list
-- CodedError system with `NATI-XXXX` prefixed error codes
+- CodedError system with `NATIVEAPPTEMPLATE-XXXX` prefixed error codes
 - App version display in settings
 - Design system constants (spacing, animation, glass, layout, corner radius)
 - GlassButtonStyle and GlassCard components with glassmorphism styling
