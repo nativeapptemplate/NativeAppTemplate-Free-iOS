@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.1] - 2026-05-02
+
+### Changed
+- Clarify Shop list card tag labels as "completed item tags" / "all item tags"
+
 ## [3.2.0] - 2026-05-02
 
 ### Removed
