@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Renamed error code prefix `NATI-` to `NATIVEAPPTEMPLATE-` and env var prefix `NATEMPLATE_API_` to `NATIVEAPPTEMPLATE_API_` so the substrate-rename pipeline reaches every product-name occurrence
+
 ## [3.1.1] - 2026-04-06
 
 ### Changed
