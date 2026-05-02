@@ -3,12 +3,12 @@
 //  NativeAppTemplate
 //
 
-import CoreNFC
-import Photos
 import SwiftUI
 
 struct ItemTagDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(DataManager.self) private var dataManager
+    @Environment(MessageBus.self) private var messageBus
     @State private var viewModel: ItemTagDetailViewModel
 
     init(viewModel: ItemTagDetailViewModel) {
@@ -31,93 +31,25 @@ struct ItemTagDetailView: View {
 // MARK: - private
 
 private extension ItemTagDetailView {
-    var contentView: some View {
-        @ViewBuilder var contentView: some View {
-            if viewModel.isBusy {
-                LoadingView()
-            } else {
-                itemTagDetailView
-            }
+    @ViewBuilder var contentView: some View {
+        if viewModel.isBusy, viewModel.itemTag == nil {
+            LoadingView()
+        } else if let itemTag = viewModel.itemTag {
+            itemTagDetailView(itemTag: itemTag)
         }
-
-        return contentView
     }
 
-    private var itemTagDetailView: some View {
+    func itemTagDetailView(itemTag: ItemTag) -> some View {
         ScrollView {
-            VStack(alignment: .center) {
-                VStack(alignment: .center, spacing: 0) {
-                    Text(verbatim: "Write Info to Tag / Save Customer QR code")
-                        .font(.title2)
-                        .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
+            VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.md) {
+                headerRow(itemTag: itemTag)
+                descriptionSection(itemTag: itemTag)
+                completedAtRow(itemTag: itemTag)
+                stateToggleButton(itemTag: itemTag)
 
-                    Text(viewModel.shop.name)
-                        .font(.title3)
-                        .padding(.top, NativeAppTemplateConstants.Spacing.sm)
-
-                    if let itemTag = viewModel.itemTag {
-                        Text(String(itemTag.queueNumber))
-                            .font(.largeTitle)
-                            .bold()
-                            .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
-                            .foregroundStyle(.lightestAccent)
-                    }
-                }
-
-                GroupBox(label: Label(String("Lock"), systemImage: "lock")) {
-                    Toggle(isOn: $viewModel.isLocked) {
-                        Text(verbatim: "Lock")
-                            .lineLimit(1)
-                    }
-                    .toggleStyle(.button)
-                    .dynamicTypeSize(...DynamicTypeSize.large)
-                    .tint(.lockForeground)
-
-                    if viewModel.isLocked {
-                        Text(String.youCannotUndoAfterLockingTag)
-                            .font(.uiFootnote)
-                            .foregroundStyle(.alarm)
-                    }
-                }
-                .foregroundStyle(.lockForeground)
-                .backgroundStyle(.ultraThinMaterial)
-
-                GroupBox(label: Label(String("Server"), systemImage: "storefront")) {
-                    MainButtonView(title: String.writeServerTag, type: .server(withArrow: false)) {
-                        viewModel.writeServerTag()
-                    }
-                    .padding()
-                }
-                .foregroundStyle(.serverForeground)
-                .backgroundStyle(.ultraThinMaterial)
-
-                GroupBox(label: Label(String("Customer"), systemImage: "person.2")) {
-                    MainButtonView(title: String.writeCustomerTag, type: .customer(withArrow: false)) {
-                        viewModel.writeCustomerTag()
-                    }
-                    .padding()
-
-                    if let customerTagQrCodeImage = viewModel.customerTagQrCodeImage {
-                        Image(uiImage: customerTagQrCodeImage)
-                            .resizable()
-                            .frame(
-                                width: NativeAppTemplateConstants.Spacing.xxxl,
-                                height: NativeAppTemplateConstants.Spacing.xxxl
-                            )
-
-                        Button {
-                            viewModel.saveImageToPhotoAlbum()
-                        } label: {
-                            Text(String.saveToPhotoAlbum)
-                        }
-                    } else {
-                        generateCustomerQrCodeView
-                    }
-                }
-                .padding(.top, NativeAppTemplateConstants.Spacing.md)
-                .foregroundStyle(.customerForeground)
-                .backgroundStyle(.ultraThinMaterial)
+                Spacer()
             }
+            .padding()
         }
         .sheet(
             isPresented: $viewModel.isShowingEditSheet,
@@ -127,51 +59,108 @@ private extension ItemTagDetailView {
             content: {
                 ItemTagEditView(
                     viewModel: ItemTagEditViewModel(
-                        itemTagRepository: viewModel.itemTagRepository,
-                        messageBus: viewModel.messageBus,
-                        sessionController: viewModel.sessionController,
+                        itemTagRepository: dataManager.itemTagRepository,
+                        messageBus: messageBus,
                         itemTagId: viewModel.itemTagId
                     )
                 )
             }
         )
         .alert(
-            String.buttonDeleteTag,
+            Strings.buttonDeleteItemTag,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {
-            Button(String.buttonDeleteTag, role: .destructive) {
+            Button(Strings.buttonDeleteItemTag, role: .destructive) {
                 viewModel.destroyItemTag()
             }
-            Button(String.cancel, role: .cancel) {
+            Button(Strings.cancel, role: .cancel) {
                 viewModel.isShowingDeleteConfirmationDialog = false
             }
         } message: {
-            Text(String.areYouSure)
+            Text(Strings.areYouSure)
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.isShowingEditSheet.toggle()
-                } label: {
-                    Text(String.edit)
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.isShowingDeleteConfirmationDialog.toggle()
-                } label: {
-                    Image(systemName: "trash")
-                }
+        .toolbar { toolbarContent }
+    }
+
+    func headerRow(itemTag: ItemTag) -> some View {
+        HStack {
+            Text(itemTag.name)
+                .font(.largeTitle)
+                .bold()
+
+            Spacer()
+
+            if itemTag.state == .completed {
+                CompletedTag()
+            } else {
+                IdlingTag()
             }
         }
     }
 
-    private var generateCustomerQrCodeView: some View {
-        VStack {
+    @ViewBuilder
+    func descriptionSection(itemTag: ItemTag) -> some View {
+        if !itemTag.description.isEmpty {
+            VStack(alignment: .leading, spacing: NativeAppTemplateConstants.Spacing.xxs) {
+                Text(Strings.descriptionLabel)
+                    .font(.uiTitle4)
+                    .foregroundStyle(.titleText)
+                Text(itemTag.description)
+                    .font(.body)
+                    .foregroundStyle(.contentText)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func completedAtRow(itemTag: ItemTag) -> some View {
+        if let completedAt = itemTag.completedAt, itemTag.state == .completed {
+            HStack {
+                Text(Strings.completedAtLabel)
+                    .font(.uiFootnote)
+                    .foregroundStyle(.contentText)
+                Text(completedAt.cardDateTimeString)
+                    .font(.uiFootnote)
+                    .foregroundStyle(.contentText)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func stateToggleButton(itemTag: ItemTag) -> some View {
+        if itemTag.state == .idled {
+            MainButtonView(
+                title: Strings.markAsCompleted,
+                type: .primary(withArrow: false)
+            ) {
+                viewModel.completeItemTag()
+            }
+            .disabled(viewModel.isToggling)
+        } else {
+            MainButtonView(
+                title: Strings.markAsIdled,
+                type: .secondary(withArrow: false)
+            ) {
+                viewModel.idleItemTag()
+            }
+            .disabled(viewModel.isToggling)
+        }
+    }
+
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                viewModel.generateCustomerQrCode()
+                viewModel.isShowingEditSheet.toggle()
             } label: {
-                Text(String.generateCustomerQrCode)
+                Text(Strings.edit)
+            }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                viewModel.isShowingDeleteConfirmationDialog.toggle()
+            } label: {
+                Image(systemName: "trash")
             }
         }
     }

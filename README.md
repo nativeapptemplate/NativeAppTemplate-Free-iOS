@@ -35,12 +35,10 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - Email Confirmation
 - Forgot Password
 - CRUD Operations for Shops (Create/Read/Update/Delete)
-- CRUD Operations for Shops' Nested Resource, Number Tags (ItemTags) (Create/Read/Update/Delete)
+- CRUD Operations for Shops' Nested Resource, Item Tags (Create/Read/Update/Delete)
 - Force App Version Update
 - Force Privacy Policy Version Update
 - Force Terms of Use Version Update
-- Generate QR Code Image for Number Tags (ItemTags) with a Centered Number
-- NFC features for Number Tags (ItemTags): Write Application Info to a Tag, Read a Tag, Background Tag Reading
 - And more!
 
 ## NFC Tag Operations
@@ -144,12 +142,12 @@ To run this app successfully, ensure you have:
 To connect to a local API server, set these env vars on the Xcode scheme (Edit Scheme → Run → Arguments → Environment Variables):
 
 ```
-NATEMPLATE_API_SCHEME = http
-NATEMPLATE_API_DOMAIN = <your-lan-ip>
-NATEMPLATE_API_PORT   = 3000
+NATIVEAPPTEMPLATE_API_SCHEME = http
+NATIVEAPPTEMPLATE_API_DOMAIN = <your-lan-ip>
+NATIVEAPPTEMPLATE_API_PORT   = 3000
 ```
 
-> **Note:** Never use `127.0.0.1`, `localhost`, or `0.0.0.0` for `NATEMPLATE_API_DOMAIN` — those resolve to the iOS Simulator/device itself, not your Mac. Use your Mac's LAN IP (e.g., `192.168.1.6`) so the simulator or a physical device can reach the API server.
+> **Note:** Never use `127.0.0.1`, `localhost`, or `0.0.0.0` for `NATIVEAPPTEMPLATE_API_DOMAIN` — those resolve to the iOS Simulator/device itself, not your Mac. Use your Mac's LAN IP (e.g., `192.168.1.6`) so the simulator or a physical device can reach the API server.
 
 Keep the scheme in `xcuserdata` (per-developer, gitignored), not `xcshareddata`. In Xcode, open **Product → Scheme → Manage Schemes…**, find `NativeAppTemplate`, and **uncheck "Shared"**. This moves the scheme (with your local env vars) to `xcuserdata/<user>.xcuserdatad/xcschemes/` so your API settings are not committed. If Xcode staged a deletion of the previously shared scheme, restore it with:
 
@@ -158,6 +156,8 @@ git restore --source=HEAD --staged --worktree NativeAppTemplate.xcodeproj/xcshar
 ```
 
 Debug builds read these at launch via `ProcessInfo.processInfo.environment` in `Constants.swift`; when unset, they fall back to the production defaults (`https://api.nativeapptemplate.com`). Release builds always use the production defaults.
+
+In practice, only Xcode injects these env vars (via the scheme), so a Debug build launched any other way — tapped from the Home Screen (SpringBoard), opened on a physical device after Xcode disconnects, etc. — sees them unset and falls through to the production defaults. The hardcoded fallbacks are what keep the app working without Xcode in the loop.
 
 ## SwiftLint
 

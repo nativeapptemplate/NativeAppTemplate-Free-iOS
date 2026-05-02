@@ -27,8 +27,36 @@ struct ShopCreateViewModelTest {
         #expect(viewModel.isCreating == false)
     }
 
-    @Test("Has invalid data", arguments: ["", "Shop Name 1"])
-    func hasInvalidData(name: String) {
+    @Test
+    func maximumNameLength() {
+        let viewModel = ShopCreateViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus
+        )
+
+        #expect(viewModel.maximumNameLength == 100)
+    }
+
+    @Test
+    func maximumDescriptionLength() {
+        let viewModel = ShopCreateViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus
+        )
+
+        #expect(viewModel.maximumDescriptionLength == 1_000)
+    }
+
+    @Test("Name validation", arguments: [
+        ("", true),                                  // blank → invalid
+        ("a", false),                                // 1 char → valid
+        ("Shop Name 1", false),                      // normal → valid
+        (String(repeating: "a", count: 100), false), // exactly 100 → valid
+        (String(repeating: "a", count: 101), true)   // 101 → invalid
+    ])
+    func nameValidation(name: String, shouldBeInvalid: Bool) {
         let viewModel = ShopCreateViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
@@ -36,7 +64,54 @@ struct ShopCreateViewModelTest {
         )
 
         viewModel.name = name
-        #expect(viewModel.hasInvalidData == (name == "" ? true : false))
+
+        #expect(viewModel.hasInvalidDataName == shouldBeInvalid)
+    }
+
+    @Test("Description validation", arguments: [
+        ("", false),                                  // empty → valid
+        ("Short note.", false),                       // short → valid
+        (String(repeating: "x", count: 1000), false), // exactly 1000 → valid
+        (String(repeating: "x", count: 1001), true)   // 1001 → invalid
+    ])
+    func descriptionValidation(description: String, shouldBeInvalid: Bool) {
+        let viewModel = ShopCreateViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus
+        )
+
+        viewModel.description = description
+
+        #expect(viewModel.hasInvalidDataDescription == shouldBeInvalid)
+    }
+
+    @Test
+    func validateNameLengthTruncatesCorrectly() {
+        let viewModel = ShopCreateViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus
+        )
+
+        viewModel.name = String(repeating: "a", count: 100) + "EXTRA"
+        viewModel.validateNameLength()
+
+        #expect(viewModel.name == String(repeating: "a", count: 100))
+    }
+
+    @Test
+    func validateDescriptionLengthTruncatesCorrectly() {
+        let viewModel = ShopCreateViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus
+        )
+
+        viewModel.description = String(repeating: "x", count: 1500)
+        viewModel.validateDescriptionLength()
+
+        #expect(viewModel.description.count == 1_000)
     }
 
     @Test
@@ -65,7 +140,7 @@ struct ShopCreateViewModelTest {
 
         let latestShop = try #require(shopRepository.shops.last)
 
-        let message = String.shopCreated
+        let message = Strings.shopCreated
 
         #expect(viewModel.messageBus.currentMessage?.message == message)
         #expect(viewModel.isCreating)
@@ -105,7 +180,7 @@ struct ShopCreateViewModelTest {
         }
         await createShopTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isCreating)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss)
@@ -140,7 +215,7 @@ struct ShopCreateViewModelTest {
         }
         await createShopTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isCreating)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss == false)

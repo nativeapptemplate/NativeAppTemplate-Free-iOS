@@ -234,7 +234,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .reconfirmDescription)
+        #expect(messageBus.currentMessage?.message == Strings.reconfirmDescription)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         #expect(sessionController.userState == .notLoggedIn) // Should be logged out
     }
@@ -260,7 +260,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
 
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .shopkeeperUpdated)
+        #expect(messageBus.currentMessage?.message == Strings.shopkeeperUpdated)
         #expect(sessionController.userState == .loggedIn) // Should remain logged in
     }
 
@@ -318,7 +318,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
     @Test
     func destroyShopkeeperSuccess() async {
         sessionController.shopkeeper = testShopkeeper
-        tabViewModel.selectedTab = .scan
+        tabViewModel.selectedTab = .settings
 
         let viewModel = ShopkeeperEditViewModel(
             signUpRepository: signUpRepository,
@@ -338,7 +338,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(tabViewModel.selectedTab == .shops)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .shopkeeperDeleted)
+        #expect(messageBus.currentMessage?.message == Strings.shopkeeperDeleted)
         #expect(sessionController.shopkeeper == nil)
     }
 

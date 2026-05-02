@@ -47,7 +47,7 @@ private extension ShopSettingsView {
         return contentView
     }
 
-    func shopSettingsView(shop: Shop) -> some View { // swiftlint:disable:this function_body_length
+    func shopSettingsView(shop: Shop) -> some View {
         VStack {
             Text(shop.name)
                 .font(.uiTitle1)
@@ -66,7 +66,7 @@ private extension ShopSettingsView {
                             )
                         )
                     } label: {
-                        Label(String.shopSettingsBasicSettingsLabel, systemImage: "storefront")
+                        Label(Strings.shopSettingsBasicSettingsLabel, systemImage: "storefront")
                     }
                     .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
@@ -82,39 +82,13 @@ private extension ShopSettingsView {
                             )
                         )
                     } label: {
-                        Label(String.shopSettingsManageItemTagsLabel, systemImage: "rectangle.stack")
+                        Label(Strings.shopSettingsManageItemTagsLabel, systemImage: "rectangle.stack")
                     }
                     .listRowBackground(Color.cardBackground.opacity(0.7))
                 }
 
                 Section {
-                    NavigationLink {
-                        NumberTagsWebpageListView(
-                            viewModel: NumberTagsWebpageListViewModel(
-                                shop: shop,
-                                messageBus: messageBus
-                            )
-                        )
-                    } label: {
-                        Label(String.shopSettingsNumberTagsWebpageLabel, systemImage: "globe")
-                    }
-                }
-                .listRowBackground(Color.cardBackground.opacity(0.7))
-
-                Section {
-                    VStack(spacing: NativeAppTemplateConstants.Spacing.xxs) {
-                        MainButtonView(title: String.resetNumberTags, type: .destructive(withArrow: false)) {
-                            viewModel.isShowingResetConfirmationDialog = true
-                        }
-                        .listRowBackground(Color.clear)
-                        Text(String.resetNumberTagsDescription)
-                            .font(.uiFootnote)
-                            .foregroundStyle(.contentText)
-                            .listRowBackground(Color.clear)
-                    }
-                    .listRowBackground(Color.clear)
-
-                    MainButtonView(title: String.deleteShop, type: .destructive(withArrow: false)) {
+                    MainButtonView(title: Strings.deleteShop, type: .destructive(withArrow: false)) {
                         viewModel.isShowingDeleteConfirmationDialog = true
                     }
                     .listRowBackground(Color.clear)
@@ -127,32 +101,19 @@ private extension ShopSettingsView {
                 reload()
             }
         }
-        .navigationTitle(String.shopSettingsLabel)
+        .navigationTitle(Strings.shopSettingsLabel)
         .alert(
-            String.resetNumberTags,
-            isPresented: $viewModel.isShowingResetConfirmationDialog
-        ) {
-            Button(String.resetNumberTags, role: .destructive) {
-                viewModel.resetShop()
-            }
-            Button(String.cancel, role: .cancel) {
-                viewModel.isShowingResetConfirmationDialog = false
-            }
-        } message: {
-            Text(String.areYouSure)
-        }
-        .alert(
-            String.deleteShop,
+            Strings.deleteShop,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {
-            Button(String.deleteShop, role: .destructive) {
+            Button(Strings.deleteShop, role: .destructive) {
                 viewModel.destroyShop()
             }
-            Button(String.cancel, role: .cancel) {
+            Button(Strings.cancel, role: .cancel) {
                 viewModel.isShowingDeleteConfirmationDialog = false
             }
         } message: {
-            Text(String.areYouSure)
+            Text(Strings.areYouSure)
         }
     }
 

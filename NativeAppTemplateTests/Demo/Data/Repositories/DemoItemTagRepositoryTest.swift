@@ -17,7 +17,7 @@ struct DemoItemTagRepositoryTest {
             repository.reload(shopId: "1")
 
             let itemTags = repository.findBy(id: "1")
-            #expect(itemTags.queueNumber == "A001")
+            #expect(itemTags.name == "A001")
         }
 
         @Test
@@ -40,7 +40,7 @@ struct DemoItemTagRepositoryTest {
             repository.reload(shopId: "1")
 
             let itemTag = try await repository.fetchDetail(id: "1")
-            #expect(itemTag.queueNumber == "A001")
+            #expect(itemTag.name == "A001")
         }
 
         @Test
@@ -48,21 +48,20 @@ struct DemoItemTagRepositoryTest {
             let shopId = "1"
             repository.reload(shopId: shopId)
 
-            let newQueueNumber = "A099"
+            let newName = "A099"
             let newItemTag = ItemTag(
                 shopId: shopId,
-                queueNumber: newQueueNumber,
+                name: newName,
+                description: "",
+                position: 1,
                 state: .idled,
-                scanState: .unscanned,
                 createdAt: .now,
-                customerReadAt: nil,
                 completedAt: nil,
-                shopName: "Mock ItemTag",
-                alreadyCompleted: false
+                shopName: "Mock ItemTag"
             )
 
             let createdItemTag = try await repository.create(shopId: shopId, itemTag: newItemTag)
-            #expect(createdItemTag.queueNumber == newQueueNumber)
+            #expect(createdItemTag.name == newName)
             #expect(repository.itemTags.count == 4)
         }
 
@@ -71,10 +70,10 @@ struct DemoItemTagRepositoryTest {
             repository.reload(shopId: "1")
 
             var itemTag = repository.findBy(id: "1")
-            let newQueueNumber = "B001"
-            itemTag.queueNumber = newQueueNumber
+            let newName = "B001"
+            itemTag.name = newName
             let updatedItemTag = try await repository.update(id: "1", itemTag: itemTag)
-            #expect(updatedItemTag.queueNumber == newQueueNumber)
+            #expect(updatedItemTag.name == newName)
         }
 
         @Test
@@ -99,21 +98,17 @@ struct DemoItemTagRepositoryTest {
         }
 
         @Test
-        func reset() async throws {
+        func idle() async throws {
             repository.reload(shopId: "1")
 
             var itemTag = repository.findBy(id: "1")
             itemTag.state = .completed
-            itemTag.scanState = .scanned
             itemTag.completedAt = .now
-            itemTag.customerReadAt = .now
             _ = try await repository.update(id: "1", itemTag: itemTag)
 
-            let resetItemTag = try await repository.reset(id: "1")
-            #expect(resetItemTag.state == .idled)
-            #expect(resetItemTag.scanState == .unscanned)
-            #expect(resetItemTag.completedAt == nil)
-            #expect(resetItemTag.customerReadAt == nil)
+            let idledItemTag = try await repository.idle(id: "1")
+            #expect(idledItemTag.state == .idled)
+            #expect(idledItemTag.completedAt == nil)
         }
     }
 }

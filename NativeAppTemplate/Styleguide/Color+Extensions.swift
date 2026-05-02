@@ -141,18 +141,6 @@ extension Color {
     static let idlingTagBorder = coolGrey10 // #F5F7FA
     static let idlingTagForeground = coolGrey2 // #323F4B
 
-    // MARK: Tags - Preparing
-
-    static let preparingTagBackground = yellow9 // #FFF3C4
-    static let preparingTagBorder = yellow1 // #8D2B0B
-    static let preparingTagForeground = yellow1 // #8D2B0B
-
-    // MARK: Tags - Customer Scanned
-
-    static let customerScannedTagBackground = red9 // #FFBDBD
-    static let customerScannedTagBorder = coolGrey10 // #F5F7FA
-    static let customerScannedTagForeground = red1 // #610316
-
     // MARK: Tags - Completed
 
     static let completedTagBackground = green9 // #C1F2C7
@@ -184,10 +172,6 @@ extension Color {
 
     static let validationError = red5 // #E12D39
 
-    // MARK: Calendar
-
-    static let todayIndicator = red5 // #E12D39
-
     // MARK: Glass
 
     static let glassBorder = coolGrey10 // #F5F7FA
@@ -197,10 +181,6 @@ extension Color {
     // MARK: Button Arrow
 
     static let arrowBackground = coolGrey10 // #F5F7FA
-
-    // MARK: Tag Webpage Preview
-
-    static let tagWebpagePreviewBackground = coolGrey1 // #1F2933
 
     // MARK: Accent
 
@@ -339,30 +319,6 @@ extension ShapeStyle where Self == Color {
         Color.idlingTagForeground
     }
 
-    static var preparingTagBackground: Color {
-        Color.preparingTagBackground
-    }
-
-    static var preparingTagBorder: Color {
-        Color.preparingTagBorder
-    }
-
-    static var preparingTagForeground: Color {
-        Color.preparingTagForeground
-    }
-
-    static var customerScannedTagBackground: Color {
-        Color.customerScannedTagBackground
-    }
-
-    static var customerScannedTagBorder: Color {
-        Color.customerScannedTagBorder
-    }
-
-    static var customerScannedTagForeground: Color {
-        Color.customerScannedTagForeground
-    }
-
     static var completedTagBackground: Color {
         Color.completedTagBackground
     }
@@ -429,11 +385,6 @@ extension ShapeStyle where Self == Color {
         Color.validationError
     }
 
-    /// Calendar
-    static var todayIndicator: Color {
-        Color.todayIndicator
-    }
-
     /// Glass
     static var glassBorder: Color {
         Color.glassBorder
@@ -450,11 +401,6 @@ extension ShapeStyle where Self == Color {
     /// Button Arrow
     static var arrowBackground: Color {
         Color.arrowBackground
-    }
-
-    /// Tag Webpage Preview
-    static var tagWebpagePreviewBackground: Color {
-        Color.tagWebpagePreviewBackground
     }
 
     /// Accent

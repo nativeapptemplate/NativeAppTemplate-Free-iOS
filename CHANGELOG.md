@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-05-02
+
+### Removed
+- NFC, QR code, and Scan functionality (Phase 2A-2)
+- `tagsScanned` count and `howToUse` fields from ItemTag
+- `maximum_name_length` from server permissions; moved to client `Constants`
+- Onboarding reload ceremony
+- Dead code: `ImageSaver`, `composited()`, unused colors and fonts, dead `Date` helper
+
+### Changed
+- Renamed "Number Tag" to "Item Tag" across labels and identifiers
+- Ported ItemTag schema and generic CRUD UI from paid iOS (Phase 2A-1, 2A-3)
+- Display `completedAt` as `yyyy/MM/dd HH:mm` regardless of locale
+- Added client-side length caps and truncation for Shop name/description
+- Wrapped String constants in `enum Strings` namespace
+- Slimmed onboarding to 4 slides; introduced `ImageOrientation` enum
+- Tightened ItemTag labels and silenced success toasts on complete/idle
+- Read API endpoint from env vars in Debug builds
+- Renamed error code prefix `NATI-` to `NATIVEAPPTEMPLATE-` and env var prefix `NATEMPLATE_API_` to `NATIVEAPPTEMPLATE_API_`
+- Swiftier String predicates; replaced custom helpers with stdlib equivalents
+
+### Added
+- Unit tests for previously untested Models and `Date` extension
+- `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md`
+
+### Fixed
+- Onboarding flow and asset cleanup
+- README: dropped stale NFC/QR feature lines and updated env var references
+
 ## [3.1.1] - 2026-04-06
 
 ### Changed
@@ -17,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Pagination support for item tags list
-- CodedError system with `NATI-XXXX` prefixed error codes
+- CodedError system with `NATIVEAPPTEMPLATE-XXXX` prefixed error codes
 - App version display in settings
 - Design system constants (spacing, animation, glass, layout, corner radius)
 - GlassButtonStyle and GlassCard components with glassmorphism styling

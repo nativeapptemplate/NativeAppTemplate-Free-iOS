@@ -139,7 +139,7 @@ struct PasswordEditViewModelTest {
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .passwordUpdated)
+        #expect(messageBus.currentMessage?.message == Strings.passwordUpdated)
     }
 
     @Test

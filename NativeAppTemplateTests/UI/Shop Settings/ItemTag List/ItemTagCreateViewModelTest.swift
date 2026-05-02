@@ -10,7 +10,6 @@ import Testing
 @MainActor
 @Suite
 struct ItemTagCreateViewModelTest {
-    let sessionController = TestSessionController()
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
     )
@@ -22,74 +21,106 @@ struct ItemTagCreateViewModelTest {
         let viewModel = ItemTagCreateViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shopId: shopId
         )
 
-        #expect(viewModel.queueNumber == "")
+        #expect(viewModel.name == "")
+        #expect(viewModel.description == "")
         #expect(viewModel.isCreating == false)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.isBusy == false)
     }
 
     @Test
-    func maximumQueueNumberLength() {
-        sessionController.maximumQueueNumberLength = 5
+    func maximumNameLength() {
 
         let viewModel = ItemTagCreateViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shopId: shopId
         )
 
-        #expect(viewModel.maximumQueueNumberLength == 5)
-    }
-
-    @Test("Queue number validation - invalid cases", arguments: [
-        ("", true), // blank
-        ("a", true), // too short
-        ("ab", false), // minimum valid
-        ("abc", false), // valid
-        ("abcd", false), // valid
-        ("abcde", false), // maximum valid (assuming max length 5)
-        ("abcdef", true), // too long (will be truncated but still invalid in this test)
-        ("ab!", true), // non-alphanumeric
-        ("a b", true), // contains space
-        ("12", false), // numbers are valid
-        ("a1", false) // alphanumeric is valid
-    ])
-    func queueNumberValidation(queueNumber: String, shouldBeInvalid: Bool) {
-        sessionController.maximumQueueNumberLength = 5
-
-        let viewModel = ItemTagCreateViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            shopId: shopId
-        )
-
-        viewModel.queueNumber = queueNumber
-
-        #expect(viewModel.hasInvalidDataQueueNumber == shouldBeInvalid)
-        #expect(viewModel.hasInvalidData == shouldBeInvalid)
+        #expect(viewModel.maximumNameLength == 100)
     }
 
     @Test
-    func validateQueueNumberLengthTruncatesCorrectly() {
-        sessionController.maximumQueueNumberLength = 4
+    func maximumDescriptionLength() {
+        let viewModel = ItemTagCreateViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        #expect(viewModel.maximumDescriptionLength == 1000)
+    }
+
+    @Test("Name validation", arguments: [
+        ("", true),                          // blank → invalid
+        ("a", false),                        // 1 char → valid (was invalid pre-2A-3)
+        ("ab", false),                       // 2 chars → valid
+        ("Buy milk 🥛", false),              // unicode + spaces → valid (was invalid pre-2A-3)
+        ("Item with !@#$%^&* symbols", false), // symbols → valid (was invalid pre-2A-3)
+        (String(repeating: "a", count: 100), false), // exactly 100 → valid
+        (String(repeating: "a", count: 101), true)   // 101 → invalid
+    ])
+    func nameValidation(name: String, shouldBeInvalid: Bool) {
 
         let viewModel = ItemTagCreateViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shopId: shopId
         )
 
-        viewModel.queueNumber = "abcdefgh"
-        viewModel.validateQueueNumberLength()
+        viewModel.name = name
 
-        #expect(viewModel.queueNumber == "abcd")
+        #expect(viewModel.hasInvalidDataName == shouldBeInvalid)
+    }
+
+    @Test("Description validation", arguments: [
+        ("", false),                                    // empty → valid
+        ("Short note.", false),                         // short → valid
+        (String(repeating: "x", count: 1000), false),   // exactly 1000 → valid
+        (String(repeating: "x", count: 1001), true)     // 1001 → invalid
+    ])
+    func descriptionValidation(description: String, shouldBeInvalid: Bool) {
+        let viewModel = ItemTagCreateViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        viewModel.description = description
+
+        #expect(viewModel.hasInvalidDataDescription == shouldBeInvalid)
+    }
+
+    @Test
+    func validateNameLengthTruncatesCorrectly() {
+
+        let viewModel = ItemTagCreateViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        viewModel.name = String(repeating: "a", count: 100) + "EXTRA"
+        viewModel.validateNameLength()
+
+        #expect(viewModel.name == String(repeating: "a", count: 100))
+    }
+
+    @Test
+    func validateDescriptionLengthTruncatesCorrectly() {
+        let viewModel = ItemTagCreateViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        viewModel.description = String(repeating: "x", count: 1500)
+        viewModel.validateDescriptionLength()
+
+        #expect(viewModel.description.count == 1000)
     }
 
     @Test
@@ -97,11 +128,11 @@ struct ItemTagCreateViewModelTest {
         let viewModel = ItemTagCreateViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shopId: shopId
         )
 
-        viewModel.queueNumber = "ABC1"
+        viewModel.name = "Buy milk"
+        viewModel.description = "From the corner store."
 
         let createTask = Task {
             viewModel.createItemTag()
@@ -111,9 +142,10 @@ struct ItemTagCreateViewModelTest {
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagCreated)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagCreated)
         #expect(itemTagRepository.itemTags.count == 1)
-        #expect(itemTagRepository.itemTags.first?.queueNumber == "ABC1")
+        #expect(itemTagRepository.itemTags.first?.name == "Buy milk")
+        #expect(itemTagRepository.itemTags.first?.description == "From the corner store.")
     }
 
     @Test
@@ -125,11 +157,10 @@ struct ItemTagCreateViewModelTest {
         let viewModel = ItemTagCreateViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shopId: shopId
         )
 
-        viewModel.queueNumber = "ABC1"
+        viewModel.name = "Buy milk"
 
         let createTask = Task {
             viewModel.createItemTag()
@@ -148,44 +179,17 @@ struct ItemTagCreateViewModelTest {
         let viewModel = ItemTagCreateViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shopId: shopId
         )
 
-        viewModel.queueNumber = "ABC1"
+        viewModel.name = "Buy milk"
 
         let createTask = Task {
             viewModel.createItemTag()
         }
 
-        // Check busy state immediately after starting
         #expect(viewModel.isBusy == viewModel.isCreating)
 
         await createTask.value
-    }
-
-    @Test("Form validation with different maximum lengths", arguments: [2, 4, 6, 8])
-    func formValidationWithDifferentMaxLengths(maxLength: Int) {
-        sessionController.maximumQueueNumberLength = maxLength
-
-        let viewModel = ItemTagCreateViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            shopId: shopId
-        )
-
-        // Test exactly at the limit
-        viewModel.queueNumber = String(repeating: "A", count: maxLength)
-        #expect(viewModel.hasInvalidData == false)
-
-        // Test one over the limit
-        viewModel.queueNumber = String(repeating: "A", count: maxLength + 1)
-        #expect(viewModel.hasInvalidData == true)
-
-        // Test truncation
-        viewModel.validateQueueNumberLength()
-        #expect(viewModel.queueNumber.count == maxLength)
-        #expect(viewModel.hasInvalidData == false)
     }
 }

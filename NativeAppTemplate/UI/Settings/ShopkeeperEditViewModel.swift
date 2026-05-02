@@ -45,7 +45,7 @@ final class ShopkeeperEditViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(name) {
+        if name.isBlank {
             return true
         }
 
@@ -63,11 +63,11 @@ final class ShopkeeperEditViewModel {
     }
 
     var hasInvalidDataEmail: Bool {
-        if Utility.isBlank(email) {
+        if email.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 
@@ -107,12 +107,12 @@ final class ShopkeeperEditViewModel {
                 if emailUpdated {
                     messageBus.post(message: Message(
                         level: .success,
-                        message: .reconfirmDescription,
+                        message: Strings.reconfirmDescription,
                         autoDismiss: false
                     ))
                     try await sessionController.logout()
                 } else {
-                    messageBus.post(message: Message(level: .success, message: .shopkeeperUpdated))
+                    messageBus.post(message: Message(level: .success, message: Strings.shopkeeperUpdated))
                 }
 
                 shouldDismiss = true
@@ -130,11 +130,11 @@ final class ShopkeeperEditViewModel {
 
             do {
                 try await signUpRepository.destroy(networkClient: sessionController.client)
-                messageBus.post(message: Message(level: .success, message: .shopkeeperDeleted))
+                messageBus.post(message: Message(level: .success, message: Strings.shopkeeperDeleted))
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.shopkeeperDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.shopkeeperDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
@@ -144,7 +144,7 @@ final class ShopkeeperEditViewModel {
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.shopkeeperDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.shopkeeperDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

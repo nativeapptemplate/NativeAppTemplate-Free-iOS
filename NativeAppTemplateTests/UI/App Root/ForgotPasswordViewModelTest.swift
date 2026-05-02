@@ -22,8 +22,8 @@ struct ForgotPasswordViewModelTest {
         let email = ""
 
         // Simulate the validation logic from the ViewModel
-        let isBlank = Utility.isBlank(email)
-        let isInvalid = !Utility.validateEmail(email)
+        let isBlank = email.isBlank
+        let isInvalid = !email.isValidEmail
         let hasInvalidData = isBlank || isInvalid
 
         #expect(hasInvalidData == true)
@@ -33,8 +33,8 @@ struct ForgotPasswordViewModelTest {
     func hasInvalidDataWithInvalidEmail() {
         let email = "invalid-email"
 
-        let isBlank = Utility.isBlank(email)
-        let isInvalid = !Utility.validateEmail(email)
+        let isBlank = email.isBlank
+        let isInvalid = !email.isValidEmail
         let hasInvalidData = isBlank || isInvalid
 
         #expect(hasInvalidData == true)
@@ -44,8 +44,8 @@ struct ForgotPasswordViewModelTest {
     func hasInvalidDataWithValidEmail() {
         let email = "valid@example.com"
 
-        let isBlank = Utility.isBlank(email)
-        let isInvalid = !Utility.validateEmail(email)
+        let isBlank = email.isBlank
+        let isInvalid = !email.isValidEmail
         let hasInvalidData = isBlank || isInvalid
 
         #expect(hasInvalidData == false)
@@ -54,35 +54,35 @@ struct ForgotPasswordViewModelTest {
     @Test
     func isEmailBlankValidation() {
         // Test blank email detection
-        #expect(Utility.isBlank("") == true)
-        #expect(Utility.isBlank("   ") == true)
-        #expect(Utility.isBlank("test@example.com") == false)
+        #expect("".isBlank == true)
+        #expect("   ".isBlank == true)
+        #expect("test@example.com".isBlank == false)
     }
 
     @Test
     func isEmailInvalidValidation() {
         // Test email format validation
-        #expect(Utility.validateEmail("") == false)
-        #expect(Utility.validateEmail("invalid") == false)
-        #expect(Utility.validateEmail("invalid@") == false)
-        #expect(Utility.validateEmail("@invalid.com") == false)
-        #expect(Utility.validateEmail("valid@example.com") == true)
-        #expect(Utility.validateEmail("user+tag@domain.org") == true)
+        #expect("".isValidEmail == false)
+        #expect("invalid".isValidEmail == false)
+        #expect("invalid@".isValidEmail == false)
+        #expect("@invalid.com".isValidEmail == false)
+        #expect("valid@example.com".isValidEmail == true)
+        #expect("user+tag@domain.org".isValidEmail == true)
     }
 
     @Test
     func emailValidationEdgeCases() {
         // Test various email formats
-        #expect(Utility.validateEmail("user.name@domain.com") == true)
-        #expect(Utility.validateEmail("user+tag@domain.co.uk") == true)
-        #expect(Utility.validateEmail("user@subdomain.domain.org") == true)
-        #expect(Utility.validateEmail("123@domain.com") == true)
+        #expect("user.name@domain.com".isValidEmail == true)
+        #expect("user+tag@domain.co.uk".isValidEmail == true)
+        #expect("user@subdomain.domain.org".isValidEmail == true)
+        #expect("123@domain.com".isValidEmail == true)
 
         // Invalid cases
-        #expect(Utility.validateEmail("user@") == false)
-        #expect(Utility.validateEmail("@domain.com") == false)
-        #expect(Utility.validateEmail("user.domain.com") == false)
-        #expect(Utility.validateEmail("user space@domain.com") == false)
+        #expect("user@".isValidEmail == false)
+        #expect("@domain.com".isValidEmail == false)
+        #expect("user.domain.com".isValidEmail == false)
+        #expect("user space@domain.com".isValidEmail == false)
     }
 
     @Test
@@ -104,7 +104,7 @@ struct ForgotPasswordViewModelTest {
     @Test
     func messageTypesForForgotPassword() {
         // Test the types of messages that would be posted
-        let successMessage = Message(level: .success, message: .sentResetPasswordInstruction)
+        let successMessage = Message(level: .success, message: Strings.sentResetPasswordInstruction)
         let errorMessage = Message(level: .error, message: "Email not found", autoDismiss: false)
 
         #expect(successMessage.level == .success)

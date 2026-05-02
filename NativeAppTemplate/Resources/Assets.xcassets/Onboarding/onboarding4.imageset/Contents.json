@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "overview6_phone_customer2~universal@1x.png",
+      "filename" : "onboarding4.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "overview6_phone_customer2~universal@2x.png",
+      "filename" : "onboarding4@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "overview6_phone_customer2~universal@3x.png",
+      "filename" : "onboarding4@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -42,32 +42,32 @@ private extension ShopkeeperEditView {
     var shopkeeperEditView: some View {
         Form {
             Section {
-                TextField(String.placeholderFullName, text: $viewModel.name)
+                TextField(Strings.placeholderFullName, text: $viewModel.name)
             } header: {
-                Text(String.fullName)
+                Text(Strings.fullName)
             } footer: {
-                Text(String.fullNameIsRequired)
-                    .foregroundStyle(Utility.isBlank(viewModel.name) ? .validationError : .clear)
+                Text(Strings.fullNameIsRequired)
+                    .foregroundStyle(viewModel.name.isBlank ? .validationError : .clear)
             }
 
             Section {
-                TextField(String.placeholderEmail, text: $viewModel.email)
+                TextField(Strings.placeholderEmail, text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
             } header: {
-                Text(String.email)
+                Text(Strings.email)
             } footer: {
-                if Utility.isBlank(viewModel.email) {
-                    Text(String.emailIsRequired)
+                if viewModel.email.isBlank {
+                    Text(Strings.emailIsRequired)
                         .foregroundStyle(.validationError)
                 } else if viewModel.hasInvalidDataEmail {
-                    Text(String.emailIsInvalid)
+                    Text(Strings.emailIsInvalid)
                         .foregroundStyle(.validationError)
                 }
             }
 
             Section {
-                Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
+                Picker(Strings.timeZone, selection: $viewModel.selectedTimeZone) {
                     ForEach(timeZones.keys, id: \.self) { key in
                         Text(timeZones[key]!).tag(key)
                     }
@@ -78,33 +78,33 @@ private extension ShopkeeperEditView {
                 .listRowBackground(Color.clear)
 
             Section {
-                MainButtonView(title: String.deleteMyAccount, type: .destructive(withArrow: false)) {
+                MainButtonView(title: Strings.deleteMyAccount, type: .destructive(withArrow: false)) {
                     viewModel.isShowingDeleteConfirmationDialog = true
                 }
                 .listRowBackground(Color.clear)
             }
         }
         .alert(
-            String.deleteMyAccount,
+            Strings.deleteMyAccount,
             isPresented: $viewModel.isShowingDeleteConfirmationDialog
         ) {
-            Button(String.deleteMyAccount, role: .destructive) {
+            Button(Strings.deleteMyAccount, role: .destructive) {
                 viewModel.destroyShopkeeper()
             }
 
-            Button(String.cancel, role: .cancel) {
+            Button(Strings.cancel, role: .cancel) {
                 viewModel.isShowingDeleteConfirmationDialog = false
             }
         } message: {
-            Text(String.areYouSure)
+            Text(Strings.areYouSure)
         }
-        .navigationTitle(String.editProfile)
+        .navigationTitle(Strings.editProfile)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     viewModel.updateShopkeeper()
                 } label: {
-                    Text(String.save)
+                    Text(Strings.save)
                 }
                 .disabled(viewModel.hasInvalidData)
             }

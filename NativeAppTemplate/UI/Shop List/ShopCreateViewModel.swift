@@ -31,7 +31,37 @@ final class ShopCreateViewModel {
     }
 
     var hasInvalidData: Bool {
-        Utility.isBlank(name)
+        hasInvalidDataName || hasInvalidDataDescription
+    }
+
+    var hasInvalidDataName: Bool {
+        if name.isBlank {
+            return true
+        }
+        if name.count > maximumNameLength {
+            return true
+        }
+        return false
+    }
+
+    var hasInvalidDataDescription: Bool {
+        description.count > maximumDescriptionLength
+    }
+
+    var maximumNameLength: Int {
+        NativeAppTemplateConstants.maximumShopNameLength
+    }
+
+    var maximumDescriptionLength: Int {
+        NativeAppTemplateConstants.maximumShopDescriptionLength
+    }
+
+    func validateNameLength() {
+        name = String(name.prefix(maximumNameLength))
+    }
+
+    func validateDescriptionLength() {
+        description = String(description.prefix(maximumDescriptionLength))
     }
 
     func createShop() {
@@ -46,7 +76,7 @@ final class ShopCreateViewModel {
                     timeZone: selectedTimeZone
                 )
                 _ = try await shopRepository.create(shop: shop)
-                messageBus.post(message: Message(level: .success, message: .shopCreated))
+                messageBus.post(message: Message(level: .success, message: Strings.shopCreated))
                 shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(error: error))

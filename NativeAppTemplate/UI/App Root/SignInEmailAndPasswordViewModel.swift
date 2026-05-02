@@ -25,11 +25,11 @@ final class SignInEmailAndPasswordViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(email) || Utility.isBlank(password) {
+        if email.isBlank || password.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 
@@ -41,7 +41,7 @@ final class SignInEmailAndPasswordViewModel {
     }
 
     var hasInvalidDataPassword: Bool {
-        if Utility.isBlank(password) {
+        if password.isBlank {
             return true
         }
 
@@ -49,15 +49,15 @@ final class SignInEmailAndPasswordViewModel {
     }
 
     var isEmailBlank: Bool {
-        Utility.isBlank(email)
+        email.isBlank
     }
 
     var isEmailInvalid: Bool {
-        Utility.isBlank(email) || !Utility.validateEmail(email)
+        email.isBlank || !email.isValidEmail
     }
 
     var isPasswordBlank: Bool {
-        Utility.isBlank(password)
+        password.isBlank
     }
 
     func signIn() {

@@ -12,11 +12,11 @@ import Testing
 struct ItemTagListViewModelTest {
     var itemTags: [ItemTag] {
         [
-            mockItemTag(id: "1", queueNumber: "A01"),
-            mockItemTag(id: "2", queueNumber: "A02"),
-            mockItemTag(id: "3", queueNumber: "A03"),
-            mockItemTag(id: "4", queueNumber: "B01"),
-            mockItemTag(id: "5", queueNumber: "B02")
+            mockItemTag(id: "1", name: "A01"),
+            mockItemTag(id: "2", name: "A02"),
+            mockItemTag(id: "3", name: "A03"),
+            mockItemTag(id: "4", name: "B01"),
+            mockItemTag(id: "5", name: "B02")
         ]
     }
 
@@ -77,7 +77,7 @@ struct ItemTagListViewModelTest {
         )
 
         #expect(viewModel.itemTags.count == 5)
-        #expect(viewModel.itemTags.first?.queueNumber == "A01")
+        #expect(viewModel.itemTags.first?.name == "A01")
         #expect(viewModel.isEmpty == false)
     }
 
@@ -248,7 +248,7 @@ struct ItemTagListViewModelTest {
         #expect(viewModel.isDeleting == false)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagDeleted)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagDeleted)
         #expect(itemTagRepository.itemTags.count == 4) // One deleted
         #expect(itemTagRepository.itemTags.first { $0.id == itemTagIdToDelete } == nil)
     }
@@ -277,7 +277,7 @@ struct ItemTagListViewModelTest {
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         let errorMessage = try #require(messageBus.currentMessage?.message)
-        #expect(errorMessage.contains(String.itemTagDeletedError))
+        #expect(errorMessage.contains(Strings.itemTagDeletedError))
         #expect(itemTagRepository.itemTags.count == 5) // Nothing deleted
     }
 
@@ -326,10 +326,10 @@ struct ItemTagListViewModelTest {
         #expect(viewModel.isShowingDeleteConfirmationDialog == true)
     }
 
-    private func mockItemTag(id: String = UUID().uuidString, queueNumber: String = "A01") -> ItemTag {
+    private func mockItemTag(id: String = UUID().uuidString, name: String = "A01") -> ItemTag {
         ItemTag(
             id: id,
-            queueNumber: queueNumber
+            name: name
         )
     }
 
@@ -340,9 +340,7 @@ struct ItemTagListViewModelTest {
             description: "This is a mock shop for testing",
             timeZone: "Tokyo",
             itemTagsCount: 10,
-            scannedItemTagsCount: 5,
-            completedItemTagsCount: 3,
-            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+            completedItemTagsCount: 3
         )
     }
 }

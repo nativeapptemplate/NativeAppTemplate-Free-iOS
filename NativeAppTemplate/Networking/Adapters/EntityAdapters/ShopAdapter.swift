@@ -14,8 +14,7 @@ struct ShopAdapter: EntityAdapter {
         guard resource.entityType == .shop else { throw EntityAdapterError.invalidResourceTypeForAdapter }
 
         guard let name = resource.attributes["name"] as? String,
-              let timeZone = resource.attributes["time_zone"] as? String,
-              let displayShopServerPath = resource.attributes["display_shop_server_path"] as? String
+              let timeZone = resource.attributes["time_zone"] as? String
         else {
             throw EntityAdapterError.invalidOrMissingAttributes
         }
@@ -26,9 +25,7 @@ struct ShopAdapter: EntityAdapter {
             description: resource.attributes["description"] as? String ?? "",
             timeZone: timeZone,
             itemTagsCount: resource.attributes["item_tags_count"] as? Int ?? 0,
-            scannedItemTagsCount: resource.attributes["scanned_item_tags_count"] as? Int ?? 0,
-            completedItemTagsCount: resource.attributes["completed_item_tags_count"] as? Int ?? 0,
-            displayShopServerPath: displayShopServerPath
+            completedItemTagsCount: resource.attributes["completed_item_tags_count"] as? Int ?? 0
         )
     }
 }

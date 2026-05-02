@@ -13,7 +13,7 @@ final class ShopBasicSettingsViewModel {
     var isUpdating = false
     var name = ""
     var description = ""
-    var selectedTimeZone = String.defaultTimeZone
+    var selectedTimeZone = Strings.defaultTimeZone
     var shouldDismiss: Bool = false
     private(set) var shop: Shop?
 
@@ -39,7 +39,11 @@ final class ShopBasicSettingsViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(name) {
+        if hasInvalidDataName {
+            return true
+        }
+
+        if hasInvalidDataDescription {
             return true
         }
 
@@ -52,6 +56,36 @@ final class ShopBasicSettingsViewModel {
         }
 
         return false
+    }
+
+    var hasInvalidDataName: Bool {
+        if name.isBlank {
+            return true
+        }
+        if name.count > maximumNameLength {
+            return true
+        }
+        return false
+    }
+
+    var hasInvalidDataDescription: Bool {
+        description.count > maximumDescriptionLength
+    }
+
+    var maximumNameLength: Int {
+        NativeAppTemplateConstants.maximumShopNameLength
+    }
+
+    var maximumDescriptionLength: Int {
+        NativeAppTemplateConstants.maximumShopDescriptionLength
+    }
+
+    func validateNameLength() {
+        name = String(name.prefix(maximumNameLength))
+    }
+
+    func validateDescriptionLength() {
+        description = String(description.prefix(maximumDescriptionLength))
     }
 
     func reload() {
@@ -91,7 +125,7 @@ final class ShopBasicSettingsViewModel {
                     timeZone: selectedTimeZone
                 )
                 _ = try await shopRepository.update(id: shop.id, shop: shop)
-                messageBus.post(message: Message(level: .success, message: .basicSettingsUpdated))
+                messageBus.post(message: Message(level: .success, message: Strings.basicSettingsUpdated))
             } catch {
                 messageBus.post(message: Message(error: error))
             }

@@ -25,11 +25,11 @@ final class ResendConfirmationInstructionsViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(email) {
+        if email.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 
@@ -37,11 +37,11 @@ final class ResendConfirmationInstructionsViewModel {
     }
 
     var isEmailBlank: Bool {
-        Utility.isBlank(email)
+        email.isBlank
     }
 
     var isEmailInvalid: Bool {
-        !Utility.isBlank(email) && !Utility.validateEmail(email)
+        !email.isBlank && !email.isValidEmail
     }
 
     func sendMeConfirmationInstructionsTapped() {
@@ -56,7 +56,7 @@ final class ResendConfirmationInstructionsViewModel {
                 try await signUpRepository.sendConfirmationInstruction(sendConfirmation: sendConfirmation)
                 messageBus.post(message: Message(
                     level: .success,
-                    message: .sentConfirmationInstruction,
+                    message: Strings.sentConfirmationInstruction,
                     autoDismiss: false
                 ))
                 shouldDismiss = true
@@ -64,7 +64,7 @@ final class ResendConfirmationInstructionsViewModel {
                 UIApplication.dismissKeyboard()
                 messageBus.post(message: Message(
                     level: .error,
-                    message: String.sentConfirmationInstructionError,
+                    message: Strings.sentConfirmationInstructionError,
                     autoDismiss: false
                 ))
             }

@@ -10,9 +10,7 @@ import SwiftUI
 @MainActor
 final class ShopSettingsViewModel {
     var isFetching = true
-    var isResetting = false
     var isDeleting = false
-    var isShowingResetConfirmationDialog = false
     var isShowingDeleteConfirmationDialog = false
     var shouldDismiss: Bool = false
     private(set) var shop: Shop?
@@ -38,7 +36,7 @@ final class ShopSettingsViewModel {
     }
 
     var isBusy: Bool {
-        isFetching || isResetting || isDeleting
+        isFetching || isDeleting
     }
 
     func reload() {
@@ -54,25 +52,6 @@ final class ShopSettingsViewModel {
         }
     }
 
-    func resetShop() {
-        guard let shop else { return }
-
-        Task {
-            isResetting = true
-            do {
-                try await shopRepository.reset(id: shop.id)
-                messageBus.post(message: .init(level: .success, message: .shopReset))
-            } catch {
-                messageBus.post(message: .init(
-                    level: .error,
-                    message: "\(String.shopResetError) \(error.codedDescription)",
-                    autoDismiss: false
-                ))
-            }
-            shouldDismiss = true
-        }
-    }
-
     func destroyShop() {
         guard let shop else { return }
 
@@ -80,12 +59,12 @@ final class ShopSettingsViewModel {
             isDeleting = true
             do {
                 try await shopRepository.destroy(id: shop.id)
-                messageBus.post(message: .init(level: .success, message: .shopDeleted))
+                messageBus.post(message: .init(level: .success, message: Strings.shopDeleted))
                 sessionController.shouldPopToRootView = true
             } catch {
                 messageBus.post(message: .init(
                     level: .error,
-                    message: "\(String.shopDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.shopDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
                 try await sessionController.logout()

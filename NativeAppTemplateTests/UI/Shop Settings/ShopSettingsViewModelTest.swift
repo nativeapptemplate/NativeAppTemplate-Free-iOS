@@ -96,83 +96,10 @@ struct ShopSettingsViewModelTest {
         }
         await reloadTask.value
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATI-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
         #expect(viewModel.isFetching == false)
         #expect(viewModel.isBusy == false)
-    }
-
-    @Test
-    func resetShop() async throws {
-        shopRepository.setShops(shops: shops)
-
-        let viewModel = ShopSettingsViewModel(
-            sessionController: sessionController,
-            shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            shopId: shopId
-        )
-
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
-
-        let shop = try #require(shops.first { $0.id == shopId })
-        #expect(viewModel.shop == shop)
-
-        // https://stackoverflow.com/a/75618551/1160200
-        let resetShopTask = Task {
-            viewModel.resetShop()
-        }
-        await resetShopTask.value
-
-        let message = String.shopReset
-
-        #expect(viewModel.messageBus.currentMessage?.message == message)
-        #expect(viewModel.isResetting)
-        #expect(viewModel.isBusy)
-        #expect(viewModel.shouldDismiss)
-    }
-
-    @Test
-    func resetShopFailed() async throws {
-        shopRepository.setShops(shops: shops)
-
-        let viewModel = ShopSettingsViewModel(
-            sessionController: sessionController,
-            shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            shopId: shopId
-        )
-
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
-
-        let shop = try #require(shops.first { $0.id == shopId })
-        #expect(viewModel.shop == shop)
-
-        let message = "Internal server error."
-        let httpResponseCode = 500
-        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
-
-        // https://stackoverflow.com/a/75618551/1160200
-        let resetShopTask = Task {
-            viewModel.resetShop()
-        }
-        await resetShopTask.value
-
-        #expect(viewModel.messageBus.currentMessage?.message ==
-            "\(String.shopResetError) [NATI-2001] \(message) [Status: \(httpResponseCode)]")
-        #expect(viewModel.isResetting)
-        #expect(viewModel.isBusy)
-        #expect(viewModel.shouldDismiss)
     }
 
     @Test
@@ -241,7 +168,7 @@ struct ShopSettingsViewModelTest {
         await destroyShopTask.value
 
         #expect(viewModel.messageBus.currentMessage?.message ==
-            "\(String.shopDeletedError) [NATI-2001] \(message) [Status: \(httpResponseCode)]")
+            "\(Strings.shopDeletedError) [NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isDeleting)
         #expect(viewModel.isBusy)
         #expect(sessionController.userState == .notLoggedIn)
@@ -254,9 +181,7 @@ struct ShopSettingsViewModelTest {
             description: "This is a mock shop for testing",
             timeZone: "Tokyo",
             itemTagsCount: 10,
-            scannedItemTagsCount: 5,
-            completedItemTagsCount: 3,
-            displayShopServerPath: "https://api.nativeapptemplate.com/display/shops/\(id)?type=server"
+            completedItemTagsCount: 3
         )
     }
 }

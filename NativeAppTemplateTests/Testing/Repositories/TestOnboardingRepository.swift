@@ -5,25 +5,10 @@
 
 import Foundation
 @testable import NativeAppTemplate
-import OrderedCollections
 
 @MainActor
 final class TestOnboardingRepository: OnboardingRepositoryProtocol {
     var onboardings: [Onboarding] = []
-    var onboardingsDictionary: OrderedDictionary<Int, Bool> {
-        var dict = OrderedDictionary<Int, Bool>()
-        for onboarding in onboardings {
-            dict[onboarding.id] = onboarding.isPortraitImage
-        }
-        return dict
-    }
-
-    /// A test-only
-    var reloadCalled = false
-
-    func reload() {
-        reloadCalled = true
-    }
 
     /// A test-only
     func setOnboardings(onboardings: [Onboarding]) {

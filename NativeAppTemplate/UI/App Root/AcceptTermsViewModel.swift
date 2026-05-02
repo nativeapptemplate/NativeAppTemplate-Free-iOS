@@ -29,11 +29,11 @@ final class AcceptTermsViewModel {
             do {
                 isUpdating = true
                 try await sessionController.updateConfirmedTermsVersion()
-                messageBus.post(message: Message(level: .success, message: .confirmedTermsVersionUpdated))
+                messageBus.post(message: Message(level: .success, message: Strings.confirmedTermsVersionUpdated))
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.confirmedTermsVersionUpdatedError) \(error.codedDescription)",
+                    message: "\(Strings.confirmedTermsVersionUpdatedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }

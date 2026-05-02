@@ -14,22 +14,8 @@ struct ShopDetailCardView: View {
 
     var content: some View {
         HStack {
-            Text(String(itemTag.queueNumber))
+            Text(String(itemTag.name))
                 .font(.uiTitle4)
-
-            Spacer()
-
-            VStack(alignment: .trailing) {
-                if itemTag.scanState == ScanState.scanned {
-                    CustomerScannedTag()
-
-                    if let customerReadAt = itemTag.customerReadAt {
-                        Text(customerReadAt.cardTimeString)
-                            .font(.uiFootnote)
-                            .foregroundStyle(.contentText)
-                    }
-                }
-            }
 
             Spacer()
 
@@ -38,7 +24,7 @@ struct ShopDetailCardView: View {
                     CompletedTag()
 
                     if let completedAt = itemTag.completedAt {
-                        Text(completedAt.cardTimeString)
+                        Text(completedAt.cardDateTimeString)
                             .font(.uiFootnote)
                             .foregroundStyle(.contentText)
                     }

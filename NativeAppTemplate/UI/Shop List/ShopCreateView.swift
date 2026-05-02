@@ -35,36 +35,59 @@ struct ShopCreateView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField(String.name, text: $viewModel.name)
+                    TextField(Strings.name, text: $viewModel.name)
+                        .onChange(of: viewModel.name) {
+                            viewModel.validateNameLength()
+                        }
+                } header: {
+                    Text(Strings.shopName)
                 } footer: {
-                    Text(String.shopNameIsRequired)
-                        .foregroundStyle(viewModel.hasInvalidData ? .validationError : .clear)
+                    VStack(alignment: .leading) {
+                        Text(Strings.shopNameHelp(maximumLength: viewModel.maximumNameLength))
+                            .font(.uiFootnote)
+                        Text(Strings.shopNameIsInvalid)
+                            .font(.uiFootnote)
+                            .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
+                    }
                 }
 
                 Section {
-                    TextField(String.descriptionString, text: $viewModel.description, axis: .vertical)
+                    TextField(Strings.descriptionString, text: $viewModel.description, axis: .vertical)
                         .lineLimit(10, reservesSpace: true)
+                        .onChange(of: viewModel.description) {
+                            viewModel.validateDescriptionLength()
+                        }
+                } header: {
+                    Text(Strings.descriptionString)
+                } footer: {
+                    VStack(alignment: .leading) {
+                        Text(Strings.shopDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
+                            .font(.uiFootnote)
+                        Text(Strings.shopDescriptionIsInvalid)
+                            .font(.uiFootnote)
+                            .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
+                    }
                 }
 
                 Section {
-                    Picker(String.timeZone, selection: $viewModel.selectedTimeZone) {
+                    Picker(Strings.timeZone, selection: $viewModel.selectedTimeZone) {
                         ForEach(timeZones.keys, id: \.self) { key in
                             Text(timeZones[key]!).tag(key)
                         }
                     }
                 }
             }
-            .navigationTitle(String.addShop)
+            .navigationTitle(Strings.addShop)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(String.save) {
+                    Button(Strings.save) {
                         viewModel.createShop()
                     }
                     .disabled(viewModel.hasInvalidData)
                 }
 
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(String.cancel) {
+                    Button(Strings.cancel) {
                         dismiss()
                     }
                 }

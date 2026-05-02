@@ -71,37 +71,17 @@ final class ItemTagListViewModel {
 
             do {
                 try await itemTagRepository.destroy(id: itemTagId)
-                messageBus.post(message: Message(level: .success, message: .itemTagDeleted))
+                messageBus.post(message: Message(level: .success, message: Strings.itemTagDeleted))
                 reload()
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
-                    message: "\(String.itemTagDeletedError) \(error.codedDescription)",
+                    message: "\(Strings.itemTagDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
             }
 
             isDeleting = false
         }
-    }
-
-    func createItemTagDetailViewModel(itemTagId: String) -> ItemTagDetailViewModel {
-        ItemTagDetailViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            nfcManager: appSingletons.nfcManager,
-            shop: shop,
-            itemTagId: itemTagId
-        )
-    }
-
-    func createItemTagCreateViewModel() -> ItemTagCreateViewModel {
-        ItemTagCreateViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            shopId: shop.id
-        )
     }
 }

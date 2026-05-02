@@ -25,11 +25,11 @@ final class ForgotPasswordViewModel {
     }
 
     var hasInvalidData: Bool {
-        if Utility.isBlank(email) {
+        if email.isBlank {
             return true
         }
 
-        if !Utility.validateEmail(email) {
+        if !email.isValidEmail {
             return true
         }
 
@@ -37,11 +37,11 @@ final class ForgotPasswordViewModel {
     }
 
     var isEmailBlank: Bool {
-        Utility.isBlank(email)
+        email.isBlank
     }
 
     var isEmailInvalid: Bool {
-        !Utility.isBlank(email) && !Utility.validateEmail(email)
+        !email.isBlank && !email.isValidEmail
     }
 
     func sendMeResetPasswordInstructionsTapped() {
@@ -56,7 +56,7 @@ final class ForgotPasswordViewModel {
                 try await signUpRepository.sendResetPasswordInstruction(sendResetPassword: sendResetPassword)
                 messageBus.post(message: Message(
                     level: .success,
-                    message: .sentResetPasswordInstruction,
+                    message: Strings.sentResetPasswordInstruction,
                     autoDismiss: false
                 ))
                 shouldDismiss = true
@@ -64,7 +64,7 @@ final class ForgotPasswordViewModel {
                 UIApplication.dismissKeyboard()
                 messageBus.post(message: Message(
                     level: .error,
-                    message: String.sentResetPasswordInstructionError,
+                    message: Strings.sentResetPasswordInstructionError,
                     autoDismiss: false
                 ))
             }

@@ -13,10 +13,10 @@ struct NativeAppTemplateEnvironment: Equatable {
 }
 
 extension NativeAppTemplateEnvironment {
-    static let urlString = if String.port.isEmpty {
-        "\(String.scheme)://\(String.domain)"
+    static let urlString = if Strings.port.isEmpty {
+        "\(Strings.scheme)://\(Strings.domain)"
     } else {
-        "\(String.scheme)://\(String.domain):\(String.port)"
+        "\(Strings.scheme)://\(Strings.domain):\(Strings.port)"
     }
 
     static let prod = NativeAppTemplateEnvironment(baseURL: URL(string: urlString)!)

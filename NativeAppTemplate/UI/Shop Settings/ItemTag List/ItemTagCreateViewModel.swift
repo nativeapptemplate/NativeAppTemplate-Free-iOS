@@ -9,24 +9,22 @@ import SwiftUI
 @Observable
 @MainActor
 final class ItemTagCreateViewModel {
-    var queueNumber = ""
+    var name = ""
+    var description = ""
     var isCreating = false
     var shouldDismiss = false
 
     private let itemTagRepository: ItemTagRepositoryProtocol
     private let messageBus: MessageBus
-    private let sessionController: SessionControllerProtocol
     private let shopId: String
 
     init(
         itemTagRepository: ItemTagRepositoryProtocol,
         messageBus: MessageBus,
-        sessionController: SessionControllerProtocol,
         shopId: String
     ) {
         self.itemTagRepository = itemTagRepository
         self.messageBus = messageBus
-        self.sessionController = sessionController
         self.shopId = shopId
     }
 
@@ -35,31 +33,37 @@ final class ItemTagCreateViewModel {
     }
 
     var hasInvalidData: Bool {
-        hasInvalidDataQueueNumber
+        hasInvalidDataName || hasInvalidDataDescription
     }
 
-    var hasInvalidDataQueueNumber: Bool {
-        if Utility.isBlank(queueNumber) {
+    var hasInvalidDataName: Bool {
+        if name.isBlank {
             return true
         }
-
-        if !queueNumber.isAlphanumeric(ignoreDiacritics: true) {
+        if name.count > maximumNameLength {
             return true
         }
-
-        if !(queueNumber.count >= 2 && queueNumber.count <= maximumQueueNumberLength) {
-            return true
-        }
-
         return false
     }
 
-    var maximumQueueNumberLength: Int {
-        sessionController.maximumQueueNumberLength
+    var hasInvalidDataDescription: Bool {
+        description.count > maximumDescriptionLength
     }
 
-    func validateQueueNumberLength() {
-        queueNumber = String(queueNumber.prefix(maximumQueueNumberLength))
+    var maximumNameLength: Int {
+        NativeAppTemplateConstants.maximumItemTagNameLength
+    }
+
+    var maximumDescriptionLength: Int {
+        NativeAppTemplateConstants.maximumItemTagDescriptionLength
+    }
+
+    func validateNameLength() {
+        name = String(name.prefix(maximumNameLength))
+    }
+
+    func validateDescriptionLength() {
+        description = String(description.prefix(maximumDescriptionLength))
     }
 
     func createItemTag() {
@@ -67,9 +71,9 @@ final class ItemTagCreateViewModel {
             isCreating = true
 
             do {
-                let itemTag = ItemTag(queueNumber: queueNumber)
+                let itemTag = ItemTag(name: name, description: description)
                 _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
-                messageBus.post(message: Message(level: .success, message: .itemTagCreated))
+                messageBus.post(message: Message(level: .success, message: Strings.itemTagCreated))
             } catch {
                 messageBus.post(message: Message(error: error))
             }

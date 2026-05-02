@@ -89,3 +89,7 @@ secrets.*.xcconfig
 .claude/logs/
 .claude/tmp/
 .claude/*.log
+.claude/scheduled_tasks.lock
+
+# Private docs
+docs-private/

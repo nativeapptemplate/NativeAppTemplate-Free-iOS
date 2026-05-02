@@ -33,7 +33,7 @@ private extension ItemTagEditView {
         @ViewBuilder var contentView: some View {
             if viewModel.isBusy {
                 LoadingView()
-            } else {
+            } else if viewModel.itemTag != nil {
                 itemTagEditView
             }
         }
@@ -45,32 +45,47 @@ private extension ItemTagEditView {
         NavigationStack {
             Form {
                 Section {
-                    TextField(String("A001"), text: $viewModel.queueNumber)
-                        .keyboardType(.asciiCapable)
-                        .onChange(of: viewModel.queueNumber) { _, _ in
-                            viewModel.validateQueueNumberLength()
+                    TextField(Strings.itemTagNamePlaceholder, text: $viewModel.name)
+                        .onChange(of: viewModel.name) {
+                            viewModel.validateNameLength()
                         }
                 } header: {
-                    Text(String.tagNumber)
+                    Text(Strings.nameLabel)
                 } footer: {
                     VStack(alignment: .leading) {
-                        Text("Name must be a 2-\(viewModel.maximumQueueNumberLength) alphanumeric characters.")
+                        Text(Strings.itemTagNameHelp(maximumLength: viewModel.maximumNameLength))
                             .font(.uiFootnote)
-                        Text(String.zeroPadding)
+                        Text(Strings.itemTagNameIsInvalid)
                             .font(.uiFootnote)
-                        Text(String.tagNumberIsInvalid)
+                            .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
+                    }
+                }
+
+                Section {
+                    TextEditor(text: $viewModel.description)
+                        .frame(minHeight: 100)
+                        .onChange(of: viewModel.description) {
+                            viewModel.validateDescriptionLength()
+                        }
+                } header: {
+                    Text(Strings.descriptionLabel)
+                } footer: {
+                    VStack(alignment: .leading) {
+                        Text(Strings.itemTagDescriptionHelp(maximumLength: viewModel.maximumDescriptionLength))
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataQueueNumber ? .validationError : .clear)
+                        Text(Strings.itemTagDescriptionIsInvalid)
+                            .font(.uiFootnote)
+                            .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
                     }
                 }
             }
-            .navigationTitle(String.editTag)
+            .navigationTitle(Strings.editItemTag)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.updateItemTag()
                     } label: {
-                        Text(String.save)
+                        Text(Strings.save)
                     }
                     .disabled(viewModel.hasInvalidData)
                 }
@@ -78,7 +93,7 @@ private extension ItemTagEditView {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String.cancel)
+                        Text(Strings.cancel)
                     }
                 }
             }

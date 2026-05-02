@@ -9,8 +9,7 @@ import Testing
 
 @MainActor
 @Suite
-struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
-    let sessionController = TestSessionController()
+struct ItemTagEditViewModelTest {
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
     )
@@ -21,14 +20,13 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         ItemTag(
             id: itemTagId,
             shopId: "test-shop-id",
-            queueNumber: "A01",
+            name: "Original",
+            description: "Original description",
+            position: 1,
             state: .idled,
-            scanState: .unscanned,
             createdAt: Date(),
-            customerReadAt: nil,
             completedAt: nil,
-            shopName: "Test Shop",
-            alreadyCompleted: false
+            shopName: "Test Shop"
         )
     }
 
@@ -37,11 +35,11 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        #expect(viewModel.queueNumber == "")
+        #expect(viewModel.name == "")
+        #expect(viewModel.description == "")
         #expect(viewModel.isFetching == true)
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)
@@ -49,17 +47,26 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
     }
 
     @Test
-    func maximumQueueNumberLength() {
-        sessionController.maximumQueueNumberLength = 6
+    func maximumNameLength() {
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        #expect(viewModel.maximumQueueNumberLength == 6)
+        #expect(viewModel.maximumNameLength == 100)
+    }
+
+    @Test
+    func maximumDescriptionLength() {
+        let viewModel = ItemTagEditViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            itemTagId: itemTagId
+        )
+
+        #expect(viewModel.maximumDescriptionLength == 1000)
     }
 
     @Test
@@ -67,15 +74,12 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        // Initially fetching
         #expect(viewModel.isBusy == true)
         #expect(viewModel.isFetching == true)
 
-        // When updating
         viewModel.isUpdating = true
         #expect(viewModel.isBusy == true)
 
@@ -91,7 +95,6 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -103,7 +106,8 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.isFetching == false)
         #expect(viewModel.itemTag != nil)
         #expect(viewModel.itemTag?.id == itemTagId)
-        #expect(viewModel.queueNumber == "A01")
+        #expect(viewModel.name == "Original")
+        #expect(viewModel.description == "Original description")
     }
 
     @Test
@@ -115,7 +119,6 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
@@ -131,84 +134,123 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(messageBus.currentMessage?.autoDismiss == false)
     }
 
-    @Test("Queue number validation", arguments: [
-        ("", true), // blank
-        ("a", true), // too short
-        ("ab", false), // minimum valid
-        ("abc", false), // valid
-        ("abcd", false), // valid
-        ("ab!", true), // non-alphanumeric
-        ("a b", true), // contains space
-        ("12", false), // numbers are valid
-        ("a1", false) // alphanumeric is valid
+    @Test("Name validation", arguments: [
+        ("", true),                                  // blank → invalid
+        ("a", false),                                // 1 char → valid
+        ("Buy milk 🥛", false),                      // unicode + space → valid
+        ("Item with !@#$%^&* symbols", false),       // symbols → valid
+        (String(repeating: "x", count: 100), false), // exactly 100 → valid
+        (String(repeating: "x", count: 101), true)   // 101 → invalid
     ])
-    func queueNumberValidation(queueNumber: String, shouldBeInvalid: Bool) async {
-        sessionController.maximumQueueNumberLength = 5
+    func nameValidation(name: String, shouldBeInvalid: Bool) async {
         itemTagRepository.setItemTags(itemTags: [testItemTag])
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
         await reloadTask.value
 
-        viewModel.queueNumber = queueNumber
+        viewModel.name = name
 
-        #expect(viewModel.hasInvalidDataQueueNumber == shouldBeInvalid)
+        #expect(viewModel.hasInvalidDataName == shouldBeInvalid)
+    }
+
+    @Test("Description validation", arguments: [
+        ("", false),
+        ("Some notes.", false),
+        (String(repeating: "x", count: 1000), false),
+        (String(repeating: "x", count: 1001), true)
+    ])
+    func descriptionValidation(description: String, shouldBeInvalid: Bool) async {
+        itemTagRepository.setItemTags(itemTags: [testItemTag])
+
+        let viewModel = ItemTagEditViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            itemTagId: itemTagId
+        )
+
+        let reloadTask = Task {
+            viewModel.reload()
+        }
+        await reloadTask.value
+
+        viewModel.description = description
+
+        #expect(viewModel.hasInvalidDataDescription == shouldBeInvalid)
     }
 
     @Test
-    func hasInvalidDataWithUnchangedQueueNumber() async {
+    func hasInvalidDataChangeDetection() async {
         itemTagRepository.setItemTags(itemTags: [testItemTag])
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
         await reloadTask.value
 
-        // Queue number is same as original - should be invalid
-        #expect(viewModel.queueNumber == "A01")
+        // Both unchanged → invalid (no changes to save)
+        #expect(viewModel.name == "Original")
+        #expect(viewModel.description == "Original description")
         #expect(viewModel.hasInvalidData == true)
 
-        // Change to different valid queue number - should be valid
-        viewModel.queueNumber = "B01"
+        // Name changed only → valid
+        viewModel.name = "Updated"
         #expect(viewModel.hasInvalidData == false)
 
-        // Change to invalid queue number - should be invalid
-        viewModel.queueNumber = "!"
+        // Reset name; description changed only → valid
+        viewModel.name = "Original"
+        viewModel.description = "Updated description"
+        #expect(viewModel.hasInvalidData == false)
+
+        // Both changed → valid
+        viewModel.name = "Updated"
+        #expect(viewModel.hasInvalidData == false)
+
+        // Name invalid (blank) → invalid regardless of description
+        viewModel.name = ""
         #expect(viewModel.hasInvalidData == true)
     }
 
     @Test
-    func validateQueueNumberLengthTruncatesCorrectly() {
-        sessionController.maximumQueueNumberLength = 3
+    func validateNameLengthTruncatesCorrectly() {
 
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        viewModel.queueNumber = "ABCDEFGH"
-        viewModel.validateQueueNumberLength()
+        viewModel.name = String(repeating: "A", count: 100) + "EXTRA"
+        viewModel.validateNameLength()
 
-        #expect(viewModel.queueNumber == "ABC")
+        #expect(viewModel.name == String(repeating: "A", count: 100))
+    }
+
+    @Test
+    func validateDescriptionLengthTruncatesCorrectly() {
+        let viewModel = ItemTagEditViewModel(
+            itemTagRepository: itemTagRepository,
+            messageBus: messageBus,
+            itemTagId: itemTagId
+        )
+
+        viewModel.description = String(repeating: "x", count: 1500)
+        viewModel.validateDescriptionLength()
+
+        #expect(viewModel.description.count == 1000)
     }
 
     @Test
@@ -218,18 +260,16 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
         await reloadTask.value
 
-        // Change to new queue number
-        viewModel.queueNumber = "B02"
+        viewModel.name = "Updated name"
+        viewModel.description = "Updated description"
 
         let updateTask = Task {
             viewModel.updateItemTag()
@@ -240,11 +280,11 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
-        #expect(messageBus.currentMessage?.message == .itemTagUpdated)
+        #expect(messageBus.currentMessage?.message == Strings.itemTagUpdated)
 
-        // Check that repository was updated
         let updatedItemTag = itemTagRepository.findBy(id: itemTagId)
-        #expect(updatedItemTag.queueNumber == "B02")
+        #expect(updatedItemTag.name == "Updated name")
+        #expect(updatedItemTag.description == "Updated description")
     }
 
     @Test
@@ -254,22 +294,19 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
         await reloadTask.value
 
-        // Set error after loading
         let message = "Update failed"
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        viewModel.queueNumber = "B02"
+        viewModel.name = "Updated"
 
         let updateTask = Task {
             viewModel.updateItemTag()
@@ -290,61 +327,25 @@ struct ItemTagEditViewModelTest { // swiftlint:disable:this type_body_length
         let viewModel = ItemTagEditViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             itemTagId: itemTagId
         )
 
-        // Load the item tag first
         let reloadTask = Task {
             viewModel.reload()
         }
         await reloadTask.value
 
-        viewModel.queueNumber = "B02"
+        viewModel.name = "Updated"
 
         let updateTask = Task {
             viewModel.updateItemTag()
         }
 
-        // Check busy state immediately after starting
         #expect(viewModel.isBusy == viewModel.isUpdating)
 
         await updateTask.value
 
         #expect(viewModel.isBusy == false)
         #expect(viewModel.isUpdating == false)
-    }
-
-    @Test("Form validation with different maximum lengths", arguments: [2, 4, 6, 8])
-    func formValidationWithDifferentMaxLengths(maxLength: Int) async {
-        sessionController.maximumQueueNumberLength = maxLength
-        itemTagRepository.setItemTags(itemTags: [testItemTag])
-
-        let viewModel = ItemTagEditViewModel(
-            itemTagRepository: itemTagRepository,
-            messageBus: messageBus,
-            sessionController: sessionController,
-            itemTagId: itemTagId
-        )
-
-        // Load the item tag first
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
-
-        // Test exactly at the limit
-        viewModel.queueNumber = String(repeating: "B", count: maxLength)
-        #expect(viewModel.hasInvalidDataQueueNumber == false)
-
-        // Test one over the limit
-        viewModel.queueNumber = String(repeating: "B", count: maxLength + 1)
-        #expect(viewModel.hasInvalidDataQueueNumber == true)
-
-        // Test truncation
-        viewModel.validateQueueNumberLength()
-        #expect(viewModel.queueNumber.count == maxLength)
-        #expect(viewModel.hasInvalidDataQueueNumber == false)
-        #expect(viewModel.hasInvalidData == false) // Should be valid since it's different from original
     }
 }

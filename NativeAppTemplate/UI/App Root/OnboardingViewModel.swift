@@ -9,49 +9,28 @@ import SwiftUI
 @Observable
 @MainActor
 final class OnboardingViewModel {
-    var onboardings: [Onboarding] = []
-
     private let onboardingRepository: OnboardingRepositoryProtocol
+
+    var onboardings: [Onboarding] {
+        onboardingRepository.onboardings
+    }
 
     init(onboardingRepository: OnboardingRepositoryProtocol) {
         self.onboardingRepository = onboardingRepository
     }
 
-    func reload() {
-        onboardingRepository.reload()
-        onboardings = onboardingRepository.onboardings
-    }
-
     func onboardingDescription(index: Int) -> String {
         switch index {
         case 1:
-            String.onboardingDescription1
+            Strings.onboardingDescription1
         case 2:
-            String.onboardingDescription2
+            Strings.onboardingDescription2
         case 3:
-            String.onboardingDescription3
+            Strings.onboardingDescription3
         case 4:
-            String.onboardingDescription4
-        case 5:
-            String.onboardingDescription5
-        case 6:
-            String.onboardingDescription6
-        case 7:
-            String.onboardingDescription7
-        case 8:
-            String.onboardingDescription8
-        case 9:
-            String.onboardingDescription9
-        case 10:
-            String.onboardingDescription10
-        case 11:
-            String.onboardingDescription11
-        case 12:
-            String.onboardingDescription12
-        case 13:
-            String.onboardingDescription13
+            Strings.onboardingDescription4
         default:
-            String.onboardingDescription1
+            Strings.onboardingDescription1
         }
     }
 }

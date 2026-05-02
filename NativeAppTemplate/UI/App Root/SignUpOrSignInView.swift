@@ -28,15 +28,15 @@ private extension SignUpOrSignInView {
                         .frame(width: 384, height: 24)
                         .padding()
 
-                    Image("onboarding1Slim")
+                    Image("hero")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 256)
                         .padding()
 
                     let agreement = "By signing up or signing in, you agree to the " +
-                        "[\(String.termsOfUse)](\(String.termsOfUseUrl)) " +
-                        "and [\(String.privacyPolicy)](\(String.privacyPolicyUrl))."
+                        "[\(Strings.termsOfUse)](\(Strings.termsOfUseUrl)) " +
+                        "and [\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))."
                     Text(.init(agreement))
                         .padding(.top, NativeAppTemplateConstants.Spacing.sm)
                         .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
@@ -48,7 +48,7 @@ private extension SignUpOrSignInView {
                                 messageBus: messageBus
                             )
                         )) {
-                            MainButtonImageView(title: String.signUpForAnAccount, type: .primary(withArrow: false))
+                            MainButtonImageView(title: Strings.signUpForAnAccount, type: .primary(withArrow: false))
                                 .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
                                 .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
                         }
@@ -62,7 +62,7 @@ private extension SignUpOrSignInView {
                                 messageBus: messageBus
                             )
                         )) {
-                            Text(String.signInToYourAccount)
+                            Text(Strings.signInToYourAccount)
                                 .font(.uiLabel)
                         }
                         .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
@@ -76,7 +76,7 @@ private extension SignUpOrSignInView {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Link(String.supportWebsite, destination: URL(string: String.supportWebsiteUrl)!)
+                    Link(Strings.supportWebsite, destination: URL(string: Strings.supportWebsiteUrl)!)
                 }
             }
             .background(Color.backgroundColor)

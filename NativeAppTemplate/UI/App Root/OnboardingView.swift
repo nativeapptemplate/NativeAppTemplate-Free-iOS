@@ -6,7 +6,6 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    let isAppStorePromotion = false
     @State private var viewModel: OnboardingViewModel
 
     init(onboardingRepository: OnboardingRepositoryProtocol) {
@@ -16,9 +15,6 @@ struct OnboardingView: View {
     var body: some View {
         NavigationStack {
             contentView
-                .task {
-                    viewModel.reload()
-                }
         }
     }
 }
@@ -35,21 +31,19 @@ private extension OnboardingView {
                         page(
                             image: "onboarding\(id)",
                             text: viewModel.onboardingDescription(index: id),
-                            isPortraitImage: onboarding.isPortraitImage
+                            imageOrientation: onboarding.imageOrientation
                         )
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: isAppStorePromotion ? .never : .always))
+                .tabViewStyle(.page(indexDisplayMode: .always))
                 .toolbar {
-                    if !isAppStorePromotion {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Link(String.howToUse, destination: URL(string: String.howToUseUrl)!)
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: SignUpOrSignInView()) {
-                                Text(verbatim: "Start")
-                                    .font(.title)
-                            }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Link(Strings.supportWebsite, destination: URL(string: Strings.supportWebsiteUrl)!)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: SignUpOrSignInView()) {
+                            Text(verbatim: "Start")
+                                .font(.title)
                         }
                     }
                 }
@@ -66,13 +60,13 @@ private extension OnboardingView {
             .frame(width: 256, height: 24)
     }
 
-    private func page(image: String, text: String, isPortraitImage: Bool) -> some View {
+    private func page(image: String, text: String, imageOrientation: ImageOrientation) -> some View {
         ZStack(alignment: .bottom) {
             Image(image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.top, NativeAppTemplateConstants.Spacing.md)
-                .padding(.bottom, isPortraitImage ? 0 : 192)
+                .padding(.bottom, imageOrientation == .portrait ? 0 : 192)
 
             ZStack(alignment: .top) {
                 VStack {

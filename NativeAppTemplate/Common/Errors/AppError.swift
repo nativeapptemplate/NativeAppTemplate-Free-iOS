@@ -16,7 +16,7 @@ enum AppError: CodedError {
     var errorCode: String {
         switch self {
         case .unexpected:
-            "NATI-1001"
+            "NATIVEAPPTEMPLATE-1001"
         }
     }
 

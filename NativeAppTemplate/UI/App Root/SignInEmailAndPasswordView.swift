@@ -40,41 +40,41 @@ private extension SignInEmailAndPasswordView {
         VStack {
             Form {
                 Section {
-                    TextField(String.placeholderEmail, text: $viewModel.email)
+                    TextField(Strings.placeholderEmail, text: $viewModel.email)
                         .textContentType(.emailAddress)
                         .autocapitalization(.none)
                         .accessibilityIdentifier("SignInEmailAndPasswordView_email_textField")
                 } header: {
-                    Text(String.email)
+                    Text(Strings.email)
                 } footer: {
                     if viewModel.isEmailBlank {
-                        Text(String.emailIsRequired)
+                        Text(Strings.emailIsRequired)
                             .foregroundStyle(.validationError)
                     } else if viewModel.isEmailInvalid {
-                        Text(String.emailIsInvalid)
+                        Text(Strings.emailIsInvalid)
                             .foregroundStyle(.validationError)
                     }
                 }
                 Section {
-                    SecureField(String.placeholderPassword, text: $viewModel.password)
+                    SecureField(Strings.placeholderPassword, text: $viewModel.password)
                         .textContentType(.password)
                         .autocapitalization(.none)
                         .autocorrectionDisabled(true)
                         .accessibilityIdentifier("SignInEmailAndPasswordView_password_secureTextField")
                 } header: {
-                    Text(String.password)
+                    Text(Strings.password)
                 } footer: {
                     if viewModel.isPasswordBlank {
-                        Text(String.passwordIsRequired)
+                        Text(Strings.passwordIsRequired)
                             .foregroundStyle(.validationError)
                     } else if viewModel.hasInvalidDataPassword {
-                        Text(String.passwordIsInvalid)
+                        Text(Strings.passwordIsInvalid)
                             .foregroundStyle(.validationError)
                     }
                 }
 
                 Section {
-                    MainButtonView(title: String.signIn, type: .primary(withArrow: false)) {
+                    MainButtonView(title: Strings.signIn, type: .primary(withArrow: false)) {
                         viewModel.signIn()
                     }
                     .disabled(viewModel.hasInvalidData)
@@ -92,7 +92,7 @@ private extension SignInEmailAndPasswordView {
                         )
                     )
                 ) {
-                    Text(String.forgotYourPassword)
+                    Text(Strings.forgotYourPassword)
                 }
 
                 NavigationLink(
@@ -103,10 +103,10 @@ private extension SignInEmailAndPasswordView {
                         )
                     )
                 ) {
-                    Text(String.didntReceiveConfirmationInstructions)
+                    Text(Strings.didntReceiveConfirmationInstructions)
                 }
             }
         }
-        .navigationTitle(String.signIn)
+        .navigationTitle(Strings.signIn)
     }
 }

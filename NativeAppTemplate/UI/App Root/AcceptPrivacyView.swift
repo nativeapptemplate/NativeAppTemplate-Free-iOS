@@ -42,18 +42,18 @@ private extension AcceptPrivacyView {
 
     var acceptPrivacyView: some View {
         VStack {
-            let agreement = "Please accept updated [\(String.privacyPolicy)](\(String.privacyPolicyUrl))."
+            let agreement = "Please accept updated [\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))."
             Text(.init(agreement))
                 .padding(.top, NativeAppTemplateConstants.Spacing.xl)
 
-            MainButtonView(title: String.accept, type: .primary(withArrow: false)) {
+            MainButtonView(title: Strings.accept, type: .primary(withArrow: false)) {
                 viewModel.updateConfirmedPrivacyVersion()
             }
             .padding(NativeAppTemplateConstants.Spacing.md)
 
             Spacer()
         }
-        .navigationTitle(String.privacyPolicyUpdated)
+        .navigationTitle(Strings.privacyPolicyUpdated)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
