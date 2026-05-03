@@ -56,8 +56,6 @@ final class DemoShopRepository: ShopRepositoryProtocol {
         shops.removeAll { $0.id == id }
     }
 
-    func reset(id: String) async throws {}
-
     // MARK: - Helpers
 
     private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {

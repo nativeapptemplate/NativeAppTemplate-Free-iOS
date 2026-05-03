@@ -81,12 +81,6 @@ final class TestShopRepository: ShopRepositoryProtocol {
         shops.removeAll { $0.id == id }
     }
 
-    func reset(id: String) async throws {
-        guard error == nil else {
-            throw error!
-        }
-    }
-
     /// A test-only
     func setShops(shops: [Shop]) {
         self.shops = shops

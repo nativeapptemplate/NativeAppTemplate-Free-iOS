@@ -109,15 +109,4 @@ import SwiftUI
             throw error
         }
     }
-
-    func reset(id: String) async throws {
-        do {
-            try await shopsService.resetShop(id: id)
-        } catch {
-            Failure
-                .destroy(from: Self.self, reason: error.codedDescription)
-                .log()
-            throw error
-        }
-    }
 }

@@ -20,5 +20,4 @@ import SwiftUI
     func create(shop: Shop) async throws -> Shop
     func update(id: String, shop: Shop) async throws -> Shop
     func destroy(id: String) async throws
-    func reset(id: String) async throws
 }
