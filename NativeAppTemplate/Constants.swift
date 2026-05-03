@@ -285,6 +285,10 @@ enum Strings {
     static let email = "Email"
     static let password = "Password"
 
+    static var welcomeToApp: String {
+        "Welcome to \(Bundle.main.displayName)"
+    }
+
     static let onboardingDescription1 = "Onboarding description 1."
     static let onboardingDescription2 = "Onboarding description 2."
     static let onboardingDescription3 = "Onboarding description 3."

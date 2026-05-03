@@ -26,6 +26,7 @@ private extension OnboardingView {
         @ViewBuilder var contentView: some View {
             VStack {
                 SwiftUI.TabView {
+                    welcomePage
                     ForEach(viewModel.onboardings) { onboarding in
                         let id = onboarding.id
                         page(
@@ -58,6 +59,31 @@ private extension OnboardingView {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 256, height: 24)
+    }
+
+    private var welcomePage: some View {
+        ZStack(alignment: .bottom) {
+            Image("hero")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding(.top, NativeAppTemplateConstants.Spacing.md)
+                .padding(.bottom, 192)
+
+            ZStack(alignment: .top) {
+                VStack {
+                    Text(Strings.welcomeToApp)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .dynamicTypeSize(DynamicTypeSize.accessibility1)
+                        .padding([.top, .horizontal])
+                        .accessibilityIdentifier("OnboardingView_welcome_staticText")
+                }
+                .background(Color.backgroundColor)
+                .frame(maxWidth: .infinity, maxHeight: 192, alignment: .top)
+            }
+            .background(Color.backgroundColor)
+        }
     }
 
     private func page(image: String, text: String, imageOrientation: ImageOrientation) -> some View {
