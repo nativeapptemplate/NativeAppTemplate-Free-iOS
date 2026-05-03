@@ -38,7 +38,7 @@ struct MainView: View {
 private extension MainView {
     @ViewBuilder var contentView: some View {
         if !sessionController.isLoggedIn {
-            OnboardingView(onboardingRepository: dataManager.onboardingRepository)
+            OnboardingView()
         } else if sessionController.shouldUpdatePrivacy {
             acceptPrivacySheet
         } else if sessionController.shouldUpdateTerms {
