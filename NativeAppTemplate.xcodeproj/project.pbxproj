@@ -31,10 +31,10 @@
 		012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 012009FB299F1E190078A1F9 /* OrderedCollections */; };
 		012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012643362B3554AD00D4E9BD /* AcceptTermsView.swift */; };
 		013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */; };
+		0139822A2FA815A2005DF953 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 013982292FA815A2005DF953 /* AppIcon.icon */; };
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
-		014E79252F83205400F37DF7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 014E79242F83205400F37DF7 /* AppIcon.icon */; };
 		0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0150A36529B14BB300907F96 /* SendResetPassword.swift */; };
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
@@ -186,10 +186,10 @@
 		012643362B3554AD00D4E9BD /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
 		013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeper.swift; sourceTree = "<group>"; };
 		0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SampleCode.xcconfig; sourceTree = "<group>"; };
+		013982292FA815A2005DF953 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
 		01467356299902230005423D /* ShopSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsView.swift; sourceTree = "<group>"; };
 		01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyView.swift; sourceTree = "<group>"; };
-		014E79242F83205400F37DF7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		0150A36529B14BB300907F96 /* SendResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendResetPassword.swift; sourceTree = "<group>"; };
 		0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsRequest.swift; sourceTree = "<group>"; };
 		015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 		014E79232F831FA600F37DF7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				014E79242F83205400F37DF7 /* AppIcon.icon */,
+				013982292FA815A2005DF953 /* AppIcon.icon */,
 				011F6DF4259EF16600BED22E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -878,7 +878,7 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */,
-				014E79252F83205400F37DF7 /* AppIcon.icon in Resources */,
+				0139822A2FA815A2005DF953 /* AppIcon.icon in Resources */,
 				011F6DF8259EF16600BED22E /* Preview Assets.xcassets in Resources */,
 				011F6DF5259EF16600BED22E /* Assets.xcassets in Resources */,
 			);

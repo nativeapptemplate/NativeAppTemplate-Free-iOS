@@ -1,83 +1,23 @@
 {
   "fill" : {
-    "automatic-gradient" : "srgb:0.00000,0.00000,0.00000,1.00000"
+    "automatic-gradient" : "srgb:0.10196,0.13725,0.19608,1.00000"
   },
   "groups" : [
     {
-      "blend-mode" : "normal",
-      "blur-material" : null,
-      "hidden" : false,
+      "blend-mode" : "lighten",
       "layers" : [
         {
-          "blend-mode" : "normal",
-          "fill" : {
-            "solid" : "srgb:1.00000,0.00000,0.00000,1.00000"
-          },
-          "glass" : false,
-          "image-name" : "free.svg",
-          "name" : "free"
+          "image-name" : "nativeapptemplate-icon-composer-foreground.svg",
+          "name" : "nativeapptemplate-icon-composer-foreground"
         }
       ],
-      "lighting" : "individual",
-      "shadow" : {
-        "kind" : "none",
-        "opacity" : 0.5
-      },
-      "specular" : false,
-      "translucency" : {
-        "enabled" : false,
-        "value" : 0
-      }
-    },
-    {
-      "layers" : [
-        {
-          "fill" : {
-            "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
-          },
-          "glass" : false,
-          "hidden" : false,
-          "image-name" : "free_background.svg",
-          "name" : "free_background",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              0,
-              64
-            ]
-          }
-        }
-      ],
-      "lighting" : "individual",
       "shadow" : {
         "kind" : "neutral",
         "opacity" : 0.5
       },
       "translucency" : {
-        "enabled" : false,
-        "value" : 0.5
-      }
-    },
-    {
-      "blend-mode" : "plus-lighter",
-      "blur-material" : null,
-      "hidden" : false,
-      "layers" : [
-        {
-          "hidden" : false,
-          "image-name" : "icon.svg",
-          "name" : "icon"
-        }
-      ],
-      "lighting" : "individual",
-      "shadow" : {
-        "kind" : "layer-color",
-        "opacity" : 0.5
-      },
-      "specular" : true,
-      "translucency" : {
         "enabled" : true,
-        "value" : 0.2
+        "value" : 0.5
       }
     }
   ],
