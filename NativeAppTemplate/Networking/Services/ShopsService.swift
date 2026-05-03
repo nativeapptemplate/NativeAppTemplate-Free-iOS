@@ -31,8 +31,4 @@ extension ShopsService {
         let request = MakeShopRequest(shop: shop)
         return try await makeRequest(request: request)
     }
-
-    func resetShop(id: String) async throws -> ResetShopRequest.Response {
-        try await makeRequest(request: ResetShopRequest(id: id))
-    }
 }

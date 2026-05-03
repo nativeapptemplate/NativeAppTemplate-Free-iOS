@@ -73,14 +73,5 @@ struct DemoShopRepositoryTest {
             try await repository.destroy(id: "1")
             #expect(!repository.shops.contains { $0.id == "1" })
         }
-
-        @Test
-        func reset() async throws {
-            repository.reload()
-
-            await #expect(throws: Never.self) {
-                try await repository.reset(id: "1")
-            }
-        }
     }
 }
