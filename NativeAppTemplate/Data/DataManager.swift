@@ -12,7 +12,6 @@ import SwiftUI
     var sessionController: SessionControllerProtocol
 
     // Repositories
-    private(set) var onboardingRepository: OnboardingRepositoryProtocol!
     private(set) var signUpRepository: SignUpRepositoryProtocol!
     private(set) var accountPasswordRepository: AccountPasswordRepositoryProtocol!
     private(set) var shopRepository: ShopRepositoryProtocol!
@@ -41,7 +40,6 @@ import SwiftUI
         let shopsService = ShopsService(networkClient: sessionController.client)
         let itemTagsService = ItemTagsService(networkClient: sessionController.client)
 
-        onboardingRepository = OnboardingRepository()
         signUpRepository = SignUpRepository()
         accountPasswordRepository = AccountPasswordRepository(accountPasswordService: accountPasswordService)
         shopRepository = ShopRepository(shopsService: shopsService)

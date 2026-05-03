@@ -122,7 +122,7 @@ struct SettingsView: View {
     }
 
     var supportEmailURL: URL {
-        let appName = Bundle.main.displayName
+        let appName = Strings.appName
         let appVersion = "\(Bundle.main.appVersionLong)"
         let device = Utility.deviceModel
         let systemVersion = UIDevice.current.systemVersion

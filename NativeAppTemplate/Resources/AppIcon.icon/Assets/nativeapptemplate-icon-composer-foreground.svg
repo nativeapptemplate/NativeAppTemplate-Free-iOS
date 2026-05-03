@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Foreground glyph for Apple's Icon Composer (Xcode 26+ / Liquid Glass).
+  Drop this into Icon Composer's foreground layer. The tool applies the
+  Liquid Glass material, depth, lighting, and shadow automatically — the
+  glyph itself just needs to be a clean vector silhouette on transparent
+  background.
+
+  Set the background color in Icon Composer to:
+    #1A2332  (dark navy — matches the welcome screen)
+
+  Same four-pointed sparkle as the home-screen icon variants in
+  /tmp/nativeapptemplate-icon-{skeleton,free,paid}.svg, sized so the
+  sparkle reads cleanly at every Liquid Glass size (down to 16pt
+  notification badges).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <path d="M 512 92
+           C 512 372 552 472 932 512
+           C 552 552 512 652 512 932
+           C 512 652 472 552 92 512
+           C 472 472 512 372 512 92 Z"
+        fill="#FFFFFF"/>
+</svg>

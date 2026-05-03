@@ -31,10 +31,10 @@
 		012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 012009FB299F1E190078A1F9 /* OrderedCollections */; };
 		012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012643362B3554AD00D4E9BD /* AcceptTermsView.swift */; };
 		013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */; };
+		0139822A2FA815A2005DF953 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 013982292FA815A2005DF953 /* AppIcon.icon */; };
 		013DE735284E99DF00528CC5 /* ShopCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DE734284E99DF00528CC5 /* ShopCreateView.swift */; };
 		01467357299902230005423D /* ShopSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01467356299902230005423D /* ShopSettingsView.swift */; };
 		01482FA42B351E4100A56D43 /* AcceptPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */; };
-		014E79252F83205400F37DF7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 014E79242F83205400F37DF7 /* AppIcon.icon */; };
 		0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0150A36529B14BB300907F96 /* SendResetPassword.swift */; };
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
@@ -73,8 +73,6 @@
 		0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172051925AAF6BF008FD63B /* SessionsService.swift */; };
 		0172052525AAFA43008FD63B /* Shopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052425AAFA43008FD63B /* Shopkeeper.swift */; };
 		0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052E25AC41A7008FD63B /* SessionRequest.swift */; };
-		017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278062D7D4F5800CE424F /* OnboardingRepository.swift */; };
-		017278092D7D4F7400CE424F /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278082D7D4F7400CE424F /* Onboarding.swift */; };
 		017278622D7D83E700CE424F /* ItemTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785C2D7D83E700CE424F /* ItemTag.swift */; };
 		017278632D7D83E700CE424F /* ItemTagState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785F2D7D83E700CE424F /* ItemTagState.swift */; };
 		0172786F2D7D87D000CE424F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172786E2D7D87D000CE424F /* String+Extensions.swift */; };
@@ -102,13 +100,11 @@
 		0199CD242E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD212E07510200109DC6 /* AccountPasswordRepositoryProtocol.swift */; };
 		0199CD252E07510200109DC6 /* ItemTagRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD222E07510200109DC6 /* ItemTagRepositoryProtocol.swift */; };
 		0199CD262E07510200109DC6 /* ShopRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD232E07510200109DC6 /* ShopRepositoryProtocol.swift */; };
-		0199CD2A2E07512100109DC6 /* OnboardingRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD282E07512100109DC6 /* OnboardingRepositoryProtocol.swift */; };
 		0199CD2B2E07512100109DC6 /* SignUpRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD292E07512100109DC6 /* SignUpRepositoryProtocol.swift */; };
 		0199CD2C2E07512100109DC6 /* LoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */; };
 		0199CD3E2E075CBB00109DC6 /* SessionControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0199CD3D2E075CBB00109DC6 /* SessionControllerProtocol.swift */; };
 		01A133992E08B052000AD24A /* AcceptPrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A133982E08B052000AD24A /* AcceptPrivacyViewModel.swift */; };
 		01A1339B2E08B0DF000AD24A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1339A2E08B0DF000AD24A /* MainViewModel.swift */; };
-		01A1339D2E08B2BB000AD24A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1339C2E08B2BB000AD24A /* OnboardingViewModel.swift */; };
 		01A1339F2E08B2FD000AD24A /* AcceptTermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1339E2E08B2FD000AD24A /* AcceptTermsViewModel.swift */; };
 		01A133A12E08B4A5000AD24A /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A133A02E08B4A5000AD24A /* ForgotPasswordViewModel.swift */; };
 		01A133A32E08B4DA000AD24A /* ResendConfirmationInstructionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A133A22E08B4DA000AD24A /* ResendConfirmationInstructionsViewModel.swift */; };
@@ -190,10 +186,10 @@
 		012643362B3554AD00D4E9BD /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
 		013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeper.swift; sourceTree = "<group>"; };
 		0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SampleCode.xcconfig; sourceTree = "<group>"; };
+		013982292FA815A2005DF953 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
 		01467356299902230005423D /* ShopSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsView.swift; sourceTree = "<group>"; };
 		01482FA32B351E4100A56D43 /* AcceptPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyView.swift; sourceTree = "<group>"; };
-		014E79242F83205400F37DF7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		0150A36529B14BB300907F96 /* SendResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendResetPassword.swift; sourceTree = "<group>"; };
 		0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsRequest.swift; sourceTree = "<group>"; };
 		015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -232,8 +228,6 @@
 		0172051925AAF6BF008FD63B /* SessionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsService.swift; sourceTree = "<group>"; };
 		0172052425AAFA43008FD63B /* Shopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopkeeper.swift; sourceTree = "<group>"; };
 		0172052E25AC41A7008FD63B /* SessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequest.swift; sourceTree = "<group>"; };
-		017278062D7D4F5800CE424F /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
-		017278082D7D4F7400CE424F /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		0172785C2D7D83E700CE424F /* ItemTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTag.swift; sourceTree = "<group>"; };
 		0172785F2D7D83E700CE424F /* ItemTagState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagState.swift; sourceTree = "<group>"; };
 		0172786C2D7D87D000CE424F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -261,12 +255,10 @@
 		0199CD222E07510200109DC6 /* ItemTagRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0199CD232E07510200109DC6 /* ShopRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepositoryProtocol.swift; sourceTree = "<group>"; };
-		0199CD282E07512100109DC6 /* OnboardingRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0199CD292E07512100109DC6 /* SignUpRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0199CD3D2E075CBB00109DC6 /* SessionControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionControllerProtocol.swift; sourceTree = "<group>"; };
 		01A133982E08B052000AD24A /* AcceptPrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPrivacyViewModel.swift; sourceTree = "<group>"; };
 		01A1339A2E08B0DF000AD24A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		01A1339C2E08B2BB000AD24A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		01A1339E2E08B2FD000AD24A /* AcceptTermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsViewModel.swift; sourceTree = "<group>"; };
 		01A133A02E08B4A5000AD24A /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		01A133A22E08B4DA000AD24A /* ResendConfirmationInstructionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResendConfirmationInstructionsViewModel.swift; sourceTree = "<group>"; };
@@ -435,7 +427,7 @@
 		014E79232F831FA600F37DF7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				014E79242F83205400F37DF7 /* AppIcon.icon */,
+				013982292FA815A2005DF953 /* AppIcon.icon */,
 				011F6DF4259EF16600BED22E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -542,7 +534,6 @@
 				0172785F2D7D83E700CE424F /* ItemTagState.swift */,
 				01B526532AF4E36400655131 /* MainTab.swift */,
 				2FE8A6D1D27C458389C4F61A /* PaginationMeta.swift */,
-				017278082D7D4F7400CE424F /* Onboarding.swift */,
 				01B526552AF4E82A00655131 /* ScrollToTopID.swift */,
 				0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */,
 				0150A36529B14BB300907F96 /* SendResetPassword.swift */,
@@ -589,8 +580,6 @@
 			children = (
 				017203F525AA675E008FD63B /* LoginRepository.swift */,
 				0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */,
-				017278062D7D4F5800CE424F /* OnboardingRepository.swift */,
-				0199CD282E07512100109DC6 /* OnboardingRepositoryProtocol.swift */,
 				0172052E25AC41A7008FD63B /* SessionRequest.swift */,
 				0172051925AAF6BF008FD63B /* SessionsService.swift */,
 				011DDC20287669EA00C6C21F /* SignUpRepository.swift */,
@@ -636,7 +625,6 @@
 				01A1339A2E08B0DF000AD24A /* MainViewModel.swift */,
 				0172045925AA82B4008FD63B /* MessageBarView.swift */,
 				0172045825AA82B4008FD63B /* OnboardingView.swift */,
-				01A1339C2E08B2BB000AD24A /* OnboardingViewModel.swift */,
 				0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */,
 				0110A1602AC81978003EDCBA /* ResendConfirmationInstructionsView.swift */,
 				01A133A22E08B4DA000AD24A /* ResendConfirmationInstructionsViewModel.swift */,
@@ -890,7 +878,7 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */,
-				014E79252F83205400F37DF7 /* AppIcon.icon in Resources */,
+				0139822A2FA815A2005DF953 /* AppIcon.icon in Resources */,
 				011F6DF8259EF16600BED22E /* Preview Assets.xcassets in Resources */,
 				011F6DF5259EF16600BED22E /* Assets.xcassets in Resources */,
 			);
@@ -912,7 +900,6 @@
 				0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */,
 				017278772D7D8FF100CE424F /* ItemTagsService.swift in Sources */,
 				017204C025AA846D008FD63B /* TabViewModel.swift in Sources */,
-				01A1339D2E08B2BB000AD24A /* OnboardingViewModel.swift in Sources */,
 				01B9E45228A5070D00CAC681 /* ShopkeeperSignInAdapter.swift in Sources */,
 				0172040025AA6775008FD63B /* LoginRepository.swift in Sources */,
 				0172034B25A9642E008FD63B /* EntityAdapter.swift in Sources */,
@@ -932,7 +919,6 @@
 				01D85AEF2E07D20500A95798 /* ItemTagCreateViewModel.swift in Sources */,
 				01E0A5B725BD0FCD00298D35 /* OfflineView.swift in Sources */,
 				0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */,
-				0199CD2A2E07512100109DC6 /* OnboardingRepositoryProtocol.swift in Sources */,
 				0199CD2B2E07512100109DC6 /* SignUpRepositoryProtocol.swift in Sources */,
 				0199CD2C2E07512100109DC6 /* LoginRepositoryProtocol.swift in Sources */,
 				0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */,
@@ -990,7 +976,6 @@
 				4A8DA0DEF6F142C3A127058A /* PaginationMeta.swift in Sources */,
 				0172046625AA82BF008FD63B /* MessageBarView.swift in Sources */,
 				01E0A63025BD53FD00298D35 /* Shop.swift in Sources */,
-				017278072D7D4F5800CE424F /* OnboardingRepository.swift in Sources */,
 				01D85A9A2E07C85900A95798 /* ShopBasicSettingsViewModel.swift in Sources */,
 				013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */,
 				01D85A9E2E07C9BD00A95798 /* ShopSettingsViewModel.swift in Sources */,
@@ -1013,7 +998,6 @@
 				0172787B2D7D903500CE424F /* ItemTagAdapter.swift in Sources */,
 				010F86AE2621A2A900B6C62A /* ShopDetailView.swift in Sources */,
 				011F6DF1259EF16400BED22E /* App.swift in Sources */,
-				017278092D7D4F7400CE424F /* Onboarding.swift in Sources */,
 				01467357299902230005423D /* ShopSettingsView.swift in Sources */,
 				017278792D7D900100CE424F /* ItemTagsRequest.swift in Sources */,
 				0172048125AA8343008FD63B /* Color+Extensions.swift in Sources */,

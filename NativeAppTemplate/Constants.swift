@@ -114,6 +114,8 @@ enum Strings {
     static let port: String = ""
     #endif
 
+    static let appName: String = "Native App Template"
+
     /// This is for MyTurnTag Creator. Replace this.
     static let appStoreUrl: String = "https://apps.apple.com/app/myturntag-creator/id1516198303"
 
@@ -286,13 +288,8 @@ enum Strings {
     static let password = "Password"
 
     static var welcomeToApp: String {
-        "Welcome to \(Bundle.main.displayName)"
+        "Welcome to \(appName)"
     }
-
-    static let onboardingDescription1 = "Onboarding description 1."
-    static let onboardingDescription2 = "Onboarding description 2."
-    static let onboardingDescription3 = "Onboarding description 3."
-    static let onboardingDescription4 = "Onboarding description 4."
 
     // MARK: Other
 

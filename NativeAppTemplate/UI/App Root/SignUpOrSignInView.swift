@@ -22,13 +22,12 @@ private extension SignUpOrSignInView {
         @ViewBuilder var contentView: some View {
             ScrollView {
                 VStack {
-                    Image("logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 384, height: 24)
+                    Text(Strings.appName)
+                        .font(.title)
+                        .fontWeight(.bold)
                         .padding()
 
-                    Image("hero")
+                    Image(systemName: "sparkles")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 256)
