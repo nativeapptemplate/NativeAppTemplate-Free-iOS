@@ -114,7 +114,7 @@ enum Strings {
     static let port: String = ""
     #endif
 
-    static let appName: String = "NativeAppTemplate Free"
+    static let appName: String = "Native App Template"
 
     /// This is for MyTurnTag Creator. Replace this.
     static let appStoreUrl: String = "https://apps.apple.com/app/myturntag-creator/id1516198303"
