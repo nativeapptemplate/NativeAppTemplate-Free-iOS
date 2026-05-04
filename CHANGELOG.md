@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.2] - 2026-05-04
+
+### Changed
+- Slim onboarding to a single welcome screen using the `sparkles` SF Symbol
+- Replace logo and hero imagesets on sign-up/sign-in with `Strings.appName` text and `sparkles`
+- Introduce `Strings.appName` ("Native App Template") as the single source of truth for the in-app product name
+- Set `CFBundleDisplayName` to "Native App Template"
+- Refresh AppIcon to the upstream `nativeapptemplate-icon-composer-foreground` artwork
+
+### Removed
+- `Onboarding` model, repository/protocol, view model, and related tests
+- Onboarding 1–4 imagesets, `hero` imageset, and `Logo` imageset
+
 ## [3.2.1] - 2026-05-02
 
 ### Changed
