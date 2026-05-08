@@ -48,6 +48,16 @@ Architecture: Simple MVVM Layered Architecture with `@Observable` state manageme
 - Tests use [Swift Testing](https://developer.apple.com/xcode/swift-testing/).
 - Place new tests alongside existing ones mirroring the source structure.
 
+## Rename safety
+
+This substrate is consumed by [`nativeapptemplate-agent`](https://github.com/nativeapptemplate/nativeapptemplate-agent), which mechanically renames `Shop`, `Shopkeeper`, and `ItemTag` (and all their case forms — PascalCase, snake_case, camelCase, flat, UPPER_SNAKE, humanized lower/title/sentence × singular/plural) to user-chosen target words. Some patterns that read fine in this repo break when renamed.
+
+Before merging changes that touch user-facing strings, test descriptors, or comments mentioning domain entities, read the [substrate rename-safety contract](https://github.com/nativeapptemplate/nativeapptemplate-agent/blob/main/docs/SUBSTRATE-CONTRACT.md).
+
+**Quick rule of thumb:** avoid `"a"` / `"an"` directly preceding `Shop`, `Shopkeeper`, or `ItemTag` (or their humanized forms) — write self-contained or article-free phrasings instead.
+
+**Failure mode this prevents:** a string like `"Swipe an item tag to ..."` reads correctly here but produces `"Swipe an patient to ..."` after the rename pipeline substitutes a consonant-starting word like `Patient`.
+
 ## Development Setup
 
 See [README.md](README.md) for full setup instructions.
