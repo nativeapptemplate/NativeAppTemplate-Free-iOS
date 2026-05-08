@@ -12,7 +12,7 @@ struct ShopAdapterTest {
         "type": "shop",
         "attributes": [
             "name": "Shop1",
-            "description": "This is a Shop1",
+            "description": "This is Shop1",
             "time_zone": "Tokyo",
             "item_tags_count": 10,
             "scanned_item_tags_count": 1,

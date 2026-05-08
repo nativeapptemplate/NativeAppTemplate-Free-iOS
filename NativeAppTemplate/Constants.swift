@@ -166,9 +166,9 @@ enum Strings {
 
     static let timeZone = "Time Zone"
     static let createShopsLabel = "Create shops"
-    static let tapShopBelow = "Tap a shop below."
+    static let tapShopBelow = "Tap shop below."
     static let haveFun = "Have fun!"
-    static let shopDetailInstruction = "Swipe an item tag to change its status."
+    static let shopDetailInstruction = "Swipe to change item tag status."
 
     // MARK: Shop Settings View
 
@@ -183,7 +183,7 @@ enum Strings {
     static let itemTagNamePlaceholder = "Name"
     static let editItemTag = "Edit Item Tag"
     static let addItemTag = "Add Item Tag"
-    static let addItemTagDescription = "Add a new item tag and start changing the item tag status."
+    static let addItemTagDescription = "Add a new item tag and start changing item tag status."
     static let deleteItemTag = "Delete item tag"
     static let buttonDeleteItemTag = "Delete Item Tag"
     static let itemTagNameIsInvalid = "Item tag name is invalid."
@@ -235,14 +235,14 @@ enum Strings {
     static let shopCreated = "Shop created successfully."
     static let basicSettingsUpdated = "Basic settings updated successfully."
     static let shopDeleted = "Shop deleted successfully."
-    static let shopDeletedError = "There was a problem deleting the shop."
+    static let shopDeletedError = "There was a problem deleting shop."
 
     static let itemTagCreated = "Item tag created successfully."
     static let itemTagUpdated = "Item tag updated successfully."
     static let itemTagDeleted = "Item tag deleted successfully."
-    static let itemTagDeletedError = "There was a problem deleting the item tag."
-    static let itemTagCompletedError = "There was a problem completing the item tag."
-    static let itemTagIdledError = "There was a problem idling the item tag."
+    static let itemTagDeletedError = "There was a problem deleting item tag."
+    static let itemTagCompletedError = "There was a problem completing item tag."
+    static let itemTagIdledError = "There was a problem idling item tag."
 
     static let shopkeeperCreated = "Account created successfully."
     static let shopkeeperCreatedError = "There was a problem creating the account."
