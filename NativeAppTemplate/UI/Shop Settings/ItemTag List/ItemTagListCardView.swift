@@ -34,7 +34,7 @@ struct ItemTagListCardView: View {
                             .foregroundStyle(.contentText)
                     }
                 } else {
-                    IdlingTag()
+                    IdledTag()
                 }
             }
             .frame(minWidth: 82, alignment: .trailing)

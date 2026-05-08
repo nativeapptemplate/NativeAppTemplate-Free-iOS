@@ -93,7 +93,7 @@ private extension ItemTagDetailView {
             if itemTag.state == .completed {
                 CompletedTag()
             } else {
-                IdlingTag()
+                IdledTag()
             }
         }
     }

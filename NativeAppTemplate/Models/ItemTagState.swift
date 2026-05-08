@@ -25,7 +25,7 @@ enum ItemTagState: String, CaseIterable, Identifiable, Codable {
     var displayString: String {
         switch self {
         case .idled:
-            "Idling"
+            "Idled"
         case .completed:
             "Completed"
         }
