@@ -112,7 +112,8 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 | Range | Type | File |
 |-------|------|------|
 | NATIVEAPPTEMPLATE-1xxx | App/general errors | `AppError.swift` |
-| NATIVEAPPTEMPLATE-2xxx | API/network errors | `NativeAppTemplateAPIError.swift` |
+| NATIVEAPPTEMPLATE-2xxx | API/network errors | `NativeAppTemplateAPIError.swift`, `EntityAdapterError.swift` |
+| NATIVEAPPTEMPLATE-4xxx | Persistence/Keychain errors | `KeychainStoreError.swift` |
 
 - New error types must conform to `CodedError` and be placed in `Common/Errors/`
 - Use `error.codedDescription` (not `error.localizedDescription`) in all error messages

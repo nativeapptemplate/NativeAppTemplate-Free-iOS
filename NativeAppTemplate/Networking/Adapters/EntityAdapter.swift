@@ -47,23 +47,3 @@ struct EntityRelationship {
     let from: EntityIdentity
     let to: EntityIdentity
 }
-
-enum EntityAdapterError: Error {
-    case invalidResourceTypeForAdapter
-    case invalidOrMissingAttributes
-    case invalidOrMissingRelationships
-}
-
-extension EntityAdapterError: LocalizedError {
-    var errorDescription: String? {
-        let prefix = "EntityAdapterError::"
-        switch self {
-        case .invalidResourceTypeForAdapter:
-            return "\(prefix)InvalidResourceTypeForAdapter"
-        case .invalidOrMissingAttributes:
-            return "\(prefix)InvalidOrMissingAttributes"
-        case .invalidOrMissingRelationships:
-            return "\(prefix)InvalidOrMissingRelationships"
-        }
-    }
-}

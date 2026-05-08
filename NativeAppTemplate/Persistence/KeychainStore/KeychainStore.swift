@@ -7,13 +7,6 @@ import Foundation
 import KeychainAccess
 import os
 
-enum KeychainStoreError: Error {
-    case secCallFailed(Error)
-    case notFound
-    case badData
-    case archiveFailure(Error)
-}
-
 protocol KeychainStore {
     associatedtype DataType: NSObject, NSCoding
 

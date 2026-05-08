@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.3] - 2026-05-08
+
+### Fixed
+- `EntityAdapterError` (JSON:API parsing) now conforms to `CodedError` so failures — including login against an invalid server — surface with `[NATIVEAPPTEMPLATE-2006..2008]` prefixes instead of opaque descriptions
+- `KeychainStoreError` now conforms to `CodedError` with new `[NATIVEAPPTEMPLATE-4001..4004]` codes for persistence failures
+
 ## [3.2.2] - 2026-05-04
 
 ### Changed

@@ -4,7 +4,10 @@
 //
 
 // Error codes share the `NATIVEAPPTEMPLATE-XXXX` prefix across iOS and Android.
-// Ranges: 1xxx App errors, 2xxx API errors.
+// Ranges:
+//   1xxx App errors
+//   2xxx API errors (NativeAppTemplateAPIError, EntityAdapterError)
+//   4xxx Persistence/Keychain errors (KeychainStoreError)
 
 import Foundation
 
