@@ -135,11 +135,11 @@ extension Color {
     static let snackWarning = coolGrey1 // #1F2933
     static let snackSuccess = coolGrey1 // #1F2933
 
-    // MARK: Tags - Idling
+    // MARK: Tags - Idled
 
-    static let idlingTagBackground = coolGrey8 // #CBD2D9
-    static let idlingTagBorder = coolGrey10 // #F5F7FA
-    static let idlingTagForeground = coolGrey2 // #323F4B
+    static let idledTagBackground = coolGrey8 // #CBD2D9
+    static let idledTagBorder = coolGrey10 // #F5F7FA
+    static let idledTagForeground = coolGrey2 // #323F4B
 
     // MARK: Tags - Completed
 
@@ -307,16 +307,16 @@ extension ShapeStyle where Self == Color {
     }
 
     /// Tags
-    static var idlingTagBackground: Color {
-        Color.idlingTagBackground
+    static var idledTagBackground: Color {
+        Color.idledTagBackground
     }
 
-    static var idlingTagBorder: Color {
-        Color.idlingTagBorder
+    static var idledTagBorder: Color {
+        Color.idledTagBorder
     }
 
-    static var idlingTagForeground: Color {
-        Color.idlingTagForeground
+    static var idledTagForeground: Color {
+        Color.idledTagForeground
     }
 
     static var completedTagBackground: Color {
