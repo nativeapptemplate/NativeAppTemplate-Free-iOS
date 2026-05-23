@@ -77,11 +77,6 @@ The app uses iOS 17's `@Observable` macro for state management with clean separa
 
 ### Key Features Implementation
 
-**NFC Support**:
-- Tag reading/writing capabilities (`/NFC/`)
-- Background tag reading support
-- Application-specific tag data format
-
 **Offline Support**:
 - Network monitoring (`/Networking/NetworkMonitor.swift`)
 - Keychain storage for secure data persistence
@@ -102,8 +97,7 @@ NativeAppTemplate/
 ├── UI/                      # SwiftUI views by feature
 ├── Sessions/                # Authentication
 ├── Persistence/             # Keychain storage
-├── Utilities/               # Helpers and extensions
-└── NFC/                     # NFC functionality
+└── Utilities/               # Helpers and extensions
 ```
 
 ### Error Handling (CodedError System)

@@ -1,6 +1,6 @@
 # NativeAppTemplate-Free-iOS
 
-NativeAppTemplate-Free-iOS is a modern, comprehensive, and production-ready native iOS app with user authentication and [background tag reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading).  
+NativeAppTemplate-Free-iOS is a modern, comprehensive, and production-ready native iOS app with user authentication and a full CRUD example.  
 This iOS app is a free version of  [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team).  
 
 The Android version is available here: [NativeAppTemplate-Free-Android](https://github.com/nativeapptemplate/NativeAppTemplate-Free-Android).  
@@ -43,68 +43,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 
 ## NFC Tag Operations
 
-<details>
-<summary><strong>How NFC tag writing and background reading works</strong></summary>
-
-### Overview  
-
-![Screenshot showing Overview before](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_before.png "Screenshot showing Overview before")
-
-![Screenshot showing Overview after](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/overview_after.png "Screenshot showing Overview after")
-
-The app replaces traditional paper tags with NFC tags to efficiently manage walk-in customer waitlists. It writes application-specific information onto your NFC cards (referred to as :red_circle: **Server Tag** and :large_blue_circle: **Customer Tag**).
-
-**For Customers:**  
-When a customer scans a :large_blue_circle: **Customer Tag**, they can view the :green_circle: **Number Tags Webpage** (a public webpage) on their mobile browser. This page displays completed Number Tags.
-
-**For Staff:**  
-By scanning a :red_circle: **Server Tag** paired with the :large_blue_circle: **Customer Tag**, staff can complete a Number Tag. Completed Number Tags automatically appear on the :green_circle: **Number Tags Webpage** for customer reference.
-
-### How It Works  
-
-![Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/screenshots_nfc.png "Screenshot showing Write Application Info to Tag screen, Scan Tag screen, and Shop Detail screen")
-
-1. Write application info to pair **Number Tags** (Server Tag and Customer Tag) or a **Customer QR code**:  
-   - Go to: **Shops > [Shop] > Shop Settings > Manage Number Tags > [Number Tag]**.  
-2. Scan a **Server Tag** in the **Scan** tab.  
-3. View the updated **Number Tags** status in the **Shop Detail** screen or on the **Number Tags Webpage** (see Background Tag Reading GIF below).  
-
-### Recommended NFC Tags  
-For best performance, use **NTAG215 (540 bytes)** tags.  
-Example: [50pcs NFC Cards Ntag215](https://www.amazon.com/dp/B087FRYY8S) (Amazon USA).  
-
----
-
-### Background Tag Reading  
-
-![Gif showing Background Tag Reading](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/nfc.gif "Showing Background Tag Reading")  
-
-1. Scan a **Server Tag**.  
-2. View the updated **Number Tags** status in the **Shop Detail** screen or on the **Number Tags Webpage**.  
-
-The **Number Tags Webpage** updates in real-time using Rails [Turbo](https://turbo.hotwired.dev).  
-This functionality is part of the open-source [nativeapptemplateapi](https://github.com/nativeapptemplate/nativeapptemplateapi) backend.  
-
-> **Note:**  
-> The GIF above shows [MyTurnTag Creator for iOS](https://apps.apple.com/app/myturntag-creator/id1516198303) in action, which may behave slightly differently from **NativeAppTemplate-Free-iOS**.
-
-### Associated Domains Requirement (iOS)  
-For background tag reading to work correctly on **iOS**, you must configure **Associated Domains** in your app.  
-
-To set up Associated Domains on iOS, follow these steps:  
-1. Add your domain (e.g., `applinks:api.example.com`) to the **Associated Domains** section in Xcode under **Signing & Capabilities**.  
-2. Configure the **apple-app-site-association (AASA)** file and host it on your server.
-3. Verify that the **AASA** file is correctly configured and accessible by checking its contents at the following URL:  
-
-   🔗 [https://app-site-association.cdn-apple.com/a/v1/api.example.com](https://app-site-association.cdn-apple.com/a/v1/api.example.com)  
-
-4. Uninstall **NativeAppTemplate-Free-iOS**, reset your device, and then reinstall **NativeAppTemplate-Free-iOS** to ensure the changes take effect.
-
-For detailed instructions, refer to Apple's official documentations:  
-- [Adding Support for Background Tag Reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading)  
-- [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)  
-
-</details>
+NFC tag writing and background tag reading were part of v1 and have been removed from the current version. The full NFC implementation remains available in the [`v1-with-nfc`](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/tree/v1-with-nfc) branch.
 
 ## Not Included in the Free Version
 
@@ -175,7 +114,6 @@ Xcode will automatically run SwiftLint if it is installed.
 ## Blogs
 
 - [Key Differences in MVVM Architecture: iOS vs. Android](https://medium.com/@dadachix/key-differences-in-mvvm-architecture-ios-vs-android-e239d30b2ea7)
-- [Cross-Platform Background NFC Tag Reading](https://medium.com/@dadachix/cross-platform-background-nfc-tag-reading-8a704f0cb6e9)
 
 ## Contributing
 
