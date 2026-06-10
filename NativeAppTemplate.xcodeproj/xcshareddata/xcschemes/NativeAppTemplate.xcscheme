@@ -75,7 +75,7 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "NATIVEAPPTEMPLATE_API_DOMAIN"
-            value = "192.168.1.11"
+            value = "192.168.1.21"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
