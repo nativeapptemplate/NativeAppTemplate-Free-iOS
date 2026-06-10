@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.4] - 2026-06-10
+
+### Fixed
+- List views (`ShopListView`, `ItemTagListView`) no longer blink a full-screen `LoadingView` over already-loaded data when they re-appear (returning to a tab, popping back from a detail). The `.loading` state now keeps existing content on screen and only shows `LoadingView` on a true cold start (`.initial`, or `.loading` with no data yet)
+
 ## [3.2.3] - 2026-05-08
 
 ### Fixed

@@ -149,11 +149,15 @@ NATIVEAPPTEMPLATE_API_PORT   = 3000
 
 > **Note:** Never use `127.0.0.1`, `localhost`, or `0.0.0.0` for `NATIVEAPPTEMPLATE_API_DOMAIN` — those resolve to the iOS Simulator/device itself, not your Mac. Use your Mac's LAN IP (e.g., `192.168.1.6`) so the simulator or a physical device can reach the API server.
 
-Keep the scheme in `xcuserdata` (per-developer, gitignored), not `xcshareddata`. In Xcode, open **Product → Scheme → Manage Schemes…**, find `NativeAppTemplate`, and **uncheck "Shared"**. This moves the scheme (with your local env vars) to `xcuserdata/<user>.xcuserdatad/xcschemes/` so your API settings are not committed. If Xcode staged a deletion of the previously shared scheme, restore it with:
+The `NativeAppTemplate` scheme is **shared** (committed at `NativeAppTemplate.xcodeproj/xcshareddata/xcschemes/NativeAppTemplate.xcscheme`) so fresh clones and generated copies open with these env vars already wired — without it, Xcode's auto-created default omits the injection and Debug builds silently fall back to `https://api.nativeapptemplate.com`. The committed `NATIVEAPPTEMPLATE_API_DOMAIN` is just an example value (`192.168.1.11`); edit it to your own Mac's LAN IP.
+
+Because the scheme is committed, keep your personal LAN IP out of git. After editing the value locally, tell git to ignore your changes to the file:
 
 ```bash
-git restore --source=HEAD --staged --worktree NativeAppTemplate.xcodeproj/xcshareddata/xcschemes/NativeAppTemplate.xcscheme
+git update-index --skip-worktree NativeAppTemplate.xcodeproj/xcshareddata/xcschemes/NativeAppTemplate.xcscheme
 ```
+
+To resume tracking it (e.g. before intentionally committing a scheme change), run `git update-index --no-skip-worktree <same path>`.
 
 Debug builds read these at launch via `ProcessInfo.processInfo.environment` in `Constants.swift`; when unset, they fall back to the production defaults (`https://api.nativeapptemplate.com`). Release builds always use the production defaults.
 
