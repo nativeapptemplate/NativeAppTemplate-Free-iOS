@@ -88,7 +88,6 @@
 		0172789C2D7D99D100CE424F /* ItemTagDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278932D7D99D100CE424F /* ItemTagDetailView.swift */; };
 		0172789D2D7D99D100CE424F /* ItemTagCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278962D7D99D100CE424F /* ItemTagCreateView.swift */; };
 		0172789E2D7D99D100CE424F /* ItemTagEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278942D7D99D100CE424F /* ItemTagEditView.swift */; };
-		A370BAECACECFAB76D851427 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B1F0A34D186286A11F085 /* Keychain.swift */; };
 		0182D37825B277FA001E881D /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D37625B277D6001E881D /* KeychainStore.swift */; };
 		0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */; };
 		0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */; };
@@ -148,6 +147,7 @@
 		A2B3C4D500000008 /* NativeAppTemplateAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000007 /* NativeAppTemplateAPIError.swift */; };
 		A2B3C4D50000000C /* EntityAdapterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D50000000B /* EntityAdapterError.swift */; };
 		A2B3C4D50000000E /* KeychainStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D50000000D /* KeychainStoreError.swift */; };
+		A370BAECACECFAB76D851427 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B1F0A34D186286A11F085 /* Keychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,7 +245,6 @@
 		017278962D7D99D100CE424F /* ItemTagCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagCreateView.swift; sourceTree = "<group>"; };
 		017278972D7D99D100CE424F /* ItemTagListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListCardView.swift; sourceTree = "<group>"; };
 		017278982D7D99D100CE424F /* ItemTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListView.swift; sourceTree = "<group>"; };
-		412B1F0A34D186286A11F085 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		0182D37625B277D6001E881D /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperAdapter.swift; sourceTree = "<group>"; };
 		0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeperKeychainStore.swift; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 		01EE363D29A6DCEB009BCD9D /* ShopkeeperEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperEditView.swift; sourceTree = "<group>"; };
 		01FC03E12B3329B700E6CD8E /* NeedAppUpdatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedAppUpdatesView.swift; sourceTree = "<group>"; };
 		2FE8A6D1D27C458389C4F61A /* PaginationMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationMeta.swift; sourceTree = "<group>"; };
+		412B1F0A34D186286A11F085 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		A1B2C3D401000004 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
 		A2B3C4D500000001 /* CodedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodedError.swift; sourceTree = "<group>"; };
 		A2B3C4D500000003 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
@@ -800,8 +800,6 @@
 			buildRules = (
 			);
 			name = NativeAppTemplate;
-			packageProductDependencies = (
-			);
 			productName = MyTurnTagCreator;
 			productReference = 011F6DED259EF16400BED22E /* NativeAppTemplate.app */;
 			productType = "com.apple.product-type.application";
@@ -1185,7 +1183,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1197,7 +1195,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.4;
+				MARKETING_VERSION = 3.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
@@ -1221,7 +1219,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"NativeAppTemplate/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1233,7 +1231,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.4;
+				MARKETING_VERSION = 3.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.nativeapptemplate.NativeAppTemplateFree.ios${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = NativeAppTemplate;
@@ -1317,8 +1315,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-
 	};
 	rootObject = 011F6DE5259EF16400BED22E /* Project object */;
 }
