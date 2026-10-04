@@ -70,8 +70,8 @@ private extension SignUpView {
                 }
 
                 Picker(Strings.timeZone, selection: $viewModel.selectedTimeZone) {
-                    ForEach(timeZones.keys, id: \.self) { key in
-                        Text(timeZones[key]!).tag(key)
+                    ForEach(timeZones, id: \.key) { timeZone in
+                        Text(timeZone.value).tag(timeZone.key)
                     }
                 }
 
