@@ -114,9 +114,21 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 - Use `Message(error: error)` convenience to post errors to `MessageBus`
 - Error code numbers must match across iOS and Android
 
-### Dependencies (Swift Package Manager)
-- KeychainAccess (4.2.2) - Secure credential storage
-- Swift Collections (1.1.4) - Additional data structures
+### Dependencies
+- No third-party Swift packages. Keychain access goes through `Persistence/KeychainStore/Keychain.swift`, a small wrapper over the Security framework
 
 ### Testing
 Uses Swift Testing framework with `@Test` attribute. Tests are organized by component type (models, adapters, networking).
+
+## Testing Policy
+
+- **Bug fixes start with a failing test that reproduces the bug. No exceptions.** Every fix commit must include that reproduction test.
+- **Record where each expected value comes from.** Cite the relevant part of the spec, a hand calculation, or a known oracle. Never paste the value the implementation happens to produce as the expected value.
+
+  ```swift
+  // floor(10000 * 31 / 71) = 4366   ← state the derivation like this
+  ```
+
+- **See it go red at least once before calling it done.** For every new test — especially guards and configuration checks — deliberately break the code under test and confirm the test fails. A test that cannot fail verifies nothing.
+- **Passing tests alone do not mean done.** Launch the app and actually exercise the change.
+- **Implementation and tests go in the same commit.** "I'll write the tests later" never happens.
