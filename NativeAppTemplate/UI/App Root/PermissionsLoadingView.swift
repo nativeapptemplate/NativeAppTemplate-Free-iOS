@@ -28,7 +28,7 @@ struct PermissionsLoadingView: View {
 
     func logout() {
         Task {
-            try await sessionController.logout()
+            try? await sessionController.logout()
         }
     }
 }

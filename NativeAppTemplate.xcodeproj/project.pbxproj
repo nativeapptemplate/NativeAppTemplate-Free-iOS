@@ -26,9 +26,6 @@
 		011F6DF1259EF16400BED22E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F6DF0259EF16400BED22E /* App.swift */; };
 		011F6DF5259EF16600BED22E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011F6DF4259EF16600BED22E /* Assets.xcassets */; };
 		011F6DF8259EF16600BED22E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011F6DF7259EF16600BED22E /* Preview Assets.xcassets */; };
-		012009F8299F1E190078A1F9 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 012009F7299F1E190078A1F9 /* Collections */; };
-		012009FA299F1E190078A1F9 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 012009F9299F1E190078A1F9 /* DequeModule */; };
-		012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 012009FB299F1E190078A1F9 /* OrderedCollections */; };
 		012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012643362B3554AD00D4E9BD /* AcceptTermsView.swift */; };
 		013292BE262C3EA400690B75 /* LoggedInShopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */; };
 		0139822A2FA815A2005DF953 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 013982292FA815A2005DF953 /* AppIcon.icon */; };
@@ -91,7 +88,7 @@
 		0172789C2D7D99D100CE424F /* ItemTagDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278932D7D99D100CE424F /* ItemTagDetailView.swift */; };
 		0172789D2D7D99D100CE424F /* ItemTagCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278962D7D99D100CE424F /* ItemTagCreateView.swift */; };
 		0172789E2D7D99D100CE424F /* ItemTagEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278942D7D99D100CE424F /* ItemTagEditView.swift */; };
-		0182D37025B258A7001E881D /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0182D36F25B258A7001E881D /* KeychainAccess */; };
+		A370BAECACECFAB76D851427 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B1F0A34D186286A11F085 /* Keychain.swift */; };
 		0182D37825B277FA001E881D /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D37625B277D6001E881D /* KeychainStore.swift */; };
 		0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */; };
 		0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */; };
@@ -248,6 +245,7 @@
 		017278962D7D99D100CE424F /* ItemTagCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagCreateView.swift; sourceTree = "<group>"; };
 		017278972D7D99D100CE424F /* ItemTagListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListCardView.swift; sourceTree = "<group>"; };
 		017278982D7D99D100CE424F /* ItemTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListView.swift; sourceTree = "<group>"; };
+		412B1F0A34D186286A11F085 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		0182D37625B277D6001E881D /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperAdapter.swift; sourceTree = "<group>"; };
 		0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeperKeychainStore.swift; sourceTree = "<group>"; };
@@ -322,10 +320,6 @@
 		011F6DEA259EF16400BED22E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				012009FC299F1E190078A1F9 /* OrderedCollections in Frameworks */,
-				012009F8299F1E190078A1F9 /* Collections in Frameworks */,
-				012009FA299F1E190078A1F9 /* DequeModule in Frameworks */,
-				0182D37025B258A7001E881D /* KeychainAccess in Frameworks */,
 			);
 		};
 		01D19B402D4DE33500BDEAB7 /* Frameworks */ = {
@@ -717,6 +711,7 @@
 		0182D37425B277D6001E881D /* KeychainStore */ = {
 			isa = PBXGroup;
 			children = (
+				412B1F0A34D186286A11F085 /* Keychain.swift */,
 				0182D37625B277D6001E881D /* KeychainStore.swift */,
 				013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */,
 				0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */,
@@ -806,10 +801,6 @@
 			);
 			name = NativeAppTemplate;
 			packageProductDependencies = (
-				0182D36F25B258A7001E881D /* KeychainAccess */,
-				012009F7299F1E190078A1F9 /* Collections */,
-				012009F9299F1E190078A1F9 /* DequeModule */,
-				012009FB299F1E190078A1F9 /* OrderedCollections */,
 			);
 			productName = MyTurnTagCreator;
 			productReference = 011F6DED259EF16400BED22E /* NativeAppTemplate.app */;
@@ -864,10 +855,6 @@
 				ja,
 			);
 			mainGroup = 011F6DE4259EF16400BED22E;
-			packageReferences = (
-				0182D36E25B258A7001E881D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */,
-			);
 			preferredProjectObjectVersion = 100;
 			productRefGroup = 011F6DEE259EF16400BED22E /* Products */;
 			projectDirPath = "";
@@ -918,6 +905,7 @@
 				017203B325A96FD6008FD63B /* UIApplication+DismissKeyboard.swift in Sources */,
 				01A133A72E08BB66000AD24A /* SignUpViewModel.swift in Sources */,
 				01A1339B2E08B0DF000AD24A /* MainViewModel.swift in Sources */,
+				A370BAECACECFAB76D851427 /* Keychain.swift in Sources */,
 				0182D37825B277FA001E881D /* KeychainStore.swift in Sources */,
 				01FC03E22B3329B700E6CD8E /* NeedAppUpdatesView.swift in Sources */,
 				0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */,
@@ -1330,47 +1318,7 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
-			};
-		};
-		0182D36E25B258A7001E881D /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.2.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 
-/* Begin XCSwiftPackageProductDependency section */
-		012009F7299F1E190078A1F9 /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
-		};
-		012009F9299F1E190078A1F9 /* DequeModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = DequeModule;
-		};
-		012009FB299F1E190078A1F9 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 012009F6299F1E190078A1F9 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
-		0182D36F25B258A7001E881D /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0182D36E25B258A7001E881D /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 011F6DE5259EF16400BED22E /* Project object */;
 }

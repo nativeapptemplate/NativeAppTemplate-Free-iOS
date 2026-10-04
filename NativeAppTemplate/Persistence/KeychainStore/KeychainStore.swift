@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import KeychainAccess
 import os
 
 protocol KeychainStore {
@@ -33,7 +32,7 @@ extension KeychainStore {
         let keychain = Keychain(service: service)
         let archived: Data?
 
-        archived = try? keychain.getData(account)
+        archived = try? keychain.data(for: account)
 
         guard archived != nil else {
             throw KeychainStoreError.notFound
@@ -64,7 +63,7 @@ extension KeychainStore {
         let keychain = Keychain(service: service)
 
         do {
-            try keychain.set(archived, key: account)
+            try keychain.set(archived, for: account)
         } catch {
             throw KeychainStoreError.secCallFailed(error)
         }

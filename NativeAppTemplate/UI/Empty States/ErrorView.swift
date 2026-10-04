@@ -35,7 +35,7 @@ extension ErrorView: View {
                 VStack {
                     Image(systemName: "exclamationmark.triangle")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .scaledToFit()
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .padding()
                         .foregroundStyle(.titleText)

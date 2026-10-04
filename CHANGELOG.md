@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Move agent instructions from `CLAUDE.md` to `AGENTS.md` so Claude Code, Codex, and other agents share one file. `CLAUDE.md` now only imports it (`@AGENTS.md`)
+- Replace `.aspectRatio(contentMode: .fit)` with `.scaledToFit()` (SwiftLint `legacy_swiftui_aspect_ratio`)
+- Handle errors inside fire-and-forget `Task`s (Swift `NoUseUnstructuredThrowingTask` warning). `MainViewModel.logout()` now posts a logout failure to `MessageBus`; other call sites use `try?` because `SessionController.logout()` already logs the failure and resets session state before rethrowing
+- Add a Testing Policy section to `AGENTS.md`
+
+### Removed
+- `swift-collections` dependency. `timeZones` was its only user (`OrderedDictionary`); it is now a plain `[(key: String, value: String)]` array with the same order, and the time zone pickers no longer force-unwrap
+- `KeychainAccess` dependency — the app now has no third-party Swift packages. A small `Keychain` wrapper over the Security framework replaces it and uses the same item attributes KeychainAccess v4.2.2 used (generic password keyed by service + account, `kSecAttrAccessibleAfterFirstUnlock`, not synchronizable), so the signed-in session written by earlier versions keeps working after the update
 
 ## [3.2.4] - 2026-06-10
 
