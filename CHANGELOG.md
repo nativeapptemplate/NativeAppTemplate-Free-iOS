@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.5] - 2026-10-04
+
 ### Changed
 - Move agent instructions from `CLAUDE.md` to `AGENTS.md` so Claude Code, Codex, and other agents share one file. `CLAUDE.md` now only imports it (`@AGENTS.md`)
 - Replace `.aspectRatio(contentMode: .fit)` with `.scaledToFit()` (SwiftLint `legacy_swiftui_aspect_ratio`)
