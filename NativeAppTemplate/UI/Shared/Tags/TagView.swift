@@ -26,7 +26,7 @@ struct TagView: View {
         HStack(spacing: NativeAppTemplateConstants.Spacing.xxxs) {
             image?
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .foregroundStyle(textColor)
                 .frame(height: Self.defaultIconHeight)
 

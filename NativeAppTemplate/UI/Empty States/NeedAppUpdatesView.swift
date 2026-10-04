@@ -16,7 +16,7 @@ struct NeedAppUpdatesView: View {
                 VStack {
                     Image(systemName: "exclamationmark.arrow.circlepath")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .scaledToFit()
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .foregroundStyle(.titleText)
                         .padding()

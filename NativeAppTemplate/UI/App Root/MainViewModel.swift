@@ -31,7 +31,11 @@ final class MainViewModel {
 
     func logout() {
         Task {
-            try await sessionController.logout()
+            do {
+                try await sessionController.logout()
+            } catch {
+                messageBus.post(message: Message(error: error))
+            }
         }
     }
 }

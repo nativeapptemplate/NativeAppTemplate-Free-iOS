@@ -20,7 +20,7 @@ private extension OnboardingView {
         ZStack(alignment: .bottom) {
             Image(systemName: "sparkles")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .padding(.top, NativeAppTemplateConstants.Spacing.md)
                 .padding(.bottom, 192)
 

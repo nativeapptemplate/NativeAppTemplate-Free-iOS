@@ -29,7 +29,7 @@ private extension SignUpOrSignInView {
 
                     Image(systemName: "sparkles")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .scaledToFit()
                         .frame(height: 256)
                         .padding()
 

@@ -67,7 +67,7 @@ final class ShopSettingsViewModel {
                     message: "\(Strings.shopDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
-                try await sessionController.logout()
+                try? await sessionController.logout()
             }
         }
     }

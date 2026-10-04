@@ -14,7 +14,7 @@ struct OfflineView: View {
                 VStack {
                     Image(systemName: "wifi.slash")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .scaledToFit()
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .padding()
                         .foregroundStyle(.titleText)

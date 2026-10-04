@@ -143,7 +143,7 @@ private extension ItemTagListView {
         VStack {
             Image(systemName: "01.square")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .padding()
             Text(Strings.addItemTagDescription)

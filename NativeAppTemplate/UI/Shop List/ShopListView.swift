@@ -50,7 +50,7 @@ extension ShopListView {
             // Avoid showing deleted shop.
             .onChange(of: viewModel.shouldPopToRootView) {
                 Task {
-                    try await Task.sleep(nanoseconds: 2_000_000_000)
+                    try? await Task.sleep(nanoseconds: 2_000_000_000)
                     viewModel.reload()
                 }
             }
@@ -176,7 +176,7 @@ private extension ShopListView {
             if leftInShopSlots > 0 {
                 Image(systemName: "storefront")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
 
@@ -193,7 +193,7 @@ private extension ShopListView {
             } else {
                 Image(systemName: "externaldrive.badge.exclamationmark")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
 
