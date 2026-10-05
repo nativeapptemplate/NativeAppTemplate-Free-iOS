@@ -11,7 +11,7 @@ xcodebuild -project NativeAppTemplate.xcodeproj \
   -scheme "NativeAppTemplate" \
   -configuration Debug \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
   build
 
 # Build for Release
@@ -19,7 +19,7 @@ xcodebuild -project NativeAppTemplate.xcodeproj \
   -scheme "NativeAppTemplate" \
   -configuration Release \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
   build
 ```
 
@@ -29,7 +29,7 @@ xcodebuild -project NativeAppTemplate.xcodeproj \
 xcodebuild -project NativeAppTemplate.xcodeproj \
   -scheme "NativeAppTemplate" \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
   test
 ```
 

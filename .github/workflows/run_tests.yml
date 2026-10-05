@@ -22,6 +22,6 @@ jobs:
     #       xcodebuild -project NativeAppTemplate.xcodeproj \
     #         -scheme "NativeAppTemplate" \
     #         -sdk iphonesimulator \
-    #         -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
+    #         -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
     #         -quiet \
     #         test
