@@ -28,6 +28,5 @@ jobs:
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest' \
             -skipMacroValidation \
-            CODE_SIGNING_ALLOWED=NO \
             -quiet \
             test
