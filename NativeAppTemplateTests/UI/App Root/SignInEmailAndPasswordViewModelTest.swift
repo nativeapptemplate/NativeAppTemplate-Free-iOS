@@ -155,8 +155,7 @@ struct SignInEmailAndPasswordViewModelTest {
 
         viewModel.signIn()
 
-        // Wait for async operation
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { sessionController.userState == .loggedIn && !viewModel.isLoggingIn }
 
         #expect(sessionController.userState == .loggedIn)
         #expect(viewModel.isLoggingIn == false)
@@ -176,7 +175,7 @@ struct SignInEmailAndPasswordViewModelTest {
 
         viewModel.signIn()
 
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { (sessionController.userState == .loggedIn || messageBus.currentMessage != nil) && !viewModel.isLoggingIn }
 
         #expect(viewModel.isLoggingIn == false)
         // In a real error scenario, we'd check for error messages
@@ -226,7 +225,7 @@ struct SignInEmailAndPasswordViewModelTest {
 
         viewModel.signIn()
 
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { sessionController.userState == .loggedIn && !viewModel.isLoggingIn }
 
         // The actual trimming would happen in the signIn method implementation
         #expect(sessionController.userState == .loggedIn)

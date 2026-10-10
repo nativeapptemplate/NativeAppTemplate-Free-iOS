@@ -92,8 +92,7 @@ struct SettingsViewModelTest {
 
         viewModel.signOut()
 
-        // Wait for async task to complete
-        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+        await waitUntil { tabViewModel.selectedTab == .shops }
 
         #expect(sessionController.userState == .notLoggedIn)
         #expect(tabViewModel.selectedTab == .shops)
@@ -120,8 +119,7 @@ struct SettingsViewModelTest {
 
         viewModel.signOut()
 
-        // Wait for async task to complete
-        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+        await waitUntil { tabViewModel.selectedTab == .shops }
 
         // Even if logout succeeds in test environment, tab should still be set to shops
         #expect(tabViewModel.selectedTab == .shops)

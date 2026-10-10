@@ -183,8 +183,7 @@ struct SignUpViewModelTest {
 
         viewModel.createShopkeeper()
 
-        // Wait for async operation
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { viewModel.shouldDismiss }
 
         #expect(signUpRepository.signUpCalled == true)
         #expect(signUpRepository.lastSignUp?.name == "John Doe")
@@ -211,7 +210,7 @@ struct SignUpViewModelTest {
 
         viewModel.createShopkeeper()
 
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { viewModel.isShowingAlert }
 
         #expect(signUpRepository.signUpCalled == true)
         #expect(viewModel.shouldDismiss == false)
@@ -301,7 +300,7 @@ struct SignUpViewModelTest {
 
         viewModel.createShopkeeper()
 
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { viewModel.shouldDismiss }
 
         // The actual trimming would happen in the createShopkeeper method implementation
         #expect(signUpRepository.signUpCalled == true)

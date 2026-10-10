@@ -55,8 +55,7 @@ struct MainViewModelTest {
 
         viewModel.logout()
 
-        // Wait for async operation
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { sessionController.userState == .notLoggedIn }
 
         #expect(sessionController.userState == .notLoggedIn)
     }
