@@ -59,7 +59,36 @@ private final class NullSessionController: SessionControllerProtocol {
     func updateConfirmedTermsVersion() async throws {}
 }
 
+// MARK: - Launcher
+
+/// Starts the real app, or a blank one when this process hosts unit tests.
+/// Tests then skip keychain reads, NWPathMonitor, and TipKit — none of which they use.
 @main
+enum AppLauncher {
+    @MainActor static func main() {
+        if isHostingUnitTests {
+            UnitTestHostApp.main()
+        } else {
+            App.main()
+        }
+    }
+
+    /// Xcode sets `XCTestConfigurationFilePath` and loads XCTest (Swift Testing runs through it too)
+    /// only when launching the app as a test host.
+    static var isHostingUnitTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+            || NSClassFromString("XCTestCase") != nil
+    }
+}
+
+private struct UnitTestHostApp: SwiftUI.App {
+    var body: some Scene {
+        WindowGroup {
+            Text(verbatim: "Running unit tests")
+        }
+    }
+}
+
 struct App {
     typealias Objects = ( // swiftlint:disable:this large_tuple
         loginRepository: LoginRepository,

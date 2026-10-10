@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Unit tests launch a blank host app instead of the full app, so they no longer read the keychain, start `NWPathMonitor`, or set up TipKit before every run
+
 ## [3.2.5] - 2026-10-04
 
 ### Changed
