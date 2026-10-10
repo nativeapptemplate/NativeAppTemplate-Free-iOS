@@ -34,8 +34,7 @@ struct AcceptTermsViewModelTest {
 
         viewModel.updateConfirmedTermsVersion()
 
-        // Wait for async operation
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { viewModel.shouldDismiss }
 
         #expect(viewModel.areTermsAccepted == true)
         #expect(viewModel.shouldDismiss == true)
@@ -53,7 +52,7 @@ struct AcceptTermsViewModelTest {
 
         viewModel.updateConfirmedTermsVersion()
 
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        await waitUntil { viewModel.shouldDismiss }
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.areTermsAccepted == true) // Still set to true even on error
