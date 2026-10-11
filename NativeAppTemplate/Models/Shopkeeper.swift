@@ -16,6 +16,8 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
     public var email: String
     public var name: String
     public var timeZone: String
+    /// "en" or "ja": the language the API answers this shopkeeper in
+    public var locale: String
     public var uid: String
     public var token: String?
     public var client: String?
@@ -32,6 +34,7 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
         email: String,
         name: String,
         timeZone: String,
+        locale: String = Shopkeeper.defaultLocale,
         uid: String,
         token: String,
         client: String,
@@ -45,6 +48,7 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
         self.email = email
         self.name = name
         self.timeZone = timeZone
+        self.locale = locale
         self.uid = uid
         self.token = token
         self.client = client
@@ -69,6 +73,8 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
             return nil
         }
 
+        let locale = dictionary["locale"] ?? Shopkeeper.defaultLocale
+
         self.id = id
         self.accountId = accountId
         self.personalAccountId = personalAccountId
@@ -77,6 +83,7 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
         self.email = email
         self.name = name
         self.timeZone = timeZone
+        self.locale = locale
         self.uid = uid
         self.token = token
         self.client = client
@@ -92,11 +99,25 @@ public struct Shopkeeper: Hashable, Codable, Sendable {
         email = loggedInShopkeeper.email
         name = loggedInShopkeeper.name
         timeZone = loggedInShopkeeper.timeZone
+        locale = loggedInShopkeeper.locale
         token = loggedInShopkeeper.token
         client = loggedInShopkeeper.client
         uid = loggedInShopkeeper.uid
         expiry = loggedInShopkeeper.expiry
     }
+}
+
+// MARK: public
+
+public extension Shopkeeper {
+    /// The API's column default, for data that predates shopkeepers.locale
+    static let defaultLocale = "en"
+
+    /// The languages the API offers, each named in itself
+    static let supportedLocales: [(code: String, name: String)] = [
+        ("en", "English"),
+        ("ja", "日本語")
+    ]
 }
 
 private extension Shopkeeper {
@@ -111,6 +132,7 @@ private extension Shopkeeper {
         email = shopkeeper.email
         name = shopkeeper.name
         timeZone = shopkeeper.timeZone
+        locale = shopkeeper.locale
         uid = shopkeeper.uid
         token = shopkeeper.token
         client = shopkeeper.client

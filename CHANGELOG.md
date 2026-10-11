@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Language setting (English / 日本語) on Edit Profile. It saves `locale` with `PATCH /shopkeeper_auth`, so the API answers and emails the shopkeeper in that language (nativeapptemplateapi #150)
+- Sign-up sends the device's first preferred language as `locale`; the API reduces it to a language it offers, falling back to English
+- `Shopkeeper.locale`, read from the sign-in, sign-up and profile responses and kept with the saved session. A session saved by an earlier version reads as `en`, the API's default
+
 ### Changed
 - Unit tests launch a blank host app instead of the full app, so they no longer read the keychain, start `NWPathMonitor`, or set up TipKit before every run
 

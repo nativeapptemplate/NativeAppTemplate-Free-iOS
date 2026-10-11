@@ -36,6 +36,7 @@ struct ShopkeeperSignInAdapter: EntityAdapter {
             email: email,
             name: name,
             timeZone: timeZone,
+            locale: resource.attributes["locale"] as? String ?? Shopkeeper.defaultLocale,
             uid: uid,
             token: resource.attributes["token"] as? String ?? "",
             client: resource.attributes["client"] as? String ?? "",

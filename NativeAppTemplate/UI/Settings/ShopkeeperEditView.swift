@@ -72,6 +72,12 @@ private extension ShopkeeperEditView {
                         Text(timeZone.value).tag(timeZone.key)
                     }
                 }
+
+                Picker(Strings.language, selection: $viewModel.selectedLocale) {
+                    ForEach(Shopkeeper.supportedLocales, id: \.code) { locale in
+                        Text(locale.name).tag(locale.code)
+                    }
+                }
             }
 
             Spacer()

@@ -27,6 +27,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
             email: "test@example.com",
             name: "Test User",
             timeZone: "Tokyo",
+            locale: "en",
             uid: "test-uid",
             token: "test-token",
             client: "test-client",
@@ -49,6 +50,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.name == "Test User")
         #expect(viewModel.email == "test@example.com")
         #expect(viewModel.selectedTimeZone == "Tokyo")
+        #expect(viewModel.selectedLocale == "en")
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.isShowingDeleteConfirmationDialog == false)
@@ -183,6 +185,35 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         viewModel.email = testShopkeeper.email // reset email
         viewModel.selectedTimeZone = "Osaka"
         #expect(viewModel.hasInvalidData == false)
+
+        viewModel.selectedTimeZone = testShopkeeper.timeZone // reset time zone
+        viewModel.selectedLocale = "ja"
+        #expect(viewModel.hasInvalidData == false)
+    }
+
+    @Test
+    func updateShopkeeperSendsAndStoresTheLocale() async {
+        sessionController.shopkeeper = testShopkeeper
+
+        let viewModel = ShopkeeperEditViewModel(
+            signUpRepository: signUpRepository,
+            sessionController: sessionController,
+            messageBus: messageBus,
+            tabViewModel: tabViewModel,
+            shopkeeper: testShopkeeper
+        )
+
+        viewModel.selectedLocale = "ja"
+
+        let updateTask = Task {
+            viewModel.updateShopkeeper()
+        }
+        await updateTask.value
+
+        #expect(signUpRepository.lastSignUp?.locale == "ja")
+        // TestSignUpRepository echoes the sent locale back, like the API
+        #expect(sessionController.shopkeeper?.locale == "ja")
+        #expect(messageBus.currentMessage?.message == Strings.shopkeeperUpdated)
     }
 
     @Test
