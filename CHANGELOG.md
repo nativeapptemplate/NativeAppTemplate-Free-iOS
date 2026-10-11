@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Debug builds lost the local API when launched other than from Xcode, e.g. from the Home Screen or when iOS relaunched the app after its language was changed in Settings: the endpoint came only from the scheme's environment variables, which only Xcode passes. It now comes from `API.xcconfig` (override it in the gitignored `API.local.xcconfig`) and is built into `Info.plist`; `NATIVEAPPTEMPLATE_API_*` environment variables still win. The scheme no longer sets them
+
 ### Added
 - Language setting (English / 日本語) on Edit Profile. It saves `locale` with `PATCH /shopkeeper_auth`, so the API answers and emails the shopkeeper in that language (nativeapptemplateapi #150)
 - Sign-up sends the device's first preferred language as `locale`; the API reduces it to a language it offers, falling back to English

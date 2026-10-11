@@ -184,6 +184,7 @@
 		011F6DF9259EF16600BED22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		012643362B3554AD00D4E9BD /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
 		013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeper.swift; sourceTree = "<group>"; };
+		01A9E1F02EA0000100000001 /* API.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = API.xcconfig; sourceTree = "<group>"; };
 		0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SampleCode.xcconfig; sourceTree = "<group>"; };
 		013982292FA815A2005DF953 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
@@ -404,6 +405,7 @@
 		0135E8E32D7E4478004AD8FA /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				01A9E1F02EA0000100000001 /* API.xcconfig */,
 				0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */,
 			);
 			name = Configuration;
@@ -1176,6 +1178,7 @@
 		};
 		011F6E13259EF16600BED22E /* Debug configuration for PBXNativeTarget "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01A9E1F02EA0000100000001 /* API.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
