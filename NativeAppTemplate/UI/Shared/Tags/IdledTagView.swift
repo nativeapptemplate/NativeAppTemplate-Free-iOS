@@ -8,7 +8,7 @@ import SwiftUI
 struct IdledTag: View {
     var body: some View {
         TagView(
-            text: "idled",
+            text: String(localized: "idled"),
             textColor: .idledTagForeground,
             backgroundColor: .idledTagBackground,
             borderColor: .idledTagBorder

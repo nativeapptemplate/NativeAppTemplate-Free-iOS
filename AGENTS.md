@@ -120,6 +120,18 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 ### Testing
 Uses Swift Testing framework with `@Test` attribute. Tests are organized by component type (models, adapters, networking).
 
+## Localization (English + Japanese)
+
+The app ships in English (development language) and Japanese. **Every new user-facing string needs a Japanese translation**; `NativeAppTemplateTests/App/LocalizationTest.swift` fails otherwise.
+
+- Put shared text in `Constants.swift` as `static let x = String(localized: "...")`. A literal in `Text("...")`, `Button("...")`, `Label("...", systemImage:)` etc. is localized automatically, but a `String` variable passed to `Text(_:)` is shown verbatim, so build it with `String(localized:)`. Never build a sentence with `+`; interpolate inside one localized literal (`String(localized: "Welcome to \(appName)")`) so the translation can reorder it.
+- Keep the keys in English: nativeapptemplate-agent renames the English nouns in code and catalog keys together.
+- After building, Xcode adds new keys to `NativeAppTemplate/Localizable.xcstrings` (from the command line: `xcrun xcstringstool sync NativeAppTemplate/Localizable.xcstrings --stringsdata <each .stringsdata in DerivedData>`). Add the `ja` value with state `translated`, keeping every `%@`/`%lld` (use `%1$@`, `%2$@` to reorder). Permission prompts go in `InfoPlist.xcstrings`.
+- Use the API's terms (`config/locales/ja.yml`), the same as the paid NativeAppTemplate-iOS: Shop is **店舗** (never ショップ/店/お店), ItemTag is **アイテムタグ** in full (never タグ or アイテム alone; the agent renames these Japanese nouns as substrings), Idled/Completed 未完了/完了. Don't translate the product name.
+- Keep untranslated: product names, URLs, `NATIVEAPPTEMPLATE-xxxx` error codes and `CodedError` descriptions, log messages, the API's `error_message` (already localized by the server), and text the user typed.
+- Tests run in English (the scheme's test action sets `language = "en"`).
+- The app's language is set in iOS Settings, not in the app. Edit Profile shows it read-only; `SessionController` keeps `shopkeepers.locale` in step with it so emails match.
+
 ## Testing Policy
 
 - **Bug fixes start with a failing test that reproduces the bug. No exceptions.** Every fix commit must include that reproduction test.

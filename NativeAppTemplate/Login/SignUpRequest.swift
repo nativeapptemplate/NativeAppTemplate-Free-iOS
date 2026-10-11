@@ -75,6 +75,34 @@ struct UpdateShopkeeperRequest: Request {
     }
 }
 
+/// PATCH /shopkeeper_auth with only the locale, which the API accepts
+struct UpdateLocaleRequest: Request {
+    typealias Response = Void
+
+    // MARK: - Properties
+
+    var method: HTTPMethod {
+        .PATCH
+    }
+
+    var path: String {
+        "/shopkeeper_auth"
+    }
+
+    var additionalHeaders: [String: String] = [:]
+    var body: Data? {
+        try? JSONSerialization.data(withJSONObject: ["locale": locale])
+    }
+
+    // MARK: - Parameters
+
+    let locale: String
+
+    // MARK: - Internal
+
+    func handle(response: Data) throws {}
+}
+
 struct DestroyShopkeeperRequest: Request {
     typealias Response = Void
 

@@ -118,6 +118,26 @@ public extension Shopkeeper {
         ("en", "English"),
         ("ja", "日本語")
     ]
+
+    /// The language the app is shown in, as the API names it. The user changes
+    /// it in iOS Settings, and shopkeepers.locale follows it so emails match.
+    static func appLocale(preferredLocalizations: [String] = Bundle.main.preferredLocalizations) -> String {
+        guard let language = preferredLocalizations.first?.split(separator: "-").first.map(String.init),
+              supportedLocales.contains(where: { $0.code == language }) else {
+            return defaultLocale
+        }
+        return language
+    }
+
+    static func appLocaleName(preferredLocalizations: [String] = Bundle.main.preferredLocalizations) -> String {
+        let code = appLocale(preferredLocalizations: preferredLocalizations)
+        return supportedLocales.first { $0.code == code }?.name ?? code
+    }
+
+    /// The locale to send so the API matches the app, or nil when it already does
+    func localeToSync(appLocale: String) -> String? {
+        locale == appLocale ? nil : appLocale
+    }
 }
 
 private extension Shopkeeper {

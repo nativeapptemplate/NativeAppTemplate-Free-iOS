@@ -11,11 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Debug builds lost the local API when launched other than from Xcode, e.g. from the Home Screen or when iOS relaunched the app after its language was changed in Settings: the endpoint came only from the scheme's environment variables, which only Xcode passes. It now comes from `API.xcconfig` (override it in the gitignored `API.local.xcconfig`) and is built into `Info.plist`; `NATIVEAPPTEMPLATE_API_*` environment variables still win. The scheme no longer sets them
 
 ### Added
-- Language setting (English / 日本語) on Edit Profile. It saves `locale` with `PATCH /shopkeeper_auth`, so the API answers and emails the shopkeeper in that language (nativeapptemplateapi #150)
-- Sign-up sends the device's first preferred language as `locale`; the API reduces it to a language it offers, falling back to English
+- Japanese localization, ported from NativeAppTemplate-iOS #102 with the same Japanese for every shared string. Every user-facing string goes through `Localizable.xcstrings` (`String(localized:)` in `Constants.swift`), with Japanese for all keys using the API's terms (店舗, アイテムタグ). `InfoPlist.xcstrings` keeps the app name as is. `LocalizationTest` fails on a key without Japanese, a translation with different format specifiers, ショップ, or an ItemTag not written as アイテムタグ in full
+- "App Language" on Edit Profile shows the language the app is shown in, with a button to change it in iOS Settings; emails follow it. Sign-up sends that language as `locale`, and after permissions are fetched (every launch and sign-in) the app sends `PATCH /shopkeeper_auth {locale}` when `shopkeepers.locale` differs (nativeapptemplateapi #150)
 - `Shopkeeper.locale`, read from the sign-in, sign-up and profile responses and kept with the saved session. A session saved by an earlier version reads as `en`, the API's default
 
 ### Changed
+- The scheme's test action runs in English, so tests compare against English strings on a Japanese simulator
 - Unit tests launch a blank host app instead of the full app, so they no longer read the keychain, start `NWPathMonitor`, or set up TipKit before every run
 
 ## [3.2.5] - 2026-10-04

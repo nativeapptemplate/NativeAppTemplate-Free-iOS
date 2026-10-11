@@ -9,9 +9,8 @@ struct SignUp: Codable {
     var name: String
     var email: String
     var timeZone: String
-    /// The device's first preferred language, e.g. "ja-JP". The API reduces it
-    /// to a language it offers and falls back to English otherwise.
-    var locale: String = Locale.preferredLanguages.first ?? "en"
+    /// The language the app is shown in, so emails match the app
+    var locale: String = Shopkeeper.appLocale()
     var currentPlatform: String = "ios"
     var password: String?
 }

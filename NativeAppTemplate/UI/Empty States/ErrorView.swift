@@ -6,16 +6,16 @@
 import SwiftUI
 
 struct ErrorView {
-    private var titleText = "Something went wrong."
-    private var bodyText = "Please try again."
-    private var buttonTitle = "Reload"
+    private var titleText: String
+    private var bodyText: String
+    private var buttonTitle: String
     private var buttonAction: () -> Void
 
     init(
         buttonAction: @escaping () -> Void,
-        titleText: String = "Something went wrong.",
-        bodyText: String = "Please try again.",
-        buttonTitle: String = "Reload"
+        titleText: String = String(localized: "Something went wrong."),
+        bodyText: String = String(localized: "Please try again."),
+        buttonTitle: String = String(localized: "Reload")
     ) {
         self.titleText = titleText
         self.bodyText = bodyText

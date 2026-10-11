@@ -12,7 +12,6 @@ final class ShopkeeperEditViewModel {
     var name: String
     var email: String
     var selectedTimeZone: String
-    var selectedLocale: String
     var isUpdating = false
     var isDeleting = false
     var isShowingDeleteConfirmationDialog = false
@@ -39,7 +38,6 @@ final class ShopkeeperEditViewModel {
         name = shopkeeper.name
         email = shopkeeper.email
         selectedTimeZone = shopkeeper.timeZone
-        selectedLocale = shopkeeper.locale
     }
 
     var isBusy: Bool {
@@ -57,8 +55,7 @@ final class ShopkeeperEditViewModel {
 
         if shopkeeper.name == name,
            shopkeeper.email == email,
-           shopkeeper.timeZone == selectedTimeZone,
-           shopkeeper.locale == selectedLocale {
+           shopkeeper.timeZone == selectedTimeZone {
             return true
         }
 
@@ -90,8 +87,7 @@ final class ShopkeeperEditViewModel {
                 let signUp = SignUp(
                     name: theName,
                     email: theEmail,
-                    timeZone: selectedTimeZone,
-                    locale: selectedLocale
+                    timeZone: selectedTimeZone
                 )
                 let updatedShopkeeper = try await signUpRepository.update(
                     id: shopkeeper.id,

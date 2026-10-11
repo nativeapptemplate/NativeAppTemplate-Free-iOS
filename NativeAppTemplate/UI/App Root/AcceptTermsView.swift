@@ -42,7 +42,8 @@ private extension AcceptTermsView {
 
     var acceptTermsView: some View {
         VStack {
-            let agreement = "Please accept updated [\(Strings.termsOfUse)](\(Strings.termsOfUseUrl))."
+            let termsLink = "[\(Strings.termsOfUse)](\(Strings.termsOfUseUrl))"
+            let agreement = String(localized: "Please accept updated \(termsLink).")
             Text(.init(agreement))
                 .padding(.top, NativeAppTemplateConstants.Spacing.xl)
 
