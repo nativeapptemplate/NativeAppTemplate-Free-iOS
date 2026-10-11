@@ -57,4 +57,16 @@ struct ShopkeeperTest {
 
         #expect(shopkeeper != nil)
     }
+
+    @Test func localeIsReadFromTheDictionary() {
+        var dictionary = shopkeeperDictionary
+        dictionary["locale"] = "ja"
+
+        #expect(Shopkeeper(dictionary: dictionary)?.locale == "ja")
+    }
+
+    /// The API's column default for shopkeepers.locale
+    @Test func missingLocaleDefaultsToEnglish() {
+        #expect(Shopkeeper(dictionary: shopkeeperDictionary)?.locale == "en")
+    }
 }

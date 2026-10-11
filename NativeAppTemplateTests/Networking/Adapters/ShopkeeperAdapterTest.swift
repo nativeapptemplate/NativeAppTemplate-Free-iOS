@@ -13,7 +13,8 @@ struct ShopkeeperAdapterTest {
         "attributes": [
             "name": "Shopkeeper1",
             "email": "email@example.com",
-            "time_zone": "Tokyo"
+            "time_zone": "Tokyo",
+            "locale": "ja"
         ]
     ]
 
@@ -59,5 +60,23 @@ struct ShopkeeperAdapterTest {
             let entityAdapterError = error as? EntityAdapterError
             return EntityAdapterError.invalidOrMissingAttributes == entityAdapterError
         }
+    }
+
+    @Test func localeIsRead() throws {
+        let resource = try makeJsonAPIResource(for: sampleResource)
+        let shopkeeper = try ShopkeeperAdapter.process(resource: resource)
+        #expect(shopkeeper.locale == "ja")
+    }
+
+    /// An API that predates shopkeepers.locale sends none; the server's column default is "en"
+    @Test func missingLocaleDefaultsToEnglish() throws {
+        var sample = sampleResource
+        var attrs = sample["attributes"] as? [String: Any] ?? [:]
+        attrs.removeValue(forKey: "locale")
+        sample["attributes"] = attrs
+
+        let resource = try makeJsonAPIResource(for: sample)
+        let shopkeeper = try ShopkeeperAdapter.process(resource: resource)
+        #expect(shopkeeper.locale == "en")
     }
 }

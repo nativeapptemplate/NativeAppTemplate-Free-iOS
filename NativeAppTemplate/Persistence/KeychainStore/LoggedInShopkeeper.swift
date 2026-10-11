@@ -15,6 +15,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
              email,
              name,
              timeZone,
+             locale,
              token,
              client,
              uid,
@@ -29,6 +30,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
     let email: String
     let name: String
     let timeZone: String
+    let locale: String
     let token: String
     let client: String
     let uid: String
@@ -43,6 +45,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
         email: String,
         name: String,
         timeZone: String,
+        locale: String,
         token: String,
         client: String,
         uid: String,
@@ -56,6 +59,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
         self.email = email
         self.name = name
         self.timeZone = timeZone
+        self.locale = locale
         self.token = token
         self.client = client
         self.uid = uid
@@ -71,6 +75,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
         email = shopkeeper.email
         name = shopkeeper.name
         timeZone = shopkeeper.timeZone
+        locale = shopkeeper.locale
 
         token = shopkeeper.token!
         client = shopkeeper.client!
@@ -88,6 +93,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
         coder.encode(email, forKey: CodingKeys.email.rawValue)
         coder.encode(name, forKey: CodingKeys.name.rawValue)
         coder.encode(timeZone, forKey: CodingKeys.timeZone.rawValue)
+        coder.encode(locale, forKey: CodingKeys.locale.rawValue)
         coder.encode(token, forKey: CodingKeys.token.rawValue)
         coder.encode(client, forKey: CodingKeys.client.rawValue)
         coder.encode(uid, forKey: CodingKeys.uid.rawValue)
@@ -109,6 +115,11 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
         let email = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.email.rawValue)! as String
         let name = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.name.rawValue)! as String
         let timeZone = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.timeZone.rawValue)! as String
+        // Sessions saved before locale existed have none
+        let locale = decoder.decodeObject(
+            of: NSString.self,
+            forKey: CodingKeys.locale.rawValue
+        ) as String? ?? Shopkeeper.defaultLocale
         let token = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.token.rawValue)! as String
         let client = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.client.rawValue)! as String
         let uid = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.uid.rawValue)! as String
@@ -123,6 +134,7 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
             email: email,
             name: name,
             timeZone: timeZone,
+            locale: locale,
             token: token,
             client: client,
             uid: uid,

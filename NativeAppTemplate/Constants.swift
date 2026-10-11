@@ -165,6 +165,7 @@ enum Strings {
     }
 
     static let timeZone = "Time Zone"
+    static let language = "Language"
     static let createShopsLabel = "Create shops"
     static let tapShopBelow = "Tap shop below."
     static let haveFun = "Have fun!"
