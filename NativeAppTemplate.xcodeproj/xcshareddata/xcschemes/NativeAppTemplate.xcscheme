@@ -67,23 +67,6 @@
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "NATIVEAPPTEMPLATE_API_SCHEME"
-            value = "http"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "NATIVEAPPTEMPLATE_API_DOMAIN"
-            value = "192.168.1.21"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "NATIVEAPPTEMPLATE_API_PORT"
-            value = "3000"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

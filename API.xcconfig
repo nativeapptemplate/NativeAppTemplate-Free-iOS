@@ -1,0 +1,22 @@
+//
+// API.xcconfig
+//
+// The API that Debug builds talk to; Release builds always use the production
+// API. Use your Mac's LAN IP, never 127.0.0.1 / localhost / 0.0.0.0 (those are
+// the simulator or device itself). It must match HOST / PORT in the Rails API's
+// .env.
+//
+// Put your own values in API.local.xcconfig (gitignored) rather than editing
+// this file, e.g.
+//
+//   NATIVEAPPTEMPLATE_API_DOMAIN = 192.168.1.6
+//
+// The values are built into Info.plist, so the app reaches the API however it
+// is launched, including from the Home Screen and after iOS relaunches it
+// when its language changes.
+
+NATIVEAPPTEMPLATE_API_SCHEME = http
+NATIVEAPPTEMPLATE_API_DOMAIN = 192.168.1.21
+NATIVEAPPTEMPLATE_API_PORT = 3000
+
+#include? "API.local.xcconfig"

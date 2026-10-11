@@ -93,3 +93,6 @@ secrets.*.xcconfig
 
 # Private docs
 docs-private/
+
+# Local API endpoint for Debug builds (see API.xcconfig)
+API.local.xcconfig

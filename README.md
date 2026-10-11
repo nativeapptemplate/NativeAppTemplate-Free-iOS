@@ -82,7 +82,7 @@ To run this app successfully, ensure you have:
 
 ## Running with the NativeAppTemplate-API on localhost
 
-To connect to a local API server, set these env vars on the Xcode scheme (Edit Scheme → Run → Arguments → Environment Variables):
+Debug builds take the API endpoint from `API.xcconfig`. Put your own values in `API.local.xcconfig` next to it (gitignored, so your LAN IP stays out of git):
 
 ```
 NATIVEAPPTEMPLATE_API_SCHEME = http
@@ -90,21 +90,13 @@ NATIVEAPPTEMPLATE_API_DOMAIN = <your-lan-ip>
 NATIVEAPPTEMPLATE_API_PORT   = 3000
 ```
 
+Only the keys you set override `API.xcconfig`, whose committed values are examples (`http://192.168.1.21:3000`). They must match `HOST` / `PORT` in the API's `.env`.
+
 > **Note:** Never use `127.0.0.1`, `localhost`, or `0.0.0.0` for `NATIVEAPPTEMPLATE_API_DOMAIN` — those resolve to the iOS Simulator/device itself, not your Mac. Use your Mac's LAN IP (e.g., `192.168.1.6`) so the simulator or a physical device can reach the API server.
 
-The `NativeAppTemplate` scheme is **shared** (committed at `NativeAppTemplate.xcodeproj/xcshareddata/xcschemes/NativeAppTemplate.xcscheme`) so fresh clones and generated copies open with these env vars already wired — without it, Xcode's auto-created default omits the injection and Debug builds silently fall back to the built-in code default (`https://api.nativeapptemplate.com`), which has been shut down. The committed `NATIVEAPPTEMPLATE_API_DOMAIN` is just an example value (`192.168.1.21`); edit it to your own Mac's LAN IP.
+The values are built into the app's `Info.plist`, so a Debug build reaches the same API however it is launched: from Xcode, from the Home Screen, on a device after Xcode disconnects, and after iOS relaunches the app because its language was changed in Settings. Environment variables with the same names (`NATIVEAPPTEMPLATE_API_*`, e.g. set by `simctl launch` via `SIMCTL_CHILD_*`) still take precedence; see `APIEndpoint` in `NativeAppTemplateEnvironment.swift`.
 
-Because the scheme is committed, keep your personal LAN IP out of git. After editing the value locally, tell git to ignore your changes to the file:
-
-```bash
-git update-index --skip-worktree NativeAppTemplate.xcodeproj/xcshareddata/xcschemes/NativeAppTemplate.xcscheme
-```
-
-To resume tracking it (e.g. before intentionally committing a scheme change), run `git update-index --no-skip-worktree <same path>`.
-
-Debug builds read these at launch via `ProcessInfo.processInfo.environment` in `Constants.swift`; when unset, they fall back to the built-in code default (`https://api.nativeapptemplate.com`), which has been shut down — so set the env vars to point Debug builds at your own API server. Release builds always use that same code default, so change it in `Constants.swift` to your own API server before shipping a Release build.
-
-In practice, only Xcode injects these env vars (via the scheme), so a Debug build launched any other way — tapped from the Home Screen (SpringBoard), opened on a physical device after Xcode disconnects, etc. — sees them unset and falls through to the built-in code default. Since that host (`https://api.nativeapptemplate.com`) has been shut down, point Debug builds at your own server via the env vars, and change the code default in `Constants.swift` so Release builds reach your own API too.
+Release builds always use the code default (`https://api.nativeapptemplate.com`, which has been shut down), so change `APIEndpoint.production` to your own API server before shipping a Release build.
 
 ## SwiftLint
 

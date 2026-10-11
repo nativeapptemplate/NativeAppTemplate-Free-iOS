@@ -104,15 +104,16 @@ enum NativeAppTemplateConstants {
 
 enum Strings {
     #if DEBUG
-    private static let env = ProcessInfo.processInfo.environment
-    static let scheme: String = env["NATIVEAPPTEMPLATE_API_SCHEME"] ?? "https"
-    static let domain: String = env["NATIVEAPPTEMPLATE_API_DOMAIN"] ?? "api.nativeapptemplate.com"
-    static let port: String = env["NATIVEAPPTEMPLATE_API_PORT"] ?? ""
+    private static let endpoint = APIEndpoint.resolve(
+        environment: ProcessInfo.processInfo.environment,
+        info: Bundle.main.infoDictionary ?? [:]
+    )
     #else
-    static let scheme: String = "https"
-    static let domain: String = "api.nativeapptemplate.com"
-    static let port: String = ""
+    private static let endpoint = APIEndpoint.production
     #endif
+    static let scheme: String = endpoint.scheme
+    static let domain: String = endpoint.domain
+    static let port: String = endpoint.port
 
     static let appName: String = "Native App Template"
 
