@@ -18,7 +18,6 @@ struct GetShopsRequest: Request {
         "/shopkeeper/shops"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -55,7 +54,6 @@ struct GetShopDetailRequest: Request {
         "/shopkeeper/shops/\(id)"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -89,7 +87,6 @@ struct MakeShopRequest: Request {
         .POST
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = shop.toJsonForCreate()
         return try? JSONSerialization.data(withJSONObject: json)
@@ -131,7 +128,6 @@ struct UpdateShopRequest: Request {
         "/shopkeeper/shops/\(id)"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = shop.toJsonForUpdate()
         return try? JSONSerialization.data(withJSONObject: json)
@@ -170,7 +166,6 @@ struct DestroyShopRequest: Request {
         "/shopkeeper/shops/\(id)"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }

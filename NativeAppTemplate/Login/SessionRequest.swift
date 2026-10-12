@@ -18,7 +18,6 @@ struct MakeSessionRequest: Request {
         "/shopkeeper_auth/sign_in"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json: [String: Any] = ["email": email, "password": password]
         return try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
@@ -52,8 +51,6 @@ struct DestroySessionRequest: Request {
     var path: String {
         "/shopkeeper_auth/sign_out"
     }
-
-    var additionalHeaders: [String: String] = [:]
 
     var body: Data? {
         nil

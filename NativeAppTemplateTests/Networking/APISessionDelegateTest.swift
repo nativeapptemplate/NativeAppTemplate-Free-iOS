@@ -1,5 +1,5 @@
 //
-//  CertificatePinningDelegateTest.swift
+//  APISessionDelegateTest.swift
 //  NativeAppTemplate
 //
 
@@ -16,7 +16,7 @@ import Testing
 /// a root, an intermediate it signed, and a leaf for api.nativeapptemplate.com that the
 /// intermediate signed. The root is set as the only anchor, so the tests decide which
 /// chains the system trusts.
-struct CertificatePinningDelegateTest {
+struct APISessionDelegateTest {
     /// CN=NativeAppTemplate Test Root, self-signed, valid 2026-01-01 to 2036-01-01
     private static let root = certificate(
         "MIIBfjCCASOgAwIBAgIBATAKBggqhkjOPQQDAjAmMSQwIgYDVQQDDBtOYXRpdmVBcHBUZW1wbGF0ZSBUZXN0IFJvb3QwHhcNMjYwMTAxMDAwMDAwWhcNMzYwMTAxMDAwMDAwWjAmMSQwIgYDVQQDDBtOYXRpdmVBcHBUZW1wbGF0ZSBUZXN0IFJvb3QwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAR9C4ceNBnJW1NH8stpjJiScZNoGqf5W3l9jI9rva25owZnYxVEnYEl1ar7nZfqzCBPrbcvGyssywH8OHM9b4zmo0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUwaAu0uVI8clmzGrtUHfDRLwKiy0wCgYIKoZIzj0EAwIDSQAwRgIhAOMWDc2bsxwv/p51MkCYazNyXI2s+12hekB5mMT3SWG5AiEAnIZoEyoNQwqgf6zrxtREl2qLOileoXafHje2z7qydyo="
@@ -68,7 +68,7 @@ struct CertificatePinningDelegateTest {
     func trustsValidChainWithPinnedIntermediate() {
         let trust = Self.trust([Self.leaf, Self.intermediate])
 
-        #expect(CertificatePinningDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
+        #expect(APISessionDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
     }
 
     /// No trusted root: anyone can build this chain around a public pinned certificate
@@ -76,14 +76,14 @@ struct CertificatePinningDelegateTest {
     func rejectsChainTheSystemDoesNotTrustEvenThoughIntermediateIsPinned() {
         let trust = Self.trust([Self.leaf, Self.intermediate], anchored: false)
 
-        #expect(!CertificatePinningDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
+        #expect(!APISessionDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
     }
 
     @Test
     func rejectsExpiredChainEvenThoughIntermediateIsPinned() {
         let trust = Self.trust([Self.leaf, Self.intermediate], date: Self.afterLeafExpiry)
 
-        #expect(!CertificatePinningDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
+        #expect(!APISessionDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
     }
 
     /// The leaf's only SAN is api.nativeapptemplate.com
@@ -91,7 +91,7 @@ struct CertificatePinningDelegateTest {
     func rejectsChainIssuedForAnotherHostEvenThoughIntermediateIsPinned() {
         let trust = Self.trust([Self.leaf, Self.intermediate], host: "api.example.com")
 
-        #expect(!CertificatePinningDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
+        #expect(!APISessionDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
     }
 
     /// The intermediate is a CA certificate, not one issued for the API host
@@ -99,14 +99,14 @@ struct CertificatePinningDelegateTest {
     func rejectsPinnedIntermediatePresentedAlone() {
         let trust = Self.trust([Self.intermediate])
 
-        #expect(!CertificatePinningDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
+        #expect(!APISessionDelegate.isTrusted(trust, pinnedHashes: Self.intermediatePin))
     }
 
     @Test
     func rejectsValidChainWithoutPinnedKey() {
         let trust = Self.trust([Self.leaf, Self.intermediate])
 
-        #expect(!CertificatePinningDelegate.isTrusted(
+        #expect(!APISessionDelegate.isTrusted(
             trust,
             pinnedHashes: ["AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="]
         ))

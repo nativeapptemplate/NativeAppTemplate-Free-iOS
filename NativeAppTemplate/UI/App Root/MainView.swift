@@ -35,24 +35,49 @@ struct MainView: View {
 
 private extension MainView {
     @ViewBuilder var contentView: some View {
-        if !sessionController.isLoggedIn {
+        switch MainViewModel.content(
+            sessionController: sessionController,
+            isRebuildingRepositories: dataManager.isRebuildingRepositories
+        ) {
+        case .onboarding:
             OnboardingView()
-        } else if sessionController.shouldUpdatePrivacy {
+        case .acceptPrivacy:
             acceptPrivacySheet
-        } else if sessionController.shouldUpdateTerms {
+        case .acceptTerms:
             acceptTermsSheet
-        } else {
-            switch sessionController.permissionState {
-            case .loaded:
-                tabBarView
-            case .notLoaded, .loading:
-                PermissionsLoadingView()
-            case .error:
-                ErrorView(
-                    buttonAction: { viewModel?.logout() },
-                    buttonTitle: Strings.backToStartScreen
-                )
-            }
+        case .permissionsLoading:
+            PermissionsLoadingView()
+        case .permissionsError:
+            ErrorView(
+                buttonAction: { viewModel?.logout() },
+                buttonTitle: Strings.backToStartScreen
+            )
+        case .sessionLoading:
+            LoadingView()
+        case .offline:
+            AppTabView(
+                shopListView: OfflineView.init,
+                settingsView: OfflineView.init
+            )
+            .environment(tabViewModel)
+        case .rebuildingRepositories:
+            AppTabView(
+                shopListView: LoadingView.init,
+                settingsView: LoadingView.init
+            )
+            .environment(tabViewModel)
+        case .needsAppUpdate:
+            AppTabView(
+                shopListView: NeedAppUpdatesView.init,
+                settingsView: NeedAppUpdatesView.init
+            )
+            .environment(tabViewModel)
+        case .tabs:
+            AppTabView(
+                shopListView: shopListView,
+                settingsView: settingsView
+            )
+            .environment(tabViewModel)
         }
     }
 
@@ -75,41 +100,6 @@ private extension MainView {
                     messageBus: messageBus
                 )
             )
-        }
-    }
-
-    @ViewBuilder var tabBarView: some View {
-        switch sessionController.sessionState {
-        case .online:
-            if dataManager.isRebuildingRepositories {
-                AppTabView(
-                    shopListView: LoadingView.init,
-                    settingsView: LoadingView.init
-                )
-                .environment(tabViewModel)
-            } else {
-                if sessionController.shouldUpdateApp {
-                    AppTabView(
-                        shopListView: NeedAppUpdatesView.init,
-                        settingsView: NeedAppUpdatesView.init
-                    )
-                    .environment(tabViewModel)
-                } else {
-                    AppTabView(
-                        shopListView: shopListView,
-                        settingsView: settingsView
-                    )
-                    .environment(tabViewModel)
-                }
-            }
-        case .offline:
-            AppTabView(
-                shopListView: OfflineView.init,
-                settingsView: OfflineView.init
-            )
-            .environment(tabViewModel)
-        case .unknown:
-            LoadingView()
         }
     }
 

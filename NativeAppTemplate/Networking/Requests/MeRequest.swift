@@ -18,7 +18,6 @@ struct UpdateConfirmedPrivacyVersionRequest: Request {
         "/shopkeeper/me/update_confirmed_privacy_version"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -41,7 +40,6 @@ struct UpdateConfirmedTermsVersionRequest: Request {
         "/shopkeeper/me/update_confirmed_terms_version"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }

@@ -18,7 +18,6 @@ struct MakeShopkeeperRequest: Request {
         "/shopkeeper_auth"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = signUp.toJsonForCreate()
         return try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
@@ -49,7 +48,6 @@ struct UpdateShopkeeperRequest: Request {
         "/shopkeeper_auth"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = signUp.toJsonForUpdate()
         return try? JSONSerialization.data(withJSONObject: json)
@@ -89,7 +87,6 @@ struct UpdateLocaleRequest: Request {
         "/shopkeeper_auth"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         try? JSONSerialization.data(withJSONObject: ["locale": locale])
     }
@@ -116,7 +113,6 @@ struct DestroyShopkeeperRequest: Request {
         "/shopkeeper_auth"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -139,7 +135,6 @@ struct SendResetPasswordInstructionRequest: Request {
         "/shopkeeper_auth/password"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = sendResetPassword.toJson()
         return try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
@@ -167,7 +162,6 @@ struct SendConfirmationInstructionRequest: Request {
         "/shopkeeper_auth/confirmation"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = sendConfirmation.toJson()
         return try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)

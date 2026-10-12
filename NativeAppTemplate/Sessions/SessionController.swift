@@ -43,6 +43,7 @@ import Observation
     private(set) var client: NativeAppTemplateAPI
 
     private(set) var loginRepository: LoginRepositoryProtocol
+    private let environment: NativeAppTemplateEnvironment
     private let connectionMonitor = NWPathMonitor()
     private(set) var permissionsService: PermissionsService
     private(set) var meService: MeService
@@ -60,28 +61,27 @@ import Observation
 
     // MARK: - Initializers
 
-    init(loginRepository: LoginRepositoryProtocol) {
+    /// - Parameters:
+    ///   - monitorsConnection: Starts `NWPathMonitor`; tests pass `false` and call
+    ///     `connectionChanged(to:)` themselves, so no permission requests go out on their own.
+    ///   - environment: The API the client talks to. Tests point it at a local server.
+    init(
+        loginRepository: LoginRepositoryProtocol,
+        monitorsConnection: Bool = true,
+        environment: NativeAppTemplateEnvironment = .prod
+    ) {
         self.loginRepository = loginRepository
+        self.environment = environment
 
         let shopkeeper = loginRepository.currentShopkeeper
-        let token = shopkeeper?.token ?? ""
-        let tokenClient = shopkeeper?.client ?? ""
-        let expiry = shopkeeper?.expiry ?? ""
-        let uid = shopkeeper?.uid ?? ""
-        let accountId = shopkeeper?.accountId ?? ""
-
-        let client = NativeAppTemplateAPI(
-            authToken: token,
-            client: tokenClient,
-            expiry: expiry,
-            uid: uid,
-            accountId: accountId
-        )
+        let client = Self.makeClient(shopkeeper: shopkeeper, environment: environment)
         self.client = client
         permissionsService = .init(networkClient: client)
         meService = .init(networkClient: client)
         setShopkeeper(shopkeeper: shopkeeper)
-        prepareConnectionMonitor()
+        if monitorsConnection {
+            prepareConnectionMonitor()
+        }
     }
 
     func login(email: String, password: String) async throws {
@@ -232,22 +232,23 @@ import Observation
     private func prepareConnectionMonitor() {
         connectionMonitor.pathUpdateHandler = { [weak self] path in
             Task { @MainActor in
-                guard let self else { return }
-
-                let newState: SessionState = path.status == .satisfied ? .online : .offline
-
-                if newState != self.sessionState {
-                    self.sessionState = newState
-                }
-
-                if self.didFetchPermissions {
-                    self.fetchPermissionsIfNeeded()
-                } else {
-                    self.fetchPermissions()
-                }
+                self?.connectionChanged(to: path.status == .satisfied ? .online : .offline)
             }
         }
         connectionMonitor.start(queue: .main)
+    }
+
+    /// Called by the connection monitor; internal so tests can go online without it
+    func connectionChanged(to newState: SessionState) {
+        if newState != sessionState {
+            sessionState = newState
+        }
+
+        if didFetchPermissions {
+            fetchPermissionsIfNeeded()
+        } else {
+            fetchPermissions()
+        }
     }
 
     /// https://stackoverflow.com/a/25231068/1160200
@@ -256,20 +257,23 @@ import Observation
     }
 
     private func setClient() {
-        let token = shopkeeper?.token ?? ""
-        let tokenClient = shopkeeper?.client ?? ""
-        let expiry = shopkeeper?.expiry ?? ""
-        let uid = shopkeeper?.uid ?? ""
-        let accountId = shopkeeper?.accountId ?? ""
-
-        client = NativeAppTemplateAPI(
-            authToken: token,
-            client: tokenClient,
-            expiry: expiry,
-            uid: uid,
-            accountId: accountId
-        )
+        client = Self.makeClient(shopkeeper: shopkeeper, environment: environment)
         permissionsService = PermissionsService(networkClient: client)
         meService = MeService(networkClient: client)
+    }
+
+    /// The API client for `shopkeeper`'s session, or one without a session when signed out
+    private static func makeClient(
+        shopkeeper: Shopkeeper?,
+        environment: NativeAppTemplateEnvironment
+    ) -> NativeAppTemplateAPI {
+        NativeAppTemplateAPI(
+            environment: environment,
+            authToken: shopkeeper?.token ?? "",
+            client: shopkeeper?.client ?? "",
+            expiry: shopkeeper?.expiry ?? "",
+            uid: shopkeeper?.uid ?? "",
+            accountId: shopkeeper?.accountId ?? ""
+        )
     }
 }

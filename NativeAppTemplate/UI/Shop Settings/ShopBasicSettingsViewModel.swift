@@ -118,20 +118,20 @@ final class ShopBasicSettingsViewModel {
         Task { @MainActor in
             isUpdating = true
 
-            do {
-                let shop = Shop(
-                    id: shopId,
-                    name: name,
-                    description: description,
-                    timeZone: selectedTimeZone
-                )
-                _ = try await shopRepository.update(id: shop.id, shop: shop)
-                messageBus.post(message: Message(level: .success, message: Strings.basicSettingsUpdated))
-                shouldDismiss = true
-            } catch {
-                messageBus.post(message: Message(error: error))
-                // Keep the form open with the user's input so they can retry
-            }
+            await saveThenDismiss(
+                messageBus: messageBus,
+                successMessage: Strings.basicSettingsUpdated,
+                dismiss: { shouldDismiss = true },
+                save: {
+                    let shop = Shop(
+                        id: shopId,
+                        name: name,
+                        description: description,
+                        timeZone: selectedTimeZone
+                    )
+                    _ = try await shopRepository.update(id: shop.id, shop: shop)
+                }
+            )
 
             isUpdating = false
         }

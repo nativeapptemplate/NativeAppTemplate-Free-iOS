@@ -324,4 +324,20 @@ struct ShopBasicSettingsViewModelTest {
             completedItemTagsCount: 3
         )
     }
+
+    /// Before the shop has loaded there is nothing to save: invalid, not a crash
+    @Test
+    func hasInvalidDataBeforeTheShopLoads() {
+        let viewModel = ShopBasicSettingsViewModel(
+            sessionController: sessionController,
+            shopRepository: shopRepository,
+            messageBus: messageBus,
+            shopId: shopId
+        )
+
+        viewModel.name = "Typed Name"
+
+        #expect(viewModel.shop == nil)
+        #expect(viewModel.hasInvalidData)
+    }
 }

@@ -48,13 +48,7 @@ public class JSONAPIResource {
 
         if let rels = dict["relationships"] as? [String: Any] {
             for (key, value) in rels {
-                relationships.append(
-                    JSONAPIRelationship(
-                        value,
-                        type: key,
-                        parent: nil
-                    )
-                )
+                relationships.append(JSONAPIRelationship(value, type: key))
             }
         }
 

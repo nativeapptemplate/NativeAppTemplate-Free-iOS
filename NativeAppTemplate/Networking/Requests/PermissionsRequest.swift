@@ -25,7 +25,6 @@ struct PermissionsRequest: Request {
         "/shopkeeper/permissions"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }

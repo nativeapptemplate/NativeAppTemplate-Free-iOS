@@ -15,11 +15,7 @@ public class JSONAPIRelationship {
 
     // MARK: - Initializers
 
-    convenience init(
-        _ json: Any,
-        type: String,
-        parent: JSONAPIDocument?
-    ) {
+    convenience init(_ json: Any, type: String) {
         self.init()
 
         guard let dict = json as? [String: Any] else { return }

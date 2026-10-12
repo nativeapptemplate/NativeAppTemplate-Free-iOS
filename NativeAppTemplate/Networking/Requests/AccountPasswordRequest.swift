@@ -18,7 +18,6 @@ struct UpdateAccountPasswordRequest: Request {
         "/shopkeeper/account/password"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = updatePassword.toJson()
         return try? JSONSerialization.data(withJSONObject: json)

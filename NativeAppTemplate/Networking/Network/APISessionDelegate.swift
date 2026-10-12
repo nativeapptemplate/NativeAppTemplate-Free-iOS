@@ -1,12 +1,14 @@
 //
-//  CertificatePinningDelegate.swift
+//  APISessionDelegate.swift
 //  NativeAppTemplate
 //
 
 import CommonCrypto
 import Foundation
 
-final class CertificatePinningDelegate: NSObject, URLSessionTaskDelegate {
+/// The delegate of `URLSession.pinned`: it pins the API's certificates and keeps the
+/// session headers from following a redirect to another host.
+final class APISessionDelegate: NSObject, URLSessionTaskDelegate {
     /// SPKI SHA-256 hashes (base64-encoded) for api.nativeapptemplate.com
     /// The server uses Google Trust Services certificates (Render hosting).
     /// Pin the leaf public key and Google Trust Services intermediate CAs as backup.
@@ -128,7 +130,7 @@ final class CertificatePinningDelegate: NSObject, URLSessionTaskDelegate {
 }
 
 extension URLSession {
-    private static let pinningDelegate = CertificatePinningDelegate()
+    private static let pinningDelegate = APISessionDelegate()
 
     static let pinned: URLSession = {
         let configuration = URLSessionConfiguration.default
