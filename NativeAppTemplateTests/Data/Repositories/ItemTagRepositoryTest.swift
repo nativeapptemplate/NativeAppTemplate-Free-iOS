@@ -124,7 +124,7 @@ struct ItemTagRepositoryTest {
         repository.state = .hasData
 
         repository.loadNextPage(shopId: "A")
-        await waitUntil(timeout: .seconds(5)) { repository.paginationMeta?.currentPage == 2 && !repository.isLoadingMore }
+        await waitUntil { repository.paginationMeta?.currentPage == 2 && !repository.isLoadingMore }
 
         #expect(repository.itemTags.map(\.id) == ["t1", "t2", "t3"])
         // The page request itself asked for page 2

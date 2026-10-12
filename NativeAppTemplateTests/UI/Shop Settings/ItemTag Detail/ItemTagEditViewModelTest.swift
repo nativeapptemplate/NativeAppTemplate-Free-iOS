@@ -298,7 +298,7 @@ struct ItemTagEditViewModelTest {
         )
 
         viewModel.reload()
-        await waitUntil(timeout: .seconds(5)) { !viewModel.isFetching }
+        await waitUntil { !viewModel.isFetching }
 
         let message = "Update failed"
         let httpResponseCode = 500
@@ -307,7 +307,7 @@ struct ItemTagEditViewModelTest {
         viewModel.name = "Updated"
 
         viewModel.updateItemTag()
-        await waitUntil(timeout: .seconds(5)) { messageBus.currentMessage != nil && !viewModel.isUpdating }
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
         // A failed save keeps the form open with the typed name

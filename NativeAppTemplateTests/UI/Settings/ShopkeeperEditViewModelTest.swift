@@ -386,7 +386,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         )
 
         viewModel.destroyShopkeeper()
-        await waitUntil(timeout: .seconds(5)) { messageBus.currentMessage != nil && !viewModel.isDeleting }
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         // The user still exists on the server, so the session stays and the
         // user can retry

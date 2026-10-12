@@ -149,7 +149,7 @@ struct ShopSettingsViewModelTest {
         )
 
         viewModel.reload()
-        await waitUntil(timeout: .seconds(5)) { !viewModel.isFetching }
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
@@ -159,7 +159,7 @@ struct ShopSettingsViewModelTest {
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
         viewModel.destroyShop()
-        await waitUntil(timeout: .seconds(5)) { viewModel.messageBus.currentMessage != nil && !viewModel.isDeleting }
+        await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         // "<shopDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
         // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"

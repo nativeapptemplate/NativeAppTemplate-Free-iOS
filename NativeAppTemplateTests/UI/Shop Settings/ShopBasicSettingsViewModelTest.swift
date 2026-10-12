@@ -311,7 +311,7 @@ struct ShopBasicSettingsViewModelTest {
         )
 
         viewModel.reload()
-        await waitUntil(timeout: .seconds(5)) { !viewModel.isFetching }
+        await waitUntil { !viewModel.isFetching }
 
         let newName = "New Shop Name"
         let newTimeZone = "Osaka"
@@ -327,7 +327,7 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
         viewModel.updateShop()
-        await waitUntil(timeout: .seconds(5)) { viewModel.messageBus.currentMessage != nil && !viewModel.isUpdating }
+        await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         // NativeAppTemplateAPIError.requestFailed's codedDescription:
         // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"

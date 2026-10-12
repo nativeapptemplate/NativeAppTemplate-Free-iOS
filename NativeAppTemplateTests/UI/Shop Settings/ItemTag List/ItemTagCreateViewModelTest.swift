@@ -163,7 +163,7 @@ struct ItemTagCreateViewModelTest {
         viewModel.name = "Buy milk"
 
         viewModel.createItemTag()
-        await waitUntil(timeout: .seconds(5)) { messageBus.currentMessage != nil && !viewModel.isCreating }
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isCreating }
 
         // A failed create keeps the form open with the typed name and lets the user retry
         #expect(viewModel.shouldDismiss == false)

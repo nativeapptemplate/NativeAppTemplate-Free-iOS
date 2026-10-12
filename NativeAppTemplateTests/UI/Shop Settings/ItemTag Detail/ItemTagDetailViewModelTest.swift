@@ -314,14 +314,14 @@ struct ItemTagDetailViewModelTest {
         )
 
         viewModel.reload()
-        await waitUntil(timeout: .seconds(5)) { !viewModel.isFetching }
+        await waitUntil { !viewModel.isFetching }
 
         let message = "Delete failed"
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
         viewModel.destroyItemTag()
-        await waitUntil(timeout: .seconds(5)) { messageBus.currentMessage != nil && !viewModel.isDeleting }
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         // The item tag still exists, so stay on its detail screen and let the user retry
         #expect(viewModel.shouldDismiss == false)
