@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "App Language" on Edit Profile shows the language the app is shown in, with a button to change it in iOS Settings; emails follow it. Sign-up sends that language as `locale`, and after permissions are fetched (every launch and sign-in) the app sends `PATCH /shopkeeper_auth {locale}` when `shopkeepers.locale` differs (nativeapptemplateapi #150)
 - `Shopkeeper.locale`, read from the sign-in, sign-up and profile responses and kept with the saved session. A session saved by an earlier version reads as `en`, the API's default
 
+### Removed
+- TLS certificate pinning for the API. `URLSession.api` (formerly `URLSession.pinned`) relies on the system's default trust evaluation; the leaf pin had gone stale, and any CA or intermediate change risked an outage. Session headers are still dropped on redirects that leave the API host
+
 ### Changed
 - The scheme's test action runs in English, so tests compare against English strings on a Japanese simulator
 - Unit tests launch a blank host app instead of the full app, so they no longer read the keychain, start `NWPathMonitor`, or set up TipKit before every run

@@ -7,7 +7,7 @@ import Foundation
 
 struct SignUpsService: RootPathService {
     var networkClient = NativeAppTemplateAPI()
-    var session: URLSession = .pinned
+    var session: URLSession = .api
 }
 
 extension SignUpsService {

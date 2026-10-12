@@ -12,8 +12,8 @@ import Network
 ///
 /// Each connection carries one request and is closed after the response.
 /// Point a service at it with `server.client()`: the app's
-/// `URLSession.pinned` only pins TLS to the API host, and ATS does not apply to
-/// IP addresses, so plain HTTP to 127.0.0.1 goes through unchanged.
+/// ATS does not apply to IP addresses, so plain HTTP to 127.0.0.1 goes through
+/// `URLSession.api` unchanged.
 final class TestHTTPServer: @unchecked Sendable {
     /// A request as the server received it
     struct Request: Sendable {
