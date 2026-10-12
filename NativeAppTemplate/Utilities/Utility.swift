@@ -8,7 +8,8 @@ import os
 
 enum Utility {
     /// The zone (a key of `timeZones`) to preselect for this device: the one
-    /// named after the identifier's city, else the first with its standard
+    /// named exactly after the identifier's city, else one at the device's
+    /// standard offset whose name contains the city, else the first at that
     /// offset. The table labels zones by standard offset, so summer time must
     /// not move the match.
     static func currentTimeZone(_ timeZone: TimeZone = .current, date: Date = .now) -> String {
@@ -22,7 +23,17 @@ enum Utility {
         let city = (timeZone.identifier.components(separatedBy: "/").last ?? "")
             .replacingOccurrences(of: "_", with: " ")
 
-        if !city.isEmpty, let zone = timeZones.first(where: { $0.key.contains(city) }) {
+        guard !city.isEmpty else { return firstZoneWithOffset.key }
+
+        // The whole name, at any offset: the table's offset for a city can differ
+        // from the system's (Dublin, Casablanca), and the city still names the zone
+        if let zone = timeZones.first(where: { $0.key == city }) {
+            return zone.key
+        }
+
+        // Part of a name only among zones at this offset: "West" (Australia/West,
+        // +08:00) is in "International Date Line West" (-12:00)
+        if let zone = zonesWithOffset.first(where: { $0.key.contains(city) }) {
             return zone.key
         }
 
