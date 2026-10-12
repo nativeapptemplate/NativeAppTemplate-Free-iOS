@@ -8,10 +8,6 @@ import os
 let appLogger = os.Logger(subsystem: "com.nativeapptemplate", category: "app")
 
 struct Failure {
-    static func signUp(from source: (some Any).Type, reason: String) -> Self {
-        .init(source: source, action: "signUp", reason: reason)
-    }
-
     static func login(from source: (some Any).Type, reason: String) -> Self {
         .init(source: source, action: "login", reason: reason)
     }
@@ -82,16 +78,6 @@ struct Event {
         .init(
             source: "\(Source.self)",
             action: "Login"
-        )
-    }
-
-    static func refresh<Source>(
-        from source: Source.Type,
-        action: String
-    ) -> Self {
-        .init(
-            source: "\(Source.self)",
-            action: action
         )
     }
 

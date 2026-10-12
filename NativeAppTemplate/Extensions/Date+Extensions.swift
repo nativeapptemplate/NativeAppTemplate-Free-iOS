@@ -6,11 +6,6 @@
 import Foundation
 
 extension Date {
-    func dateByAddingNumberOfSeconds(_ seconds: Int) -> Date {
-        let timeInterval = TimeInterval(seconds)
-        return addingTimeInterval(timeInterval)
-    }
-
     var cardDateString: String {
         let formatter = DateFormatter.cardDateFormatter
         return formatter.string(from: self)

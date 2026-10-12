@@ -19,10 +19,6 @@ struct SnackbarState {
                 .snackError
             }
         }
-
-        var tagText: String {
-            rawValue.uppercased()
-        }
     }
 
     let status: Status
