@@ -19,7 +19,7 @@ struct SessionControllerTest {
     func failedLogoutIsLoggedAsALogoutFailure() async throws {
         let loginRepository = TestLoginRepository()
         loginRepository.logoutError = KeychainStoreError.badData
-        let sessionController = SessionController(loginRepository: loginRepository)
+        let sessionController = SessionController(loginRepository: loginRepository, monitorsConnection: false)
         let start = Date.now.addingTimeInterval(-1)
 
         await #expect(throws: KeychainStoreError.self) {
