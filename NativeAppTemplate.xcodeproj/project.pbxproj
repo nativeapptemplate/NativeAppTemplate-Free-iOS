@@ -66,6 +66,7 @@
 		017204D925AA847E008FD63B /* ShopRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017204A925AA8449008FD63B /* ShopRepository.swift */; };
 		017204FA25AA860F008FD63B /* MessageBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017204F925AA85F3008FD63B /* MessageBus.swift */; };
 		0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172051925AAF6BF008FD63B /* SessionsService.swift */; };
+		3DCDACF2A0069F085A61F98B /* RootPathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF815E3C15C1BC7D878EE20 /* RootPathService.swift */; };
 		0172052525AAFA43008FD63B /* Shopkeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052425AAFA43008FD63B /* Shopkeeper.swift */; };
 		0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172052E25AC41A7008FD63B /* SessionRequest.swift */; };
 		017278622D7D83E700CE424F /* ItemTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172785C2D7D83E700CE424F /* ItemTag.swift */; };
@@ -223,6 +224,7 @@
 		017204A925AA8449008FD63B /* ShopRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopRepository.swift; sourceTree = "<group>"; };
 		017204F925AA85F3008FD63B /* MessageBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBus.swift; sourceTree = "<group>"; };
 		0172051925AAF6BF008FD63B /* SessionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsService.swift; sourceTree = "<group>"; };
+		DCF815E3C15C1BC7D878EE20 /* RootPathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPathService.swift; sourceTree = "<group>"; };
 		0172052425AAFA43008FD63B /* Shopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopkeeper.swift; sourceTree = "<group>"; };
 		0172052E25AC41A7008FD63B /* SessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequest.swift; sourceTree = "<group>"; };
 		0172785C2D7D83E700CE424F /* ItemTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTag.swift; sourceTree = "<group>"; };
@@ -582,6 +584,7 @@
 				0199CD272E07512100109DC6 /* LoginRepositoryProtocol.swift */,
 				0172052E25AC41A7008FD63B /* SessionRequest.swift */,
 				0172051925AAF6BF008FD63B /* SessionsService.swift */,
+				DCF815E3C15C1BC7D878EE20 /* RootPathService.swift */,
 				011DDC20287669EA00C6C21F /* SignUpRepository.swift */,
 				0199CD292E07512100109DC6 /* SignUpRepositoryProtocol.swift */,
 				011DDC2428766CEC00C6C21F /* SignUpRequest.swift */,
@@ -940,6 +943,7 @@
 				01E0A5B625BD0FCD00298D35 /* LoadingView.swift in Sources */,
 				0114F3AC2E079BD100F4A1DD /* ShopListViewModel.swift in Sources */,
 				0172051A25AAF6C0008FD63B /* SessionsService.swift in Sources */,
+				3DCDACF2A0069F085A61F98B /* RootPathService.swift in Sources */,
 				017204D125AA8479008FD63B /* DataState.swift in Sources */,
 				012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */,
 				0172033E25A9642E008FD63B /* Parameters.swift in Sources */,
