@@ -50,16 +50,7 @@ extension Service {
             // https://bugs.swift.org/browse/SR-6687
             urlRequest.httpBody = request.body
 
-            let headerAccessToken: HTTPHeader = ("access-token", networkClient.authToken)
-            let headerTokenType: HTTPHeader = ("token-type", "Bearer")
-            let headerClient: HTTPHeader = ("client", networkClient.client)
-            let headerExpiry: HTTPHeader = ("expiry", networkClient.expiry)
-            let headerUid: HTTPHeader = ("uid", networkClient.uid)
-            let headerSource: HTTPHeader = ("source", "ios")
-
-            let headers =
-                [headerAccessToken, headerTokenType, headerClient, headerExpiry, headerUid, headerSource]
-            headers.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
+            networkClient.sessionHeaders.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
 
             return urlRequest
         }

@@ -60,18 +60,8 @@ extension SignUpsService {
         // https://bugs.swift.org/browse/SR-6687
         urlRequest.httpBody = request.body
 
-        let headerAccessToken: HTTPHeader = ("access-token", networkClient.authToken)
-        let headerTokenType: HTTPHeader = ("token-type", "Bearer")
-        let headerClient: HTTPHeader = ("client", networkClient.client)
-        let headerExpiry: HTTPHeader = ("expiry", networkClient.expiry)
-        let headerUid: HTTPHeader = ("uid", networkClient.uid)
-        let headerSource: HTTPHeader = ("source", "ios")
-
-        let headers =
-            [headerAccessToken, headerTokenType, headerClient, headerExpiry, headerUid, headerSource]
-
-        if !headerAccessToken.value.isEmpty {
-            headers.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
+        if !networkClient.authToken.isEmpty {
+            networkClient.sessionHeaders.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
         }
 
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")

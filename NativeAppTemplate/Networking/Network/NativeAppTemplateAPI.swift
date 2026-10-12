@@ -42,3 +42,19 @@ public struct NativeAppTemplateAPI: Equatable {
         self.accountId = accountId
     }
 }
+
+// MARK: - HTTP Headers
+
+extension NativeAppTemplateAPI {
+    /// The devise_token_auth headers that together are a session, plus the platform
+    nonisolated var sessionHeaders: [HTTPHeader] {
+        [
+            ("access-token", authToken),
+            ("token-type", "Bearer"),
+            ("client", client),
+            ("expiry", expiry),
+            ("uid", uid),
+            ("source", "ios")
+        ]
+    }
+}
