@@ -126,4 +126,85 @@ struct ItemTagRepositoryPaginationTest {
         #expect(repository.state == .failed)
         #expect(repository.itemTags.isEmpty)
     }
+
+    // MARK: - Switching shops while a page is loading
+
+    /// Holds shop-A's requests until `releaseA` is signalled; shop-B's are answered
+    /// at once. Each shop's page lists its own tags (a1, a2 then a3 / b1).
+    private nonisolated static func shopServer(releaseA: DispatchSemaphore) async throws -> TestHTTPServer {
+        try await TestHTTPServer.start { request in
+            if request.path.contains("/shops/shop-A/") {
+                releaseA.wait()
+                let page = request.queryItems.first { $0.name == "page" }?.value ?? "1"
+                return TestHTTPServer.json(JSONAPIFixtures.itemTagPage(
+                    ids: page == "1" ? ["a1", "a2"] : ["a3"],
+                    currentPage: Int(page) ?? 1,
+                    totalPages: 2,
+                    shopId: "shop-A"
+                ))
+            }
+            return TestHTTPServer.json(JSONAPIFixtures.itemTagPage(
+                ids: ["b1"],
+                currentPage: 1,
+                totalPages: 1,
+                shopId: "shop-B"
+            ))
+        }
+    }
+
+    /// Opening shop B while shop A's first page is still loading: B's list must
+    /// load B's tags, and A's late page must not replace them
+    @Test
+    func reloadingAnotherShopWhileOneIsLoadingShowsThatShop() async throws {
+        let releaseA = DispatchSemaphore(value: 0)
+        let server = try await Self.shopServer(releaseA: releaseA)
+        defer { server.stop() }
+        let repository = makeRepository(server)
+
+        repository.reloadPage(shopId: "shop-A", page: 1)
+        await waitUntil { server.requests.count == 1 }
+        repository.reloadPage(shopId: "shop-B", page: 1)
+        await waitUntil(timeout: .seconds(10)) { repository.state == .hasData }
+
+        #expect(repository.itemTags.map(\.id) == ["b1"])
+
+        // A's answer arrives late. Nothing on screen shows it was handled, so give it time
+        releaseA.signal()
+        try await Task.sleep(for: .milliseconds(500))
+
+        #expect(repository.itemTags.map(\.id) == ["b1"])
+        #expect(repository.itemTags.allSatisfy { $0.shopId == "shop-B" })
+        #expect(repository.state == .hasData)
+    }
+
+    /// Shop A's next page arriving after the user opened shop B must not be
+    /// appended to B's list
+    @Test
+    func nextPageOfThePreviousShopIsNotAppendedToAnotherShop() async throws {
+        // Starts at 0 and ends at 0: libdispatch crashes when a semaphore is freed
+        // below its starting value
+        let releaseA = DispatchSemaphore(value: 0)
+        let server = try await Self.shopServer(releaseA: releaseA)
+        defer { server.stop() }
+        let repository = makeRepository(server)
+        // Let page 1 through; page 2 waits
+        releaseA.signal()
+        repository.reloadPage(shopId: "shop-A", page: 1)
+        await waitUntil { repository.state == .hasData }
+        repository.loadNextPage(shopId: "shop-A")
+        await waitUntil { server.requests.count == 2 }
+
+        repository.reloadPage(shopId: "shop-B", page: 1)
+        await waitUntil { repository.state == .hasData && repository.itemTags.contains { $0.id == "b1" } }
+        releaseA.signal()
+        // Nothing on screen shows A's late page was handled, so give it time
+        try await Task.sleep(for: .milliseconds(500))
+
+        #expect(repository.itemTags.map(\.id) == ["b1"])
+        // B's own meta (1 of 1), not A's page 2
+        #expect(repository.paginationMeta?.currentPage == 1)
+        #expect(repository.paginationMeta?.totalPages == 1)
+        // B's list can load its own next pages
+        #expect(!repository.isLoadingMore)
+    }
 }
