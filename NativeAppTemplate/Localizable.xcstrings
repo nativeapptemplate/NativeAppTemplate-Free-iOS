@@ -71,6 +71,26 @@
         }
       }
     },
+    "Add a new item tag and start changing item tag status." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいアイテムタグを追加して、アイテムタグの状態を変更してみましょう。"
+          }
+        }
+      }
+    },
+    "Add a new shop." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しい店舗を追加します。"
+          }
+        }
+      }
+    },
     "Add Item Tag" : {
       "localizations" : {
         "ja" : {
@@ -91,22 +111,12 @@
         }
       }
     },
-    "Add a new item tag and start changing item tag status." : {
+    "all item tags" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新しいアイテムタグを追加して、アイテムタグの状態を変更してみましょう。"
-          }
-        }
-      }
-    },
-    "Add a new shop." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新しい店舗を追加します。"
+            "value" : "件のアイテムタグ"
           }
         }
       }
@@ -237,7 +247,18 @@
         }
       }
     },
+    "completed" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
+          }
+        }
+      }
+    },
     "Completed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -253,6 +274,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "完了日時"
+          }
+        }
+      }
+    },
+    "completed item tags" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "件のアイテムタグが完了"
           }
         }
       }
@@ -527,7 +558,18 @@
         }
       }
     },
+    "idled" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未完了"
+          }
+        }
+      }
+    },
     "Idled" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -613,6 +655,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "山田 太郎"
+          }
+        }
+      }
+    },
+    "left in shop slots." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "件の店舗枠が残っています。"
           }
         }
       }
@@ -757,6 +809,26 @@
         }
       }
     },
+    "or" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "または"
+          }
+        }
+      }
+    },
+    "password" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード"
+          }
+        }
+      }
+    },
     "Password" : {
       "localizations" : {
         "ja" : {
@@ -857,22 +929,22 @@
         }
       }
     },
-    "Privacy Policy Updated" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "プライバシーポリシーが更新されました"
-          }
-        }
-      }
-    },
     "Privacy policy accepted successfully." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "プライバシーポリシーに同意しました。"
+          }
+        }
+      }
+    },
+    "Privacy Policy Updated" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシーが更新されました"
           }
         }
       }
@@ -957,26 +1029,6 @@
         }
       }
     },
-    "Shop Name" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "店舗名"
-          }
-        }
-      }
-    },
-    "Shop Settings" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "店舗の設定"
-          }
-        }
-      }
-    },
     "Shop created successfully." : {
       "localizations" : {
         "ja" : {
@@ -1007,6 +1059,16 @@
         }
       }
     },
+    "Shop Name" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "店舗名"
+          }
+        }
+      }
+    },
     "Shop name is invalid." : {
       "localizations" : {
         "ja" : {
@@ -1023,6 +1085,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "店舗が見つかりません"
+          }
+        }
+      }
+    },
+    "Shop Settings" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "店舗の設定"
           }
         }
       }
@@ -1167,22 +1239,22 @@
         }
       }
     },
-    "Terms of Use Updated" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "利用規約が更新されました"
-          }
-        }
-      }
-    },
     "Terms of use accepted successfully." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "利用規約に同意しました。"
+          }
+        }
+      }
+    },
+    "Terms of Use Updated" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約が更新されました"
           }
         }
       }
@@ -1353,76 +1425,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@へようこそ"
-          }
-        }
-      }
-    },
-    "all item tags" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "件のアイテムタグ"
-          }
-        }
-      }
-    },
-    "completed" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完了"
-          }
-        }
-      }
-    },
-    "completed item tags" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "件のアイテムタグが完了"
-          }
-        }
-      }
-    },
-    "idled" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未完了"
-          }
-        }
-      }
-    },
-    "left in shop slots." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "件の店舗枠が残っています。"
-          }
-        }
-      }
-    },
-    "or" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "または"
-          }
-        }
-      }
-    },
-    "password" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "パスワード"
           }
         }
       }
