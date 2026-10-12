@@ -12,7 +12,7 @@ protocol Service {
 
 extension Service {
     var session: URLSession {
-        .pinned
+        .api
     }
 }
 
