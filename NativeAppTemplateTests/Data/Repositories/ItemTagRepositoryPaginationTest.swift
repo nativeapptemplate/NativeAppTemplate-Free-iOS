@@ -25,7 +25,7 @@ struct ItemTagRepositoryPaginationTest {
 
     @Test
     func reloadPageLoadsTheFirstPage() async throws {
-        let server = try await TestHTTPServer.start(respond: Self.twoPages)
+        let server = try await TestHTTPServer.start(respond: { Self.twoPages($0) })
         defer { server.stop() }
         let repository = makeRepository(server)
 
@@ -42,7 +42,7 @@ struct ItemTagRepositoryPaginationTest {
     /// loadNextPage asks for currentPage + 1 and appends it
     @Test
     func loadNextPageAppendsTheNextPage() async throws {
-        let server = try await TestHTTPServer.start(respond: Self.twoPages)
+        let server = try await TestHTTPServer.start(respond: { Self.twoPages($0) })
         defer { server.stop() }
         let repository = makeRepository(server)
         repository.reloadPage(shopId: "shop-1", page: 1)
@@ -61,7 +61,7 @@ struct ItemTagRepositoryPaginationTest {
     /// On the last page (currentPage == totalPages) there is nothing to ask for
     @Test
     func loadNextPageOnTheLastPageSendsNothing() async throws {
-        let server = try await TestHTTPServer.start(respond: Self.twoPages)
+        let server = try await TestHTTPServer.start(respond: { Self.twoPages($0) })
         defer { server.stop() }
         let repository = makeRepository(server)
         repository.reloadPage(shopId: "shop-1", page: 2)
@@ -76,7 +76,7 @@ struct ItemTagRepositoryPaginationTest {
     /// A second loadNextPage while one is running must not ask for the page twice
     @Test
     func loadNextPageWhileLoadingSendsOneRequest() async throws {
-        let server = try await TestHTTPServer.start(respond: Self.twoPages)
+        let server = try await TestHTTPServer.start(respond: { Self.twoPages($0) })
         defer { server.stop() }
         let repository = makeRepository(server)
         repository.reloadPage(shopId: "shop-1", page: 1)
