@@ -134,10 +134,8 @@ struct ItemTagCreateViewModelTest {
         viewModel.name = "Buy milk"
         viewModel.description = "From the corner store."
 
-        let createTask = Task {
-            viewModel.createItemTag()
-        }
-        await createTask.value
+        viewModel.createItemTag()
+        await waitUntil { messageBus.currentMessage != nil }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
@@ -188,12 +186,14 @@ struct ItemTagCreateViewModelTest {
 
         viewModel.name = "Buy milk"
 
-        let createTask = Task {
-            viewModel.createItemTag()
-        }
+        itemTagRepository.gate = TestGate()
+        viewModel.createItemTag()
 
-        #expect(viewModel.isBusy == viewModel.isCreating)
-
-        await createTask.value
+        // The repository holds the call, so the work is still in flight
+        await waitUntil { itemTagRepository.gate?.isWaiting == true }
+        #expect(viewModel.isCreating)
+        #expect(viewModel.isBusy)
+        itemTagRepository.gate?.open()
+        await waitUntil { messageBus.currentMessage != nil }
     }
 }

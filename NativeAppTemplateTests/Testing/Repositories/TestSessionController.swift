@@ -23,7 +23,18 @@ import Foundation
     public var shopLimitCount: Int = 1
 
     public var shopkeeper: Shopkeeper?
-    public private(set) var client = NativeAppTemplateAPI(authToken: "", client: "", expiry: "", uid: "", accountId: "")
+    /// Points at a closed local port, so a repository built from it (DataManager)
+    /// fails at once instead of sending requests to the configured API. Tests
+    /// that want a server set it to TestHTTPServer.client().
+    public var client = NativeAppTemplateAPI(
+        // NativeAppTemplateEnvironment.swift is also compiled into the test target
+        environment: NativeAppTemplate.NativeAppTemplateEnvironment(baseURL: URL(string: "http://127.0.0.1:1")!),
+        authToken: "",
+        client: "",
+        expiry: "",
+        uid: "",
+        accountId: ""
+    )
 
     public var isLoggedIn: Bool {
         userState == .loggedIn

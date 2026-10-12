@@ -130,10 +130,8 @@ struct PasswordEditViewModelTest {
         viewModel.password = "newpassword"
         viewModel.passwordConfirmation = "newpassword"
 
-        let updateTask = Task {
-            viewModel.updatePassword()
-        }
-        await updateTask.value
+        viewModel.updatePassword()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == true)
@@ -159,10 +157,8 @@ struct PasswordEditViewModelTest {
         viewModel.password = "newpassword"
         viewModel.passwordConfirmation = "newpassword"
 
-        let updateTask = Task {
-            viewModel.updatePassword()
-        }
-        await updateTask.value
+        viewModel.updatePassword()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)
@@ -182,10 +178,8 @@ struct PasswordEditViewModelTest {
         viewModel.password = "  newpassword  "
         viewModel.passwordConfirmation = "  newpassword  "
 
-        let updateTask = Task {
-            viewModel.updatePassword()
-        }
-        await updateTask.value
+        viewModel.updatePassword()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage?.level == .success)
@@ -202,14 +196,15 @@ struct PasswordEditViewModelTest {
         viewModel.password = "newpassword"
         viewModel.passwordConfirmation = "newpassword"
 
-        let updateTask = Task {
-            viewModel.updatePassword()
-        }
+        accountPasswordRepository.gate = TestGate()
+        viewModel.updatePassword()
 
-        // Check busy state immediately after starting
-        #expect(viewModel.isBusy == viewModel.isUpdating)
-
-        await updateTask.value
+        // The repository holds the call, so the work is still in flight
+        await waitUntil { accountPasswordRepository.gate?.isWaiting == true }
+        #expect(viewModel.isUpdating)
+        #expect(viewModel.isBusy)
+        accountPasswordRepository.gate?.open()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isBusy == false)
         #expect(viewModel.isUpdating == false)

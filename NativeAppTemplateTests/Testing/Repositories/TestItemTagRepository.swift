@@ -19,6 +19,8 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
 
     /// A test-only
     var error: NativeAppTemplateAPIError?
+    /// A test-only: when set, the save and delete calls wait here until the test opens it
+    var gate: TestGate?
 
     required init(itemTagsService: ItemTagsService) {}
 
@@ -71,6 +73,7 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
     }
 
     func create(shopId: String, itemTag: ItemTag) async throws -> ItemTag {
+        await gate?.wait()
         guard error == nil else {
             state = .failed
             throw error!
@@ -81,6 +84,7 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
     }
 
     func update(id: String, itemTag: ItemTag) async throws -> ItemTag {
+        await gate?.wait()
         guard error == nil else {
             state = .failed
             throw error!
@@ -94,6 +98,7 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
     }
 
     func destroy(id: String) async throws {
+        await gate?.wait()
         guard error == nil else {
             state = .failed
             throw error!

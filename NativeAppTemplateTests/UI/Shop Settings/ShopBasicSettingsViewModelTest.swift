@@ -54,11 +54,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = name
         #expect(viewModel.hasInvalidData == (name == "" ? true : false))
@@ -75,11 +72,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = name
         #expect(viewModel.hasInvalidData == (name == "Shop 1" ? true : false))
@@ -126,10 +120,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = name
 
@@ -152,10 +144,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.description = description
 
@@ -173,10 +163,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = String(repeating: "a", count: 100) + "EXTRA"
         viewModel.validateNameLength()
@@ -195,10 +183,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.description = String(repeating: "x", count: 1500)
         viewModel.validateDescriptionLength()
@@ -217,11 +203,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.name == shop.name)
@@ -244,11 +227,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { viewModel.shouldDismiss }
 
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
@@ -265,11 +245,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let newName = "New Shop Name"
         let newTimeZone = "Osaka"
@@ -279,11 +256,8 @@ struct ShopBasicSettingsViewModelTest {
         viewModel.selectedTimeZone = newTimeZone
         viewModel.description = newDescription
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let updateShopTask = Task {
-            viewModel.updateShop()
-        }
-        await updateShopTask.value
+        viewModel.updateShop()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         let latestShop = try #require(shopRepository.shops.first { $0.id == shopId })
 

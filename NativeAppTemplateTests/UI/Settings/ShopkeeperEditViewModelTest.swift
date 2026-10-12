@@ -204,10 +204,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
 
         viewModel.name = "New Name"
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
-        await updateTask.value
+        viewModel.updateShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(signUpRepository.lastSignUp?.locale == "en")
         // TestSignUpRepository echoes the sent locale back, like the API
@@ -231,10 +229,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         viewModel.email = "updated@example.com"
         viewModel.selectedTimeZone = "Osaka"
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
-        await updateTask.value
+        viewModel.updateShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == true)
@@ -256,10 +252,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
 
         viewModel.email = "newemail@example.com" // Email change
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
-        await updateTask.value
+        viewModel.updateShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
@@ -283,10 +277,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
 
         viewModel.name = "Updated Name" // Name change only, no email change
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
-        await updateTask.value
+        viewModel.updateShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
@@ -309,10 +301,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
 
         viewModel.name = "Updated Name"
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
-        await updateTask.value
+        viewModel.updateShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)
@@ -336,10 +326,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         viewModel.name = "  Updated Name  "
         viewModel.email = "  updated@example.com  "
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
-        await updateTask.value
+        viewModel.updateShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage?.level == .success)
@@ -358,10 +346,8 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
             shopkeeper: testShopkeeper
         )
 
-        let destroyTask = Task {
-            viewModel.destroyShopkeeper()
-        }
-        await destroyTask.value
+        viewModel.destroyShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.shouldDismiss == true)
@@ -414,14 +400,15 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
 
         viewModel.name = "Updated Name"
 
-        let updateTask = Task {
-            viewModel.updateShopkeeper()
-        }
+        signUpRepository.gate = TestGate()
+        viewModel.updateShopkeeper()
 
-        // Check busy state immediately after starting
-        #expect(viewModel.isBusy == viewModel.isUpdating)
-
-        await updateTask.value
+        // The repository holds the call, so the work is still in flight
+        await waitUntil { signUpRepository.gate?.isWaiting == true }
+        #expect(viewModel.isUpdating)
+        #expect(viewModel.isBusy)
+        signUpRepository.gate?.open()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isBusy == false)
         #expect(viewModel.isUpdating == false)
@@ -439,14 +426,15 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
             shopkeeper: testShopkeeper
         )
 
-        let destroyTask = Task {
-            viewModel.destroyShopkeeper()
-        }
+        signUpRepository.gate = TestGate()
+        viewModel.destroyShopkeeper()
 
-        // Check busy state immediately after starting
-        #expect(viewModel.isBusy == viewModel.isDeleting)
-
-        await destroyTask.value
+        // The repository holds the call, so the work is still in flight
+        await waitUntil { signUpRepository.gate?.isWaiting == true }
+        #expect(viewModel.isDeleting)
+        #expect(viewModel.isBusy)
+        signUpRepository.gate?.open()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         #expect(viewModel.isBusy == false)
         #expect(viewModel.isDeleting == false)

@@ -93,10 +93,8 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         #expect(viewModel.isFetching == false)
         #expect(viewModel.itemTag != nil)
@@ -118,10 +116,8 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         #expect(viewModel.isFetching == false)
         #expect(viewModel.shouldDismiss == true)
@@ -142,15 +138,11 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
-        let completeTask = Task {
-            viewModel.completeItemTag()
-        }
-        await completeTask.value
+        viewModel.completeItemTag()
+        await waitUntil { viewModel.itemTag?.state == .completed && !viewModel.isToggling }
 
         #expect(viewModel.isToggling == false)
         #expect(viewModel.itemTag?.state == .completed)
@@ -168,17 +160,13 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 500, "Boom")
 
-        let completeTask = Task {
-            viewModel.completeItemTag()
-        }
-        await completeTask.value
+        viewModel.completeItemTag()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isToggling }
 
         #expect(viewModel.isToggling == false)
         #expect(messageBus.currentMessage?.level == .error)
@@ -201,15 +189,11 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
-        let idleTask = Task {
-            viewModel.idleItemTag()
-        }
-        await idleTask.value
+        viewModel.idleItemTag()
+        await waitUntil { viewModel.itemTag?.state == .idled && !viewModel.isToggling }
 
         #expect(viewModel.isToggling == false)
         #expect(viewModel.itemTag?.state == .idled)
@@ -230,17 +214,13 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 500, "Boom")
 
-        let idleTask = Task {
-            viewModel.idleItemTag()
-        }
-        await idleTask.value
+        viewModel.idleItemTag()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isToggling }
 
         #expect(viewModel.isToggling == false)
         #expect(messageBus.currentMessage?.level == .error)
@@ -258,15 +238,9 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let completeTask = Task {
-            viewModel.completeItemTag()
-        }
-        await completeTask.value
-
-        let idleTask = Task {
-            viewModel.idleItemTag()
-        }
-        await idleTask.value
+        // No item tag is loaded, so both return at their guard without starting a Task
+        viewModel.completeItemTag()
+        viewModel.idleItemTag()
 
         #expect(viewModel.isToggling == false)
         #expect(messageBus.currentMessage == nil)
@@ -284,15 +258,11 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag()
-        }
-        await destroyTask.value
+        viewModel.destroyItemTag()
+        await waitUntil { messageBus.currentMessage != nil }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
@@ -346,10 +316,8 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag()
-        }
-        await destroyTask.value
+        // No item tag is loaded, so it returns at its guard without starting a Task
+        viewModel.destroyItemTag()
 
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.shouldDismiss == false)
