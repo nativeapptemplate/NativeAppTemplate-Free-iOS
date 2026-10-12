@@ -38,6 +38,13 @@ import Observation
             } else {
                 userState = .notLoggedIn
                 permissionState = .notLoaded
+                // These were the signed-out shopkeeper's; the next one's are fetched
+                // on sign-in, so none of them may show meanwhile
+                didFetchPermissions = false
+                shouldUpdateApp = false
+                shouldUpdatePrivacy = false
+                shouldUpdateTerms = false
+                shopLimitCount = 0
                 // URLSession.api keeps no cache, but versions before it used
                 // URLCache.shared, which holds their API responses on disk
                 URLCache.shared.removeAllCachedResponses()
@@ -203,15 +210,16 @@ import Observation
                 // Check that we have a logged in user. Otherwise this is pointless
                 guard let shopkeeper = self.shopkeeper else { return }
 
-                // Update the user
-                self.shopkeeper = shopkeeper
                 // Ensure loginRepository is aware, and hence the keychain is updated
-                try self.loginRepository.updateShopkeeper(shopkeeper: self.shopkeeper)
+                try self.loginRepository.updateShopkeeper(shopkeeper: shopkeeper)
 
                 shouldUpdateApp = Int(Bundle.main.appBuild)! < permissionsResponse.iosAppVersion
                 shouldUpdatePrivacy = permissionsResponse.shouldUpdatePrivacy
                 shouldUpdateTerms = permissionsResponse.shouldUpdateTerms
                 shopLimitCount = permissionsResponse.shopLimitCount
+                // Set here, not by reassigning shopkeeper: its didSet saw the old
+                // shopLimitCount (0 on the first fetch) and requested them again
+                permissionState = .loaded
 
                 didFetchPermissions = true
 

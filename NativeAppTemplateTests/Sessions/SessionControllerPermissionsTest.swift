@@ -58,8 +58,6 @@ struct SessionControllerPermissionsTest {
         let sessionController = makeSessionController(server: server)
 
         sessionController.connectionChanged(to: .online)
-        // The first response reassigns shopkeeper before shopLimitCount is set, so its
-        // didSet starts a second request; the state is .loaded once that one lands
         await waitUntil { sessionController.didFetchPermissions && sessionController.hasPermissions }
 
         let request = try #require(server.requests.first)
@@ -72,6 +70,54 @@ struct SessionControllerPermissionsTest {
         #expect(sessionController.shouldUpdatePrivacy)
         #expect(!sessionController.shouldUpdateTerms)
         #expect(sessionController.shopLimitCount == 3)
+    }
+
+    /// Going online asks for the permissions once. The response used to be applied
+    /// by reassigning shopkeeper, whose didSet still saw shopLimitCount 0 and sent
+    /// a second request (and synced the locale twice).
+    @Test
+    func permissionsAreFetchedOnce() async throws {
+        let server = try await TestHTTPServer.start { request in
+            request.path.hasSuffix("/shopkeeper/permissions")
+                ? TestHTTPServer.json(["data": [], "meta": Self.meta])
+                : TestHTTPServer.json([String: Any]())
+        }
+        defer { server.stop() }
+        let sessionController = makeSessionController(server: server)
+
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { sessionController.hasPermissions }
+        // A second request would be sent as the first response is applied; give it time to arrive
+        try await Task.sleep(for: .milliseconds(500))
+
+        #expect(server.requests.filter { $0.path.hasSuffix("/shopkeeper/permissions") }.count == 1)
+    }
+
+    /// Signing out forgets the permissions of the shopkeeper who left. Otherwise the
+    /// next sign-in starts with them: its didSet saw shopLimitCount 3 and marked the
+    /// permissions loaded, so the previous shopkeeper's privacy prompt showed.
+    @Test
+    func signingOutForgetsThePermissions() async throws {
+        let server = try await TestHTTPServer.start { request in
+            request.path.hasSuffix("/shopkeeper/permissions")
+                ? TestHTTPServer.json(["data": [], "meta": Self.meta])
+                : TestHTTPServer.json([String: Any]())
+        }
+        defer { server.stop() }
+        let sessionController = makeSessionController(server: server)
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { sessionController.hasPermissions }
+        // From meta above
+        try #require(sessionController.shouldUpdatePrivacy)
+
+        try await sessionController.logout()
+
+        // Nothing is known without a session: the properties' initial values
+        #expect(!sessionController.shouldUpdatePrivacy)
+        #expect(!sessionController.shouldUpdateTerms)
+        #expect(!sessionController.shouldUpdateApp)
+        #expect(sessionController.shopLimitCount == 0)
+        #expect(!sessionController.didFetchPermissions)
     }
 
     /// End to end: launching with an expired token. The permissions request gets
