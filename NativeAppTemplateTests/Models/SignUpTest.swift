@@ -55,12 +55,11 @@ struct SignUpTest {
         #expect(signUp.currentPlatform == "ios")
     }
 
-    /// The server reduces a tag such as "ja-JP" to its language and falls back
-    /// to English for one it does not offer, so the app sends the device's
-    /// first preferred language as is.
+    /// shopkeepers.locale follows the language the app is shown in, so emails
+    /// match the app even when the device prefers a language the app lacks
     @Test
-    func localeDefaultsToTheDevicesPreferredLanguage() {
+    func localeDefaultsToTheAppsLanguage() {
         let signUp = SignUp(name: "n", email: "e", timeZone: "tz")
-        #expect(signUp.locale == (Locale.preferredLanguages.first ?? "en"))
+        #expect(signUp.locale == Shopkeeper.appLocale())
     }
 }

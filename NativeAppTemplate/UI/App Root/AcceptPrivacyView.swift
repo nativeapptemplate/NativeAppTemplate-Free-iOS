@@ -42,7 +42,8 @@ private extension AcceptPrivacyView {
 
     var acceptPrivacyView: some View {
         VStack {
-            let agreement = "Please accept updated [\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))."
+            let privacyLink = "[\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))"
+            let agreement = String(localized: "Please accept updated \(privacyLink).")
             Text(.init(agreement))
                 .padding(.top, NativeAppTemplateConstants.Spacing.xl)
 

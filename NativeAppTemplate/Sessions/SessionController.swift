@@ -173,6 +173,8 @@ import Observation
                 shopLimitCount = permissionsResponse.shopLimitCount
 
                 didFetchPermissions = true
+
+                await syncLocaleIfNeeded()
             } catch {
                 enum Permissions {}
                 Failure
@@ -181,6 +183,26 @@ import Observation
 
                 self.permissionState = .error
             }
+        }
+    }
+
+    /// shopkeepers.locale follows the app's language. Changing that in iOS
+    /// Settings relaunches the app, and permissions are fetched on every launch
+    /// and sign-in, so syncing after them catches every change. A failure is
+    /// retried on the next fetch.
+    private func syncLocaleIfNeeded() async {
+        guard let locale = shopkeeper?.localeToSync(appLocale: Shopkeeper.appLocale()) else { return }
+
+        do {
+            try await SignUpsService(networkClient: client).updateLocale(locale)
+            guard var shopkeeper else { return }
+
+            shopkeeper.locale = locale
+            try updateShopkeeper(shopkeeper: shopkeeper)
+        } catch {
+            Failure
+                .update(from: Self.self, reason: error.codedDescription)
+                .log()
         }
     }
 

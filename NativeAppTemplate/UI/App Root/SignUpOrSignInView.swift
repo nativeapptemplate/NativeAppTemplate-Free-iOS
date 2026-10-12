@@ -33,9 +33,10 @@ private extension SignUpOrSignInView {
                         .frame(height: 256)
                         .padding()
 
-                    let agreement = "By signing up or signing in, you agree to the " +
-                        "[\(Strings.termsOfUse)](\(Strings.termsOfUseUrl)) " +
-                        "and [\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))."
+                    let terms = "[\(Strings.termsOfUse)](\(Strings.termsOfUseUrl))"
+                    let privacy = "[\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))"
+                    let agreement =
+                        String(localized: "By signing up or signing in, you agree to the \(terms) and \(privacy).")
                     Text(.init(agreement))
                         .padding(.top, NativeAppTemplateConstants.Spacing.sm)
                         .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
@@ -52,7 +53,7 @@ private extension SignUpOrSignInView {
                                 .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
                         }
 
-                        Text(verbatim: "or")
+                        Text("or")
                             .padding(.top, NativeAppTemplateConstants.Spacing.xxs)
 
                         NavigationLink(destination: SignInEmailAndPasswordView(

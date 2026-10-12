@@ -42,7 +42,7 @@ private extension OnboardingView {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: SignUpOrSignInView()) {
-                    Text(verbatim: "Start")
+                    Text("Start")
                         .font(.title)
                 }
             }

@@ -27,7 +27,7 @@ struct ShopListCardView: View {
                         .foregroundStyle(.secondaryText)
                     Text(String(shop.completedItemTagsCount))
                         .font(.uiLabelBold)
-                    Text(verbatim: "completed item tags")
+                    Text("completed item tags")
                         .font(.uiFootnote)
                         .foregroundStyle(.contentText)
                 }
@@ -38,7 +38,7 @@ struct ShopListCardView: View {
                         .foregroundStyle(.secondaryText)
                     Text(String(shop.itemTagsCount))
                         .font(.uiLabelBold)
-                    Text(verbatim: "all item tags")
+                    Text("all item tags")
                         .font(.uiFootnote)
                         .foregroundStyle(.contentText)
                 }

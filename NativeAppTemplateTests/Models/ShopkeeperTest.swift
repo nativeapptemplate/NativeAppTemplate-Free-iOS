@@ -69,4 +69,39 @@ struct ShopkeeperTest {
     @Test func missingLocaleDefaultsToEnglish() {
         #expect(Shopkeeper(dictionary: shopkeeperDictionary)?.locale == "en")
     }
+
+    /// The app's language is the localization iOS picked for the UI; the API
+    /// offers only en and ja, and the app shows English for anything else
+    @Test(arguments: [
+        (["ja"], "ja"),
+        (["ja-JP"], "ja"),
+        (["en"], "en"),
+        (["en-GB"], "en"),
+        (["fr"], "en"),
+        ([], "en"),
+    ])
+    func appLocaleIsTheUILanguageTheAPIOffers(preferredLocalizations: [String], expected: String) {
+        #expect(Shopkeeper.appLocale(preferredLocalizations: preferredLocalizations) == expected)
+    }
+
+    /// Tests run in English (see LocalizationTest.testsRunInEnglish)
+    @Test func appLocaleDefaultsToTheBundlesLanguage() {
+        #expect(Shopkeeper.appLocale() == "en")
+        #expect(Shopkeeper.appLocaleName() == "English")
+    }
+
+    @Test func appLocaleNameNamesTheLanguageInItself() {
+        #expect(Shopkeeper.appLocaleName(preferredLocalizations: ["ja"]) == "日本語")
+        #expect(Shopkeeper.appLocaleName(preferredLocalizations: ["fr"]) == "English")
+    }
+
+    /// shopkeepers.locale follows the app's language, so only a mismatch is sent
+    @Test func localeToSyncIsTheAppLocaleOnlyWhenTheyDiffer() throws {
+        var dictionary = shopkeeperDictionary
+        dictionary["locale"] = "en"
+        let shopkeeper = try #require(Shopkeeper(dictionary: dictionary))
+
+        #expect(shopkeeper.localeToSync(appLocale: "ja") == "ja")
+        #expect(shopkeeper.localeToSync(appLocale: "en") == nil)
+    }
 }

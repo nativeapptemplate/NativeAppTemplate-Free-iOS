@@ -52,7 +52,7 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
-                Section(header: Text(verbatim: "Support")) {
+                Section(header: Text("Support")) {
                     Link(destination: URL(string: Strings.faqsUrl)!) {
                         Label(Strings.faqs, systemImage: "questionmark")
                     }
@@ -69,7 +69,7 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
-                Section(header: Text(verbatim: "About")) {
+                Section(header: Text("About")) {
                     Link(destination: URL(string: Strings.supportWebsiteUrl)!) {
                         Label("Website", systemImage: "globe")
                     }
@@ -82,9 +82,9 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.cardBackground.opacity(0.7))
 
-                Section(header: Text(verbatim: "App")) {
+                Section(header: Text("App")) {
                     HStack {
-                        Text(verbatim: "Version")
+                        Text("Version")
                         Spacer()
                         Text(appVersion)
                             .foregroundStyle(.secondary)
@@ -95,7 +95,7 @@ struct SettingsView: View {
                 Section {
                     VStack {
                         Text("Logged in as \(viewModel.shopkeeper?.name ?? "")")
-                        MainButtonView(title: "Sign Out", type: .destructive(withArrow: false)) {
+                        MainButtonView(title: Strings.signOut, type: .destructive(withArrow: false)) {
                             viewModel.signOut()
                         }
                     }

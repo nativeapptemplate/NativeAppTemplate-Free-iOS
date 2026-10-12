@@ -120,9 +120,9 @@ enum Strings {
     /// This is for MyTurnTag Creator. Replace this.
     static let appStoreUrl: String = "https://apps.apple.com/app/myturntag-creator/id1516198303"
 
-    static let placeholderFullName: String = "John Smith"
+    static let placeholderFullName: String = .init(localized: "John Smith")
     static let placeholderEmail: String = "you@example.com"
-    static let placeholderPassword: String = "password"
+    static let placeholderPassword: String = .init(localized: "password")
 
     static let defaultTimeZone: String = "London"
 
@@ -131,75 +131,77 @@ enum Strings {
     static let keychainServiceLoggedInShopkeeper =
         "com.nativeapptemplate.NativeAppTemplateFree.LoggedInShopkeeperService"
 
-    static let shops = "Shops"
-    static let settings = "Settings"
-    static let loading = "Loading..."
+    static let shops = String(localized: "Shops")
+    static let settings = String(localized: "Settings")
+    static let loading = String(localized: "Loading...")
 
     // MARK: Resend Confirmation Instructions View
 
-    static let buttonSendMeConfirmationInstructions = "Resend confirmation instructions"
-    static let didntReceiveConfirmationInstructions = "Didn't receive confirmation instructions?"
+    static let buttonSendMeConfirmationInstructions = String(localized: "Resend confirmation instructions")
+    static let didntReceiveConfirmationInstructions = String(localized: "Didn't receive confirmation instructions?")
 
     // MARK: Forgot Password View
 
-    static let buttonSendMeResetPasswordInstructions = "Send me reset password instructions"
-    static let forgotYourPassword = "Forgot your password?"
+    static let buttonSendMeResetPasswordInstructions = String(localized: "Send me reset password instructions")
+    static let forgotYourPassword = String(localized: "Forgot your password?")
 
     // MARK: Shop View
 
-    static let shopName = "Shop Name"
-    static let createShop = "Create Shop"
-    static let editShop = "Edit Shop"
-    static let addShop = "Add Shop"
-    static let addShopDescription = "Add a new shop."
-    static let deleteShop = "Delete Shop"
-    static let shopNameIsRequired = "Shop name is required."
-    static let shopNameIsInvalid = "Shop name is invalid."
-    static let shopDescriptionIsInvalid = "Shop description is too long."
+    static let shopName = String(localized: "Shop Name")
+    static let createShop = String(localized: "Create Shop")
+    static let editShop = String(localized: "Edit Shop")
+    static let addShop = String(localized: "Add Shop")
+    static let addShopDescription = String(localized: "Add a new shop.")
+    static let deleteShop = String(localized: "Delete Shop")
+    static let shopNameIsRequired = String(localized: "Shop name is required.")
+    static let shopNameIsInvalid = String(localized: "Shop name is invalid.")
+    static let shopDescriptionIsInvalid = String(localized: "Shop description is too long.")
 
     static func shopNameHelp(maximumLength: Int) -> String {
-        "Name must be 1–\(maximumLength) characters."
+        String(localized: "Name must be 1–\(maximumLength) characters.")
     }
 
     static func shopDescriptionHelp(maximumLength: Int) -> String {
-        "Description can be up to \(maximumLength) characters."
+        String(localized: "Description can be up to \(maximumLength) characters.")
     }
 
-    static let timeZone = "Time Zone"
-    static let language = "Language"
-    static let createShopsLabel = "Create shops"
-    static let tapShopBelow = "Tap shop below."
-    static let haveFun = "Have fun!"
-    static let shopDetailInstruction = "Swipe to change item tag status."
+    static let timeZone = String(localized: "Time Zone")
+    static let appLanguage = String(localized: "App Language")
+    static let changeInSettings = String(localized: "Change in Settings")
+    static let emailsAreSentInThisLanguageToo = String(localized: "Emails are sent in this language too.")
+    static let createShopsLabel = String(localized: "Create shops")
+    static let tapShopBelow = String(localized: "Tap shop below.")
+    static let haveFun = String(localized: "Have fun!")
+    static let shopDetailInstruction = String(localized: "Swipe to change item tag status.")
 
     // MARK: Shop Settings View
 
-    static let shopSettingsLabel = "Shop Settings"
-    static let shopSettingsBasicSettingsLabel = "Basic Settings"
-    static let shopSettingsManageItemTagsLabel = "Manage Item Tags"
+    static let shopSettingsLabel = String(localized: "Shop Settings")
+    static let shopSettingsBasicSettingsLabel = String(localized: "Basic Settings")
+    static let shopSettingsManageItemTagsLabel = String(localized: "Manage Item Tags")
 
     // MARK: Item Tag View
 
-    static let nameLabel = "Name"
-    static let descriptionLabel = "Description"
-    static let itemTagNamePlaceholder = "Name"
-    static let editItemTag = "Edit Item Tag"
-    static let addItemTag = "Add Item Tag"
-    static let addItemTagDescription = "Add a new item tag and start changing item tag status."
-    static let deleteItemTag = "Delete item tag"
-    static let buttonDeleteItemTag = "Delete Item Tag"
-    static let itemTagNameIsInvalid = "Item tag name is invalid."
-    static let itemTagDescriptionIsInvalid = "Item tag description is too long."
-    static let completedAtLabel = "Completed at"
-    static let markAsCompleted = "Mark as completed"
-    static let markAsIdled = "Mark as idled"
+    static let nameLabel = String(localized: "Name")
+    static let descriptionLabel = String(localized: "Description")
+    static let itemTagNamePlaceholder = String(localized: "Name")
+    static let editItemTag = String(localized: "Edit Item Tag")
+    static let addItemTag = String(localized: "Add Item Tag")
+    static let addItemTagDescription = String(localized: "Add a new item tag and start changing item tag status.")
+    static let deleteItemTag = String(localized: "Delete item tag")
+    static let buttonDeleteItemTag = String(localized: "Delete Item Tag")
+    static let itemTagNameIsInvalid = String(localized: "Item tag name is invalid.")
+    static let itemTagDescriptionIsInvalid = String(localized: "Item tag description is too long.")
+    static let completedAtLabel = String(localized: "Completed at")
+    static let markAsCompleted = String(localized: "Mark as completed")
+    static let markAsIdled = String(localized: "Mark as idled")
 
     static func itemTagNameHelp(maximumLength: Int) -> String {
-        "Name must be 1–\(maximumLength) characters."
+        String(localized: "Name must be 1–\(maximumLength) characters.")
     }
 
     static func itemTagDescriptionHelp(maximumLength: Int) -> String {
-        "Description can be up to \(maximumLength) characters."
+        String(localized: "Description can be up to \(maximumLength) characters.")
     }
 
     // MARK: Settings View
@@ -210,123 +212,138 @@ enum Strings {
     static let privacyPolicyUrl: String = "https://nativeapptemplate.com/privacy"
     static let termsOfUseUrl: String = "https://nativeapptemplate.com/terms"
 
-    static let myAccount = "My Account"
-    static let profile = "Profile"
-    static let supportWebsite = "Support Website"
-    static let howToUse = "How To Use"
-    static let faqs = "FAQs"
-    static let rateApp = "Rate or Review the App"
-    static let contact = "Contact"
-    static let privacyPolicy = "Privacy Policy"
-    static let termsOfUse = "Terms of Use"
-    static let editProfile = "Edit Profile"
-    static let deleteMyAccount = "Delete My Account"
-    static let updatePassword = "Update Password"
-    static let currentPassword = "Current Password"
-    static let newPassword = "New Password"
-    static let confirmNewPassword = "Confirm New Password"
-    static let currentPasswordIsRequired = "Current password is required."
-    static let newPasswordIsRequired = "New password is required."
-    static let confirmNewPasswordIsRequired = "Confirm new password is required."
-    static let weNeedYourCurrentPassword = "We need your current password to confirm your changes."
-    // swiftlint:disable:next line_length
-    static let reconfirmDescription = "A message with a confirmation link has been sent to your new email address. Please follow the link to update to your new email address. Your email address will not be updated until confirming."
+    static let myAccount = String(localized: "My Account")
+    static let profile = String(localized: "Profile")
+    static let supportWebsite = String(localized: "Support Website")
+    static let howToUse = String(localized: "How To Use")
+    static let faqs = String(localized: "FAQs")
+    static let rateApp = String(localized: "Rate or Review the App")
+    static let contact = String(localized: "Contact")
+    static let privacyPolicy = String(localized: "Privacy Policy")
+    static let termsOfUse = String(localized: "Terms of Use")
+    static let editProfile = String(localized: "Edit Profile")
+    static let deleteMyAccount = String(localized: "Delete My Account")
+    static let updatePassword = String(localized: "Update Password")
+    static let currentPassword = String(localized: "Current Password")
+    static let newPassword = String(localized: "New Password")
+    static let confirmNewPassword = String(localized: "Confirm New Password")
+    static let currentPasswordIsRequired = String(localized: "Current password is required.")
+    static let newPasswordIsRequired = String(localized: "New password is required.")
+    static let confirmNewPasswordIsRequired = String(localized: "Confirm new password is required.")
+    static let weNeedYourCurrentPassword = String(localized: "We need your current password to confirm your changes.")
+    static let reconfirmDescription = String(
+        localized: """
+        A message with a confirmation link has been sent to your new email address. \
+        Please follow the link to update to your new email address. \
+        Your email address will not be updated until confirming.
+        """
+    )
 
     // MARK: Messaging
 
-    static let shopCreated = "Shop created successfully."
-    static let basicSettingsUpdated = "Basic settings updated successfully."
-    static let shopDeleted = "Shop deleted successfully."
-    static let shopDeletedError = "There was a problem deleting shop."
+    static let shopCreated = String(localized: "Shop created successfully.")
+    static let basicSettingsUpdated = String(localized: "Basic settings updated successfully.")
+    static let shopDeleted = String(localized: "Shop deleted successfully.")
+    static let shopDeletedError = String(localized: "There was a problem deleting shop.")
 
-    static let itemTagCreated = "Item tag created successfully."
-    static let itemTagUpdated = "Item tag updated successfully."
-    static let itemTagDeleted = "Item tag deleted successfully."
-    static let itemTagDeletedError = "There was a problem deleting item tag."
-    static let itemTagCompletedError = "There was a problem completing item tag."
-    static let itemTagIdledError = "There was a problem idling item tag."
+    static let itemTagCreated = String(localized: "Item tag created successfully.")
+    static let itemTagUpdated = String(localized: "Item tag updated successfully.")
+    static let itemTagDeleted = String(localized: "Item tag deleted successfully.")
+    static let itemTagDeletedError = String(localized: "There was a problem deleting item tag.")
+    static let itemTagCompletedError = String(localized: "There was a problem completing item tag.")
+    static let itemTagIdledError = String(localized: "There was a problem idling item tag.")
 
-    static let shopkeeperCreated = "Account created successfully."
-    static let shopkeeperCreatedError = "There was a problem creating the account."
-    // swiftlint:disable:next line_length
-    static let signedUpButUnconfirmed = "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
+    static let shopkeeperCreated = String(localized: "Account created successfully.")
+    static let shopkeeperCreatedError = String(localized: "There was a problem creating the account.")
+    static let signedUpButUnconfirmed = String(
+        localized: """
+        A message with a confirmation link has been sent to your email address. \
+        Please follow the link to activate your account.
+        """
+    )
 
-    static let shopkeeperUpdated = "Account updated successfully."
-    static let shopkeeperDeleted = "Account deleted successfully."
-    static let shopkeeperDeletedError = "There was a problem deleting the account."
+    static let shopkeeperUpdated = String(localized: "Account updated successfully.")
+    static let shopkeeperDeleted = String(localized: "Account deleted successfully.")
+    static let shopkeeperDeletedError = String(localized: "There was a problem deleting the account.")
 
-    static let confirmedPrivacyVersionUpdated = "Privacy policy accepted successfully."
-    static let confirmedPrivacyVersionUpdatedError = "There was a problem accepting the privacy policy."
+    static let confirmedPrivacyVersionUpdated = String(localized: "Privacy policy accepted successfully.")
+    static let confirmedPrivacyVersionUpdatedError = String(
+        localized: "There was a problem accepting the privacy policy."
+    )
 
-    static let confirmedTermsVersionUpdated = "Terms of use accepted successfully."
-    static let confirmedTermsVersionUpdatedError = "There was a problem accepting the terms of use."
+    static let confirmedTermsVersionUpdated = String(localized: "Terms of use accepted successfully.")
+    static let confirmedTermsVersionUpdatedError = String(localized: "There was a problem accepting the terms of use.")
 
-    static let signedOut = "Signed out successfully."
-    static let signedOutError = "There was a problem signing out."
+    static let signedOut = String(localized: "Signed out successfully.")
+    static let signedOutError = String(localized: "There was a problem signing out.")
 
-    static let passwordUpdated = "Password updated successfully."
-    static let passwordUpdatedError = "There was a problem updating the password."
+    static let passwordUpdated = String(localized: "Password updated successfully.")
+    static let passwordUpdatedError = String(localized: "There was a problem updating the password.")
 
-    static let sentResetPasswordInstruction =
-        "If your email address exists in our database, you will receive a password recovery link " +
-        "at your email address in a few minutes."
-    static let sentResetPasswordInstructionError = "Unable to find user with the email."
+    static let sentResetPasswordInstruction = String(
+        localized: """
+        If your email address exists in our database, you will receive a password recovery link \
+        at your email address in a few minutes.
+        """
+    )
+    static let sentResetPasswordInstructionError = String(localized: "Unable to find user with the email.")
 
-    static let sentConfirmationInstruction =
-        "An email has been sent the email containing instructions for confirming your email address."
-    static let sentConfirmationInstructionError = "Unable to find user with the email."
+    static let sentConfirmationInstruction = String(
+        localized: "An email has been sent the email containing instructions for confirming your email address."
+    )
+    static let sentConfirmationInstructionError = String(localized: "Unable to find user with the email.")
 
-    static let pleaseSignIn = "Please sign in."
-    static let updateApp = "Update App"
-    static let installNewVersionApp = "Please install new version app."
+    static let pleaseSignIn = String(localized: "Please sign in.")
+    static let updateApp = String(localized: "Update App")
+    static let installNewVersionApp = String(localized: "Please install new version app.")
 
     // MARK: Onboarding
 
-    static let signIn = "Sign In"
-    static let signUp = "Sign Up"
-    static let signUpForAnAccount = "Sign Up for an Account"
-    static let signInToYourAccount = "Sign In to Your Account"
-    static let email = "Email"
-    static let password = "Password"
+    static let signIn = String(localized: "Sign In")
+    static let signUp = String(localized: "Sign Up")
+    static let signUpForAnAccount = String(localized: "Sign Up for an Account")
+    static let signInToYourAccount = String(localized: "Sign In to Your Account")
+    static let email = String(localized: "Email")
+    static let password = String(localized: "Password")
 
     static var welcomeToApp: String {
-        "Welcome to \(appName)"
+        String(localized: "Welcome to \(appName)")
     }
 
     // MARK: Other
 
-    static let yes = "Yes"
-    static let ok = "OK"
-    static let no = "No"
-    static let cancel = "Cancel"
-    static let close = "Close"
-    static let save = "Save"
-    static let edit = "Edit"
-    static let delete = "Delete"
-    static let areYouSure = "Are you sure?"
-    static let name = "Name"
-    static let accept = "Accept"
-    static let decline = "Decline"
-    static let descriptionString = "Description"
-    static let nameIsRequired = "Name is required."
-    static let emailIsRequired = "Email is required."
-    static let emailIsInvalid = "Email is invalid."
-    static let passwordIsRequired = "Password is required."
-    static let passwordIsInvalid = "Password is invalid."
-    static let role = "Role"
-    static let complete = "Complete"
-    static let open = "Open"
-    static let instructions = "Instructions"
-    static let forceSignOut = "Force Sign Out?"
-    static let signOut = "Sign Out"
-    static let noConnection = "No Connection"
-    static let checkInternetConnection = "Please check internet connection and try again."
-    static let privacyPolicyUpdated = "Privacy Policy Updated"
-    static let termsOfUseUpdated = "Terms of Use Updated"
-    static let backToStartScreen = "Back to Start Screen"
-    static let fullName = "Full Name"
-    static let fullNameIsRequired = "Full name is required."
-    static let idle = "Idle"
+    static let yes = String(localized: "Yes")
+    static let ok = String(localized: "OK")
+    static let no = String(localized: "No")
+    static let cancel = String(localized: "Cancel")
+    static let close = String(localized: "Close")
+    static let save = String(localized: "Save")
+    static let edit = String(localized: "Edit")
+    static let delete = String(localized: "Delete")
+    static let areYouSure = String(localized: "Are you sure?")
+    static let name = String(localized: "Name")
+    static let accept = String(localized: "Accept")
+    static let decline = String(localized: "Decline")
+    static let descriptionString = String(localized: "Description")
+    static let nameIsRequired = String(localized: "Name is required.")
+    static let emailIsRequired = String(localized: "Email is required.")
+    static let emailIsInvalid = String(localized: "Email is invalid.")
+    static let passwordIsRequired = String(localized: "Password is required.")
+    static let passwordIsInvalid = String(localized: "Password is invalid.")
+    static let role = String(localized: "Role")
+    static let complete = String(localized: "Complete")
+    static let open = String(localized: "Open")
+    static let instructions = String(localized: "Instructions")
+    static let forceSignOut = String(localized: "Force Sign Out?")
+    static let signOut = String(localized: "Sign Out")
+    static let noConnection = String(localized: "No Connection")
+    static let checkInternetConnection = String(localized: "Please check internet connection and try again.")
+    static let privacyPolicyUpdated = String(localized: "Privacy Policy Updated")
+    static let termsOfUseUpdated = String(localized: "Terms of Use Updated")
+    static let backToStartScreen = String(localized: "Back to Start Screen")
+    static let fullName = String(localized: "Full Name")
+    static let fullNameIsRequired = String(localized: "Full name is required.")
+    static let idle = String(localized: "Idle")
 }
 
 extension TimeInterval {

@@ -8,7 +8,7 @@ import SwiftUI
 struct CompletedTag: View {
     var body: some View {
         TagView(
-            text: "completed",
+            text: String(localized: "completed"),
             textColor: .completedTagForeground,
             backgroundColor: .completedTagBackground,
             borderColor: .completedTagBorder

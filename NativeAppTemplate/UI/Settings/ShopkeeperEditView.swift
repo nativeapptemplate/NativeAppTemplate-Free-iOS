@@ -72,12 +72,19 @@ private extension ShopkeeperEditView {
                         Text(timeZone.value).tag(timeZone.key)
                     }
                 }
+            }
 
-                Picker(Strings.language, selection: $viewModel.selectedLocale) {
-                    ForEach(Shopkeeper.supportedLocales, id: \.code) { locale in
-                        Text(locale.name).tag(locale.code)
+            // The app's language is changed in iOS Settings, like Airbnb's;
+            // shopkeepers.locale follows it (SessionController)
+            Section {
+                LabeledContent(Strings.appLanguage, value: Shopkeeper.appLocaleName())
+                Button(Strings.changeInSettings) {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        openURL(url)
                     }
                 }
+            } footer: {
+                Text(Strings.emailsAreSentInThisLanguageToo)
             }
 
             Spacer()

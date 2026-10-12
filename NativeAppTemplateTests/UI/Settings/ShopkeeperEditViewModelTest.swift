@@ -50,7 +50,6 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.name == "Test User")
         #expect(viewModel.email == "test@example.com")
         #expect(viewModel.selectedTimeZone == "Tokyo")
-        #expect(viewModel.selectedLocale == "en")
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.isDeleting == false)
         #expect(viewModel.isShowingDeleteConfirmationDialog == false)
@@ -185,34 +184,34 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         viewModel.email = testShopkeeper.email // reset email
         viewModel.selectedTimeZone = "Osaka"
         #expect(viewModel.hasInvalidData == false)
-
-        viewModel.selectedTimeZone = testShopkeeper.timeZone // reset time zone
-        viewModel.selectedLocale = "ja"
-        #expect(viewModel.hasInvalidData == false)
     }
 
+    /// There is no language picker: saving sends the app's language, which
+    /// tests run in (English), whatever was stored before
     @Test
-    func updateShopkeeperSendsAndStoresTheLocale() async {
-        sessionController.shopkeeper = testShopkeeper
+    func updateShopkeeperSendsAndStoresTheAppLocale() async {
+        var japaneseShopkeeper = testShopkeeper
+        japaneseShopkeeper.locale = "ja"
+        sessionController.shopkeeper = japaneseShopkeeper
 
         let viewModel = ShopkeeperEditViewModel(
             signUpRepository: signUpRepository,
             sessionController: sessionController,
             messageBus: messageBus,
             tabViewModel: tabViewModel,
-            shopkeeper: testShopkeeper
+            shopkeeper: japaneseShopkeeper
         )
 
-        viewModel.selectedLocale = "ja"
+        viewModel.name = "New Name"
 
         let updateTask = Task {
             viewModel.updateShopkeeper()
         }
         await updateTask.value
 
-        #expect(signUpRepository.lastSignUp?.locale == "ja")
+        #expect(signUpRepository.lastSignUp?.locale == "en")
         // TestSignUpRepository echoes the sent locale back, like the API
-        #expect(sessionController.shopkeeper?.locale == "ja")
+        #expect(sessionController.shopkeeper?.locale == "en")
         #expect(messageBus.currentMessage?.message == Strings.shopkeeperUpdated)
     }
 

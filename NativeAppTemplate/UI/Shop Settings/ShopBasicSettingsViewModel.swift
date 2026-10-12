@@ -96,7 +96,8 @@ final class ShopBasicSettingsViewModel {
                 shop = try await shopRepository.fetchDetail(id: shopId)
 
                 guard let shop else {
-                    messageBus.post(message: Message(level: .error, message: "Shop not found", autoDismiss: false))
+                    let notFound = String(localized: "Shop not found")
+                    messageBus.post(message: Message(level: .error, message: notFound, autoDismiss: false))
                     shouldDismiss = true
                     return
                 }

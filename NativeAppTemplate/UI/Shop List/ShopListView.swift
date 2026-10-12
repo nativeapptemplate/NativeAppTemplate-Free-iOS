@@ -112,7 +112,7 @@ private extension ShopListView {
                             HStack(alignment: .firstTextBaseline) {
                                 Text(String(viewModel.leftInShopSlots))
                                     .font(.uiLabelBold)
-                                Text(verbatim: "left in shop slots.")
+                                Text("left in shop slots.")
                                     .font(.uiFootnote)
                             }
                         }
@@ -200,7 +200,7 @@ private extension ShopListView {
                 HStack(alignment: .firstTextBaseline) {
                     Text(String(leftInShopSlots))
                         .font(.uiTitle3)
-                    Text(verbatim: "left in shop slots.")
+                    Text("left in shop slots.")
                         .foregroundStyle(.contentText)
                 }
                 .padding()
