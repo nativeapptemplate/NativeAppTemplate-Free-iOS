@@ -138,6 +138,10 @@ final class ShopkeeperEditViewModel {
                     message: "\(Strings.shopkeeperDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
+                // The user still exists on the server, so keep the session and
+                // let them retry
+                isDeleting = false
+                return
             }
 
             do {

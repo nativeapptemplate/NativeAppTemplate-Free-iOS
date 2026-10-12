@@ -83,7 +83,8 @@ final class ShopCreateViewModel {
 
                 // e.g. Limit shops count error
                 guard case NativeAppTemplateAPIError.requestFailed(_, 422, _) = error else {
-                    try? await sessionController.logout()
+                    // Keep the form open so the user can retry
+                    isCreating = false
                     return
                 }
 
