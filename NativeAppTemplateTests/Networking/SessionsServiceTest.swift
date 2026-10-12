@@ -34,4 +34,19 @@ struct SessionsServiceTest {
         #expect(error.codedDescription ==
             "[NATIVEAPPTEMPLATE-2001] NativeAppTemplateAPIError::RequestFailed[Status: 502 | Error: UNKNOWN]")
     }
+
+    /// A sign-in response without data is a processing error (NATIVEAPPTEMPLATE-2002,
+    /// NativeAppTemplateAPIError.processingError's code), not a crash
+    @Test
+    func signInResponseWithoutDataIsAProcessingError() async throws {
+        let server = try await TestHTTPServer.start { _ in TestHTTPServer.json([String: Any]()) }
+        defer { server.stop() }
+
+        let error = try await requestFailed {
+            _ = try await SessionsService(networkClient: server.client())
+                .makeSession(email: "a@example.com", password: "password")
+        }
+
+        #expect(error.errorCode == "NATIVEAPPTEMPLATE-2002")
+    }
 }

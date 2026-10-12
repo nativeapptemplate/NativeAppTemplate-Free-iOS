@@ -33,7 +33,10 @@ struct MakeSessionRequest: Request {
         let json = try JSONSerialization.jsonObject(with: response)
         let doc = JSONAPIDocument(json)
         let shopkeepers = try doc.data.map { try ShopkeeperSignInAdapter.process(resource: $0) }
-        return shopkeepers.first!
+        guard let shopkeeper = shopkeepers.first else {
+            throw NativeAppTemplateAPIError.processingError(nil)
+        }
+        return shopkeeper
     }
 }
 
