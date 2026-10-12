@@ -158,7 +158,6 @@ private extension ShopListView {
             content: {
                 ShopCreateView(
                     viewModel: ShopCreateViewModel(
-                        sessionController: dataManager.sessionController,
                         shopRepository: dataManager.shopRepository,
                         messageBus: messageBus
                     )

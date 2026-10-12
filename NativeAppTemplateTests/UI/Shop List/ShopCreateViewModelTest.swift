@@ -10,7 +10,6 @@ import Testing
 @MainActor
 @Suite
 struct ShopCreateViewModelTest {
-    let sessionController = TestSessionController()
     let shopRepository = TestShopRepository(
         shopsService: ShopsService()
     )
@@ -19,7 +18,6 @@ struct ShopCreateViewModelTest {
     @Test
     func stateIsInitiallyNotLoading() {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -30,7 +28,6 @@ struct ShopCreateViewModelTest {
     @Test
     func maximumNameLength() {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -41,7 +38,6 @@ struct ShopCreateViewModelTest {
     @Test
     func maximumDescriptionLength() {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -58,7 +54,6 @@ struct ShopCreateViewModelTest {
     ])
     func nameValidation(name: String, shouldBeInvalid: Bool) {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -76,7 +71,6 @@ struct ShopCreateViewModelTest {
     ])
     func descriptionValidation(description: String, shouldBeInvalid: Bool) {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -89,7 +83,6 @@ struct ShopCreateViewModelTest {
     @Test
     func validateNameLengthTruncatesCorrectly() {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -103,7 +96,6 @@ struct ShopCreateViewModelTest {
     @Test
     func validateDescriptionLengthTruncatesCorrectly() {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -117,7 +109,6 @@ struct ShopCreateViewModelTest {
     @Test
     func createShop() async throws {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -154,7 +145,6 @@ struct ShopCreateViewModelTest {
     @Test
     func createShopFailed() async {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -189,7 +179,6 @@ struct ShopCreateViewModelTest {
     @Test
     func createShopFailedNot422() async {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )
@@ -215,10 +204,9 @@ struct ShopCreateViewModelTest {
         // NativeAppTemplateAPIError.requestFailed's codedDescription:
         // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
-        // A server or network error keeps the user signed in with the form
-        // open, so they can retry
+        // A server or network error keeps the form open, so the user can retry.
+        // ShopCreateViewModel no longer holds the session, so it can't sign the user out.
         #expect(!viewModel.isCreating)
-        #expect(sessionController.userState == .loggedIn)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.name == newName)
@@ -227,7 +215,6 @@ struct ShopCreateViewModelTest {
     @Test
     func initialValues() {
         let viewModel = ShopCreateViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus
         )

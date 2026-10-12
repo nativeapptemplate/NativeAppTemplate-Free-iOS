@@ -7,8 +7,6 @@ import SwiftUI
 
 struct ShopDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.mainTab) private var mainTab
-    @Environment(TabViewModel.self) private var tabViewModel
     @State private var viewModel: ShopDetailViewModel
 
     init(viewModel: ShopDetailViewModel) {

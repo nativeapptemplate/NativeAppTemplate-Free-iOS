@@ -22,7 +22,6 @@ struct AcceptTermsViewModelTest {
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)
-        #expect(viewModel.areTermsAccepted == false)
     }
 
     @Test
@@ -36,7 +35,6 @@ struct AcceptTermsViewModelTest {
 
         await waitUntil { viewModel.shouldDismiss }
 
-        #expect(viewModel.areTermsAccepted == true)
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage?.level == .success)
     }
@@ -55,25 +53,8 @@ struct AcceptTermsViewModelTest {
         await waitUntil { viewModel.shouldDismiss }
 
         #expect(viewModel.isUpdating == false)
-        #expect(viewModel.areTermsAccepted == true) // Still set to true even on error
         #expect(viewModel.shouldDismiss == true) // Still set to true even on error
         #expect(messageBus.currentMessage?.level == .error)
-    }
-
-    @Test
-    func areTermsAcceptedToggle() {
-        let viewModel = AcceptTermsViewModel(
-            sessionController: sessionController,
-            messageBus: messageBus
-        )
-
-        #expect(viewModel.areTermsAccepted == false)
-
-        viewModel.areTermsAccepted = true
-        #expect(viewModel.areTermsAccepted == true)
-
-        viewModel.areTermsAccepted = false
-        #expect(viewModel.areTermsAccepted == false)
     }
 
     @Test

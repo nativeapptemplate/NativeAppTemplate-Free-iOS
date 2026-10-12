@@ -11,7 +11,6 @@ import SwiftUI
 final class AcceptTermsViewModel {
     var isUpdating = false
     var shouldDismiss = false
-    var areTermsAccepted = false
 
     private let sessionController: SessionControllerProtocol
     private let messageBus: MessageBus
@@ -38,7 +37,6 @@ final class AcceptTermsViewModel {
                 ))
             }
 
-            areTermsAccepted = true
             shouldDismiss = true
             isUpdating = false
         }

@@ -22,7 +22,6 @@ struct AcceptPrivacyViewModelTest {
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)
-        #expect(viewModel.arePrivacyAccepted == false)
     }
 
     @Test
@@ -36,7 +35,6 @@ struct AcceptPrivacyViewModelTest {
 
         await waitUntil { viewModel.shouldDismiss }
 
-        #expect(viewModel.arePrivacyAccepted == true)
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage?.level == .success)
     }
@@ -55,25 +53,8 @@ struct AcceptPrivacyViewModelTest {
         await waitUntil { viewModel.shouldDismiss }
 
         #expect(viewModel.isUpdating == false)
-        #expect(viewModel.arePrivacyAccepted == true) // Still set to true even on error
         #expect(viewModel.shouldDismiss == true) // Still set to true even on error
         #expect(messageBus.currentMessage?.level == .error)
-    }
-
-    @Test
-    func arePrivacyAcceptedToggle() {
-        let viewModel = AcceptPrivacyViewModel(
-            sessionController: sessionController,
-            messageBus: messageBus
-        )
-
-        #expect(viewModel.arePrivacyAccepted == false)
-
-        viewModel.arePrivacyAccepted = true
-        #expect(viewModel.arePrivacyAccepted == true)
-
-        viewModel.arePrivacyAccepted = false
-        #expect(viewModel.arePrivacyAccepted == false)
     }
 
     @Test
