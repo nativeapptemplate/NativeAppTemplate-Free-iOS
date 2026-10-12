@@ -51,6 +51,7 @@ extension URLSession {
     static let api: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.urlCache = nil
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         configuration.httpCookieStorage = nil
         configuration.httpShouldSetCookies = false
         return URLSession(

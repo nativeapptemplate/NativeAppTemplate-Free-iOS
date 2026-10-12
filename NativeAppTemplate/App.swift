@@ -89,6 +89,10 @@ struct App {
     private var messageBus: MessageBus
 
     @MainActor init() {
+        // Versions before URLSession.api dropped its response cache stored API
+        // responses in the shared URLCache on disk; delete what they left behind
+        URLCache.shared.removeAllCachedResponses()
+
         // setup objects
         let nativeAppTemplateObjects = App.objects
         loginRepository = nativeAppTemplateObjects.loginRepository
