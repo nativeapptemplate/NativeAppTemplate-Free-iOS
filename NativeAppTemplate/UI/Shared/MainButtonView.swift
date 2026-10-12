@@ -48,14 +48,8 @@ enum MainButtonType {
     }
 }
 
+/// Unlike MainButtonImageView, this does not size the arrow to the label's measured height
 struct MainButtonView: View {
-    private struct SizeKey: PreferenceKey {
-        static func reduce(value: inout CGSize?, nextValue: () -> CGSize?) {
-            value = value ?? nextValue()
-        }
-    }
-
-    @State private var height: CGFloat?
     var title: String
     var type: MainButtonType
     var callback: () -> Void
@@ -83,7 +77,6 @@ struct MainButtonView: View {
 
                             Image(systemName: "arrow.right")
                                 .font(.system(size: 14, weight: .bold))
-                                .frame(width: height, height: height)
                                 .foregroundStyle(type.color)
                                 .background(
                                     Color.arrowBackground
@@ -93,16 +86,10 @@ struct MainButtonView: View {
                         }
                     }
                 }
-                .frame(height: height)
                 .background(
                     RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.sm)
                         .stroke(type.color, lineWidth: 2)
                 )
-                .onPreferenceChange(SizeKey.self) { size in
-                    Task { @MainActor in
-                        height = size?.height
-                    }
-                }
             }
         }
     }
