@@ -96,15 +96,16 @@ final class ItemTagDetailViewModel {
             do {
                 try await itemTagRepository.destroy(id: itemTag.id)
                 messageBus.post(message: Message(level: .success, message: Strings.itemTagDeleted))
+                shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(
                     level: .error,
                     message: "\(Strings.itemTagDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
+                // The item tag still exists, so stay here and let the user retry
+                isDeleting = false
             }
-
-            shouldDismiss = true
         }
     }
 

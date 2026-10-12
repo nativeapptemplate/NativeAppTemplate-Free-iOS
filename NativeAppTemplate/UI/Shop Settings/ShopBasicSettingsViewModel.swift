@@ -127,12 +127,13 @@ final class ShopBasicSettingsViewModel {
                 )
                 _ = try await shopRepository.update(id: shop.id, shop: shop)
                 messageBus.post(message: Message(level: .success, message: Strings.basicSettingsUpdated))
+                shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(error: error))
+                // Keep the form open with the user's input so they can retry
             }
 
             isUpdating = false
-            shouldDismiss = true
         }
     }
 }

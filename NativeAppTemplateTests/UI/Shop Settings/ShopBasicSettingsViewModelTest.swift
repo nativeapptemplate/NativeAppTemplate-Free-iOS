@@ -310,11 +310,8 @@ struct ShopBasicSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil(timeout: .seconds(5)) { !viewModel.isFetching }
 
         let newName = "New Shop Name"
         let newTimeZone = "Osaka"
@@ -329,16 +326,18 @@ struct ShopBasicSettingsViewModelTest {
 
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let updateShopTask = Task {
-            viewModel.updateShop()
-        }
-        await updateShopTask.value
+        viewModel.updateShop()
+        await waitUntil(timeout: .seconds(5)) { viewModel.messageBus.currentMessage != nil && !viewModel.isUpdating }
 
+        // NativeAppTemplateAPIError.requestFailed's codedDescription:
+        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.isBusy == false)
-        #expect(viewModel.shouldDismiss)
+        // A failed save keeps the form open with the user's input so they can retry
+        #expect(viewModel.shouldDismiss == false)
+        #expect(viewModel.name == newName)
+        #expect(viewModel.selectedTimeZone == newTimeZone)
     }
 
     private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {
