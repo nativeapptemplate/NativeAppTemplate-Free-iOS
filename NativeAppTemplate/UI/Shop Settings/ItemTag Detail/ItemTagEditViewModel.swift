@@ -90,20 +90,20 @@ final class ItemTagEditViewModel {
         Task {
             isUpdating = true
 
-            do {
-                let itemTag = ItemTag(
-                    id: itemTagId,
-                    name: name,
-                    description: description
-                )
+            await saveThenDismiss(
+                messageBus: messageBus,
+                successMessage: Strings.itemTagUpdated,
+                dismiss: { shouldDismiss = true },
+                save: {
+                    let itemTag = ItemTag(
+                        id: itemTagId,
+                        name: name,
+                        description: description
+                    )
 
-                _ = try await itemTagRepository.update(id: itemTag.id, itemTag: itemTag)
-                messageBus.post(message: Message(level: .success, message: Strings.itemTagUpdated))
-                shouldDismiss = true
-            } catch {
-                messageBus.post(message: Message(error: error))
-                // Keep the form open with the typed name so the user can retry
-            }
+                    _ = try await itemTagRepository.update(id: itemTag.id, itemTag: itemTag)
+                }
+            )
 
             isUpdating = false
         }

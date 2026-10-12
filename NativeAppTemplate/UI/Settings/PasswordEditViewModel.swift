@@ -78,19 +78,20 @@ final class PasswordEditViewModel {
         Task {
             isUpdating = true
 
-            do {
-                let updatePassword = UpdatePassword(
-                    currentPassword: theCurrentPassword,
-                    password: thePassword,
-                    passwordConfirmation: thePasswordConfirmation
-                )
+            await saveThenDismiss(
+                messageBus: messageBus,
+                successMessage: Strings.passwordUpdated,
+                dismiss: { shouldDismiss = true },
+                save: {
+                    let updatePassword = UpdatePassword(
+                        currentPassword: theCurrentPassword,
+                        password: thePassword,
+                        passwordConfirmation: thePasswordConfirmation
+                    )
 
-                try await accountPasswordRepository.update(updatePassword: updatePassword)
-                messageBus.post(message: Message(level: .success, message: Strings.passwordUpdated))
-                shouldDismiss = true
-            } catch {
-                messageBus.post(message: Message(error: error))
-            }
+                    try await accountPasswordRepository.update(updatePassword: updatePassword)
+                }
+            )
 
             isUpdating = false
         }
