@@ -71,10 +71,8 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.isFetching == true)
         #expect(viewModel.isBusy)
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
 
@@ -106,10 +104,8 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.isFetching == true)
         #expect(viewModel.isBusy)
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { viewModel.shouldDismiss }
 
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
@@ -130,20 +126,17 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
 
-        let completeTagTask = Task {
-            viewModel.completeTag(itemTagId: itemTags.first!.id)
-        }
-        await completeTagTask.value
+        viewModel.completeTag(itemTagId: itemTags.first!.id)
+        await waitUntil { viewModel.itemTags.first?.state == .completed && !viewModel.isCompleting && !viewModel.isFetching }
 
         #expect(viewModel.messageBus.currentMessage == nil)
+        #expect(viewModel.itemTags.first?.state == .completed)
     }
 
     @Test
@@ -161,10 +154,8 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
@@ -173,10 +164,8 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        let completeTagTask = Task {
-            viewModel.completeTag(itemTagId: itemTags.first!.id)
-        }
-        await completeTagTask.value
+        viewModel.completeTag(itemTagId: itemTags.first!.id)
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isCompleting }
 
         #expect(viewModel.messageBus.currentMessage?.level == .error)
     }
@@ -184,7 +173,11 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
     @Test
     func idleTag() async throws {
         shopRepository.setShops(shops: shops)
-        itemTagRepository.setItemTags(itemTags: itemTags)
+        // Start from a completed tag, so idling it is a visible change
+        var tags = itemTags
+        tags[0].state = .completed
+        tags[0].completedAt = .now
+        itemTagRepository.setItemTags(itemTags: tags)
 
         let viewModel = ShopDetailViewModel(
             sessionController: sessionController,
@@ -196,20 +189,17 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
 
-        let idleTagTask = Task {
-            viewModel.idleTag(itemTagId: itemTags.first!.id)
-        }
-        await idleTagTask.value
+        viewModel.idleTag(itemTagId: itemTags.first!.id)
+        await waitUntil { viewModel.itemTags.first?.state == .idled && !viewModel.isIdling && !viewModel.isFetching }
 
         #expect(viewModel.messageBus.currentMessage == nil)
+        #expect(viewModel.itemTags.first?.state == .idled)
     }
 
     @Test
@@ -227,10 +217,8 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
             shopId: shopId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
@@ -239,10 +227,8 @@ struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        let idleTagTask = Task {
-            viewModel.idleTag(itemTagId: itemTags.first!.id)
-        }
-        await idleTagTask.value
+        viewModel.idleTag(itemTagId: itemTags.first!.id)
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isIdling }
 
         #expect(viewModel.messageBus.currentMessage?.level == .error)
     }

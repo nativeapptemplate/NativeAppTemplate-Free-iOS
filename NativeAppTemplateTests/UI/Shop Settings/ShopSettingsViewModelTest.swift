@@ -59,11 +59,8 @@ struct ShopSettingsViewModelTest {
         #expect(viewModel.isFetching == true)
         #expect(viewModel.isBusy)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
@@ -90,11 +87,8 @@ struct ShopSettingsViewModelTest {
         #expect(viewModel.isFetching == true)
         #expect(viewModel.isBusy)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.shouldDismiss)
@@ -114,22 +108,16 @@ struct ShopSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
 
         #expect(sessionController.shouldPopToRootView == false)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let destroyShopTask = Task {
-            viewModel.destroyShop()
-        }
-        await destroyShopTask.value
+        viewModel.destroyShop()
+        await waitUntil { messageBus.currentMessage != nil }
 
         #expect(viewModel.isDeleting)
         #expect(viewModel.isBusy)

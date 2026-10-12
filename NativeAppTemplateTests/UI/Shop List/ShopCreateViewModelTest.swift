@@ -123,11 +123,8 @@ struct ShopCreateViewModelTest {
         viewModel.selectedTimeZone = newTimeZone
         viewModel.description = newDescription
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let createShopTask = Task {
-            viewModel.createShop()
-        }
-        await createShopTask.value
+        viewModel.createShop()
+        await waitUntil { messageBus.currentMessage != nil }
 
         let latestShop = try #require(shopRepository.shops.last)
 
@@ -164,11 +161,8 @@ struct ShopCreateViewModelTest {
 
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 422, message)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let createShopTask = Task {
-            viewModel.createShop()
-        }
-        await createShopTask.value
+        viewModel.createShop()
+        await waitUntil { messageBus.currentMessage != nil }
 
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(viewModel.isCreating)

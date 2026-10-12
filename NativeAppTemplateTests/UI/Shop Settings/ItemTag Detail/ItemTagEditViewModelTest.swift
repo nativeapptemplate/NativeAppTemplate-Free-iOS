@@ -98,10 +98,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         #expect(viewModel.isFetching == false)
         #expect(viewModel.itemTag != nil)
@@ -122,10 +120,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         #expect(viewModel.isFetching == false)
         #expect(viewModel.shouldDismiss == true)
@@ -151,10 +147,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = name
 
@@ -176,10 +170,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.description = description
 
@@ -196,10 +188,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         // Both unchanged → invalid (no changes to save)
         #expect(viewModel.name == "Original")
@@ -263,18 +253,14 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = "Updated name"
         viewModel.description = "Updated description"
 
-        let updateTask = Task {
-            viewModel.updateItemTag()
-        }
-        await updateTask.value
+        viewModel.updateItemTag()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == true)
@@ -330,20 +316,20 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         viewModel.name = "Updated"
 
-        let updateTask = Task {
-            viewModel.updateItemTag()
-        }
+        itemTagRepository.gate = TestGate()
+        viewModel.updateItemTag()
 
-        #expect(viewModel.isBusy == viewModel.isUpdating)
-
-        await updateTask.value
+        // The repository holds the call, so the work is still in flight
+        await waitUntil { itemTagRepository.gate?.isWaiting == true }
+        #expect(viewModel.isUpdating)
+        #expect(viewModel.isBusy)
+        itemTagRepository.gate?.open()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isBusy == false)
         #expect(viewModel.isUpdating == false)

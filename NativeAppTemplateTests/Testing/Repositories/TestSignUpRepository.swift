@@ -10,6 +10,8 @@ import Foundation
 final class TestSignUpRepository: SignUpRepositoryProtocol {
     // A test-only
     var error: NativeAppTemplateAPIError?
+    /// A test-only: when set, the save and delete calls wait here until the test opens it
+    var gate: TestGate?
     var signUpCalled = false
     var updateCalled = false
     var destroyCalled = false
@@ -47,6 +49,7 @@ final class TestSignUpRepository: SignUpRepositoryProtocol {
     }
 
     func update(id: String, signUp: SignUp, networkClient: NativeAppTemplateAPI) async throws -> Shopkeeper {
+        await gate?.wait()
         updateCalled = true
         lastUpdateId = id
         lastSignUp = signUp
@@ -73,6 +76,7 @@ final class TestSignUpRepository: SignUpRepositoryProtocol {
     }
 
     func destroy(networkClient: NativeAppTemplateAPI) async throws {
+        await gate?.wait()
         destroyCalled = true
 
         guard error == nil else {

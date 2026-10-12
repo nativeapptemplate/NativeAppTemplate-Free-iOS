@@ -200,10 +200,8 @@ struct ItemTagListViewModelTest {
             shop: shop
         )
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag(itemTagId: "1")
-        }
-        await destroyTask.value
+        viewModel.destroyItemTag(itemTagId: "1")
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         // After destroy, reload is called which resets state
         #expect(itemTagRepository.state == .hasData)
@@ -240,10 +238,8 @@ struct ItemTagListViewModelTest {
 
         let itemTagIdToDelete = "1"
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag(itemTagId: itemTagIdToDelete)
-        }
-        await destroyTask.value
+        viewModel.destroyItemTag(itemTagId: itemTagIdToDelete)
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         #expect(viewModel.isDeleting == false)
         #expect(messageBus.currentMessage != nil)
@@ -267,10 +263,8 @@ struct ItemTagListViewModelTest {
             shop: shop
         )
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag(itemTagId: "1")
-        }
-        await destroyTask.value
+        viewModel.destroyItemTag(itemTagId: "1")
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         #expect(viewModel.isDeleting == false)
         #expect(messageBus.currentMessage != nil)
@@ -292,14 +286,15 @@ struct ItemTagListViewModelTest {
             shop: shop
         )
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag(itemTagId: "1")
-        }
+        itemTagRepository.gate = TestGate()
+        viewModel.destroyItemTag(itemTagId: "1")
 
-        // Check busy state immediately after starting
-        #expect(viewModel.isBusy == viewModel.isDeleting)
-
-        await destroyTask.value
+        // The repository holds the call, so the work is still in flight
+        await waitUntil { itemTagRepository.gate?.isWaiting == true }
+        #expect(viewModel.isDeleting)
+        #expect(viewModel.isBusy)
+        itemTagRepository.gate?.open()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         #expect(viewModel.isBusy == false)
         #expect(viewModel.isDeleting == false)
