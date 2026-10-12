@@ -40,4 +40,42 @@ struct SessionControllerTest {
         // The session is still cleared
         #expect(sessionController.userState == .notLoggedIn)
     }
+
+    /// Versions before URLSession.api dropped its cache left API responses in
+    /// URLCache.shared (on disk). Ending the session removes them.
+    @Test
+    func signingOutRemovesCachedResponses() async throws {
+        let loginRepository = TestLoginRepository()
+        loginRepository.currentShopkeeper = try #require(Shopkeeper(
+            id: "shopkeeper-1",
+            accountId: "account-1",
+            personalAccountId: "account-1",
+            accountOwnerId: "shopkeeper-1",
+            accountName: "Account",
+            email: "test@example.com",
+            name: "Test User",
+            timeZone: "Tokyo",
+            locale: "en",
+            uid: "test@example.com",
+            token: "token-1",
+            client: "client-1",
+            expiry: "expiry-1"
+        ))
+        let sessionController = SessionController(loginRepository: loginRepository, monitorsConnection: false)
+
+        let url = try #require(URL(string: "https://example.com/\(UUID().uuidString)"))
+        let request = URLRequest(url: url)
+        let response = try #require(HTTPURLResponse(
+            url: url,
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: ["Cache-Control": "max-age=3600"]
+        ))
+        URLCache.shared.storeCachedResponse(CachedURLResponse(response: response, data: Data("{}".utf8)), for: request)
+        try #require(URLCache.shared.cachedResponse(for: request) != nil)
+
+        try await sessionController.logout()
+
+        #expect(URLCache.shared.cachedResponse(for: request) == nil)
+    }
 }

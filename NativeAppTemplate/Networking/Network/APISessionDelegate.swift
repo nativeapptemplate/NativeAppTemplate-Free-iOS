@@ -43,8 +43,16 @@ final class APISessionDelegate: NSObject, URLSessionTaskDelegate {
 extension URLSession {
     private static let apiSessionDelegate = APISessionDelegate()
 
+    /// API responses carry the shopkeeper's data, and Rails sends them with
+    /// `Cache-Control: max-age=0, private, must-revalidate`, which the default
+    /// configuration's `URLCache` keeps on disk (Library/Caches) past sign-out.
+    /// The API authenticates with headers, not cookies, so the session keeps
+    /// neither a URL cache nor a cookie store.
     static let api: URLSession = {
-        let configuration = URLSessionConfiguration.default
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.urlCache = nil
+        configuration.httpCookieStorage = nil
+        configuration.httpShouldSetCookies = false
         return URLSession(
             configuration: configuration,
             delegate: apiSessionDelegate,

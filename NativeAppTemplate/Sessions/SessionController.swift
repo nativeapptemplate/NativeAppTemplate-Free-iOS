@@ -36,6 +36,9 @@ import Observation
             } else {
                 userState = .notLoggedIn
                 permissionState = .notLoaded
+                // URLSession.api keeps no cache, but versions before it used
+                // URLCache.shared, which holds their API responses on disk
+                URLCache.shared.removeAllCachedResponses()
             }
         }
     }
