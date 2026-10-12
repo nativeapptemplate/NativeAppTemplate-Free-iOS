@@ -51,16 +51,6 @@
         }
       }
     },
-    "Account created successfully." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アカウントを作成しました。"
-          }
-        }
-      }
-    },
     "Account deleted successfully." : {
       "localizations" : {
         "ja" : {
@@ -307,16 +297,6 @@
         }
       }
     },
-    "Create shops" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "店舗を作成"
-          }
-        }
-      }
-    },
     "Current Password" : {
       "localizations" : {
         "ja" : {
@@ -333,16 +313,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "現在のパスワードを入力してください。"
-          }
-        }
-      }
-    },
-    "Decline" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "辞退"
           }
         }
       }
@@ -383,16 +353,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "店舗を削除"
-          }
-        }
-      }
-    },
-    "Delete item tag" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アイテムタグを削除"
           }
         }
       }
@@ -453,16 +413,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "プロフィールを編集"
-          }
-        }
-      }
-    },
-    "Edit Shop" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "店舗を編集"
           }
         }
       }
@@ -563,16 +513,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "お楽しみください。"
-          }
-        }
-      }
-    },
-    "How To Use" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "使い方"
           }
         }
       }
@@ -747,16 +687,6 @@
         }
       }
     },
-    "Name is required." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "名前を入力してください。"
-          }
-        }
-      }
-    },
     "Name must be 1–%lld characters." : {
       "localizations" : {
         "ja" : {
@@ -903,16 +833,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリの新しいバージョンをインストールしてください。"
-          }
-        }
-      }
-    },
-    "Please sign in." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "サインインしてください。"
           }
         }
       }
@@ -1093,16 +1013,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "店舗名が正しくありません。"
-          }
-        }
-      }
-    },
-    "Shop name is required." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "店舗名を入力してください。"
           }
         }
       }
@@ -1367,16 +1277,6 @@
         }
       }
     },
-    "There was a problem updating the password." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "パスワードの更新中に問題が発生しました。"
-          }
-        }
-      }
-    },
     "Time Zone" : {
       "localizations" : {
         "ja" : {
@@ -1453,16 +1353,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@へようこそ"
-          }
-        }
-      }
-    },
-    "Yes" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "はい"
           }
         }
       }

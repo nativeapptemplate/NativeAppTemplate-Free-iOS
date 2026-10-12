@@ -8,7 +8,6 @@ import SwiftUI
 
 extension Int {
     static let minimumPasswordLength: Int = 8
-    static let invitationCodeLength: Int = 6
 }
 
 // MARK: - Design Constants
@@ -149,11 +148,9 @@ enum Strings {
 
     static let shopName = String(localized: "Shop Name")
     static let createShop = String(localized: "Create Shop")
-    static let editShop = String(localized: "Edit Shop")
     static let addShop = String(localized: "Add Shop")
     static let addShopDescription = String(localized: "Add a new shop.")
     static let deleteShop = String(localized: "Delete Shop")
-    static let shopNameIsRequired = String(localized: "Shop name is required.")
     static let shopNameIsInvalid = String(localized: "Shop name is invalid.")
     static let shopDescriptionIsInvalid = String(localized: "Shop description is too long.")
 
@@ -169,7 +166,6 @@ enum Strings {
     static let appLanguage = String(localized: "App Language")
     static let changeInSettings = String(localized: "Change in Settings")
     static let emailsAreSentInThisLanguageToo = String(localized: "Emails are sent in this language too.")
-    static let createShopsLabel = String(localized: "Create shops")
     static let tapShopBelow = String(localized: "Tap shop below.")
     static let haveFun = String(localized: "Have fun!")
     static let shopDetailInstruction = String(localized: "Swipe to change item tag status.")
@@ -188,7 +184,6 @@ enum Strings {
     static let editItemTag = String(localized: "Edit Item Tag")
     static let addItemTag = String(localized: "Add Item Tag")
     static let addItemTagDescription = String(localized: "Add a new item tag and start changing item tag status.")
-    static let deleteItemTag = String(localized: "Delete item tag")
     static let buttonDeleteItemTag = String(localized: "Delete Item Tag")
     static let itemTagNameIsInvalid = String(localized: "Item tag name is invalid.")
     static let itemTagDescriptionIsInvalid = String(localized: "Item tag description is too long.")
@@ -215,7 +210,6 @@ enum Strings {
     static let myAccount = String(localized: "My Account")
     static let profile = String(localized: "Profile")
     static let supportWebsite = String(localized: "Support Website")
-    static let howToUse = String(localized: "How To Use")
     static let faqs = String(localized: "FAQs")
     static let rateApp = String(localized: "Rate or Review the App")
     static let contact = String(localized: "Contact")
@@ -254,7 +248,6 @@ enum Strings {
     static let itemTagCompletedError = String(localized: "There was a problem completing item tag.")
     static let itemTagIdledError = String(localized: "There was a problem idling item tag.")
 
-    static let shopkeeperCreated = String(localized: "Account created successfully.")
     static let shopkeeperCreatedError = String(localized: "There was a problem creating the account.")
     static let signedUpButUnconfirmed = String(
         localized: """
@@ -279,7 +272,6 @@ enum Strings {
     static let signedOutError = String(localized: "There was a problem signing out.")
 
     static let passwordUpdated = String(localized: "Password updated successfully.")
-    static let passwordUpdatedError = String(localized: "There was a problem updating the password.")
 
     static let sentResetPasswordInstruction = String(
         localized: """
@@ -294,7 +286,6 @@ enum Strings {
     )
     static let sentConfirmationInstructionError = String(localized: "Unable to find user with the email.")
 
-    static let pleaseSignIn = String(localized: "Please sign in.")
     static let updateApp = String(localized: "Update App")
     static let installNewVersionApp = String(localized: "Please install new version app.")
 
@@ -313,7 +304,6 @@ enum Strings {
 
     // MARK: Other
 
-    static let yes = String(localized: "Yes")
     static let ok = String(localized: "OK")
     static let no = String(localized: "No")
     static let cancel = String(localized: "Cancel")
@@ -324,9 +314,7 @@ enum Strings {
     static let areYouSure = String(localized: "Are you sure?")
     static let name = String(localized: "Name")
     static let accept = String(localized: "Accept")
-    static let decline = String(localized: "Decline")
     static let descriptionString = String(localized: "Description")
-    static let nameIsRequired = String(localized: "Name is required.")
     static let emailIsRequired = String(localized: "Email is required.")
     static let emailIsInvalid = String(localized: "Email is invalid.")
     static let passwordIsRequired = String(localized: "Password is required.")
