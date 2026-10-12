@@ -11,7 +11,6 @@ class JSONAPIDocument {
     var meta: [String: Any] = [:]
     var included: [JSONAPIResource] = []
     var data: [JSONAPIResource] = []
-    var errors: [JSONAPIError] = []
     var links: [String: URL] = [:]
 
     // MARK: - Initializers
@@ -22,7 +21,6 @@ class JSONAPIDocument {
         guard let dict = json as? [String: Any] else { return }
 
         meta = dict["meta"] as? [String: Any] ?? [:]
-        errors = (dict["error"] as? [[String: Any]] ?? []).map { JSONAPIError($0) }
 
         if let dataArray = dict["data"] as? [[String: Any]] {
             data = dataArray.map { JSONAPIResource($0, parent: self) }

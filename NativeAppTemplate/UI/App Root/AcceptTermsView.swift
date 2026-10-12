@@ -7,16 +7,10 @@ import SwiftUI
 
 struct AcceptTermsView: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var areTermsAccepted: Bool
     let viewModel: AcceptTermsViewModel
 
     var body: some View {
         contentView
-            .onChange(of: viewModel.areTermsAccepted) { _, areTermsAccepted in
-                if areTermsAccepted {
-                    self.areTermsAccepted = true
-                }
-            }
             .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
                 if shouldDismiss {
                     dismiss()

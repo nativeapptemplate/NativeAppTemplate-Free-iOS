@@ -36,10 +36,8 @@
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
 		0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030825A9642D008FD63B /* JSONAPIResource.swift */; };
-		0172033825A9642E008FD63B /* JSONAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030925A9642E008FD63B /* JSONAPIError.swift */; };
 		0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */; };
 		0172033A25A9642E008FD63B /* JSONAPIDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030B25A9642E008FD63B /* JSONAPIDocument.swift */; };
-		0172033B25A9642E008FD63B /* JSONAPIErrorSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030C25A9642E008FD63B /* JSONAPIErrorSource.swift */; };
 		0172033C25A9642E008FD63B /* NativeAppTemplateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */; };
 		0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */; };
 		0172033E25A9642E008FD63B /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172031125A9642E008FD63B /* Parameters.swift */; };
@@ -195,10 +193,8 @@
 		0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsRequest.swift; sourceTree = "<group>"; };
 		015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0172030825A9642D008FD63B /* JSONAPIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIResource.swift; sourceTree = "<group>"; };
-		0172030925A9642E008FD63B /* JSONAPIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIError.swift; sourceTree = "<group>"; };
 		0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIRelationship.swift; sourceTree = "<group>"; };
 		0172030B25A9642E008FD63B /* JSONAPIDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIDocument.swift; sourceTree = "<group>"; };
-		0172030C25A9642E008FD63B /* JSONAPIErrorSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIErrorSource.swift; sourceTree = "<group>"; };
 		0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateAPI.swift; sourceTree = "<group>"; };
 		0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateEnvironment.swift; sourceTree = "<group>"; };
 		0172031125A9642E008FD63B /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
@@ -467,8 +463,6 @@
 			isa = PBXGroup;
 			children = (
 				0172030B25A9642E008FD63B /* JSONAPIDocument.swift */,
-				0172030925A9642E008FD63B /* JSONAPIError.swift */,
-				0172030C25A9642E008FD63B /* JSONAPIErrorSource.swift */,
 				0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */,
 				0172030825A9642D008FD63B /* JSONAPIResource.swift */,
 			);
@@ -939,7 +933,6 @@
 				01B6F5AB2601F84700397E66 /* PermissionsRequest.swift in Sources */,
 				01E1CECC287787A700E724FC /* SignUpView.swift in Sources */,
 				017204FA25AA860F008FD63B /* MessageBus.swift in Sources */,
-				0172033B25A9642E008FD63B /* JSONAPIErrorSource.swift in Sources */,
 				017203A325A96F7B008FD63B /* Constants.swift in Sources */,
 				0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */,
 				011DDC21287669EA00C6C21F /* SignUpRepository.swift in Sources */,
@@ -1030,7 +1023,6 @@
 				011DDC2328766C5E00C6C21F /* SignUpService.swift in Sources */,
 				01E2477229A5E30400D4B00D /* Utility.swift in Sources */,
 				0172046725AA82BF008FD63B /* MainView.swift in Sources */,
-				0172033825A9642E008FD63B /* JSONAPIError.swift in Sources */,
 				01D85B482E07F16100A95798 /* SettingsViewModel.swift in Sources */,
 			);
 		};

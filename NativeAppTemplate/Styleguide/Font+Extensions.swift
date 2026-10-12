@@ -14,10 +14,6 @@ extension Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 30.0)).weight(.medium)
     }
 
-    static var uiTitle2: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 24.0)).weight(.bold)
-    }
-
     static var uiTitle3: Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 20.0)).weight(.bold)
     }
@@ -26,29 +22,13 @@ extension Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).weight(.medium)
     }
 
-    static var uiTitle5: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).weight(.medium)
-    }
-
     static var uiHeadline: Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).weight(.semibold)
-    }
-
-    static var uiBodyAppleDefault: Font {
-        .body
     }
 
     /// Can't have bold Font's
     static var uiButtonLabelLarge: Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 18.0)).bold()
-    }
-
-    static var uiButtonLabelMedium: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 16)).weight(.bold)
-    }
-
-    static var uiButtonLabelSmall: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 14.0)).weight(.semibold)
     }
 
     static var uiBodyCustom: Font {

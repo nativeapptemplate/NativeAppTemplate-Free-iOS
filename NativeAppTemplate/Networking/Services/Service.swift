@@ -17,10 +17,6 @@ extension Service {
 }
 
 extension Service {
-    var isAuthenticated: Bool {
-        !networkClient.authToken.isEmpty
-    }
-
     @MainActor func makeRequest<Request: NativeAppTemplate.Request>(
         request: Request
     ) async throws -> Request.Response {

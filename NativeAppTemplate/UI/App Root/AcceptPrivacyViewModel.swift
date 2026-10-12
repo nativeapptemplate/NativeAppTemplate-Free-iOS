@@ -11,7 +11,6 @@ import SwiftUI
 final class AcceptPrivacyViewModel {
     var isUpdating = false
     var shouldDismiss = false
-    var arePrivacyAccepted = false
 
     private let sessionController: SessionControllerProtocol
     private let messageBus: MessageBus
@@ -38,7 +37,6 @@ final class AcceptPrivacyViewModel {
                 ))
             }
 
-            arePrivacyAccepted = true
             shouldDismiss = true
             isUpdating = false
         }

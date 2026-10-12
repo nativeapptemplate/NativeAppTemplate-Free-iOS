@@ -13,20 +13,6 @@ struct DateExtensionsTest {
     }
 
     @Test
-    func dateByAddingNumberOfSecondsAddsPositiveSeconds() throws {
-        let date = try date("2026-01-01T00:00:00.000Z")
-        let later = date.dateByAddingNumberOfSeconds(3600)
-        #expect(later.timeIntervalSince(date) == 3600)
-    }
-
-    @Test
-    func dateByAddingNumberOfSecondsAcceptsNegative() throws {
-        let date = try date("2026-01-01T00:00:00.000Z")
-        let earlier = date.dateByAddingNumberOfSeconds(-60)
-        #expect(earlier.timeIntervalSince(date) == -60)
-    }
-
-    @Test
     func cardDateStringFormatsAsYearMonthDay() throws {
         let date = try date("2026-04-29T12:34:56.000Z")
         let formatted = date.cardDateString

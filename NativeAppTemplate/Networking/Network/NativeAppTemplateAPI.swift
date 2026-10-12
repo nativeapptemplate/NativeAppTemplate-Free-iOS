@@ -13,7 +13,6 @@ typealias HTTPHeader = HTTPHeaders.Element
 public struct NativeAppTemplateAPI: Equatable {
     public nonisolated static func == (lhs: NativeAppTemplateAPI, rhs: NativeAppTemplateAPI) -> Bool {
         lhs.environment == rhs.environment &&
-            lhs.session == rhs.session &&
             lhs.authToken == rhs.authToken &&
             lhs.client == rhs.client &&
             lhs.expiry == rhs.expiry &&
@@ -24,7 +23,6 @@ public struct NativeAppTemplateAPI: Equatable {
     // MARK: - Properties
 
     let environment: NativeAppTemplateEnvironment
-    let session: URLSession
     let authToken: String
     let client: String
     let expiry: String
@@ -33,7 +31,6 @@ public struct NativeAppTemplateAPI: Equatable {
 
     // MARK: - HTTP Headers
 
-    let contentTypeHeader: HTTPHeader = ("Content-Type", "application/vnd.api+json; charset=utf-8")
     var additionalHeaders: HTTPHeaders = [:]
 
     nonisolated init() {
@@ -43,7 +40,6 @@ public struct NativeAppTemplateAPI: Equatable {
     // MARK: - Initializers
 
     nonisolated init(
-        session: URLSession = .pinned,
         environment: NativeAppTemplateEnvironment = .prod,
         authToken: String,
         client: String,
@@ -51,7 +47,6 @@ public struct NativeAppTemplateAPI: Equatable {
         uid: String,
         accountId: String
     ) {
-        self.session = session
         self.environment = environment
         self.authToken = authToken
         self.client = client

@@ -15,17 +15,14 @@ final class ShopCreateViewModel {
     var selectedTimeZone: String = Utility.currentTimeZone()
     var isCreating = false
 
-    private let sessionController: SessionControllerProtocol
     private let shopRepository: ShopRepositoryProtocol
     private(set) var messageBus: MessageBus
     var shouldDismiss: Bool = false
 
     init(
-        sessionController: SessionControllerProtocol,
         shopRepository: ShopRepositoryProtocol,
         messageBus: MessageBus
     ) {
-        self.sessionController = sessionController
         self.shopRepository = shopRepository
         self.messageBus = messageBus
     }

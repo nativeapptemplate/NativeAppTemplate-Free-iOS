@@ -23,13 +23,6 @@ final class TestShopRepository: ShopRepositoryProtocol {
         createdShopsCount = shops.count
     }
 
-    func findBy(id: String) -> Shop {
-        guard let shop = shops.first(where: { $0.id == id }) else {
-            fatalError("Test setup error: Shop with id '\(id)' not found. Available IDs: \(shops.map(\.id))")
-        }
-        return shop
-    }
-
     func reload() {
         guard error == nil else {
             state = .failed

@@ -29,16 +29,6 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
         return itemTag
     }
 
-    func reload(shopId: String) {
-        guard error == nil else {
-            state = .failed
-            return
-        }
-
-        state = .loading
-        state = .hasData
-    }
-
     func reloadPage(shopId: String, page: Int) {
         guard error == nil else {
             state = .failed

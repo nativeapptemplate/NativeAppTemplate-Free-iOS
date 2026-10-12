@@ -23,9 +23,7 @@ struct MainView: View {
                     if viewModel == nil {
                         viewModel = MainViewModel(
                             sessionController: sessionController,
-                            dataManager: dataManager,
-                            messageBus: messageBus,
-                            tabViewModel: tabViewModel
+                            messageBus: messageBus
                         )
                     }
                 }
@@ -61,10 +59,6 @@ private extension MainView {
     var acceptPrivacySheet: some View {
         NavigationStack {
             AcceptPrivacyView(
-                arePrivacyAccepted: Binding(
-                    get: { viewModel?.arePrivacyAccepted ?? false },
-                    set: { viewModel?.arePrivacyAccepted = $0 }
-                ),
                 viewModel: AcceptPrivacyViewModel(
                     sessionController: sessionController,
                     messageBus: messageBus
@@ -76,10 +70,6 @@ private extension MainView {
     var acceptTermsSheet: some View {
         NavigationStack {
             AcceptTermsView(
-                areTermsAccepted: Binding(
-                    get: { viewModel?.areTermsAccepted ?? false },
-                    set: { viewModel?.areTermsAccepted = $0 }
-                ),
                 viewModel: AcceptTermsViewModel(
                     sessionController: sessionController,
                     messageBus: messageBus

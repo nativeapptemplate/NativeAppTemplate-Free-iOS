@@ -15,11 +15,6 @@ extension ISO8601DateFormatter {
 
 extension Formatter {
     nonisolated(unsafe) static let iso8601 = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
-    static let isoDateUtc = {
-        let dateFormatter = DateFormatter.formatter(for: "yyyy-MM-dd")
-        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
-        return dateFormatter
-    }()
 }
 
 extension String {

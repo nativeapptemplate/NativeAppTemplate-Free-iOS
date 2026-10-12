@@ -7,16 +7,10 @@ import SwiftUI
 
 struct AcceptPrivacyView: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var arePrivacyAccepted: Bool
     let viewModel: AcceptPrivacyViewModel
 
     var body: some View {
         contentView
-            .onChange(of: viewModel.arePrivacyAccepted) { _, arePrivacyAccepted in
-                if arePrivacyAccepted {
-                    self.arePrivacyAccepted = true
-                }
-            }
             .onChange(of: viewModel.shouldDismiss) { _, shouldDismiss in
                 if shouldDismiss {
                     dismiss()
