@@ -29,9 +29,7 @@ protocol SessionControllerProtocol: AnyObject, Observable, Sendable {
     // MARK: - Properties
 
     var sessionState: SessionState { get }
-    var userState: UserState { get }
     var permissionState: PermissionState { get }
-    var didFetchPermissions: Bool { get }
 
     var shouldPopToRootView: Bool { get set }
 
@@ -41,7 +39,6 @@ protocol SessionControllerProtocol: AnyObject, Observable, Sendable {
     var shopLimitCount: Int { get set }
 
     var shopkeeper: Shopkeeper? { get set }
-    var hasPermissions: Bool { get }
 
     var isLoggedIn: Bool { get }
     var client: NativeAppTemplateAPI { get }
@@ -50,8 +47,6 @@ protocol SessionControllerProtocol: AnyObject, Observable, Sendable {
 
     func login(email: String, password: String) async throws
     func logout() async throws
-    func fetchPermissionsIfNeeded()
-    func fetchPermissions()
     func updateShopkeeper(shopkeeper: Shopkeeper?) throws
     func updateConfirmedPrivacyVersion() async throws
     func updateConfirmedTermsVersion() async throws

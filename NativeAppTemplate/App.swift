@@ -20,16 +20,8 @@ private final class NullSessionController: SessionControllerProtocol {
         .unknown
     }
 
-    var userState: UserState {
-        .notLoggedIn
-    }
-
     var permissionState: PermissionState {
         .notLoaded
-    }
-
-    var didFetchPermissions: Bool {
-        false
     }
 
     var shouldPopToRootView: Bool = false
@@ -38,10 +30,6 @@ private final class NullSessionController: SessionControllerProtocol {
     var shouldUpdateTerms: Bool = false
     var shopLimitCount: Int = 0
     var shopkeeper: Shopkeeper?
-    var hasPermissions: Bool {
-        false
-    }
-
     var isLoggedIn: Bool {
         false
     }
@@ -52,8 +40,6 @@ private final class NullSessionController: SessionControllerProtocol {
 
     func login(email: String, password: String) async throws {}
     func logout() async throws {}
-    func fetchPermissionsIfNeeded() {}
-    func fetchPermissions() {}
     func updateShopkeeper(shopkeeper: Shopkeeper?) throws {}
     func updateConfirmedPrivacyVersion() async throws {}
     func updateConfirmedTermsVersion() async throws {}

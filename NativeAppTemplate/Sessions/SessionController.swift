@@ -89,27 +89,21 @@ import Observation
 
         userState = .loggingIn
 
-        if isLoggedIn {
-            if !hasPermissions {
-                fetchPermissions()
-            }
-        } else {
-            do {
-                shopkeeper = try await loginRepository.login(email: email, password: password)
-                Event
-                    .login(from: Self.self)
-                    .log()
-                fetchPermissions()
-            } catch {
-                userState = .notLoggedIn
-                permissionState = .notLoaded
+        do {
+            shopkeeper = try await loginRepository.login(email: email, password: password)
+            Event
+                .login(from: Self.self)
+                .log()
+            fetchPermissions()
+        } catch {
+            userState = .notLoggedIn
+            permissionState = .notLoaded
 
-                Failure
-                    .login(from: Self.self, reason: error.codedDescription)
-                    .log()
+            Failure
+                .login(from: Self.self, reason: error.codedDescription)
+                .log()
 
-                throw error
-            }
+            throw error
         }
     }
 

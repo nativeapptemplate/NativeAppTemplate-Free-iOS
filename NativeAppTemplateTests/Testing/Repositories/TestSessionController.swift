@@ -12,7 +12,6 @@ import Foundation
     public var sessionState: SessionState = .unknown
     public var userState: UserState = .loggedIn
     public var permissionState: PermissionState = .notLoaded
-    public var didFetchPermissions: Bool = false
 
     public var shouldPopToRootView: Bool = false
 
@@ -30,15 +29,6 @@ import Foundation
         userState == .loggedIn
     }
 
-    public var hasPermissions: Bool {
-        switch permissionState {
-        case .loaded:
-            true
-        default:
-            false
-        }
-    }
-
     // MARK: - Initializer
 
     public nonisolated init() {}
@@ -54,17 +44,6 @@ import Foundation
         userState = .notLoggedIn
         sessionState = .offline
         shopkeeper = nil
-    }
-
-    public func fetchPermissionsIfNeeded() {
-        didFetchPermissions = true
-        permissionState = .loaded
-    }
-
-    public func fetchPermissions() {
-        permissionState = .loading
-        // Mocking immediate load
-        permissionState = .loaded
     }
 
     public func updateShopkeeper(shopkeeper: Shopkeeper?) throws {
