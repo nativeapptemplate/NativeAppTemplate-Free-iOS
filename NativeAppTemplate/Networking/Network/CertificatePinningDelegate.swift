@@ -47,35 +47,33 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
             return
         }
 
-        let certificateCount = SecTrustGetCertificateCount(serverTrust)
-        var pinMatched = false
-
-        for index in 0 ..< certificateCount {
-            guard let certificate = SecTrustCopyCertificateChain(serverTrust)
-                .map({ unsafeBitCast(CFArrayGetValueAtIndex($0, index), to: SecCertificate.self) })
-            else { continue }
-
-            guard let publicKey = SecCertificateCopyKey(certificate) else { continue }
-
-            var error: Unmanaged<CFError>?
-            guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data? else { continue }
-
-            let spkiHash = Self.sha256WithAsn1Header(for: publicKeyData)
-
-            if Self.pinnedHashes.contains(spkiHash) {
-                pinMatched = true
-                break
-            }
-        }
-
-        if pinMatched {
+        if Self.isTrusted(serverTrust) {
             completionHandler(.useCredential, URLCredential(trust: serverTrust))
         } else {
             Failure.certificatePinning(
                 from: Self.self,
-                reason: "Pin mismatch for \(challenge.protectionSpace.host)"
+                reason: "Untrusted chain or pin mismatch for \(challenge.protectionSpace.host)"
             ).log()
             completionHandler(.cancelAuthenticationChallenge, nil)
+        }
+    }
+
+    /// Whether the system trusts `serverTrust` and its chain contains a pinned public key.
+    /// The pins only narrow down trust the system has already granted: a pinned CA
+    /// certificate is public, so matching its pin on a chain the system rejects would let
+    /// anyone pass. Returning `.useCredential` tells URLSession the chain was evaluated,
+    /// so the default checks would not run either.
+    static func isTrusted(_ serverTrust: SecTrust, pinnedHashes: Set<String> = pinnedHashes) -> Bool {
+        guard SecTrustEvaluateWithError(serverTrust, nil) else { return false }
+
+        let chain = SecTrustCopyCertificateChain(serverTrust) as? [SecCertificate] ?? []
+
+        return chain.contains { certificate in
+            guard let publicKey = SecCertificateCopyKey(certificate),
+                  let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, nil) as Data?
+            else { return false }
+
+            return pinnedHashes.contains(sha256WithAsn1Header(for: publicKeyData))
         }
     }
 
