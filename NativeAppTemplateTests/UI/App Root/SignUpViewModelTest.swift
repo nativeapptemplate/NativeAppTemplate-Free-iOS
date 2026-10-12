@@ -6,12 +6,21 @@
 import Foundation
 @testable import NativeAppTemplate
 import Testing
+import UIKit
 
 @MainActor
 @Suite
 struct SignUpViewModelTest {
     let signUpRepository = TestSignUpRepository()
     let messageBus = MessageBus()
+
+    /// Sign-up creates a password, so the field is .newPassword (UITextContentType docs:
+    /// "the new password ... when creating an account or changing a password"), which
+    /// lets iOS suggest a strong one and save it
+    @Test
+    func passwordFieldIsANewPassword() {
+        #expect(SignUpViewModel.passwordContentType == .newPassword)
+    }
 
     @Test
     func initialState() {

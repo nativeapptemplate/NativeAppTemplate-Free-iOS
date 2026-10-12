@@ -9,6 +9,12 @@ import SwiftUI
 @Observable
 @MainActor
 final class PasswordEditViewModel {
+    /// The current password is one iOS may have saved; the new password and its
+    /// confirmation are `.newPassword`, so iOS suggests a strong one and updates the
+    /// saved password instead of autofilling the old one into them
+    static let currentPasswordContentType: UITextContentType = .password
+    static let newPasswordContentType: UITextContentType = .newPassword
+
     var currentPassword = ""
     var password = ""
     var passwordConfirmation = ""

@@ -42,7 +42,7 @@ private extension PasswordEditView {
         Form {
             Section {
                 SecureField(Strings.currentPassword, text: $viewModel.currentPassword)
-                    .textContentType(.password)
+                    .textContentType(PasswordEditViewModel.currentPasswordContentType)
                     .autocapitalization(.none)
                     .autocorrectionDisabled(true)
             } header: {
@@ -58,7 +58,7 @@ private extension PasswordEditView {
             }
             Section {
                 SecureField(Strings.newPassword, text: $viewModel.password)
-                    .textContentType(.password)
+                    .textContentType(PasswordEditViewModel.newPasswordContentType)
                     .autocapitalization(.none)
                     .autocorrectionDisabled(true)
             } header: {
@@ -81,7 +81,7 @@ private extension PasswordEditView {
             }
             Section {
                 SecureField(Strings.confirmNewPassword, text: $viewModel.passwordConfirmation)
-                    .textContentType(.password)
+                    .textContentType(PasswordEditViewModel.newPasswordContentType)
                     .autocapitalization(.none)
                     .autocorrectionDisabled(true)
             } header: {

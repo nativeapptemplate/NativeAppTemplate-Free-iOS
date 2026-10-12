@@ -77,7 +77,7 @@ private extension SignUpView {
 
                 Section {
                     SecureField(Strings.placeholderPassword, text: $viewModel.password)
-                        .textContentType(.password)
+                        .textContentType(SignUpViewModel.passwordContentType)
                         .autocapitalization(.none)
                         .autocorrectionDisabled(true)
                 } header: {

@@ -6,6 +6,7 @@
 import Foundation
 @testable import NativeAppTemplate
 import Testing
+import UIKit
 
 @MainActor
 @Suite
@@ -14,6 +15,15 @@ struct PasswordEditViewModelTest {
         accountPasswordService: AccountPasswordService()
     )
     let messageBus = MessageBus()
+
+    /// The current password is an existing one (.password); the new password and its
+    /// confirmation are .newPassword (UITextContentType docs: "when creating an
+    /// account or changing a password")
+    @Test
+    func passwordFieldContentTypes() {
+        #expect(PasswordEditViewModel.currentPasswordContentType == .password)
+        #expect(PasswordEditViewModel.newPasswordContentType == .newPassword)
+    }
 
     @Test
     func initializesCorrectly() {
