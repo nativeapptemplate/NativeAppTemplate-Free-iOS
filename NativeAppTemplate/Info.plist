@@ -20,16 +20,16 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>NativeAppTemplateAPIScheme</key>
-	<string>$(NATIVEAPPTEMPLATE_API_SCHEME)</string>
-	<key>NativeAppTemplateAPIDomain</key>
-	<string>$(NATIVEAPPTEMPLATE_API_DOMAIN)</string>
-	<key>NativeAppTemplateAPIPort</key>
-	<string>$(NATIVEAPPTEMPLATE_API_PORT)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NativeAppTemplateAPIDomain</key>
+	<string>$(NATIVEAPPTEMPLATE_API_DOMAIN)</string>
+	<key>NativeAppTemplateAPIPort</key>
+	<string>$(NATIVEAPPTEMPLATE_API_PORT)</string>
+	<key>NativeAppTemplateAPIScheme</key>
+	<string>$(NATIVEAPPTEMPLATE_API_SCHEME)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
