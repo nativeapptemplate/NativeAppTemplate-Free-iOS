@@ -14,6 +14,8 @@ import Observation
     private(set) var permissionState: PermissionState = .notLoaded
     private(set) var didFetchPermissions = false
     var shouldPopToRootView = false
+    /// Set when the API rejected the session's token and the app signed out
+    var didExpireSession = false
 
     var shouldUpdateApp = false
     var shouldUpdatePrivacy = false
@@ -50,6 +52,9 @@ import Observation
     private let connectionMonitor = NWPathMonitor()
     private(set) var permissionsService: PermissionsService
     private(set) var meService: MeService
+    private let notificationCenter: NotificationCenter
+    /// Removed in deinit, which is nonisolated
+    @ObservationIgnored private nonisolated(unsafe) var sessionExpiryObserver: (any NSObjectProtocol)?
 
     var isLoggedIn: Bool {
         userState == .loggedIn
@@ -68,13 +73,16 @@ import Observation
     ///   - monitorsConnection: Starts `NWPathMonitor`; tests pass `false` and call
     ///     `connectionChanged(to:)` themselves, so no permission requests go out on their own.
     ///   - environment: The API the client talks to. Tests point it at a local server.
+    ///   - notificationCenter: Where `Service` announces `.apiSessionDidExpire`
     init(
         loginRepository: LoginRepositoryProtocol,
         monitorsConnection: Bool = true,
-        environment: NativeAppTemplateEnvironment = .prod
+        environment: NativeAppTemplateEnvironment = .prod,
+        notificationCenter: NotificationCenter = .default
     ) {
         self.loginRepository = loginRepository
         self.environment = environment
+        self.notificationCenter = notificationCenter
 
         let shopkeeper = loginRepository.currentShopkeeper
         let client = Self.makeClient(shopkeeper: shopkeeper, environment: environment)
@@ -85,6 +93,25 @@ import Observation
         if monitorsConnection {
             prepareConnectionMonitor()
         }
+
+        // Service posts on the main actor, and a nil queue runs this at once, so the
+        // session is gone before the failed request's caller sees its error
+        sessionExpiryObserver = notificationCenter.addObserver(
+            forName: .apiSessionDidExpire,
+            object: nil,
+            queue: nil
+        ) { [weak self] notification in
+            let authToken = notification.userInfo?[Notification.authTokenKey] as? String
+            MainActor.assumeIsolated {
+                self?.sessionDidExpire(authToken: authToken)
+            }
+        }
+    }
+
+    deinit {
+        if let sessionExpiryObserver {
+            notificationCenter.removeObserver(sessionExpiryObserver)
+        }
     }
 
     func login(email: String, password: String) async throws {
@@ -94,6 +121,7 @@ import Observation
 
         do {
             shopkeeper = try await loginRepository.login(email: email, password: password)
+            didExpireSession = false
             Event
                 .login(from: Self.self)
                 .log()
@@ -129,6 +157,22 @@ import Observation
 
             throw error
         }
+    }
+
+    /// The API rejected `authToken` (see `.apiSessionDidExpire`). When that is this
+    /// session's token, every further request would fail too, so sign out here: the
+    /// server has no session left to destroy, and the user signs in again.
+    func sessionDidExpire(authToken: String?) {
+        guard isLoggedIn, let authToken, authToken == client.authToken else { return }
+
+        Failure
+            .logout(from: Self.self, reason: "The API rejected the session's token")
+            .log()
+
+        shouldPopToRootView = true
+        try? loginRepository.updateShopkeeper(shopkeeper: nil)
+        shopkeeper = nil
+        didExpireSession = true
     }
 
     func fetchPermissionsIfNeeded() {
@@ -177,6 +221,9 @@ import Observation
                 Failure
                     .fetch(from: Permissions.self, reason: error.codedDescription)
                     .log()
+
+                // An expired session has signed out already; that is not a permissions error
+                guard isLoggedIn else { return }
 
                 self.permissionState = .error
             }

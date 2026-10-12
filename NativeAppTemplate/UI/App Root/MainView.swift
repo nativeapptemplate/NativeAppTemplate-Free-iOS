@@ -19,6 +19,18 @@ struct MainView: View {
             contentView
                 .background(Color.backgroundColor)
                 .overlay(MessageBarView(messageBus: messageBus), alignment: .bottom)
+                .alert(Strings.sessionExpired, isPresented: sessionExpiredAlertBinding) {
+                    Button(Strings.ok) {}
+                } message: {
+                    Text(Strings.sessionExpiredDescription)
+                }
+                .onChange(of: sessionController.didExpireSession) {
+                    // The alert says why; the failed request's own error would only
+                    // repeat it as a status code
+                    if sessionController.didExpireSession {
+                        messageBus.dismiss()
+                    }
+                }
                 .onAppear {
                     if viewModel == nil {
                         viewModel = MainViewModel(
@@ -34,6 +46,13 @@ struct MainView: View {
 // MARK: - private
 
 private extension MainView {
+    var sessionExpiredAlertBinding: Binding<Bool> {
+        Binding(
+            get: { sessionController.didExpireSession },
+            set: { sessionController.didExpireSession = $0 }
+        )
+    }
+
     @ViewBuilder var contentView: some View {
         switch MainViewModel.content(
             sessionController: sessionController,

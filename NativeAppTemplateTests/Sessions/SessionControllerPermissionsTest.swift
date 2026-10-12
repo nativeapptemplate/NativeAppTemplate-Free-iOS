@@ -74,6 +74,35 @@ struct SessionControllerPermissionsTest {
         #expect(sessionController.shopLimitCount == 3)
     }
 
+    /// End to end: launching with an expired token. The permissions request gets
+    /// devise_token_auth's 401, and the app signs out instead of showing
+    /// MainView's permissions error screen.
+    @Test
+    func expiredTokenAtLaunchSignsOut() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 401, ["errors": ["You need to sign in or sign up before continuing."]])
+        }
+        defer { server.stop() }
+        var shopkeeper = Self.shopkeeper
+        // Unique, so the notice can't sign out another test's SessionController
+        shopkeeper.token = "expired-\(UUID().uuidString)"
+        loginRepository.currentShopkeeper = shopkeeper
+        let sessionController = SessionController(
+            loginRepository: loginRepository,
+            monitorsConnection: false,
+            environment: server.client().environment
+        )
+
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { !sessionController.isLoggedIn }
+        // The failed fetch's catch runs after the sign-out; give it time to land
+        try await Task.sleep(for: .milliseconds(200))
+
+        #expect(sessionController.didExpireSession)
+        #expect(loginRepository.currentShopkeeper == nil)
+        #expect(sessionController.permissionState == .notLoaded)
+    }
+
     @Test
     func failedFetchIsAPermissionError() async throws {
         let server = try await TestHTTPServer.start { _ in

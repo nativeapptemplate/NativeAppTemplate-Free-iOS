@@ -25,6 +25,7 @@ private final class NullSessionController: SessionControllerProtocol {
     }
 
     var shouldPopToRootView: Bool = false
+    var didExpireSession: Bool = false
     var shouldUpdateApp: Bool = false
     var shouldUpdatePrivacy: Bool = false
     var shouldUpdateTerms: Bool = false

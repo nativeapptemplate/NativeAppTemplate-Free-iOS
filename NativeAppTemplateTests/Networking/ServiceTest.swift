@@ -180,6 +180,63 @@ struct ServiceTest {
         #expect(error.codedDescription ==
             "[NATIVEAPPTEMPLATE-2001] NativeAppTemplateAPIError::RequestFailed[Status: 502 | Error: UNKNOWN]")
     }
+
+    // MARK: - Expired session
+
+    /// devise_token_auth's authenticate_shopkeeper! answers a missing, wrong or expired
+    /// token with 401 and this body; the local API sends it for
+    /// `curl -H "access-token: bogus" .../api/v1/shopkeeper/permissions`
+    private nonisolated(unsafe) static let deviseUnauthenticatedBody: [String: Any] = [
+        "errors": ["You need to sign in or sign up before continuing."]
+    ]
+
+    @Test
+    func rejectedTokenIsAnnouncedAsAnExpiredSession() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 401, Self.deviseUnauthenticatedBody)
+        }
+        defer { server.stop() }
+        // Unique, so another test's 401 can't be mistaken for this one's
+        let token = "expired-\(UUID().uuidString)"
+
+        var error: NativeAppTemplateAPIError?
+        let tokens = await expiredSessionTokens {
+            error = try? await requestFailed {
+                _ = try await ItemTagsService(networkClient: server.client(authToken: token)).itemTagDetail(id: "t1")
+            }
+        }
+
+        #expect(tokens.filter { $0 == token }.count == 1)
+        // The request still fails as before, for its caller to handle
+        guard case let .requestFailed(_, statusCode, _) = error else {
+            Issue.record("Expected requestFailed, got \(String(describing: error))")
+            return
+        }
+        #expect(statusCode == 401)
+    }
+
+    /// The API's own 401 (BaseController#user_not_authorized for a Pundit denial)
+    /// carries an error_message and comes with a valid session; it must not sign
+    /// the user out
+    @Test
+    func authorizationFailureWithAnErrorMessageIsNotAnExpiredSession() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(
+                status: 401,
+                ["code": 401, "error_message": "You are not authorized to perform this action."]
+            )
+        }
+        defer { server.stop() }
+        let token = "valid-\(UUID().uuidString)"
+
+        let tokens = await expiredSessionTokens {
+            _ = try? await requestFailed {
+                _ = try await ItemTagsService(networkClient: server.client(authToken: token)).itemTagDetail(id: "t1")
+            }
+        }
+
+        #expect(!tokens.contains(token))
+    }
 }
 
 /// Runs `body` and returns the NativeAppTemplateAPIError it throws
@@ -192,4 +249,27 @@ func requestFailed(_ body: () async throws -> Void) async throws -> NativeAppTem
     }
     Issue.record("Expected a NativeAppTemplateAPIError")
     throw CancellationError()
+}
+
+/// The tokens posted with `.apiSessionDidExpire` on NotificationCenter.default while `body` runs.
+/// Service posts on the main actor and the observer has no queue, so it runs synchronously.
+@MainActor
+func expiredSessionTokens(_ body: () async -> Void) async -> [String] {
+    final class Tokens: @unchecked Sendable {
+        var values: [String] = []
+    }
+    let tokens = Tokens()
+    let observer = NotificationCenter.default.addObserver(
+        forName: .apiSessionDidExpire,
+        object: nil,
+        queue: nil
+    ) { notification in
+        if let token = notification.userInfo?[Notification.authTokenKey] as? String {
+            tokens.values.append(token)
+        }
+    }
+    defer { NotificationCenter.default.removeObserver(observer) }
+
+    await body()
+    return tokens.values
 }
