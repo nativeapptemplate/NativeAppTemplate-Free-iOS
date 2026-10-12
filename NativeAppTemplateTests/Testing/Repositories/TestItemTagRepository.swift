@@ -113,8 +113,8 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
     }
 
     func complete(id: String) async throws -> ItemTag {
+        // Like ItemTagRepository, a failure leaves the list's state alone
         guard error == nil else {
-            state = .failed
             throw error!
         }
 
@@ -127,8 +127,8 @@ final class TestItemTagRepository: ItemTagRepositoryProtocol {
     }
 
     func idle(id: String) async throws -> ItemTag {
+        // Like ItemTagRepository, a failure leaves the list's state alone
         guard error == nil else {
-            state = .failed
             throw error!
         }
 

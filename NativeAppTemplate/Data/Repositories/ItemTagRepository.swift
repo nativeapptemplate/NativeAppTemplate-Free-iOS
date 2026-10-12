@@ -61,6 +61,13 @@ import SwiftUI
             return
         }
 
+        // The list keeps showing itemTags while loading, so drop another
+        // shop's tags rather than show them under this shop
+        if itemTags.contains(where: { $0.shopId != shopId }) {
+            itemTags = []
+            paginationMeta = nil
+        }
+
         state = .loading
 
         Task { @MainActor in
@@ -183,7 +190,7 @@ import SwiftUI
 
             return completedItemTag
         } catch {
-            state = .failed
+            // The caller reports the error; the list's own state is unchanged
             Failure
                 .update(from: Self.self, reason: error.codedDescription)
                 .log()
@@ -201,7 +208,7 @@ import SwiftUI
 
             return idledItemTag
         } catch {
-            state = .failed
+            // The caller reports the error; the list's own state is unchanged
             Failure
                 .update(from: Self.self, reason: error.codedDescription)
                 .log()
