@@ -18,12 +18,11 @@ struct ItemTagAdapter: EntityAdapter {
               let position = resource.attributes["position"] as? Int,
               let state = resource.attributes["state"] as? String,
               let createdAtString = resource.attributes["created_at"] as? String,
+              let createdAt = createdAtString.iso8601,
               let shopName = resource.attributes["shop_name"] as? String
         else {
             throw EntityAdapterError.invalidOrMissingAttributes
         }
-
-        let createdAt = createdAtString.iso8601!
 
         let description = resource.attributes["description"] as? String ?? ""
 

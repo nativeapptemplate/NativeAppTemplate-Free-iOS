@@ -80,4 +80,20 @@ struct ItemTagAdapterTest {
             return EntityAdapterError.invalidOrMissingAttributes == entityAdapterError
         }
     }
+
+    /// A created_at the ISO 8601 parser can't read is a missing attribute
+    /// (NATIVEAPPTEMPLATE-2007), not a crash on a force unwrap
+    @Test func malformedCreatedAtThrows() throws {
+        var sample = sampleResource
+        var attrs = sample["attributes"] as? [String: Any] ?? [:]
+        attrs["created_at"] = "not a date"
+        sample["attributes"] = attrs
+
+        let resource = try makeJsonAPIResource(for: sample)
+
+        #expect { try ItemTagAdapter.process(resource: resource) } throws: { error in
+            let entityAdapterError = error as? EntityAdapterError
+            return EntityAdapterError.invalidOrMissingAttributes == entityAdapterError
+        }
+    }
 }
