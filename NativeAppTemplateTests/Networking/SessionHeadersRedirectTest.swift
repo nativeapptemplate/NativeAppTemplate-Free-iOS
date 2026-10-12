@@ -54,7 +54,7 @@ struct SessionHeadersRedirectTest {
     private func requestThroughRedirect(apiPort: UInt16, target: TestHTTPServer) async throws -> [String: String] {
         let session = URLSession(
             configuration: .ephemeral,
-            delegate: CertificatePinningDelegate(apiHost: "127.0.0.1"),
+            delegate: APISessionDelegate(apiHost: "127.0.0.1"),
             delegateQueue: nil
         )
         defer { session.invalidateAndCancel() }
