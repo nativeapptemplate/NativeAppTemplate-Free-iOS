@@ -27,6 +27,36 @@ final class LegacyLoggedInShopkeeper: NSObject, NSSecureCoding {
     }
 }
 
+/// Writes every key LoggedInShopkeeper.encode(with:) writes except one, as a
+/// damaged or partly written Keychain item would hold
+@objc(PartialLoggedInShopkeeper)
+final class PartialLoggedInShopkeeper: NSObject, NSSecureCoding {
+    static let supportsSecureCoding = true
+
+    /// The string keys LoggedInShopkeeper.encode(with:) writes (CodingKeys)
+    static let stringKeys = [
+        "id", "accountId", "personalAccountId", "accountOwnerId", "accountName",
+        "email", "name", "timeZone", "locale", "token", "client", "uid", "expiry"
+    ]
+
+    let missingKey: String
+
+    init(missingKey: String) {
+        self.missingKey = missingKey
+    }
+
+    required init?(coder _: NSCoder) {
+        missingKey = ""
+    }
+
+    func encode(with coder: NSCoder) {
+        for key in Self.stringKeys where key != missingKey {
+            coder.encode("\(key)-value" as NSString, forKey: key)
+        }
+        coder.encode(["read_data"] as NSArray, forKey: "permissions")
+    }
+}
+
 struct LoggedInShopkeeperTest {
     private func shopkeeper(locale: String) -> Shopkeeper {
         Shopkeeper(
@@ -81,5 +111,33 @@ struct LoggedInShopkeeperTest {
         #expect(restored.locale == "en")
         #expect(restored.name == "name-value")
         #expect(restored.timeZone == "timeZone-value")
+    }
+
+    private func decode(_ object: NSObject, as className: String) throws -> LoggedInShopkeeper? {
+        let archived = try NSKeyedArchiver.archivedData(withRootObject: object, requiringSecureCoding: true)
+        let unarchiver = try NSKeyedUnarchiver(forReadingFrom: archived)
+        unarchiver.setClass(LoggedInShopkeeper.self, forClassName: className)
+        return unarchiver.decodeObject(of: LoggedInShopkeeper.self, forKey: NSKeyedArchiveRootObjectKey)
+    }
+
+    /// A Keychain item missing a required field must decode as nil, so
+    /// KeychainStore.retrieve() throws and LoginRepository treats the user as
+    /// signed out, instead of crashing the app on every launch.
+    /// `locale` is left out: it is optional (see archiveWithoutLocaleDecodesAsEnglish).
+    @Test(arguments: PartialLoggedInShopkeeper.stringKeys.filter { $0 != "locale" })
+    func archiveMissingRequiredFieldDecodesAsNil(missingKey: String) throws {
+        let restored = try decode(PartialLoggedInShopkeeper(missingKey: missingKey), as: "PartialLoggedInShopkeeper")
+        #expect(restored == nil)
+    }
+
+    /// Guards the test above: with nothing missing the same archive decodes
+    @Test
+    func completePartialArchiveDecodes() throws {
+        let restored = try #require(try decode(
+            PartialLoggedInShopkeeper(missingKey: ""),
+            as: "PartialLoggedInShopkeeper"
+        ))
+        #expect(restored.token == "token-value")
+        #expect(restored.locale == "locale-value")
     }
 }

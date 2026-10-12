@@ -101,29 +101,29 @@ public class LoggedInShopkeeper: NSObject, NSCoding, NSSecureCoding {
     }
 
     public required convenience init?(coder decoder: NSCoder) {
-        let id = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.id.rawValue)! as String
-        let accountId = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.accountId.rawValue)! as String
-        let personalAccountId = decoder.decodeObject(
-            of: NSString.self,
-            forKey: CodingKeys.personalAccountId.rawValue
-        )! as String
-        let accountOwnerId = decoder.decodeObject(
-            of: NSString.self,
-            forKey: CodingKeys.accountOwnerId.rawValue
-        )! as String
-        let accountName = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.accountName.rawValue)! as String
-        let email = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.email.rawValue)! as String
-        let name = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.name.rawValue)! as String
-        let timeZone = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.timeZone.rawValue)! as String
+        func string(_ key: CodingKeys) -> String? {
+            decoder.decodeObject(of: NSString.self, forKey: key.rawValue) as String?
+        }
+
+        // A damaged item is treated as signed out (KeychainStore.retrieve()
+        // throws), rather than crashing on every launch
+        guard let id = string(.id),
+              let accountId = string(.accountId),
+              let personalAccountId = string(.personalAccountId),
+              let accountOwnerId = string(.accountOwnerId),
+              let accountName = string(.accountName),
+              let email = string(.email),
+              let name = string(.name),
+              let timeZone = string(.timeZone),
+              let token = string(.token),
+              let client = string(.client),
+              let uid = string(.uid),
+              let expiry = string(.expiry)
+        else {
+            return nil
+        }
         // Sessions saved before locale existed have none
-        let locale = decoder.decodeObject(
-            of: NSString.self,
-            forKey: CodingKeys.locale.rawValue
-        ) as String? ?? Shopkeeper.defaultLocale
-        let token = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.token.rawValue)! as String
-        let client = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.client.rawValue)! as String
-        let uid = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.uid.rawValue)! as String
-        let expiry = decoder.decodeObject(of: NSString.self, forKey: CodingKeys.expiry.rawValue)! as String
+        let locale = string(.locale) ?? Shopkeeper.defaultLocale
 
         self.init(
             id: id,
