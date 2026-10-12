@@ -6,7 +6,7 @@
 import CommonCrypto
 import Foundation
 
-final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
+final class CertificatePinningDelegate: NSObject, URLSessionTaskDelegate {
     /// SPKI SHA-256 hashes (base64-encoded) for api.nativeapptemplate.com
     /// The server uses Google Trust Services certificates (Render hosting).
     /// Pin the leaf public key and Google Trust Services intermediate CAs as backup.
@@ -18,6 +18,37 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
     ]
 
     static let pinnedDomain = Strings.domain
+
+    /// The host that gets the session headers (`Service.makeRequest`)
+    let apiHost: String
+
+    init(apiHost: String = pinnedDomain) {
+        self.apiHost = apiHost
+    }
+
+    /// The devise_token_auth headers `Service.makeRequest` adds; together they are a session
+    static let sessionHeaderNames = ["access-token", "token-type", "client", "expiry", "uid"]
+
+    /// URLSession copies custom headers to every redirect hop, so drop the session
+    /// when a redirect leaves the API host.
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping (URLRequest?) -> Void
+    ) {
+        guard request.url?.host?.lowercased() != apiHost.lowercased() else {
+            completionHandler(request)
+            return
+        }
+
+        var request = request
+        for name in Self.sessionHeaderNames {
+            request.setValue(nil, forHTTPHeaderField: name)
+        }
+        completionHandler(request)
+    }
 
     /// ASN.1 header for EC 256-bit public key (SPKI prefix)
     private static let ecDsaSecp256r1Asn1Header: [UInt8] = [
