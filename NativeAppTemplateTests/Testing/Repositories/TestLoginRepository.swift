@@ -44,9 +44,15 @@ public final class TestLoginRepository: LoginRepositoryProtocol {
         return shopkeeper
     }
 
+    /// Thrown by `logout` when set, after clearing the shopkeeper as LoginRepository does
+    public var logoutError: Error?
+
     public func logout(networkClient: NativeAppTemplateAPI) async throws {
         logoutCalled = true
         currentShopkeeper = nil
+        if let logoutError {
+            throw logoutError
+        }
     }
 
     public func updateShopkeeper(shopkeeper: Shopkeeper?) throws {

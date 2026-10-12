@@ -209,16 +209,19 @@ struct ShopCreateViewModelTest {
 
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let createShopTask = Task {
-            viewModel.createShop()
-        }
-        await createShopTask.value
+        viewModel.createShop()
+        await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isCreating }
 
+        // NativeAppTemplateAPIError.requestFailed's codedDescription:
+        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
         #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
-        #expect(viewModel.isCreating)
+        // A server or network error keeps the user signed in with the form
+        // open, so they can retry
+        #expect(!viewModel.isCreating)
+        #expect(sessionController.userState == .loggedIn)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss == false)
+        #expect(viewModel.name == newName)
     }
 
     @Test

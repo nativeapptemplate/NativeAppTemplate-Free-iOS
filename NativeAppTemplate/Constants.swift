@@ -230,6 +230,7 @@ enum Strings {
     static let currentPasswordIsRequired = String(localized: "Current password is required.")
     static let newPasswordIsRequired = String(localized: "New password is required.")
     static let confirmNewPasswordIsRequired = String(localized: "Confirm new password is required.")
+    static let passwordsDoNotMatch = String(localized: "Passwords do not match.")
     static let weNeedYourCurrentPassword = String(localized: "We need your current password to confirm your changes.")
     static let reconfirmDescription = String(
         localized: """

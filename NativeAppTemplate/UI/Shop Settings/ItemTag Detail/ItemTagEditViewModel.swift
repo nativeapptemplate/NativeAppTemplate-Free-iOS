@@ -99,12 +99,13 @@ final class ItemTagEditViewModel {
 
                 _ = try await itemTagRepository.update(id: itemTag.id, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: Strings.itemTagUpdated))
+                shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(error: error))
+                // Keep the form open with the typed name so the user can retry
             }
 
             isUpdating = false
-            shouldDismiss = true
         }
     }
 

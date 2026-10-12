@@ -67,7 +67,8 @@ final class ShopSettingsViewModel {
                     message: "\(Strings.shopDeletedError) \(error.codedDescription)",
                     autoDismiss: false
                 ))
-                try? await sessionController.logout()
+                // The shop still exists, so stay here and let the user retry
+                isDeleting = false
             }
         }
     }

@@ -297,10 +297,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let message = "Update failed"
         let httpResponseCode = 500
@@ -308,14 +306,16 @@ struct ItemTagEditViewModelTest {
 
         viewModel.name = "Updated"
 
-        let updateTask = Task {
-            viewModel.updateItemTag()
-        }
-        await updateTask.value
+        viewModel.updateItemTag()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.isUpdating == false)
-        #expect(viewModel.shouldDismiss == true)
-        #expect(messageBus.currentMessage != nil)
+        // A failed save keeps the form open with the typed name
+        #expect(viewModel.shouldDismiss == false)
+        #expect(viewModel.name == "Updated")
+        // Message(error:) shows NativeAppTemplateAPIError.requestFailed's codedDescription:
+        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
+        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
     }

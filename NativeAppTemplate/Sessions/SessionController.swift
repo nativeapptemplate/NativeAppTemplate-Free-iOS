@@ -123,7 +123,7 @@ import Observation
             shopkeeper = nil
         } catch {
             Failure
-                .login(from: Self.self, reason: error.codedDescription)
+                .logout(from: Self.self, reason: error.codedDescription)
                 .log()
 
             userState = .notLoggedIn

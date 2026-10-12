@@ -162,13 +162,17 @@ struct ItemTagCreateViewModelTest {
 
         viewModel.name = "Buy milk"
 
-        let createTask = Task {
-            viewModel.createItemTag()
-        }
-        await createTask.value
+        viewModel.createItemTag()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isCreating }
 
-        #expect(viewModel.shouldDismiss == true)
-        #expect(messageBus.currentMessage != nil)
+        // A failed create keeps the form open with the typed name and lets the user retry
+        #expect(viewModel.shouldDismiss == false)
+        #expect(viewModel.isCreating == false)
+        #expect(viewModel.isBusy == false)
+        #expect(viewModel.name == "Buy milk")
+        // Message(error:) shows NativeAppTemplateAPIError.requestFailed's codedDescription:
+        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
+        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         #expect(itemTagRepository.itemTags.count == 0)

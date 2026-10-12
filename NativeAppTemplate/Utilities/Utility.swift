@@ -7,34 +7,26 @@ import Foundation
 import os
 
 enum Utility {
-    static func currentTimeZone() -> String {
-        let defaultTimeZone = Strings.defaultTimeZone
-        let timeZoneHourFormatted = currentTimeZoneHourFormatted()
+    /// The zone (a key of `timeZones`) to preselect for this device: the one
+    /// named after the identifier's city, else the first with its standard
+    /// offset. The table labels zones by standard offset, so summer time must
+    /// not move the match.
+    static func currentTimeZone(_ timeZone: TimeZone = .current, date: Date = .now) -> String {
+        let timeZoneHourFormatted = standardOffsetFormatted(timeZone, date: date)
+        let zonesWithOffset = timeZones.filter { $0.value.contains(timeZoneHourFormatted) }
 
-        let timeZoneArray = TimeZone.current.identifier.components(separatedBy: "/")
-
-        if timeZoneArray.isEmpty || timeZoneArray.count != 2 {
-            if let timeZone = timeZones.first(where: { $0.value.contains(timeZoneHourFormatted) }) {
-                return timeZone.key
-            }
+        guard let firstZoneWithOffset = zonesWithOffset.first else {
+            return Strings.defaultTimeZone
         }
 
-        if timeZoneArray.isEmpty {
-            return defaultTimeZone
+        let city = (timeZone.identifier.components(separatedBy: "/").last ?? "")
+            .replacingOccurrences(of: "_", with: " ")
+
+        if !city.isEmpty, let zone = timeZones.first(where: { $0.key.contains(city) }) {
+            return zone.key
         }
 
-        let timeZoneKey: String = timeZoneArray[1]
-
-        if let timeZone = timeZones
-            .first(where: { $0.key.contains(timeZoneKey) && $0.value.contains(timeZoneHourFormatted) }) {
-            return timeZone.key
-        }
-
-        if let timeZone = timeZones.first(where: { $0.value.contains(timeZoneHourFormatted) }) {
-            return timeZone.key
-        }
-
-        return defaultTimeZone
+        return firstZoneWithOffset.key
     }
 
     static var deviceModel: String {
@@ -46,16 +38,11 @@ enum Utility {
         return optionalString ?? "N/A"
     }
 
-    private static func currentTimeZoneHour() -> (Int, Int) {
-        let secondsFromGmt: Int = TimeZone.current.secondsFromGMT()
-        let hoursFromGmt = (secondsFromGmt / 3_600)
-        let minutesFromGmt = (abs(secondsFromGmt / 60) % 60)
-        return (hoursFromGmt, minutesFromGmt)
-    }
-
-    private static func currentTimeZoneHourFormatted() -> String {
-        let (timeZoneHour, timeZoneMinute) = currentTimeZoneHour()
-        let timeZoneHourStringZeroPadding = String(format: "%+.2d:%.2d", timeZoneHour, timeZoneMinute)
-        return "(GMT\(timeZoneHourStringZeroPadding))"
+    /// The standard (non-summer) offset as the table writes it, e.g. "(GMT-05:00)"
+    private static func standardOffsetFormatted(_ timeZone: TimeZone, date: Date) -> String {
+        let seconds = timeZone.secondsFromGMT(for: date) - Int(timeZone.daylightSavingTimeOffset(for: date))
+        let sign = seconds < 0 ? "-" : "+"
+        let minutes = abs(seconds) / 60
+        return String(format: "(GMT%@%02d:%02d)", sign, minutes / 60, minutes % 60)
     }
 }

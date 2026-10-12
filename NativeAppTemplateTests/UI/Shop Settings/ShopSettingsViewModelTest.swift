@@ -148,11 +148,8 @@ struct ShopSettingsViewModelTest {
             shopId: shopId
         )
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let shop = try #require(shops.first { $0.id == shopId })
         #expect(viewModel.shop == shop)
@@ -161,17 +158,19 @@ struct ShopSettingsViewModelTest {
         let httpResponseCode = 500
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        // https://stackoverflow.com/a/75618551/1160200
-        let destroyShopTask = Task {
-            viewModel.destroyShop()
-        }
-        await destroyShopTask.value
+        viewModel.destroyShop()
+        await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isDeleting }
 
+        // "<shopDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
+        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
         #expect(viewModel.messageBus.currentMessage?.message ==
             "\(Strings.shopDeletedError) [NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
-        #expect(viewModel.isDeleting)
-        #expect(viewModel.isBusy)
-        #expect(sessionController.userState == .notLoggedIn)
+        // A failed delete leaves the shop and the session as they were, and the
+        // user can retry
+        #expect(!viewModel.isDeleting)
+        #expect(!viewModel.isBusy)
+        #expect(sessionController.userState == .loggedIn)
+        #expect(!sessionController.shouldPopToRootView)
     }
 
     private func mockShop(id: String = UUID().uuidString, name: String = "Mock Shop") -> Shop {

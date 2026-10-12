@@ -74,11 +74,12 @@ final class ItemTagCreateViewModel {
                 let itemTag = ItemTag(name: name, description: description)
                 _ = try await itemTagRepository.create(shopId: shopId, itemTag: itemTag)
                 messageBus.post(message: Message(level: .success, message: Strings.itemTagCreated))
+                shouldDismiss = true
             } catch {
                 messageBus.post(message: Message(error: error))
+                // Keep the form open with the typed name so the user can retry
+                isCreating = false
             }
-
-            shouldDismiss = true
         }
     }
 }

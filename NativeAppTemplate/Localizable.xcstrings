@@ -867,6 +867,16 @@
         }
       }
     },
+    "Passwords do not match." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが一致しません。"
+          }
+        }
+      }
+    },
     "Please accept updated %@." : {
       "localizations" : {
         "ja" : {

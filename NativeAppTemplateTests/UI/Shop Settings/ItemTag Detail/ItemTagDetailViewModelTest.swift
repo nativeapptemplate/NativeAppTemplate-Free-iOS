@@ -302,7 +302,7 @@ struct ItemTagDetailViewModelTest {
     }
 
     @Test
-    func destroyItemTagFailure() async throws {
+    func destroyItemTagFailure() async {
         itemTagRepository.setItemTags(itemTags: [testItemTag])
 
         let viewModel = ItemTagDetailViewModel(
@@ -313,26 +313,26 @@ struct ItemTagDetailViewModelTest {
             itemTagId: itemTagId
         )
 
-        let reloadTask = Task {
-            viewModel.reload()
-        }
-        await reloadTask.value
+        viewModel.reload()
+        await waitUntil { !viewModel.isFetching }
 
         let message = "Delete failed"
         let httpResponseCode = 500
         itemTagRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
-        let destroyTask = Task {
-            viewModel.destroyItemTag()
-        }
-        await destroyTask.value
+        viewModel.destroyItemTag()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
-        #expect(viewModel.shouldDismiss == true)
-        #expect(messageBus.currentMessage != nil)
+        // The item tag still exists, so stay on its detail screen and let the user retry
+        #expect(viewModel.shouldDismiss == false)
+        #expect(viewModel.isDeleting == false)
+        #expect(viewModel.isBusy == false)
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
-        let errorMessage = try #require(messageBus.currentMessage?.message)
-        #expect(errorMessage.contains(Strings.itemTagDeletedError))
+        // "<itemTagDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
+        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]" (ItemTagDetailViewModel.destroyItemTag)
+        #expect(messageBus.currentMessage?.message ==
+            "\(Strings.itemTagDeletedError) [NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(itemTagRepository.itemTags.count == 1)
     }
 

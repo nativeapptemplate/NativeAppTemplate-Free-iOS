@@ -385,17 +385,19 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
             shopkeeper: testShopkeeper
         )
 
-        let destroyTask = Task {
-            viewModel.destroyShopkeeper()
-        }
-        await destroyTask.value
+        viewModel.destroyShopkeeper()
+        await waitUntil { messageBus.currentMessage != nil && !viewModel.isDeleting }
 
+        // The user still exists on the server, so the session stays and the
+        // user can retry
         #expect(viewModel.isDeleting == false)
-        #expect(viewModel.shouldDismiss == true) // Still dismisses even on failure
-        #expect(tabViewModel.selectedTab == .shops)
-        #expect(messageBus.currentMessage != nil)
+        #expect(viewModel.shouldDismiss == false)
+        #expect(sessionController.shopkeeper == testShopkeeper)
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
+        // "<shopkeeperDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
+        #expect(messageBus.currentMessage?.message ==
+            "\(Strings.shopkeeperDeletedError) [NATIVEAPPTEMPLATE-2001] Delete failed [Status: 500]")
     }
 
     @Test
