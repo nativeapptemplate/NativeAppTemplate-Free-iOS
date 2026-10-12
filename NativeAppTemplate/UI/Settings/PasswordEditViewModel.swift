@@ -41,7 +41,16 @@ final class PasswordEditViewModel {
             return true
         }
 
+        if hasPasswordConfirmationMismatch {
+            return true
+        }
+
         return false
+    }
+
+    /// True once a confirmation is entered that does not match the new password
+    var hasPasswordConfirmationMismatch: Bool {
+        !passwordConfirmation.isEmpty && passwordConfirmation != password
     }
 
     var hasInvalidDataPassword: Bool {

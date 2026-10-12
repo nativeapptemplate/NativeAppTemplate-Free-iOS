@@ -237,4 +237,24 @@ struct PasswordEditViewModelTest {
         // Verify the minimum matches the constant
         #expect(viewModel.minimumPasswordLength == 8)
     }
+
+    /// Saving is blocked until the confirmation equals the new password; the
+    /// server would otherwise reject it (Devise's password_confirmation)
+    @Test("Form validation - confirmation must match", arguments: [
+        ("newpassword1", "newpassword1", false),
+        ("newpassword1", "newpassword2", true),
+        ("newpassword1", "newpassword", true)
+    ])
+    func formValidationPasswordConfirmation(password: String, confirmation: String, shouldBeInvalid: Bool) {
+        let viewModel = PasswordEditViewModel(
+            accountPasswordRepository: accountPasswordRepository,
+            messageBus: messageBus
+        )
+
+        viewModel.currentPassword = "currentpassword"
+        viewModel.password = password
+        viewModel.passwordConfirmation = confirmation
+
+        #expect(viewModel.hasInvalidData == shouldBeInvalid)
+    }
 }

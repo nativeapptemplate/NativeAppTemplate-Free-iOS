@@ -87,9 +87,15 @@ private extension PasswordEditView {
             } header: {
                 Text(Strings.confirmNewPassword)
             } footer: {
-                Text(Strings.confirmNewPasswordIsRequired)
+                Text(viewModel.hasPasswordConfirmationMismatch
+                    ? Strings.passwordsDoNotMatch
+                    : Strings.confirmNewPasswordIsRequired)
                     .font(.uiFootnote)
-                    .foregroundStyle(viewModel.passwordConfirmation.isBlank ? .validationError : .clear)
+                    .foregroundStyle(
+                        viewModel.passwordConfirmation.isBlank || viewModel.hasPasswordConfirmationMismatch
+                            ? .validationError
+                            : .clear
+                    )
             }
         }
         .navigationTitle(Strings.updatePassword)
