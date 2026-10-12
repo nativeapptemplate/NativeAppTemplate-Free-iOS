@@ -14,7 +14,6 @@ import SwiftUI
 
     init(shopsService: ShopsService)
 
-    func findBy(id: String) -> Shop
     func reload()
     func fetchDetail(id: String) async throws -> Shop
     func create(shop: Shop) async throws -> Shop

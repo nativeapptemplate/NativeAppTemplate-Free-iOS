@@ -14,8 +14,6 @@ import SwiftUI
 
     init(itemTagsService: ItemTagsService)
 
-    func findBy(id: String) -> ItemTag
-    func reload(shopId: String)
     func reloadPage(shopId: String, page: Int)
     func loadNextPage(shopId: String)
     func fetchAll(shopId: String) async throws -> [ItemTag]

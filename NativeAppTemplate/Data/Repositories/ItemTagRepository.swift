@@ -21,37 +21,6 @@ import SwiftUI
         itemTags.isEmpty
     }
 
-    func findBy(id: String) -> ItemTag {
-        let itemTag = itemTags.first { $0.id == id }
-        return itemTag!
-    }
-
-    func reload(shopId: String) {
-        if Task.isCancelled {
-            return
-        }
-
-        if state == .loading {
-            return
-        }
-
-        state = .loading
-
-        Task { @MainActor in
-            do {
-                let response = try await itemTagsService.allItemTags(shopId: shopId)
-                itemTags = response.itemTags
-                paginationMeta = response.paginationMeta
-                state = .hasData
-            } catch {
-                state = .failed
-                Failure
-                    .fetch(from: Self.self, reason: error.codedDescription)
-                    .log()
-            }
-        }
-    }
-
     func reloadPage(shopId: String, page: Int) {
         if Task.isCancelled {
             return

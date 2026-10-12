@@ -23,11 +23,6 @@ import SwiftUI
         shops.isEmpty
     }
 
-    func findBy(id: String) -> Shop {
-        let shop = shops.first { $0.id == id }
-        return shop!
-    }
-
     func reload() {
         if Task.isCancelled {
             return
