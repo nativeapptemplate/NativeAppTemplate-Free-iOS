@@ -89,6 +89,14 @@ struct App {
     private var messageBus: MessageBus
 
     @MainActor init() {
+        // Before App.objects restores the session from the Keychain, and before
+        // Tips.configure() creates the datastore that marks an earlier launch
+        KeychainReinstallCleanup.run()
+
+        // Versions before URLSession.api dropped its response cache stored API
+        // responses in the shared URLCache on disk; delete what they left behind
+        URLCache.shared.removeAllCachedResponses()
+
         // setup objects
         let nativeAppTemplateObjects = App.objects
         loginRepository = nativeAppTemplateObjects.loginRepository

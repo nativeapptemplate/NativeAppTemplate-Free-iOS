@@ -87,6 +87,7 @@
 		0172789D2D7D99D100CE424F /* ItemTagCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278962D7D99D100CE424F /* ItemTagCreateView.swift */; };
 		0172789E2D7D99D100CE424F /* ItemTagEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017278942D7D99D100CE424F /* ItemTagEditView.swift */; };
 		0182D37825B277FA001E881D /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D37625B277D6001E881D /* KeychainStore.swift */; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* KeychainReinstallCleanup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F3 /* KeychainReinstallCleanup.swift */; };
 		0182D38225B296B9001E881D /* ShopkeeperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */; };
 		0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */; };
 		018E21CB2B36367F00FFD1F6 /* MeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E21CA2B36367F00FFD1F6 /* MeRequest.swift */; };
@@ -245,6 +246,7 @@
 		017278972D7D99D100CE424F /* ItemTagListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListCardView.swift; sourceTree = "<group>"; };
 		017278982D7D99D100CE424F /* ItemTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagListView.swift; sourceTree = "<group>"; };
 		0182D37625B277D6001E881D /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F6A7B8C9D0E1F3 /* KeychainReinstallCleanup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainReinstallCleanup.swift; sourceTree = "<group>"; };
 		0182D38125B296B9001E881D /* ShopkeeperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperAdapter.swift; sourceTree = "<group>"; };
 		0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeperKeychainStore.swift; sourceTree = "<group>"; };
 		018E21CA2B36367F00FFD1F6 /* MeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeRequest.swift; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 			children = (
 				412B1F0A34D186286A11F085 /* Keychain.swift */,
 				0182D37625B277D6001E881D /* KeychainStore.swift */,
+				A1B2C3D4E5F6A7B8C9D0E1F3 /* KeychainReinstallCleanup.swift */,
 				013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */,
 				0182D39925B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift */,
 			);
@@ -912,6 +915,7 @@
 				01A1339B2E08B0DF000AD24A /* MainViewModel.swift in Sources */,
 				A370BAECACECFAB76D851427 /* Keychain.swift in Sources */,
 				0182D37825B277FA001E881D /* KeychainStore.swift in Sources */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* KeychainReinstallCleanup.swift in Sources */,
 				01FC03E22B3329B700E6CD8E /* NeedAppUpdatesView.swift in Sources */,
 				0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */,
 				01B37C7629B0960700BF5B2D /* ForgotPasswordView.swift in Sources */,

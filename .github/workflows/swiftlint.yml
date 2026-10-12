@@ -3,6 +3,9 @@ name: SwiftLint
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
