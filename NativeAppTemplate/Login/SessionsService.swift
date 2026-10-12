@@ -82,7 +82,9 @@ extension SessionsService {
                     errorMessage = theErrorMessage
                 }
             } catch {
-                throw NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, "")
+                // Not JSON (e.g. a proxy's HTML error page): no message to show,
+                // so the error falls back to its generic description
+                throw NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, nil)
             }
 
             throw NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, errorMessage)
