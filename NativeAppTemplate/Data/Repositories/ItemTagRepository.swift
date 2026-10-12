@@ -97,7 +97,10 @@ import SwiftUI
         Task { @MainActor in
             do {
                 let response = try await itemTagsService.allItemTags(shopId: shopId, page: meta.currentPage + 1)
-                itemTags.append(contentsOf: response.itemTags)
+                // A list that shifted since the last page can repeat tags already
+                // listed; keep the first occurrence so each id appears once, in order
+                let listedIds = Set(itemTags.map(\.id))
+                itemTags.append(contentsOf: response.itemTags.filter { !listedIds.contains($0.id) })
                 paginationMeta = response.paginationMeta
             } catch {
                 Failure

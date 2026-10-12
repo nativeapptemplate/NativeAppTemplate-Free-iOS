@@ -86,4 +86,49 @@ struct ItemTagRepositoryTest {
 
         #expect(repository.state == .hasData)
     }
+
+    /// An item tag resource as the API's ItemTagSerializer writes it (ItemTagAdapter's attributes)
+    private nonisolated static func itemTagResource(id: String, shopId: String = "A") -> [String: Any] {
+        [
+            "id": id,
+            "type": "item_tag",
+            "attributes": [
+                "shop_id": shopId,
+                "name": id,
+                "description": "",
+                "position": 1,
+                "state": "idled",
+                "created_at": "2026-01-01T00:00:00.000Z",
+                "shop_name": "Shop A"
+            ] as [String: Any]
+        ]
+    }
+
+    /// If the list shifts between page loads (a tag is added or removed), page 2 can
+    /// repeat the last tag of page 1. Appending it again would list it twice, and
+    /// ForEach is keyed by id. Pages [t1, t2] then [t2, t3] must give [t1, t2, t3]:
+    /// the first occurrence is kept, in order (as the Android app does).
+    @Test
+    func loadNextPageSkipsTagsAlreadyListed() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json([
+                "data": [Self.itemTagResource(id: "t2"), Self.itemTagResource(id: "t3")],
+                "meta": ["current_page": 2, "total_pages": 2, "total_count": 4, "limit": 2]
+            ])
+        }
+        defer { server.stop() }
+
+        let repository = ItemTagRepository(itemTagsService: ItemTagsService(networkClient: server.client()))
+        repository.itemTags = [ItemTag(id: "t1", shopId: "A", name: "t1"), ItemTag(id: "t2", shopId: "A", name: "t2")]
+        repository.paginationMeta = PaginationMeta(currentPage: 1, totalPages: 2, totalCount: 4, limit: 2)
+        repository.state = .hasData
+
+        repository.loadNextPage(shopId: "A")
+        await waitUntil(timeout: .seconds(5)) { repository.paginationMeta?.currentPage == 2 && !repository.isLoadingMore }
+
+        #expect(repository.itemTags.map(\.id) == ["t1", "t2", "t3"])
+        // The page request itself asked for page 2
+        #expect(server.requests.last?.queryItems.first { $0.name == "page" }?.value == "2")
+    }
 }
+
