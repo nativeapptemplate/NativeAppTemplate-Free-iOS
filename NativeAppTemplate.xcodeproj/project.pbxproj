@@ -40,7 +40,6 @@
 		0172033A25A9642E008FD63B /* JSONAPIDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030B25A9642E008FD63B /* JSONAPIDocument.swift */; };
 		0172033C25A9642E008FD63B /* NativeAppTemplateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */; };
 		0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */; };
-		0172033E25A9642E008FD63B /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172031125A9642E008FD63B /* Parameters.swift */; };
 		0172034825A9642E008FD63B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172031C25A9642E008FD63B /* Request.swift */; };
 		0172034B25A9642E008FD63B /* EntityAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172032025A9642E008FD63B /* EntityAdapter.swift */; };
 		0172035625A9642E008FD63B /* ShopAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172032C25A9642E008FD63B /* ShopAdapter.swift */; };
@@ -198,7 +197,6 @@
 		0172030B25A9642E008FD63B /* JSONAPIDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIDocument.swift; sourceTree = "<group>"; };
 		0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateAPI.swift; sourceTree = "<group>"; };
 		0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateEnvironment.swift; sourceTree = "<group>"; };
-		0172031125A9642E008FD63B /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		0172031C25A9642E008FD63B /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		0172032025A9642E008FD63B /* EntityAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityAdapter.swift; sourceTree = "<group>"; };
 		0172032C25A9642E008FD63B /* ShopAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopAdapter.swift; sourceTree = "<group>"; };
@@ -487,7 +485,6 @@
 				0106413B29A9EDFF00B46FED /* AccountPasswordRequest.swift */,
 				017278782D7D900100CE424F /* ItemTagsRequest.swift */,
 				018E21CA2B36367F00FFD1F6 /* MeRequest.swift */,
-				0172031125A9642E008FD63B /* Parameters.swift */,
 				01B6F5AA2601F84700397E66 /* PermissionsRequest.swift */,
 				0172031C25A9642E008FD63B /* Request.swift */,
 				0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */,
@@ -946,7 +943,6 @@
 				3DCDACF2A0069F085A61F98B /* RootPathService.swift in Sources */,
 				017204D125AA8479008FD63B /* DataState.swift in Sources */,
 				012643372B3554AD00D4E9BD /* AcceptTermsView.swift in Sources */,
-				0172033E25A9642E008FD63B /* Parameters.swift in Sources */,
 				0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */,
 				017204B625AA8467008FD63B /* DataManager.swift in Sources */,
 				A2B3C4D500000002 /* CodedError.swift in Sources */,
