@@ -35,8 +35,6 @@
 		0150A36629B14BB300907F96 /* SendResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0150A36529B14BB300907F96 /* SendResetPassword.swift */; };
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
-		01C0FFEE2EA0000100000002 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 01C0FFEE2EA0000100000001 /* Localizable.xcstrings */; };
-		01C0FFEE2EA0000100000004 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 01C0FFEE2EA0000100000003 /* InfoPlist.xcstrings */; };
 		0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030825A9642D008FD63B /* JSONAPIResource.swift */; };
 		0172033825A9642E008FD63B /* JSONAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030925A9642E008FD63B /* JSONAPIError.swift */; };
 		0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */; };
@@ -115,6 +113,8 @@
 		01B6F5AB2601F84700397E66 /* PermissionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6F5AA2601F84700397E66 /* PermissionsRequest.swift */; };
 		01B9E45228A5070D00CAC681 /* ShopkeeperSignInAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */; };
 		01BE4F1D29CA6F8C002008BE /* TimeZoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */; };
+		01C0FFEE2EA0000100000002 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 01C0FFEE2EA0000100000001 /* Localizable.xcstrings */; };
+		01C0FFEE2EA0000100000004 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 01C0FFEE2EA0000100000003 /* InfoPlist.xcstrings */; };
 		01D85A9A2E07C85900A95798 /* ShopBasicSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */; };
 		01D85A9E2E07C9BD00A95798 /* ShopSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */; };
 		01D85AE72E07CD4400A95798 /* ItemTagDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D85AE62E07CD4400A95798 /* ItemTagDetailViewModel.swift */; };
@@ -186,7 +186,6 @@
 		011F6DF9259EF16600BED22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		012643362B3554AD00D4E9BD /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
 		013292BD262C3EA400690B75 /* LoggedInShopkeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInShopkeeper.swift; sourceTree = "<group>"; };
-		01A9E1F02EA0000100000001 /* API.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = API.xcconfig; sourceTree = "<group>"; };
 		0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SampleCode.xcconfig; sourceTree = "<group>"; };
 		013982292FA815A2005DF953 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		013DE734284E99DF00528CC5 /* ShopCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCreateView.swift; sourceTree = "<group>"; };
@@ -195,8 +194,6 @@
 		0150A36529B14BB300907F96 /* SendResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendResetPassword.swift; sourceTree = "<group>"; };
 		0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsRequest.swift; sourceTree = "<group>"; };
 		015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		01C0FFEE2EA0000100000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		01C0FFEE2EA0000100000003 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		0172030825A9642D008FD63B /* JSONAPIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIResource.swift; sourceTree = "<group>"; };
 		0172030925A9642E008FD63B /* JSONAPIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIError.swift; sourceTree = "<group>"; };
 		0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIRelationship.swift; sourceTree = "<group>"; };
@@ -268,6 +265,7 @@
 		01A133A22E08B4DA000AD24A /* ResendConfirmationInstructionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResendConfirmationInstructionsViewModel.swift; sourceTree = "<group>"; };
 		01A133A42E08BB1B000AD24A /* SignInEmailAndPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailAndPasswordViewModel.swift; sourceTree = "<group>"; };
 		01A133A62E08BB66000AD24A /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		01A9E1F02EA0000100000001 /* API.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = API.xcconfig; sourceTree = "<group>"; };
 		01B37C7529B0960700BF5B2D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		01B526532AF4E36400655131 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		01B526552AF4E82A00655131 /* ScrollToTopID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToTopID.swift; sourceTree = "<group>"; };
@@ -275,6 +273,8 @@
 		01B6F5AA2601F84700397E66 /* PermissionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsRequest.swift; sourceTree = "<group>"; };
 		01B9E45128A5070D00CAC681 /* ShopkeeperSignInAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopkeeperSignInAdapter.swift; sourceTree = "<group>"; };
 		01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneData.swift; sourceTree = "<group>"; };
+		01C0FFEE2EA0000100000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		01C0FFEE2EA0000100000003 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		01D19B432D4DE33500BDEAB7 /* NativeAppTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeAppTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D85A992E07C85900A95798 /* ShopBasicSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBasicSettingsViewModel.swift; sourceTree = "<group>"; };
 		01D85A9D2E07C9BD00A95798 /* ShopSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopSettingsViewModel.swift; sourceTree = "<group>"; };
