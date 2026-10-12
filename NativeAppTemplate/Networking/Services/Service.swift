@@ -59,7 +59,6 @@ extension Service {
 
             let headers =
                 [headerAccessToken, headerTokenType, headerClient, headerExpiry, headerUid, headerSource]
-                    + [networkClient.additionalHeaders, request.additionalHeaders].joined()
             headers.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
 
             return urlRequest

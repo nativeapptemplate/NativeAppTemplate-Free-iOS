@@ -23,8 +23,6 @@ struct GetItemTagsRequest: Request {
         "/shopkeeper/shops/\(shopId)/item_tags"
     }
 
-    var additionalHeaders: [String: String] = [:]
-
     var queryItems: [URLQueryItem] {
         guard let page else { return [] }
         return [URLQueryItem(name: "page", value: String(page))]
@@ -61,7 +59,6 @@ struct GetItemTagDetailRequest: Request {
         "/shopkeeper/item_tags/\(id)"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -99,7 +96,6 @@ struct MakeItemTagRequest: Request {
         "/shopkeeper/shops/\(shopId)/item_tags"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = itemTag.toJson()
         return try? JSONSerialization.data(withJSONObject: json)
@@ -139,7 +135,6 @@ struct UpdateItemTagRequest: Request {
         "/shopkeeper/item_tags/\(id)"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         let json = itemTag.toJson()
         return try? JSONSerialization.data(withJSONObject: json)
@@ -179,7 +174,6 @@ struct DestroyItemTagRequest: Request {
         "/shopkeeper/item_tags/\(id)"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -206,7 +200,6 @@ struct CompleteItemTagRequest: Request {
         "/shopkeeper/item_tags/\(id)/complete"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }
@@ -243,7 +236,6 @@ struct IdleItemTagRequest: Request {
         "/shopkeeper/item_tags/\(id)/idle"
     }
 
-    var additionalHeaders: [String: String] = [:]
     var body: Data? {
         nil
     }

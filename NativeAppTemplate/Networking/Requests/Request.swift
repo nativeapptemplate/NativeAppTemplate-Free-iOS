@@ -17,7 +17,6 @@ protocol Request {
 
     var method: HTTPMethod { get }
     var path: String { get }
-    var additionalHeaders: [String: String] { get }
     var queryItems: [URLQueryItem] { get }
     var body: Data? { get }
 

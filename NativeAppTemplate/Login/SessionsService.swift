@@ -55,7 +55,6 @@ extension SessionsService {
 
             let headers =
                 [headerAccessToken, headerTokenType, headerClient, headerExpiry, headerUid, headerSource]
-                    + [networkClient.additionalHeaders, request.additionalHeaders].joined()
 
             if !headerAccessToken.value.isEmpty {
                 headers.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
