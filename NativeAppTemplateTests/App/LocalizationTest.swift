@@ -12,16 +12,27 @@ import Testing
 /// showing up in English on a Japanese device.
 @Suite
 struct LocalizationTest {
+    /// The catalog tests read the .xcstrings sources from the Mac through #filePath,
+    /// which a simulator can do and a device cannot. They run on the simulator (and CI);
+    /// a device run skips them instead of failing with "no such file".
+    static let canReadSourceCatalogs: Bool = {
+        #if targetEnvironment(simulator)
+        true
+        #else
+        false
+        #endif
+    }()
+
     // MARK: - Every key has Japanese
 
-    @Test
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func everyLocalizableKeyHasJapanese() throws {
         let catalog = try StringCatalog(named: "Localizable.xcstrings")
         #expect(catalog.strings.count > 100) // guards against reading the wrong (or an empty) file
         #expect(catalog.keysMissingJapanese.isEmpty, "Missing Japanese: \(catalog.keysMissingJapanese)")
     }
 
-    @Test
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func everyInfoPlistStringHasJapanese() throws {
         let catalog = try StringCatalog(named: "InfoPlist.xcstrings")
         #expect(catalog.keysMissingJapanese.isEmpty, "Missing Japanese: \(catalog.keysMissingJapanese)")
@@ -34,7 +45,7 @@ struct LocalizationTest {
     }
 
     /// The home screen name stays the product name, which the rename replaces in English
-    @Test
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func appNameIsNotTranslated() throws {
         let catalog = try StringCatalog(named: "InfoPlist.xcstrings")
         let values = Dictionary(uniqueKeysWithValues: catalog.japaneseValues)
@@ -42,7 +53,7 @@ struct LocalizationTest {
         #expect(values["CFBundleName"] == "NativeAppTemplate")
     }
 
-    @Test
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func japaneseKeepsTheSameFormatSpecifiers() throws {
         let catalog = try StringCatalog(named: "Localizable.xcstrings")
         for (key, japanese) in catalog.japaneseValues {
@@ -55,7 +66,7 @@ struct LocalizationTest {
 
     /// Shop is 店舗 throughout, as in the API's ja.yml (店舗名). nativeapptemplate-agent
     /// renames 店舗 as a substring, so ショップ, 店 or お店 would survive a rename.
-    @Test
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func shopIsAlways店舗() throws {
         let catalog = try StringCatalog(named: "Localizable.xcstrings")
         let offenders = catalog.japaneseValues.filter { _, japanese in
@@ -66,7 +77,7 @@ struct LocalizationTest {
 
     /// An ItemTag is アイテムタグ in full: nativeapptemplate-agent renames アイテムタグ
     /// as a substring, so a shortened タグ or アイテム would survive a rename.
-    @Test
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func itemTagIsAlwaysアイテムタグInFull() throws {
         let catalog = try StringCatalog(named: "Localizable.xcstrings")
         let offenders = catalog.japaneseValues.filter { _, japanese in

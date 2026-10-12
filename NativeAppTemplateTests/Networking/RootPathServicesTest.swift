@@ -30,7 +30,7 @@ struct RootPathServicesTest {
     }
 
     /// A shopkeeper resource as ShopkeeperSignInAdapter reads it
-    private nonisolated static let signInBody: [String: Any] = [
+    private nonisolated(unsafe) static let signInBody: [String: Any] = [
         "data": [
             "id": "s1",
             "type": "shopkeeper_sign_in",

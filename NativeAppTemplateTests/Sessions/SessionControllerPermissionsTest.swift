@@ -31,7 +31,7 @@ struct SessionControllerPermissionsTest {
     )!
 
     /// The meta keys PermissionsRequest.handle requires, as the API sends them
-    private nonisolated static let meta: [String: Any] = [
+    private nonisolated(unsafe) static let meta: [String: Any] = [
         "ios_app_version": 1,
         "should_update_privacy": true,
         "should_update_terms": false,
