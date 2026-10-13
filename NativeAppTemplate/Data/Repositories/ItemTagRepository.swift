@@ -22,10 +22,6 @@ import SwiftUI
         self.itemTagsService = itemTagsService
     }
 
-    var isEmpty: Bool {
-        itemTags.isEmpty
-    }
-
     func reloadPage(shopId: String, page: Int) {
         if Task.isCancelled {
             return

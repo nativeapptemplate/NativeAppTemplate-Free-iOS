@@ -25,10 +25,6 @@ public class JSONAPIResource {
         return EntityIdentity(id: id, type: entityType)
     }
 
-    subscript(key: String) -> Any? {
-        attributes[key]
-    }
-
     // MARK: - Initializers
 
     convenience init(
@@ -64,11 +60,5 @@ public class JSONAPIResource {
         }
 
         meta = dict["meta"] as? [String: Any] ?? [:]
-    }
-}
-
-extension JSONAPIResource {
-    subscript<T>(key: some CustomStringConvertible) -> T? {
-        self[key.description] as? T
     }
 }

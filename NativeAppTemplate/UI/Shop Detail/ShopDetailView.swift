@@ -40,15 +40,15 @@ private extension ShopDetailView {
         @ViewBuilder var contentView: some View {
             if viewModel.isBusy {
                 LoadingView()
-            } else if let shop = viewModel.shop {
-                shopDetailView(shop: shop)
+            } else if viewModel.shop != nil {
+                shopDetailView
             }
         }
 
         return contentView
     }
 
-    func header(shop: Shop) -> some View {
+    var header: some View {
         Text(Strings.shopDetailInstruction)
             .foregroundStyle(.contentText)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -77,9 +77,9 @@ private extension ShopDetailView {
         }
     }
 
-    func shopDetailView(shop: Shop) -> some View {
+    var shopDetailView: some View {
         VStack {
-            header(shop: shop)
+            header
                 .padding(.top)
                 .padding(.horizontal, NativeAppTemplateConstants.Spacing.xxs)
             List {

@@ -46,10 +46,6 @@ final class ShopDetailViewModel {
         isFetching || isIdling || isCompleting
     }
 
-    var isLoggedIn: Bool {
-        sessionController.isLoggedIn
-    }
-
     func reload() {
         guard sessionController.isLoggedIn else { return }
         fetchShopDetail()
@@ -124,7 +120,6 @@ final class ShopDetailViewModel {
         ShopSettingsViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             shopId: shopId
         )

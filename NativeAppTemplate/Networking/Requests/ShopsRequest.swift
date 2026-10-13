@@ -41,7 +41,6 @@ struct GetShopsRequest: Request {
 }
 
 struct GetShopDetailRequest: Request {
-    ///  typealias Response = (shop: Shop, cacheUpdate: DataCacheUpdate)
     typealias Response = Shop
 
     // MARK: - Properties

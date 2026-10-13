@@ -15,8 +15,8 @@ extension SignUpsService {
         try await makeRequest(request: MakeShopkeeperRequest(signUp: signUp))
     }
 
-    func updateShopkeeper(id: String, signUp: SignUp) async throws -> UpdateShopkeeperRequest.Response {
-        let request = UpdateShopkeeperRequest(id: id, signUp: signUp)
+    func updateShopkeeper(signUp: SignUp) async throws -> UpdateShopkeeperRequest.Response {
+        let request = UpdateShopkeeperRequest(signUp: signUp)
         return try await makeRequest(request: request)
     }
 

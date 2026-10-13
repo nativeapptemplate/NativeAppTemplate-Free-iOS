@@ -8,7 +8,6 @@ import SwiftUI
 @MainActor protocol ItemTagRepositoryProtocol: AnyObject, Observable, Sendable {
     var itemTags: [ItemTag] { get set }
     var state: DataState { get set }
-    var isEmpty: Bool { get }
     var paginationMeta: PaginationMeta? { get }
     var isLoadingMore: Bool { get }
 

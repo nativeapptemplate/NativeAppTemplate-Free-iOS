@@ -6,10 +6,6 @@
 import SwiftUI
 
 extension Font {
-    static var uiLargeTitle: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 36.0)).weight(.bold)
-    }
-
     static var uiTitle1: Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 30.0)).weight(.medium)
     }

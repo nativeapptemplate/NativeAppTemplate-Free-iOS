@@ -10,8 +10,7 @@ struct CompletedTag: View {
         TagView(
             text: String(localized: "completed"),
             textColor: .completedTagForeground,
-            backgroundColor: .completedTagBackground,
-            borderColor: .completedTagBorder
+            backgroundColor: .completedTagBackground
         )
     }
 }

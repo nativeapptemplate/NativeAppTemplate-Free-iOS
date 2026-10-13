@@ -18,7 +18,6 @@ final class TestSignUpRepository: SignUpRepositoryProtocol {
     var sendResetPasswordCalled = false
     var sendConfirmationCalled = false
     var lastSignUp: SignUp?
-    var lastUpdateId: String?
     var lastSendResetPassword: SendResetPassword?
     var lastSendConfirmation: SendConfirmation?
     var shopkeeperToReturn: Shopkeeper?
@@ -48,10 +47,9 @@ final class TestSignUpRepository: SignUpRepositoryProtocol {
         ])!
     }
 
-    func update(id: String, signUp: SignUp, networkClient: NativeAppTemplateAPI) async throws -> Shopkeeper {
+    func update(signUp: SignUp, networkClient: NativeAppTemplateAPI) async throws -> Shopkeeper {
         await gate?.wait()
         updateCalled = true
-        lastUpdateId = id
         lastSignUp = signUp
 
         guard error == nil else {
@@ -59,7 +57,7 @@ final class TestSignUpRepository: SignUpRepositoryProtocol {
         }
 
         return shopkeeperToReturn ?? Shopkeeper(dictionary: [
-            "id": id,
+            "id": "1",
             "account_id": "account_1",
             "personal_account_id": "personal_1",
             "account_owner_id": "owner_1",

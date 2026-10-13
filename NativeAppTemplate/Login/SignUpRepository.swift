@@ -28,12 +28,12 @@ import os
         return shopkeeper
     }
 
-    func update(id: String, signUp: SignUp, networkClient: NativeAppTemplateAPI) async throws -> Shopkeeper {
+    func update(signUp: SignUp, networkClient: NativeAppTemplateAPI) async throws -> Shopkeeper {
         var shopkeeper: Shopkeeper
 
         do {
             let signUpsService = SignUpsService(networkClient: networkClient)
-            shopkeeper = try await signUpsService.updateShopkeeper(id: id, signUp: signUp)
+            shopkeeper = try await signUpsService.updateShopkeeper(signUp: signUp)
         } catch {
             Failure
                 .update(from: Self.self, reason: error.codedDescription)

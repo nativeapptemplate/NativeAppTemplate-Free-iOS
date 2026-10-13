@@ -34,18 +34,15 @@ final class ItemTagListViewModel {
 
     private let itemTagRepository: ItemTagRepositoryProtocol
     private let messageBus: MessageBus
-    private let sessionController: SessionControllerProtocol
     let shop: Shop
 
     init(
         itemTagRepository: ItemTagRepositoryProtocol,
         messageBus: MessageBus,
-        sessionController: SessionControllerProtocol,
         shop: Shop
     ) {
         self.itemTagRepository = itemTagRepository
         self.messageBus = messageBus
-        self.sessionController = sessionController
         self.shop = shop
     }
 

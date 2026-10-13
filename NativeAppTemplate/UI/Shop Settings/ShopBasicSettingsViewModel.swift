@@ -17,18 +17,15 @@ final class ShopBasicSettingsViewModel {
     var shouldDismiss: Bool = false
     private(set) var shop: Shop?
 
-    private let sessionController: SessionControllerProtocol
     private let shopRepository: ShopRepositoryProtocol
     private(set) var messageBus: MessageBus
     let shopId: String
 
     init(
-        sessionController: SessionControllerProtocol,
         shopRepository: ShopRepositoryProtocol,
         messageBus: MessageBus,
         shopId: String
     ) {
-        self.sessionController = sessionController
         self.shopRepository = shopRepository
         self.messageBus = messageBus
         self.shopId = shopId

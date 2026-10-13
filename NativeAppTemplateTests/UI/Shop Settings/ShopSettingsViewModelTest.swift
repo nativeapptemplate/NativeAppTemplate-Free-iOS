@@ -24,9 +24,6 @@ struct ShopSettingsViewModelTest {
     let shopRepository = TestShopRepository(
         shopsService: ShopsService()
     )
-    let itemTagRepository = TestItemTagRepository(
-        itemTagsService: ItemTagsService()
-    )
     let messageBus = MessageBus()
     let shopId = "1"
 
@@ -35,7 +32,6 @@ struct ShopSettingsViewModelTest {
         let viewModel = ShopSettingsViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             shopId: shopId
         )
@@ -51,7 +47,6 @@ struct ShopSettingsViewModelTest {
         let viewModel = ShopSettingsViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             shopId: shopId
         )
@@ -79,7 +74,6 @@ struct ShopSettingsViewModelTest {
         let viewModel = ShopSettingsViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             shopId: shopId
         )
@@ -103,7 +97,6 @@ struct ShopSettingsViewModelTest {
         let viewModel = ShopSettingsViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             shopId: shopId
         )
@@ -131,7 +124,6 @@ struct ShopSettingsViewModelTest {
         let viewModel = ShopSettingsViewModel(
             sessionController: sessionController,
             shopRepository: shopRepository,
-            itemTagRepository: itemTagRepository,
             messageBus: messageBus,
             shopId: shopId
         )

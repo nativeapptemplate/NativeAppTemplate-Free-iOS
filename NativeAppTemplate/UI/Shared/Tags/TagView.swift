@@ -8,18 +8,9 @@ import SwiftUI
 struct TagView: View {
     private static let defaultIconHeight: CGFloat = 12.0
 
-    private struct SizeKey: PreferenceKey {
-        static func reduce(value: inout CGSize?, nextValue: () -> CGSize?) {
-            value = value ?? nextValue()
-        }
-    }
-
-    @State private var height: CGFloat?
-
     let text: String
     let textColor: Color
     let backgroundColor: Color
-    let borderColor: Color
     var image: Image?
 
     var body: some View {
@@ -34,21 +25,11 @@ struct TagView: View {
                 .foregroundStyle(textColor)
                 .font(.uiUppercaseTag)
                 .kerning(0.5)
-                .background(
-                    GeometryReader { proxy in
-                        Color.clear.preference(key: SizeKey.self, value: proxy.size)
-                    }
-                )
         }
         .padding([.vertical], NativeAppTemplateConstants.Spacing.xxxs)
         .padding([.horizontal], NativeAppTemplateConstants.Spacing.xxs)
         .background(backgroundColor)
         .cornerRadius(NativeAppTemplateConstants.CornerRadius.xs) // This is a bit hacky.
-        .onPreferenceChange(SizeKey.self) { size in
-            Task { @MainActor in
-                height = size?.height
-            }
-        }
     }
 }
 
@@ -58,15 +39,13 @@ struct TagView_Previews: PreviewProvider {
             TagView(
                 text: "this is a tag",
                 textColor: .coolGrey10,
-                backgroundColor: .red5,
-                borderColor: .yellow5
+                backgroundColor: .red5
             )
 
             TagView(
                 text: "with an image",
                 textColor: .coolGrey10,
                 backgroundColor: .red5,
-                borderColor: .yellow5,
                 image: Image(systemName: "checkmark")
             )
         }

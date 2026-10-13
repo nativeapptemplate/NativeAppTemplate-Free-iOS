@@ -139,23 +139,3 @@ public extension Shopkeeper {
         locale == appLocale ? nil : appLocale
     }
 }
-
-private extension Shopkeeper {
-    private init(
-        shopkeeper: Shopkeeper
-    ) {
-        id = shopkeeper.id
-        accountId = shopkeeper.accountId
-        personalAccountId = shopkeeper.personalAccountId
-        accountOwnerId = shopkeeper.accountOwnerId
-        accountName = shopkeeper.accountName
-        email = shopkeeper.email
-        name = shopkeeper.name
-        timeZone = shopkeeper.timeZone
-        locale = shopkeeper.locale
-        uid = shopkeeper.uid
-        token = shopkeeper.token
-        client = shopkeeper.client
-        expiry = shopkeeper.expiry
-    }
-}

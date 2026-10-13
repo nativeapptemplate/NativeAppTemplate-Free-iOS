@@ -10,8 +10,7 @@ struct IdledTag: View {
         TagView(
             text: String(localized: "idled"),
             textColor: .idledTagForeground,
-            backgroundColor: .idledTagBackground,
-            borderColor: .idledTagBorder
+            backgroundColor: .idledTagBackground
         )
     }
 }

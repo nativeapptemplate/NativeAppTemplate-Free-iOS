@@ -47,16 +47,6 @@ enum NativeAppTemplateConstants {
         static let xxxxl: CGFloat = 128
     }
 
-    // MARK: - Animation Durations
-
-    enum Animation {
-        /// 0.15s - Fast animations, micro-interactions
-        static let fast: Double = 0.15
-
-        /// 0.3s - Standard animations, most UI transitions
-        static let standard: Double = 0.3
-    }
-
     // MARK: - Glass
 
     enum Glass {
@@ -147,7 +137,6 @@ enum Strings {
     // MARK: Shop View
 
     static let shopName = String(localized: "Shop Name")
-    static let createShop = String(localized: "Create Shop")
     static let addShop = String(localized: "Add Shop")
     static let addShopDescription = String(localized: "Add a new shop.")
     static let deleteShop = String(localized: "Delete Shop")
@@ -307,9 +296,7 @@ enum Strings {
     // MARK: Other
 
     static let ok = String(localized: "OK")
-    static let no = String(localized: "No")
     static let cancel = String(localized: "Cancel")
-    static let close = String(localized: "Close")
     static let save = String(localized: "Save")
     static let edit = String(localized: "Edit")
     static let delete = String(localized: "Delete")
@@ -321,10 +308,7 @@ enum Strings {
     static let emailIsInvalid = String(localized: "Email is invalid.")
     static let passwordIsRequired = String(localized: "Password is required.")
     static let passwordIsInvalid = String(localized: "Password is invalid.")
-    static let role = String(localized: "Role")
     static let complete = String(localized: "Complete")
-    static let open = String(localized: "Open")
-    static let instructions = String(localized: "Instructions")
     static let forceSignOut = String(localized: "Force Sign Out?")
     static let signOut = String(localized: "Sign Out")
     static let noConnection = String(localized: "No Connection")

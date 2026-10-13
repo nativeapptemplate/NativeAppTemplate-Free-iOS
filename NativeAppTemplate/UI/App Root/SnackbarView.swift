@@ -8,17 +8,6 @@ import SwiftUI
 struct SnackbarState {
     enum Status: String {
         case success, warning, error
-
-        var color: Color {
-            switch self {
-            case .success:
-                .snackSuccess
-            case .warning:
-                .snackWarning
-            case .error:
-                .snackError
-            }
-        }
     }
 
     let status: Status

@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import os
 
 protocol KeychainStore {
     associatedtype DataType: NSObject, NSCoding
@@ -53,7 +52,6 @@ extension KeychainStore {
 
     func store(_ data: DataType) throws {
         let archived: Data
-        appLogger.debug("KeychainStore data: \(data, privacy: .private)")
         do {
             archived = try NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: true)
         } catch {

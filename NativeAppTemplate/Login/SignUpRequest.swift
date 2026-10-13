@@ -55,7 +55,6 @@ struct UpdateShopkeeperRequest: Request {
 
     // MARK: - Parameters
 
-    let id: String
     let signUp: SignUp
 
     // MARK: - Internal

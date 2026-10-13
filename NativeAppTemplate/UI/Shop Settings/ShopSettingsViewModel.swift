@@ -17,20 +17,17 @@ final class ShopSettingsViewModel {
 
     private let sessionController: SessionControllerProtocol
     private let shopRepository: ShopRepositoryProtocol
-    let itemTagRepository: ItemTagRepositoryProtocol
     private(set) var messageBus: MessageBus
     let shopId: String
 
     init(
         sessionController: SessionControllerProtocol,
         shopRepository: ShopRepositoryProtocol,
-        itemTagRepository: ItemTagRepositoryProtocol,
         messageBus: MessageBus,
         shopId: String
     ) {
         self.sessionController = sessionController
         self.shopRepository = shopRepository
-        self.itemTagRepository = itemTagRepository
         self.messageBus = messageBus
         self.shopId = shopId
     }
