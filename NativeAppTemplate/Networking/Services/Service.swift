@@ -62,17 +62,20 @@ extension Service {
         let statusCode = (response as? HTTPURLResponse)?.statusCode
         guard statusCode.map((200 ..< 300).contains) == true
         else {
-            var errorMessage: String?
+            // Not JSON (e.g. a proxy's HTML error page) or no error_message: no message
+            // to show, so the error falls back to its generic description
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let errorMessage = json?["error_message"] as? String
 
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                   let theErrorMessage = json["error_message"] as? String {
-                    errorMessage = theErrorMessage
-                }
-            } catch {
-                // Not JSON (e.g. a proxy's HTML error page): no message to show,
-                // so the error falls back to its generic description
-                throw NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, nil)
+            // devise_token_auth rejects a missing, wrong or expired token with a 401
+            // whose body has no error_message. The API's own 401 (a Pundit denial)
+            // has one and keeps the session.
+            if statusCode == 401, errorMessage == nil, !networkClient.authToken.isEmpty {
+                NotificationCenter.default.post(
+                    name: .apiSessionDidExpire,
+                    object: nil,
+                    userInfo: [Notification.authTokenKey: networkClient.authToken]
+                )
             }
 
             throw NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, errorMessage)
@@ -80,4 +83,16 @@ extension Service {
 
         return try request.handle(response: data)
     }
+}
+
+extension Notification.Name {
+    /// Posted on the main actor when the API rejects a request's access token: a 401
+    /// from devise_token_auth, e.g. once the token's lifespan is over. The rejected
+    /// token is in `userInfo[Notification.authTokenKey]`, so a session that has
+    /// since signed in again can tell the notice is not about it.
+    static let apiSessionDidExpire = Notification.Name("NativeAppTemplate.apiSessionDidExpire")
+}
+
+extension Notification {
+    static let authTokenKey = "authToken"
 }

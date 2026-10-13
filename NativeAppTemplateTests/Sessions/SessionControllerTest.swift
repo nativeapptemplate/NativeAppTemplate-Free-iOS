@@ -78,4 +78,81 @@ struct SessionControllerTest {
 
         #expect(URLCache.shared.cachedResponse(for: request) == nil)
     }
+
+    // MARK: - Expired session
+
+    /// A signed-in SessionController listening on its own NotificationCenter, so
+    /// notices from other tests can't reach it
+    private func signedInSessionController(
+        token: String,
+        notificationCenter: NotificationCenter
+    ) throws -> (SessionController, TestLoginRepository) {
+        let loginRepository = TestLoginRepository()
+        loginRepository.currentShopkeeper = try #require(Shopkeeper(
+            id: "shopkeeper-1",
+            accountId: "account-1",
+            personalAccountId: "account-1",
+            accountOwnerId: "shopkeeper-1",
+            accountName: "Account",
+            email: "test@example.com",
+            name: "Test User",
+            timeZone: "Tokyo",
+            locale: "en",
+            uid: "test@example.com",
+            token: token,
+            client: "client-1",
+            expiry: "expiry-1"
+        ))
+        let sessionController = SessionController(
+            loginRepository: loginRepository,
+            monitorsConnection: false,
+            notificationCenter: notificationCenter
+        )
+        return (sessionController, loginRepository)
+    }
+
+    /// Every request fails once the token has expired, so the app signs out
+    /// locally and says why
+    @Test
+    func expiredTokenSignsOut() throws {
+        let notificationCenter = NotificationCenter()
+        let (sessionController, loginRepository) = try signedInSessionController(
+            token: "token-1",
+            notificationCenter: notificationCenter
+        )
+        #expect(sessionController.isLoggedIn)
+
+        notificationCenter.post(
+            name: .apiSessionDidExpire,
+            object: nil,
+            userInfo: [Notification.authTokenKey: "token-1"]
+        )
+
+        #expect(!sessionController.isLoggedIn)
+        #expect(sessionController.shopkeeper == nil)
+        // The saved session is gone too, so the next launch starts signed out
+        #expect(loginRepository.currentShopkeeper == nil)
+        #expect(sessionController.didExpireSession)
+    }
+
+    /// A 401 for a token this session no longer uses (a request sent before the
+    /// user signed in again) is not about the current session
+    @Test
+    func expiryOfAnotherTokenKeepsTheSession() throws {
+        let notificationCenter = NotificationCenter()
+        let (sessionController, loginRepository) = try signedInSessionController(
+            token: "token-2",
+            notificationCenter: notificationCenter
+        )
+
+        notificationCenter.post(
+            name: .apiSessionDidExpire,
+            object: nil,
+            userInfo: [Notification.authTokenKey: "old-token"]
+        )
+
+        #expect(sessionController.isLoggedIn)
+        #expect(loginRepository.currentShopkeeper != nil)
+        #expect(!sessionController.didExpireSession)
+    }
 }

@@ -83,12 +83,12 @@ final class TestHTTPServer: @unchecked Sendable {
     }
 
     /// An API client whose requests go to this server
-    func client(accountId: String = "account-id") -> NativeAppTemplateAPI {
+    func client(accountId: String = "account-id", authToken: String = "token") -> NativeAppTemplateAPI {
         NativeAppTemplateAPI(
             // NativeAppTemplateEnvironment.swift is also compiled into the test target
             environment: NativeAppTemplate
                 .NativeAppTemplateEnvironment(baseURL: URL(string: "http://127.0.0.1:\(port)")!),
-            authToken: "token",
+            authToken: authToken,
             client: "client",
             expiry: "expiry",
             uid: "uid",

@@ -34,10 +34,11 @@ enum JSONAPIFixtures {
         currentPage: Int,
         totalPages: Int,
         totalCount: Int? = nil,
-        limit: Int = 20
+        limit: Int = 20,
+        shopId: String = "shop-1"
     ) -> [String: Any] {
         [
-            "data": ids.map { itemTag(id: $0) },
+            "data": ids.map { itemTag(id: $0, shopId: shopId) },
             "meta": [
                 "current_page": currentPage,
                 "total_pages": totalPages,

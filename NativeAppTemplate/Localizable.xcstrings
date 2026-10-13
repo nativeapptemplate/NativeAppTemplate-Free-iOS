@@ -1019,6 +1019,16 @@
         }
       }
     },
+    "Session Expired" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セッションの有効期限切れ"
+          }
+        }
+      }
+    },
     "Settings" : {
       "localizations" : {
         "ja" : {
@@ -1425,6 +1435,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@へようこそ"
+          }
+        }
+      }
+    },
+    "Your session has expired. Please sign in again." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セッションの有効期限が切れました。もう一度サインインしてください。"
           }
         }
       }

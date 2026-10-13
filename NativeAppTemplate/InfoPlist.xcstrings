@@ -36,6 +36,24 @@
           }
         }
       }
+    },
+    "NSLocalNetworkUsageDescription" : {
+      "comment" : "Privacy - Local Network Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connects to a NativeAppTemplate API server running on your local network during development."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開発中に、ローカルネットワーク上で動作している NativeAppTemplate API サーバーに接続します。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

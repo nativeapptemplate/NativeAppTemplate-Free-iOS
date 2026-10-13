@@ -34,6 +34,33 @@ struct UtilityTest {
         #expect(Utility.currentTimeZone(timeZone, date: date) == expected)
     }
 
+    /// A city that is only part of a zone's name at another offset must not pick
+    /// that zone. The expected key is the first at the device's standard offset in
+    /// TimeZoneData.swift, as none at that offset contains the city:
+    /// - Australia/West is +08:00 ("West" is in International Date Line West, -12:00);
+    ///   the first +08:00 zone is Beijing
+    /// - Pacific/Easter (Easter Island) is -06:00 ("Easter" is in Eastern Time, -05:00);
+    ///   the first -06:00 zone is Central America
+    /// - America/Indiana/Petersburg is -05:00 ("Petersburg" is in St. Petersburg, +03:00);
+    ///   the first -05:00 zone is Bogota
+    @Test(arguments: [
+        ("Australia/West", "Beijing"),
+        ("Pacific/Easter", "Central America"),
+        ("America/Indiana/Petersburg", "Bogota")
+    ])
+    func currentTimeZoneIgnoresACityInAZoneAtAnotherOffset(identifier: String, expected: String) throws {
+        let timeZone = try #require(TimeZone(identifier: identifier))
+        #expect(Utility.currentTimeZone(timeZone, date: Self.winter) == expected)
+    }
+
+    /// Part of a name still picks the zone when it is at the device's offset:
+    /// Atlantic/Cape_Verde (-01:00) is "Cape Verde Is." (-01:00) in the table
+    @Test
+    func currentTimeZoneMatchesPartOfANameAtTheSameOffset() throws {
+        let timeZone = try #require(TimeZone(identifier: "Atlantic/Cape_Verde"))
+        #expect(Utility.currentTimeZone(timeZone, date: Self.winter) == "Cape Verde Is.")
+    }
+
     /// New York is not in the table, so the zone falls back to the offset.
     /// That must be its standard offset, -05:00 (America/New_York's base UTC
     /// offset), not the summer offset -04:00, which is Atlantic Time.

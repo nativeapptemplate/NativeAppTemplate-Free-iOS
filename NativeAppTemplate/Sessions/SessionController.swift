@@ -14,6 +14,8 @@ import Observation
     private(set) var permissionState: PermissionState = .notLoaded
     private(set) var didFetchPermissions = false
     var shouldPopToRootView = false
+    /// Set when the API rejected the session's token and the app signed out
+    var didExpireSession = false
 
     var shouldUpdateApp = false
     var shouldUpdatePrivacy = false
@@ -36,6 +38,13 @@ import Observation
             } else {
                 userState = .notLoggedIn
                 permissionState = .notLoaded
+                // These were the signed-out shopkeeper's; the next one's are fetched
+                // on sign-in, so none of them may show meanwhile
+                didFetchPermissions = false
+                shouldUpdateApp = false
+                shouldUpdatePrivacy = false
+                shouldUpdateTerms = false
+                shopLimitCount = 0
                 // URLSession.api keeps no cache, but versions before it used
                 // URLCache.shared, which holds their API responses on disk
                 URLCache.shared.removeAllCachedResponses()
@@ -50,6 +59,9 @@ import Observation
     private let connectionMonitor = NWPathMonitor()
     private(set) var permissionsService: PermissionsService
     private(set) var meService: MeService
+    private let notificationCenter: NotificationCenter
+    /// Removed in deinit, which is nonisolated
+    @ObservationIgnored private nonisolated(unsafe) var sessionExpiryObserver: (any NSObjectProtocol)?
 
     var isLoggedIn: Bool {
         userState == .loggedIn
@@ -68,13 +80,16 @@ import Observation
     ///   - monitorsConnection: Starts `NWPathMonitor`; tests pass `false` and call
     ///     `connectionChanged(to:)` themselves, so no permission requests go out on their own.
     ///   - environment: The API the client talks to. Tests point it at a local server.
+    ///   - notificationCenter: Where `Service` announces `.apiSessionDidExpire`
     init(
         loginRepository: LoginRepositoryProtocol,
         monitorsConnection: Bool = true,
-        environment: NativeAppTemplateEnvironment = .prod
+        environment: NativeAppTemplateEnvironment = .prod,
+        notificationCenter: NotificationCenter = .default
     ) {
         self.loginRepository = loginRepository
         self.environment = environment
+        self.notificationCenter = notificationCenter
 
         let shopkeeper = loginRepository.currentShopkeeper
         let client = Self.makeClient(shopkeeper: shopkeeper, environment: environment)
@@ -85,6 +100,25 @@ import Observation
         if monitorsConnection {
             prepareConnectionMonitor()
         }
+
+        // Service posts on the main actor, and a nil queue runs this at once, so the
+        // session is gone before the failed request's caller sees its error
+        sessionExpiryObserver = notificationCenter.addObserver(
+            forName: .apiSessionDidExpire,
+            object: nil,
+            queue: nil
+        ) { [weak self] notification in
+            let authToken = notification.userInfo?[Notification.authTokenKey] as? String
+            MainActor.assumeIsolated {
+                self?.sessionDidExpire(authToken: authToken)
+            }
+        }
+    }
+
+    deinit {
+        if let sessionExpiryObserver {
+            notificationCenter.removeObserver(sessionExpiryObserver)
+        }
     }
 
     func login(email: String, password: String) async throws {
@@ -94,6 +128,7 @@ import Observation
 
         do {
             shopkeeper = try await loginRepository.login(email: email, password: password)
+            didExpireSession = false
             Event
                 .login(from: Self.self)
                 .log()
@@ -131,6 +166,22 @@ import Observation
         }
     }
 
+    /// The API rejected `authToken` (see `.apiSessionDidExpire`). When that is this
+    /// session's token, every further request would fail too, so sign out here: the
+    /// server has no session left to destroy, and the user signs in again.
+    func sessionDidExpire(authToken: String?) {
+        guard isLoggedIn, let authToken, authToken == client.authToken else { return }
+
+        Failure
+            .logout(from: Self.self, reason: "The API rejected the session's token")
+            .log()
+
+        shouldPopToRootView = true
+        try? loginRepository.updateShopkeeper(shopkeeper: nil)
+        shopkeeper = nil
+        didExpireSession = true
+    }
+
     func fetchPermissionsIfNeeded() {
         guard !hasPermissions else { return }
 
@@ -159,15 +210,16 @@ import Observation
                 // Check that we have a logged in user. Otherwise this is pointless
                 guard let shopkeeper = self.shopkeeper else { return }
 
-                // Update the user
-                self.shopkeeper = shopkeeper
                 // Ensure loginRepository is aware, and hence the keychain is updated
-                try self.loginRepository.updateShopkeeper(shopkeeper: self.shopkeeper)
+                try self.loginRepository.updateShopkeeper(shopkeeper: shopkeeper)
 
                 shouldUpdateApp = Int(Bundle.main.appBuild)! < permissionsResponse.iosAppVersion
                 shouldUpdatePrivacy = permissionsResponse.shouldUpdatePrivacy
                 shouldUpdateTerms = permissionsResponse.shouldUpdateTerms
                 shopLimitCount = permissionsResponse.shopLimitCount
+                // Set here, not by reassigning shopkeeper: its didSet saw the old
+                // shopLimitCount (0 on the first fetch) and requested them again
+                permissionState = .loaded
 
                 didFetchPermissions = true
 
@@ -177,6 +229,9 @@ import Observation
                 Failure
                     .fetch(from: Permissions.self, reason: error.codedDescription)
                     .log()
+
+                // An expired session has signed out already; that is not a permissions error
+                guard isLoggedIn else { return }
 
                 self.permissionState = .error
             }

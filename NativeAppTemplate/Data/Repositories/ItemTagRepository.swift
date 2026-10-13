@@ -12,6 +12,11 @@ import SwiftUI
     var state: DataState = .initial
     var paginationMeta: PaginationMeta?
     var isLoadingMore = false
+    /// The shop whose pages are on screen or loading
+    private var listedShopId: String?
+    /// Bumped by every reloadPage, so a page that arrives after another one was
+    /// asked for (the user opened another shop meanwhile) is dropped
+    private var listGeneration = 0
 
     required init(itemTagsService: ItemTagsService) {
         self.itemTagsService = itemTagsService
@@ -26,7 +31,8 @@ import SwiftUI
             return
         }
 
-        if state == .loading {
+        // A reload of this shop is already on its way
+        if state == .loading, listedShopId == shopId {
             return
         }
 
@@ -37,15 +43,24 @@ import SwiftUI
             paginationMeta = nil
         }
 
+        // A next page still loading belongs to the old list and will be dropped
+        isLoadingMore = false
+        listedShopId = shopId
+        listGeneration += 1
+        let generation = listGeneration
         state = .loading
 
         Task { @MainActor in
             do {
                 let response = try await itemTagsService.allItemTags(shopId: shopId, page: page)
+                guard generation == listGeneration else { return }
+
                 itemTags = response.itemTags
                 paginationMeta = response.paginationMeta
                 state = .hasData
             } catch {
+                guard generation == listGeneration else { return }
+
                 state = .failed
                 Failure
                     .fetch(from: Self.self, reason: error.codedDescription)
@@ -62,10 +77,14 @@ import SwiftUI
         }
 
         isLoadingMore = true
+        let generation = listGeneration
 
         Task { @MainActor in
             do {
                 let response = try await itemTagsService.allItemTags(shopId: shopId, page: meta.currentPage + 1)
+                // The list was reloaded (or another shop opened) meanwhile
+                guard generation == listGeneration else { return }
+
                 // A list that shifted since the last page can repeat tags already
                 // listed; keep the first occurrence so each id appears once, in order
                 let listedIds = Set(itemTags.map(\.id))
@@ -76,6 +95,7 @@ import SwiftUI
                     .fetch(from: Self.self, reason: error.codedDescription)
                     .log()
             }
+            guard generation == listGeneration else { return }
 
             isLoadingMore = false
         }

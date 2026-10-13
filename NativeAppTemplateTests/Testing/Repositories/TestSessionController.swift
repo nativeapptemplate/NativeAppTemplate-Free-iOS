@@ -14,6 +14,7 @@ import Foundation
     public var permissionState: PermissionState = .notLoaded
 
     public var shouldPopToRootView: Bool = false
+    public var didExpireSession: Bool = false
 
     public var shouldUpdateApp: Bool = false
     public var shouldUpdatePrivacy: Bool = false

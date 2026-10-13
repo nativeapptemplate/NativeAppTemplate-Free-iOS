@@ -297,6 +297,8 @@ enum Strings {
     static let signInToYourAccount = String(localized: "Sign In to Your Account")
     static let email = String(localized: "Email")
     static let password = String(localized: "Password")
+    static let sessionExpired = String(localized: "Session Expired")
+    static let sessionExpiredDescription = String(localized: "Your session has expired. Please sign in again.")
 
     static var welcomeToApp: String {
         String(localized: "Welcome to \(appName)")

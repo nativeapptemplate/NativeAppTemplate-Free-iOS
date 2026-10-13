@@ -32,6 +32,9 @@ protocol SessionControllerProtocol: AnyObject, Observable, Sendable {
     var permissionState: PermissionState { get }
 
     var shouldPopToRootView: Bool { get set }
+    /// True once the API rejected the session's token and the app signed out;
+    /// MainView tells the user and resets it
+    var didExpireSession: Bool { get set }
 
     var shouldUpdateApp: Bool { get set }
     var shouldUpdatePrivacy: Bool { get set }

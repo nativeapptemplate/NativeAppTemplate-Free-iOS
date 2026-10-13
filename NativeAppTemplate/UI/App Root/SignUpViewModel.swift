@@ -9,6 +9,10 @@ import SwiftUI
 @Observable
 @MainActor
 final class SignUpViewModel {
+    /// The password field's content type. `.newPassword` lets iOS suggest a strong
+    /// password and save it with the email; `.password` offers only saved passwords.
+    static let passwordContentType: UITextContentType = .newPassword
+
     var name = ""
     var email = ""
     var password = ""
