@@ -54,7 +54,10 @@ extension NativeAppTemplateAPI {
             ("client", client),
             ("expiry", expiry),
             ("uid", uid),
-            ("source", "ios")
+            Self.sourceHeader
         ]
     }
+
+    /// The platform the request comes from
+    nonisolated static let sourceHeader: HTTPHeader = ("source", "ios")
 }
