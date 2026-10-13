@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ShopSettingsViewModelTest {
     var shops: [Shop] {
         [

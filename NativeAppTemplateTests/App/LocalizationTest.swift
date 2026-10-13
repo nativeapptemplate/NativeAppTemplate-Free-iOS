@@ -10,7 +10,6 @@ import Testing
 /// The app ships in English and Japanese. Every string catalog key must have a
 /// Japanese translation, so a string added without one fails here instead of
 /// showing up in English on a Japanese device.
-@Suite
 struct LocalizationTest {
     /// The catalog tests read the .xcstrings sources from the Mac through #filePath,
     /// which a simulator can do and a device cannot. They run on the simulator (and CI);

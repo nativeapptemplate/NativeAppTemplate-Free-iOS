@@ -7,7 +7,6 @@ import Foundation
 @testable import NativeAppTemplate
 import Testing
 
-@Suite
 struct APIEndpointTest {
     let info: [String: Any] = [
         "NativeAppTemplateAPIScheme": "http",

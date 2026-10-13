@@ -16,8 +16,14 @@ public final class TestLoginRepository: LoginRepositoryProtocol {
 
     public init() {}
 
+    /// Thrown by `login` when set
+    public var loginError: Error?
+
     public func login(email: String, password: String) async throws -> Shopkeeper {
         loginCalled = true
+        if let loginError {
+            throw loginError
+        }
 
         guard let shopkeeper = Shopkeeper(
             id: UUID().uuidString,

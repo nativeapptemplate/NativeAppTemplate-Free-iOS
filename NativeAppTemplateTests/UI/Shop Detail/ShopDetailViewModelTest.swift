@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ShopDetailViewModelTest { // swiftlint:disable:this type_body_length
     var shops: [Shop] {
         [

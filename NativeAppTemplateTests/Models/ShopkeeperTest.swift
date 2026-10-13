@@ -42,7 +42,7 @@ struct ShopkeeperTest {
         #expect(shopkeeperDictionary["expiry"] == shopkeeper.expiry)
     }
 
-    func shopkeeperDictionaryHasRequiredFields() {
+    @Test func shopkeeperDictionaryHasRequiredFields() {
         var invalidDictionary = shopkeeperDictionary
         invalidDictionary.removeValue(forKey: "id")
         let shopkeeper = Shopkeeper(dictionary: invalidDictionary)
@@ -50,7 +50,7 @@ struct ShopkeeperTest {
         #expect(shopkeeper == nil)
     }
 
-    func additionalEntriesInTheDictionaryAreIgnored() {
+    @Test func additionalEntriesInTheDictionaryAreIgnored() {
         var overSpecifiedDictionary = shopkeeperDictionary
         overSpecifiedDictionary["extra_field"] = "some-guff"
         let shopkeeper = Shopkeeper(dictionary: overSpecifiedDictionary)

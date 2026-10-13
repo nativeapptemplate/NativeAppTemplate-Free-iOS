@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ShopCreateViewModelTest {
     let shopRepository = TestShopRepository(
         shopsService: ShopsService()
@@ -213,8 +212,8 @@ struct ShopCreateViewModelTest {
             messageBus: messageBus
         )
 
-        #expect(viewModel.name == "")
-        #expect(viewModel.description == "")
+        #expect(viewModel.name.isEmpty)
+        #expect(viewModel.description.isEmpty)
         #expect(viewModel.selectedTimeZone == Utility.currentTimeZone())
         #expect(viewModel.shouldDismiss == false)
     }

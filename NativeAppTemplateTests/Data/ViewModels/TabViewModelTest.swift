@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct TabViewModelTest {
     @Test
     func initialState() {

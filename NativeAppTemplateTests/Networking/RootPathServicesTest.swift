@@ -131,4 +131,76 @@ struct RootPathServicesTest {
         // server.client() is signed in, so the session headers go along
         #expect(server.requests.first?.headers["access-token"] == "token")
     }
+
+    // MARK: - Where RootPathService differs from Service (characterization)
+
+    /// A JSON error body without error_message has no message, as in Service
+    @Test
+    func errorStatusWithoutErrorMessageHasNoMessage() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 422, ["errors": ["Email has already been taken"]])
+        }
+        defer { server.stop() }
+
+        let error = try await requestFailed {
+            _ = try await SignUpsService(networkClient: signedOut(server))
+                .sendConfirmationInstruction(sendConfirmation: SendConfirmation(email: "a@example.com"))
+        }
+
+        guard case let .requestFailed(_, statusCode, message) = error else {
+            Issue.record("Expected requestFailed, got \(error)")
+            return
+        }
+        #expect(statusCode == 422)
+        #expect(message == nil)
+    }
+
+    /// Unlike Service, RootPathService does not announce devise_token_auth's 401
+    /// (no error_message) as an expired session, even when signed in: e.g.
+    /// SessionController's locale sync (SignUpsService.updateLocale, PATCH
+    /// /shopkeeper_auth) with a rejected token does not sign out.
+    /// The body is devise_token_auth's, as in ServiceTest.
+    @Test
+    func rejectedTokenIsNotAnnouncedAsAnExpiredSession() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 401, ["errors": ["You need to sign in or sign up before continuing."]])
+        }
+        defer { server.stop() }
+        let token = "expired-\(UUID().uuidString)"
+
+        var error: NativeAppTemplateAPIError?
+        let tokens = await expiredSessionTokens {
+            error = try? await requestFailed {
+                _ = try await SignUpsService(networkClient: server.client(authToken: token)).updateLocale("ja")
+            }
+        }
+
+        #expect(!tokens.contains(token))
+        guard case let .requestFailed(_, statusCode, _) = error else {
+            Issue.record("Expected requestFailed, got \(String(describing: error))")
+            return
+        }
+        #expect(statusCode == 401)
+    }
+
+    /// RootPathService.prepare builds the URL from the path alone: a request's
+    /// query items are dropped (Service adds them). No devise_token_auth request has any.
+    @Test
+    func queryItemsAreNotSent() throws {
+        let baseURL = try #require(URL(string: "http://127.0.0.1:1"))
+        let client = NativeAppTemplateAPI(
+            environment: NativeAppTemplate.NativeAppTemplateEnvironment(baseURL: baseURL),
+            authToken: "",
+            client: "",
+            expiry: "",
+            uid: "",
+            accountId: "account-id"
+        )
+
+        // GetItemTagsRequest.queryItems is [page=2]
+        let urlRequest = try SessionsService(networkClient: client)
+            .prepare(request: GetItemTagsRequest(shopId: "shop-1", page: 2))
+
+        #expect(urlRequest.url?.absoluteString == "http://127.0.0.1:1/shopkeeper/shops/shop-1/item_tags")
+    }
 }

@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct SignInEmailAndPasswordViewModelTest {
     let sessionController = TestSessionController()
     let messageBus = MessageBus()
@@ -20,8 +19,8 @@ struct SignInEmailAndPasswordViewModelTest {
             messageBus: messageBus
         )
 
-        #expect(viewModel.email == "")
-        #expect(viewModel.password == "")
+        #expect(viewModel.email.isEmpty)
+        #expect(viewModel.password.isEmpty)
         #expect(viewModel.isLoggingIn == false)
     }
 

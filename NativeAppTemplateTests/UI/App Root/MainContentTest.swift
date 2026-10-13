@@ -12,7 +12,6 @@ import Testing
 /// then terms, then permissions, then the connection, then rebuilding, then the
 /// required app update.
 @MainActor
-@Suite
 struct MainContentTest {
     let sessionController = TestSessionController()
 

@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ItemTagDetailViewModelTest {
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
@@ -257,7 +256,7 @@ struct ItemTagDetailViewModelTest {
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
         #expect(messageBus.currentMessage?.message == Strings.itemTagDeleted)
-        #expect(itemTagRepository.itemTags.count == 0)
+        #expect(itemTagRepository.itemTags.isEmpty)
     }
 
     @Test

@@ -47,7 +47,7 @@ import Observation
                 shopLimitCount = 0
                 // URLSession.api keeps no cache, but versions before it used
                 // URLCache.shared, which holds their API responses on disk
-                URLCache.shared.removeAllCachedResponses()
+                urlCache.removeAllCachedResponses()
             }
         }
     }
@@ -60,6 +60,8 @@ import Observation
     private(set) var permissionsService: PermissionsService
     private(set) var meService: MeService
     private let notificationCenter: NotificationCenter
+    /// Emptied on sign-out; URLCache.shared outside tests
+    let urlCache: URLCache
     /// Removed in deinit, which is nonisolated
     @ObservationIgnored private nonisolated(unsafe) var sessionExpiryObserver: (any NSObjectProtocol)?
 
@@ -81,15 +83,19 @@ import Observation
     ///     `connectionChanged(to:)` themselves, so no permission requests go out on their own.
     ///   - environment: The API the client talks to. Tests point it at a local server.
     ///   - notificationCenter: Where `Service` announces `.apiSessionDidExpire`
+    ///   - urlCache: The cache emptied on sign-out. Tests pass their own, so another
+    ///     test's sign-out can't empty it meanwhile.
     init(
         loginRepository: LoginRepositoryProtocol,
         monitorsConnection: Bool = true,
         environment: NativeAppTemplateEnvironment = .prod,
-        notificationCenter: NotificationCenter = .default
+        notificationCenter: NotificationCenter = .default,
+        urlCache: URLCache = .shared
     ) {
         self.loginRepository = loginRepository
         self.environment = environment
         self.notificationCenter = notificationCenter
+        self.urlCache = urlCache
 
         let shopkeeper = loginRepository.currentShopkeeper
         let client = Self.makeClient(shopkeeper: shopkeeper, environment: environment)

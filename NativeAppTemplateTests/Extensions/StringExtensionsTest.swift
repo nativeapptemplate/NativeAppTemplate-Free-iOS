@@ -28,6 +28,13 @@ struct StringExtensionsTest {
         ("@domain.com", false),
         ("user@", false),
         ("user@.com", false),
+        // Moved from the ForgotPassword/ResendConfirmation ViewModel tests, which
+        // checked String directly instead of the ViewModels
+        ("user+tag@domain.co.uk", true),
+        ("user@subdomain.domain.org", true),
+        ("123@domain.com", true),
+        ("user.domain.com", false),
+        ("user space@domain.com", false),
     ])
     func isValidEmail(email: String, expected: Bool) {
         #expect(email.isValidEmail == expected)

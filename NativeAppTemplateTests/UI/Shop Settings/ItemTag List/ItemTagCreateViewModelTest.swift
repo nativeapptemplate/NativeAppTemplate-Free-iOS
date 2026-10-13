@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ItemTagCreateViewModelTest {
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
@@ -24,8 +23,8 @@ struct ItemTagCreateViewModelTest {
             shopId: shopId
         )
 
-        #expect(viewModel.name == "")
-        #expect(viewModel.description == "")
+        #expect(viewModel.name.isEmpty)
+        #expect(viewModel.description.isEmpty)
         #expect(viewModel.isCreating == false)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.isBusy == false)
@@ -173,7 +172,7 @@ struct ItemTagCreateViewModelTest {
         #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
-        #expect(itemTagRepository.itemTags.count == 0)
+        #expect(itemTagRepository.itemTags.isEmpty)
     }
 
     @Test

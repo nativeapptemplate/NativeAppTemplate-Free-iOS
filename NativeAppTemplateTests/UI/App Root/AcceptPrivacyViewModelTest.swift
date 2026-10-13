@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct AcceptPrivacyViewModelTest {
     let sessionController = TestSessionController()
     let messageBus = MessageBus()
