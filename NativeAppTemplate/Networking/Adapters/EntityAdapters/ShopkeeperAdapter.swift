@@ -5,12 +5,8 @@
 
 import Foundation
 
-struct ShopkeeperAdapter: EntityAdapter {
-    static func process(
-        resource: JSONAPIResource,
-        relationships: [EntityRelationship] = [],
-        cacheUpdate: DataCacheUpdate = DataCacheUpdate()
-    ) throws -> Shopkeeper {
+enum ShopkeeperAdapter {
+    static func process(resource: JSONAPIResource) throws -> Shopkeeper {
         guard resource.entityType == .shopkeeper else {
             throw EntityAdapterError.invalidResourceTypeForAdapter
         }

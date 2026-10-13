@@ -12,7 +12,6 @@
 		0106414029A9F2EC00B46FED /* AccountPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106413F29A9F2EC00B46FED /* AccountPasswordService.swift */; };
 		0106414229A9F51700B46FED /* AccountPasswordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106414129A9F51700B46FED /* AccountPasswordRepository.swift */; };
 		0106414429AA061100B46FED /* PasswordEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106414329AA061100B46FED /* PasswordEditView.swift */; };
-		010A30A528A4A285001D6BD1 /* DataCacheUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A30A428A4A285001D6BD1 /* DataCacheUpdate.swift */; };
 		010F86AE2621A2A900B6C62A /* ShopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F86AD2621A2A900B6C62A /* ShopDetailView.swift */; };
 		010F86BE2622F9C900B6C62A /* ShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F86BD2622F9C900B6C62A /* ShopListView.swift */; };
 		0110A15F2AC816F5003EDCBA /* SendConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */; };
@@ -36,7 +35,6 @@
 		0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */; };
 		015C78052B72DA2C00B6523C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */; };
 		0172033725A9642E008FD63B /* JSONAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030825A9642D008FD63B /* JSONAPIResource.swift */; };
-		0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */; };
 		0172033A25A9642E008FD63B /* JSONAPIDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030B25A9642E008FD63B /* JSONAPIDocument.swift */; };
 		0172033C25A9642E008FD63B /* NativeAppTemplateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */; };
 		0172033D25A9642E008FD63B /* NativeAppTemplateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */; };
@@ -167,7 +165,6 @@
 		0106413F29A9F2EC00B46FED /* AccountPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordService.swift; sourceTree = "<group>"; };
 		0106414129A9F51700B46FED /* AccountPasswordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordRepository.swift; sourceTree = "<group>"; };
 		0106414329AA061100B46FED /* PasswordEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditView.swift; sourceTree = "<group>"; };
-		010A30A428A4A285001D6BD1 /* DataCacheUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCacheUpdate.swift; sourceTree = "<group>"; };
 		010F86AD2621A2A900B6C62A /* ShopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailView.swift; sourceTree = "<group>"; };
 		010F86BD2622F9C900B6C62A /* ShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListView.swift; sourceTree = "<group>"; };
 		0110A15E2AC816F5003EDCBA /* SendConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmation.swift; sourceTree = "<group>"; };
@@ -194,7 +191,6 @@
 		0158BA0025C174E0008EC9D5 /* ShopsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsRequest.swift; sourceTree = "<group>"; };
 		015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0172030825A9642D008FD63B /* JSONAPIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIResource.swift; sourceTree = "<group>"; };
-		0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIRelationship.swift; sourceTree = "<group>"; };
 		0172030B25A9642E008FD63B /* JSONAPIDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPIDocument.swift; sourceTree = "<group>"; };
 		0172030E25A9642E008FD63B /* NativeAppTemplateAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateAPI.swift; sourceTree = "<group>"; };
 		0172030F25A9642E008FD63B /* NativeAppTemplateEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAppTemplateEnvironment.swift; sourceTree = "<group>"; };
@@ -465,7 +461,6 @@
 			isa = PBXGroup;
 			children = (
 				0172030B25A9642E008FD63B /* JSONAPIDocument.swift */,
-				0172030A25A9642E008FD63B /* JSONAPIRelationship.swift */,
 				0172030825A9642D008FD63B /* JSONAPIResource.swift */,
 			);
 			path = JSONAPI;
@@ -497,7 +492,6 @@
 		0172031F25A9642E008FD63B /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
-				010A30A428A4A285001D6BD1 /* DataCacheUpdate.swift */,
 				0172032025A9642E008FD63B /* EntityAdapter.swift */,
 				0172032225A9642E008FD63B /* EntityAdapters */,
 			);
@@ -900,9 +894,7 @@
 				01B9E45228A5070D00CAC681 /* ShopkeeperSignInAdapter.swift in Sources */,
 				0172040025AA6775008FD63B /* LoginRepository.swift in Sources */,
 				0172034B25A9642E008FD63B /* EntityAdapter.swift in Sources */,
-				010A30A528A4A285001D6BD1 /* DataCacheUpdate.swift in Sources */,
 				01E0A60C25BD440300298D35 /* SignInEmailAndPasswordView.swift in Sources */,
-				0172033925A9642E008FD63B /* JSONAPIRelationship.swift in Sources */,
 				01B526562AF4E82A00655131 /* ScrollToTopID.swift in Sources */,
 				7249A60C06FE44338E16BC50 /* APISessionDelegate.swift in Sources */,
 				0172033C25A9642E008FD63B /* NativeAppTemplateAPI.swift in Sources */,
