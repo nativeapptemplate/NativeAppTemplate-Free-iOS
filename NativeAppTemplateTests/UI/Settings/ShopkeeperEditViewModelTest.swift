@@ -10,7 +10,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
     let signUpRepository = TestSignUpRepository()
     let sessionController = TestSessionController()
@@ -236,6 +235,11 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
+        // The edited fields go to the repository
+        #expect(signUpRepository.updateCalled)
+        #expect(signUpRepository.lastSignUp?.name == "Updated Name")
+        #expect(signUpRepository.lastSignUp?.email == "updated@example.com")
+        #expect(signUpRepository.lastSignUp?.timeZone == "Osaka")
     }
 
     @Test
@@ -324,13 +328,16 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         )
 
         viewModel.name = "  Updated Name  "
-        viewModel.email = "  updated@example.com  "
+        viewModel.email = "  updated@example.com\n"
 
         viewModel.updateShopkeeper()
         await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage?.level == .success)
+        // Without the surrounding whitespace and newlines
+        #expect(signUpRepository.lastSignUp?.name == "Updated Name")
+        #expect(signUpRepository.lastSignUp?.email == "updated@example.com")
     }
 
     @Test
@@ -356,6 +363,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(messageBus.currentMessage?.level == .success)
         #expect(messageBus.currentMessage?.message == Strings.shopkeeperDeleted)
         #expect(sessionController.shopkeeper == nil)
+        #expect(signUpRepository.destroyCalled)
     }
 
     @Test

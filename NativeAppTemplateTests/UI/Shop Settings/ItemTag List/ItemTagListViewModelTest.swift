@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ItemTagListViewModelTest {
     var itemTags: [ItemTag] {
         [

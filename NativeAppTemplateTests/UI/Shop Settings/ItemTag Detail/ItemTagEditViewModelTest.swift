@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ItemTagEditViewModelTest {
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
@@ -38,8 +37,8 @@ struct ItemTagEditViewModelTest {
             itemTagId: itemTagId
         )
 
-        #expect(viewModel.name == "")
-        #expect(viewModel.description == "")
+        #expect(viewModel.name.isEmpty)
+        #expect(viewModel.description.isEmpty)
         #expect(viewModel.isFetching == true)
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)

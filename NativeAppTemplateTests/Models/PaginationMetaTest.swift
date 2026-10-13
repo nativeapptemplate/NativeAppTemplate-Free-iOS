@@ -6,7 +6,6 @@
 @testable import NativeAppTemplate
 import Testing
 
-@Suite
 struct PaginationMetaTest {
     @Test
     func initWithValues() {

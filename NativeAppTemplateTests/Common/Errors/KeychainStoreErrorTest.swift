@@ -7,7 +7,6 @@
 import Foundation
 import Testing
 
-@Suite
 struct KeychainStoreErrorTest {
     @Test
     func errorCodes() {

@@ -9,7 +9,6 @@ import Testing
 import UIKit
 
 /// Checks the built app's Info.plist (Bundle.main is the app the tests are hosted in)
-@Suite
 struct InfoPlistTest {
     /// Without NSLocalNetworkUsageDescription, iOS denied the app local network
     /// access to a development API server on the LAN (NSURLErrorNotConnectedToInternet,

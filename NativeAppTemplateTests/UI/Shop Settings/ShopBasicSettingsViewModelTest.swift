@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct ShopBasicSettingsViewModelTest {
     var shops: [Shop] {
         [
@@ -52,7 +51,7 @@ struct ShopBasicSettingsViewModelTest {
         await waitUntil { !viewModel.isFetching }
 
         viewModel.name = name
-        #expect(viewModel.hasInvalidData == (name == "" ? true : false))
+        #expect(viewModel.hasInvalidData == name.isEmpty)
     }
 
     @Test("Has invalid data when inputting all same data", arguments: ["Shop 1", "New Shop 1"])

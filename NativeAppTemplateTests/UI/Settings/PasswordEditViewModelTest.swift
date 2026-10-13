@@ -9,7 +9,6 @@ import Testing
 import UIKit
 
 @MainActor
-@Suite
 struct PasswordEditViewModelTest {
     let accountPasswordRepository = TestAccountPasswordRepository(
         accountPasswordService: AccountPasswordService()
@@ -32,9 +31,9 @@ struct PasswordEditViewModelTest {
             messageBus: messageBus
         )
 
-        #expect(viewModel.currentPassword == "")
-        #expect(viewModel.password == "")
-        #expect(viewModel.passwordConfirmation == "")
+        #expect(viewModel.currentPassword.isEmpty)
+        #expect(viewModel.password.isEmpty)
+        #expect(viewModel.passwordConfirmation.isEmpty)
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.isBusy == false)
@@ -130,7 +129,7 @@ struct PasswordEditViewModelTest {
     }
 
     @Test
-    func updatePasswordSuccess() async {
+    func updatePasswordSuccess() async throws {
         let viewModel = PasswordEditViewModel(
             accountPasswordRepository: accountPasswordRepository,
             messageBus: messageBus
@@ -148,6 +147,11 @@ struct PasswordEditViewModelTest {
         #expect(messageBus.currentMessage != nil)
         #expect(messageBus.currentMessage?.level == .success)
         #expect(messageBus.currentMessage?.message == Strings.passwordUpdated)
+        // The three fields, as entered, go to the repository
+        let sent = try #require(accountPasswordRepository.lastUpdatePassword)
+        #expect(sent.currentPassword == "currentpassword")
+        #expect(sent.password == "newpassword")
+        #expect(sent.passwordConfirmation == "newpassword")
     }
 
     @Test
@@ -178,7 +182,7 @@ struct PasswordEditViewModelTest {
     }
 
     @Test
-    func updatePasswordTrimsWhitespace() async {
+    func updatePasswordTrimsWhitespace() async throws {
         let viewModel = PasswordEditViewModel(
             accountPasswordRepository: accountPasswordRepository,
             messageBus: messageBus
@@ -186,13 +190,18 @@ struct PasswordEditViewModelTest {
 
         viewModel.currentPassword = "  currentpassword  "
         viewModel.password = "  newpassword  "
-        viewModel.passwordConfirmation = "  newpassword  "
+        viewModel.passwordConfirmation = "  newpassword\n"
 
         viewModel.updatePassword()
         await waitUntil { messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         #expect(viewModel.shouldDismiss == true)
         #expect(messageBus.currentMessage?.level == .success)
+        // Each field without the surrounding whitespace and newlines
+        let sent = try #require(accountPasswordRepository.lastUpdatePassword)
+        #expect(sent.currentPassword == "currentpassword")
+        #expect(sent.password == "newpassword")
+        #expect(sent.passwordConfirmation == "newpassword")
     }
 
     @Test

@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct SignUpsServiceTest {
     let client = NativeAppTemplateAPI(
         authToken: "token",

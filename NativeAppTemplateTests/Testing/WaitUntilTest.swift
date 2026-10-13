@@ -6,7 +6,6 @@
 import Testing
 
 @MainActor
-@Suite
 struct WaitUntilTest {
     final class Flag {
         var isSet = false

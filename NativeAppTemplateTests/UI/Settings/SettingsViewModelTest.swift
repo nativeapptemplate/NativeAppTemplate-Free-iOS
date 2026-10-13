@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct SettingsViewModelTest {
     let sessionController = TestSessionController()
     let tabViewModel = TabViewModel()

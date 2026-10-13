@@ -109,7 +109,7 @@ final class TestHTTPServer: @unchecked Sendable {
     /// A response whose body is `object` as JSON
     static func json(status: Int = 200, _ object: Any) -> String {
         let data = (try? JSONSerialization.data(withJSONObject: object, options: [.sortedKeys])) ?? Data()
-        return response(status: status, body: String(decoding: data, as: UTF8.self))
+        return response(status: status, body: String(bytes: data, encoding: .utf8) ?? "")
     }
 
     private func handle(_ connection: NWConnection) {
@@ -142,7 +142,7 @@ final class TestHTTPServer: @unchecked Sendable {
         let separator = Data("\r\n\r\n".utf8)
         guard let headerEnd = buffer.range(of: separator) else { return nil }
 
-        let head = String(decoding: buffer[..<headerEnd.lowerBound], as: UTF8.self)
+        guard let head = String(bytes: buffer[..<headerEnd.lowerBound], encoding: .utf8) else { return nil }
         var lines = head.components(separatedBy: "\r\n")
         let requestLine = lines.removeFirst().split(separator: " ")
         guard requestLine.count >= 2 else { return nil }

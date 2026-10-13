@@ -9,7 +9,6 @@ import Testing
 import UIKit
 
 @MainActor
-@Suite
 struct SignUpViewModelTest {
     let signUpRepository = TestSignUpRepository()
     let messageBus = MessageBus()
@@ -29,12 +28,12 @@ struct SignUpViewModelTest {
             messageBus: messageBus
         )
 
-        #expect(viewModel.name == "")
-        #expect(viewModel.email == "")
-        #expect(viewModel.password == "")
+        #expect(viewModel.name.isEmpty)
+        #expect(viewModel.email.isEmpty)
+        #expect(viewModel.password.isEmpty)
         #expect(viewModel.selectedTimeZone == Utility.currentTimeZone())
         #expect(viewModel.isCreating == false)
-        #expect(viewModel.errorMessage == "")
+        #expect(viewModel.errorMessage.isEmpty)
         #expect(viewModel.isShowingAlert == false)
         #expect(viewModel.shouldDismiss == false)
     }
@@ -269,7 +268,7 @@ struct SignUpViewModelTest {
         )
 
         #expect(viewModel.isShowingAlert == false)
-        #expect(viewModel.errorMessage == "")
+        #expect(viewModel.errorMessage.isEmpty)
 
         viewModel.isShowingAlert = true
         viewModel.errorMessage = "Test error message"

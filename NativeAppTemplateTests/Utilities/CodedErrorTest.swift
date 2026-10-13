@@ -7,7 +7,6 @@ import Foundation
 @testable import NativeAppTemplate
 import Testing
 
-@Suite
 struct CodedErrorTest {
     struct TestCodedError: CodedError {
         var errorCode: String { "NATIVEAPPTEMPLATE-9999" }

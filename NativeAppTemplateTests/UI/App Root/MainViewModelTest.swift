@@ -8,7 +8,6 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite
 struct MainViewModelTest {
     let sessionController = TestSessionController()
     let messageBus = MessageBus()

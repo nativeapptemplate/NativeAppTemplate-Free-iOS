@@ -177,4 +177,160 @@ struct SessionControllerPermissionsTest {
         #expect(server.requests.isEmpty)
         #expect(sessionController.permissionState == .notLoaded)
     }
+
+    /// Once the permissions are loaded, the next connection change does not ask
+    /// again (fetchPermissionsIfNeeded)
+    @Test
+    func goingOnlineAgainKeepsTheLoadedPermissions() async throws {
+        let server = try await TestHTTPServer.start { request in
+            request.path.hasSuffix("/shopkeeper/permissions")
+                ? TestHTTPServer.json(["data": [], "meta": Self.meta])
+                : TestHTTPServer.json([String: Any]())
+        }
+        defer { server.stop() }
+        let sessionController = makeSessionController(server: server)
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { sessionController.didFetchPermissions }
+
+        sessionController.connectionChanged(to: .offline)
+        sessionController.connectionChanged(to: .online)
+        // A second request would be sent at once; give it time to arrive
+        try await Task.sleep(for: .milliseconds(500))
+
+        #expect(server.requests.filter { $0.path.hasSuffix("/shopkeeper/permissions") }.count == 1)
+        #expect(sessionController.hasPermissions)
+    }
+
+    /// shouldUpdateApp: the API's ios_app_version is newer than this build's
+    /// CFBundleVersion (`Int(appBuild) < iosAppVersion`)
+    @Test(arguments: [(1, true), (0, false)])
+    func newerAppVersionAsksForAnUpdate(versionsAhead: Int, shouldUpdateApp: Bool) async throws {
+        let build = try #require(Int(Bundle.main.appBuild))
+        var meta = Self.meta
+        meta["ios_app_version"] = build + versionsAhead
+        nonisolated(unsafe) let responseMeta = meta
+        let server = try await TestHTTPServer.start { request in
+            request.path.hasSuffix("/shopkeeper/permissions")
+                ? TestHTTPServer.json(["data": [], "meta": responseMeta])
+                : TestHTTPServer.json([String: Any]())
+        }
+        defer { server.stop() }
+        let sessionController = makeSessionController(server: server)
+
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { sessionController.didFetchPermissions }
+
+        #expect(sessionController.shouldUpdateApp == shouldUpdateApp)
+    }
+
+    // MARK: - Locale sync
+
+    /// The saved shopkeeper's locale differs from the app's language (tests run in
+    /// English): after the permissions, SignUpsService.updateLocale PATCHes
+    /// /shopkeeper_auth (devise_token_auth's root path) and the new locale is saved
+    @Test
+    func aDifferentLocaleIsSyncedAfterThePermissions() async throws {
+        let server = try await TestHTTPServer.start { request in
+            request.path.hasSuffix("/shopkeeper/permissions")
+                ? TestHTTPServer.json(["data": [], "meta": Self.meta])
+                : TestHTTPServer.json([String: Any]())
+        }
+        defer { server.stop() }
+        var shopkeeper = Self.shopkeeper
+        shopkeeper.locale = "ja"
+        loginRepository.currentShopkeeper = shopkeeper
+        let sessionController = SessionController(
+            loginRepository: loginRepository,
+            monitorsConnection: false,
+            environment: server.client().environment
+        )
+
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { sessionController.shopkeeper?.locale == "en" }
+
+        let request = try #require(server.requests.first { $0.path == "/shopkeeper_auth" })
+        #expect(request.method == "PATCH")
+        #expect(request.headers["access-token"] == "token-1")
+        #expect(try JSONSerialization.jsonObject(with: request.body) as? [String: String] == ["locale": "en"])
+        #expect(loginRepository.currentShopkeeper?.locale == "en")
+    }
+
+    /// The locale sync goes through RootPathService, which, unlike Service, does not
+    /// announce devise_token_auth's 401 as an expired session: a rejected token
+    /// there keeps the session, and the locale stays as it was for the next try
+    @Test
+    func rejectedLocaleSyncKeepsTheSession() async throws {
+        let server = try await TestHTTPServer.start { request in
+            request.path.hasSuffix("/shopkeeper/permissions")
+                ? TestHTTPServer.json(["data": [], "meta": Self.meta])
+                : TestHTTPServer.json(status: 401, ["errors": ["You need to sign in or sign up before continuing."]])
+        }
+        defer { server.stop() }
+        var shopkeeper = Self.shopkeeper
+        shopkeeper.locale = "ja"
+        // Unique, so a notice can't sign out another test's SessionController
+        shopkeeper.token = "rejected-\(UUID().uuidString)"
+        loginRepository.currentShopkeeper = shopkeeper
+        let sessionController = SessionController(
+            loginRepository: loginRepository,
+            monitorsConnection: false,
+            environment: server.client().environment
+        )
+
+        sessionController.connectionChanged(to: .online)
+        await waitUntil { server.requests.contains { $0.path == "/shopkeeper_auth" } }
+        // The failed sync's catch runs after the response; give it time to land
+        try await Task.sleep(for: .milliseconds(200))
+
+        #expect(sessionController.isLoggedIn)
+        #expect(!sessionController.didExpireSession)
+        #expect(sessionController.shopkeeper?.locale == "ja")
+        #expect(sessionController.hasPermissions)
+    }
+
+    // MARK: - Privacy policy and terms
+
+    @Test
+    func confirmingPrivacyAndTermsPatchesMeAndClearsTheFlags() async throws {
+        let server = try await TestHTTPServer.start { _ in TestHTTPServer.json(["status": 200]) }
+        defer { server.stop() }
+        let sessionController = makeSessionController(server: server)
+        sessionController.shouldUpdatePrivacy = true
+        sessionController.shouldUpdateTerms = true
+
+        try await sessionController.updateConfirmedPrivacyVersion()
+        try await sessionController.updateConfirmedTermsVersion()
+
+        #expect(!sessionController.shouldUpdatePrivacy)
+        #expect(!sessionController.shouldUpdateTerms)
+        // MeRequest.swift: PATCH /shopkeeper/me/update_confirmed_{privacy,terms}_version,
+        // under Service's /{accountId}/api/v1 (account-1 above)
+        #expect(server.requests.map(\.method) == ["PATCH", "PATCH"])
+        #expect(server.requests.map(\.path) == [
+            "/account-1/api/v1/shopkeeper/me/update_confirmed_privacy_version",
+            "/account-1/api/v1/shopkeeper/me/update_confirmed_terms_version"
+        ])
+    }
+
+    /// A failed confirmation keeps asking: the flag stays set and the error reaches the caller
+    @Test
+    func failedConfirmationKeepsTheFlags() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 500, ["error_message": "boom"])
+        }
+        defer { server.stop() }
+        let sessionController = makeSessionController(server: server)
+        sessionController.shouldUpdatePrivacy = true
+        sessionController.shouldUpdateTerms = true
+
+        await #expect(throws: NativeAppTemplateAPIError.self) {
+            try await sessionController.updateConfirmedPrivacyVersion()
+        }
+        await #expect(throws: NativeAppTemplateAPIError.self) {
+            try await sessionController.updateConfirmedTermsVersion()
+        }
+
+        #expect(sessionController.shouldUpdatePrivacy)
+        #expect(sessionController.shouldUpdateTerms)
+    }
 }
