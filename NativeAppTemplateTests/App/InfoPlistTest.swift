@@ -45,4 +45,19 @@ struct InfoPlistTest {
 
         #expect(info["UIUserInterfaceStyle"] as? String == "Dark")
     }
+
+    /// iOS local network privacy identifies an app by its main executable's
+    /// LC_UUID (Apple TN3179). With ENABLE_DEBUG_DYLIB the Debug main executable
+    /// is a tiny stub that depends only on the product name, so this app and the
+    /// paid NativeAppTemplate app (same product name) had the same UUID: the Free
+    /// app was silently denied local network access and never prompted because
+    /// the paid app already held the entry. Debug builds must link the code into
+    /// the main executable, so no <product>.debug.dylib may be in the bundle.
+    @Test
+    func mainExecutableIsNotADebugDylibStub() throws {
+        let executableName = try #require(Bundle.main.executableURL?.lastPathComponent)
+        let debugDylib = Bundle.main.bundleURL.appendingPathComponent("\(executableName).debug.dylib")
+
+        #expect(!FileManager.default.fileExists(atPath: debugDylib.path), "\(debugDylib.lastPathComponent) is in the app bundle")
+    }
 }
