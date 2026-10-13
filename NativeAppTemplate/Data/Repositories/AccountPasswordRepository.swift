@@ -17,7 +17,7 @@
             try await accountPasswordService.updatePassword(updatePassword: updatePassword)
         } catch {
             Failure
-                .destroy(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }

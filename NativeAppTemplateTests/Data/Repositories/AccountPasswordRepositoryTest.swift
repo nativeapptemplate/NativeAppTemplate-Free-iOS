@@ -5,6 +5,7 @@
 
 import Foundation
 @testable import NativeAppTemplate
+import OSLog
 import Testing
 
 /// AccountPasswordRepository with the real AccountPasswordService and
@@ -65,5 +66,34 @@ struct AccountPasswordRepositoryTest {
         }
         #expect(statusCode == 422)
         #expect(message == "Current password is invalid")
+    }
+
+    /// A failed password update is logged as Failure.update ("Failed_update"), not as a
+    /// deletion. Failure.log writes "Failed_\(action) source=\(source) reason=\(reason)"
+    /// to appLogger (subsystem com.nativeapptemplate), which this process can read back
+    /// (as SessionControllerTest.failedLogoutIsLoggedAsALogoutFailure does).
+    @Test
+    func failedUpdateIsLoggedAsAnUpdateFailure() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 422, ["error_message": "Current password is invalid"])
+        }
+        defer { server.stop() }
+        let start = Date.now.addingTimeInterval(-1)
+
+        _ = try await requestFailed {
+            try await makeRepository(server).update(updatePassword: updatePassword)
+        }
+
+        let store = try OSLogStore(scope: .currentProcessIdentifier)
+        let messages = try store
+            .getEntries(
+                at: store.position(date: start),
+                matching: NSPredicate(format: "subsystem == %@", "com.nativeapptemplate")
+            )
+            .compactMap { ($0 as? OSLogEntryLog)?.composedMessage }
+            .filter { $0.contains("source=AccountPasswordRepository ") }
+
+        #expect(messages.contains { $0.hasPrefix("Failed_update ") })
+        #expect(!messages.contains { $0.hasPrefix("Failed_destroy ") })
     }
 }
