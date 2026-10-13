@@ -135,9 +135,8 @@ struct KeychainStoreTest {
     }
 
     /// An archive of another class (NSNumber where NSString is expected):
-    /// NSKeyedUnarchiver.unarchivedObject returns nil without throwing, so
-    /// retrieve() throws badData inside its do block, and the catch wraps that
-    /// in archiveFailure
+    /// NSKeyedUnarchiver.unarchivedObject returns nil without throwing, and
+    /// retrieve() throws archiveFailure wrapping badData
     @Test
     func retrieveOfAnotherClassIsAnArchiveFailureOfBadData() throws {
         let archived = try NSKeyedArchiver.archivedData(withRootObject: NSNumber(value: 1), requiringSecureCoding: true)

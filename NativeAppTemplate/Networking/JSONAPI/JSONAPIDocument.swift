@@ -3,44 +3,35 @@
 //  NativeAppTemplate
 //
 
-import struct Foundation.URL
-
-class JSONAPIDocument {
+/// A JSON:API document (https://jsonapi.org/format/#document-structure), reduced to
+/// what the requests read: `data`, `included` and the top-level `meta`.
+/// Anything but a JSON object reads as an empty document.
+struct JSONAPIDocument {
     // MARK: - Properties
 
-    var meta: [String: Any] = [:]
-    var included: [JSONAPIResource] = []
-    var data: [JSONAPIResource] = []
-    var links: [String: URL] = [:]
+    let meta: [String: Any]
+    let data: [JSONAPIResource]
+    let included: [JSONAPIResource]
 
     // MARK: - Initializers
 
-    convenience init(_ json: Any) {
-        self.init()
-
-        guard let dict = json as? [String: Any] else { return }
+    init(_ json: Any) {
+        let dict = json as? [String: Any] ?? [:]
 
         meta = dict["meta"] as? [String: Any] ?? [:]
+        data = Self.resources(dict["data"])
+        included = Self.resources(dict["included"])
+    }
 
-        if let dataArray = dict["data"] as? [[String: Any]] {
-            data = dataArray.map { JSONAPIResource($0, parent: self) }
-        } else if let dataDict = dict["data"] as? [String: Any] {
-            data = [JSONAPIResource(dataDict, parent: self)]
+    /// `data` is an object for one resource and an array for a collection;
+    /// `included` is read the same way
+    private static func resources(_ json: Any?) -> [JSONAPIResource] {
+        if let array = json as? [[String: Any]] {
+            return array.map(JSONAPIResource.init)
         }
-
-        if let includedArray = dict["included"] as? [[String: Any]] {
-            included = includedArray.map { JSONAPIResource($0, parent: self) }
-        } else if let includedDict = dict["included"] as? [String: Any] {
-            included = [JSONAPIResource(includedDict, parent: self)]
+        if let object = json as? [String: Any] {
+            return [JSONAPIResource(object)]
         }
-
-        if let linksDict = dict["links"] as? [String: Any] {
-            for link in linksDict {
-                if let strValue = link.value as? String,
-                   let url = URL(string: strValue) {
-                    links[link.key] = url
-                }
-            }
-        }
+        return []
     }
 }

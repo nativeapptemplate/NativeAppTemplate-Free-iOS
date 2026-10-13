@@ -5,12 +5,8 @@
 
 import struct Foundation.URL
 
-struct ItemTagAdapter: EntityAdapter {
-    static func process(
-        resource: JSONAPIResource,
-        relationships: [EntityRelationship] = [],
-        cacheUpdate: DataCacheUpdate = DataCacheUpdate()
-    ) throws -> ItemTag {
+enum ItemTagAdapter {
+    static func process(resource: JSONAPIResource) throws -> ItemTag {
         guard resource.entityType == .itemTag else { throw EntityAdapterError.invalidResourceTypeForAdapter }
 
         guard let shopId = resource.attributes["shop_id"] as? String,

@@ -21,7 +21,7 @@ import os
             shopkeeper = try await signUpsService.makeShopkeeper(signUp: signUp)
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .create(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -50,7 +50,7 @@ import os
             removeShopkeeper()
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .destroy(from: Self.self, reason: error.codedDescription)
                 .log()
             removeShopkeeper()
 

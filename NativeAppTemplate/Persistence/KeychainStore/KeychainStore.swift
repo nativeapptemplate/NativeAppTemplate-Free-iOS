@@ -27,27 +27,35 @@ extension KeychainStore {
         }
     }
 
+    /// - Throws: `notFound` when there is no item, `secCallFailed` when the keychain
+    ///   can't be read, and `archiveFailure` when the item can't be decoded as `DataType`
     func retrieve() throws -> DataType {
         let keychain = Keychain(service: service)
+
         let archived: Data?
+        do {
+            archived = try keychain.data(for: account)
+        } catch {
+            throw KeychainStoreError.secCallFailed(error)
+        }
 
-        archived = try? keychain.data(for: account)
-
-        guard archived != nil else {
+        guard let archived else {
             throw KeychainStoreError.notFound
         }
 
+        let unarchived: DataType?
         do {
-            guard
-                let unarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: DataType.self, from: archived!)
-            else {
-                throw KeychainStoreError.badData
-            }
-
-            return unarchived
+            unarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: DataType.self, from: archived)
         } catch {
             throw KeychainStoreError.archiveFailure(error)
         }
+
+        // An archive of another class decodes to nil without an error
+        guard let unarchived else {
+            throw KeychainStoreError.archiveFailure(KeychainStoreError.badData)
+        }
+
+        return unarchived
     }
 
     func store(_ data: DataType) throws {

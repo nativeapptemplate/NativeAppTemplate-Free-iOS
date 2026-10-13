@@ -3,18 +3,7 @@
 //  NativeAppTemplate
 //
 
-import Foundation
-
-protocol EntityAdapter {
-    associatedtype Response
-
-    static func process(
-        resource: JSONAPIResource,
-        relationships: [EntityRelationship],
-        cacheUpdate: DataCacheUpdate
-    ) throws -> Response
-}
-
+/// The API's resource types (JSON:API `type`) that an adapter turns into a model
 enum EntityType {
     case shop
     case shopkeeper
@@ -35,15 +24,4 @@ enum EntityType {
             return nil
         }
     }
-}
-
-struct EntityIdentity: Identifiable {
-    let id: String
-    let type: EntityType
-}
-
-struct EntityRelationship {
-    let name: String
-    let from: EntityIdentity
-    let to: EntityIdentity
 }

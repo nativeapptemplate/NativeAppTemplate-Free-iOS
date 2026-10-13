@@ -5,6 +5,9 @@
 
 import Foundation
 
+/// A service for the API's account-scoped routes: every request goes to
+/// baseURL/{accountId}/api/v1/{path}, with its query items and the session headers.
+/// devise_token_auth's own routes, at the API root, use `RootPathService`.
 protocol Service {
     var networkClient: NativeAppTemplateAPI { get }
     var session: URLSession { get }
@@ -17,47 +20,73 @@ extension Service {
 }
 
 extension Service {
+    func prepare(request: some NativeAppTemplate.Request) throws -> URLRequest {
+        let pathURL = networkClient.environment.baseURL
+            .appendingPathComponent(networkClient.accountId)
+            .appendingPathComponent(networkClient.environment.basePath)
+            .appendingPathComponent(request.path)
+
+        var urlRequest = try URLRequest(url: pathURL, queryItems: request.queryItems, for: request)
+        urlRequest.addHeaders(networkClient.sessionHeaders)
+        return urlRequest
+    }
+
     @MainActor func makeRequest<Request: NativeAppTemplate.Request>(
         request: Request
     ) async throws -> Request.Response {
-        func prepare(
-            request: some NativeAppTemplate.Request
-        ) throws -> URLRequest {
-            var pathURL = networkClient.environment.baseURL.appendingPathComponent(networkClient.accountId)
-            pathURL = pathURL.appendingPathComponent(networkClient.environment.basePath)
-            pathURL = pathURL.appendingPathComponent(request.path)
+        // Only these routes announce devise_token_auth's 401 as an expired session
+        try await session.apiResponse(
+            to: request,
+            sending: prepare(request: request),
+            announcingRejectionOf: networkClient.authToken
+        )
+    }
+}
 
-            guard var components = URLComponents(
-                url: pathURL,
-                resolvingAgainstBaseURL: false
-            ) else {
-                throw URLError(.badURL)
-            }
+// MARK: - Shared by Service and RootPathService
 
-            if !request.queryItems.isEmpty {
-                components.queryItems = request.queryItems
-            }
-
-            guard let url = components.url
-            else { throw URLError(.badURL) }
-
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = request.method.rawValue
-
-            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            // body *needs* to be the last property that we set, because of this bug:
-            // https://bugs.swift.org/browse/SR-6687
-            urlRequest.httpBody = request.body
-
-            networkClient.sessionHeaders.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.key) }
-
-            return urlRequest
+extension URLRequest {
+    /// A request to `url` (plus `queryItems`, if any) with `request`'s method and
+    /// body, sent as JSON. The caller adds the session headers.
+    init(url: URL, queryItems: [URLQueryItem], for request: some NativeAppTemplate.Request) throws {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            throw URLError(.badURL)
         }
 
-        let (data, response) = try await session.data(
-            for: prepare(request: request)
-        )
+        if !queryItems.isEmpty {
+            components.queryItems = queryItems
+        }
+
+        guard let url = components.url else { throw URLError(.badURL) }
+
+        self.init(url: url)
+        httpMethod = request.method.rawValue
+        setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // body *needs* to be the last property that we set, because of this bug:
+        // https://bugs.swift.org/browse/SR-6687
+        httpBody = request.body
+    }
+
+    mutating func addHeaders(_ headers: [HTTPHeader]) {
+        headers.forEach { addValue($0.value, forHTTPHeaderField: $0.key) }
+    }
+}
+
+extension URLSession {
+    /// Sends `urlRequest` and hands a 2xx body to `request.handle(response:)`. Any
+    /// other status throws `requestFailed` with the status and the API's
+    /// `error_message`, if the body has one.
+    ///
+    /// - Parameter authToken: The token `urlRequest` was sent with, to announce as
+    ///   rejected (`.apiSessionDidExpire`) when devise_token_auth answers with its 401.
+    ///   `nil` never announces anything.
+    @MainActor func apiResponse<Request: NativeAppTemplate.Request>(
+        to request: Request,
+        sending urlRequest: URLRequest,
+        announcingRejectionOf authToken: String?
+    ) async throws -> Request.Response {
+        let (data, response) = try await data(for: urlRequest)
 
         let statusCode = (response as? HTTPURLResponse)?.statusCode
         guard statusCode.map((200 ..< 300).contains) == true
@@ -70,11 +99,11 @@ extension Service {
             // devise_token_auth rejects a missing, wrong or expired token with a 401
             // whose body has no error_message. The API's own 401 (a Pundit denial)
             // has one and keeps the session.
-            if statusCode == 401, errorMessage == nil, !networkClient.authToken.isEmpty {
+            if statusCode == 401, errorMessage == nil, let authToken, !authToken.isEmpty {
                 NotificationCenter.default.post(
                     name: .apiSessionDidExpire,
                     object: nil,
-                    userInfo: [Notification.authTokenKey: networkClient.authToken]
+                    userInfo: [Notification.authTokenKey: authToken]
                 )
             }
 

@@ -152,22 +152,17 @@ import Observation
     }
 
     func logout() async throws {
-        do {
-            shouldPopToRootView = true
-            try await loginRepository.logout(networkClient: client)
+        shouldPopToRootView = true
+        // Signed out here even when the API call fails; shopkeeper's didSet resets
+        // userState and permissionState
+        defer { shopkeeper = nil }
 
-            userState = .notLoggedIn
-            permissionState = .notLoaded
-            shopkeeper = nil
+        do {
+            try await loginRepository.logout(networkClient: client)
         } catch {
             Failure
                 .logout(from: Self.self, reason: error.codedDescription)
                 .log()
-
-            userState = .notLoggedIn
-            permissionState = .notLoaded
-            shopkeeper = nil
-
             throw error
         }
     }

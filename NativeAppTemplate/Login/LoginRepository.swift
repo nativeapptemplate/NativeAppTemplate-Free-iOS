@@ -39,7 +39,7 @@ import os
             _currentShopkeeper = shopkeeper
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .login(from: Self.self, reason: error.codedDescription)
                 .log()
             throw error
         }
@@ -54,7 +54,7 @@ import os
             _currentShopkeeper = .none
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .logout(from: Self.self, reason: error.codedDescription)
                 .log()
             removeShopkeeper()
             _currentShopkeeper = .none
