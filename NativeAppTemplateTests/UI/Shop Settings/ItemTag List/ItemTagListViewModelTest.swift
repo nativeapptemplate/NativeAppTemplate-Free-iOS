@@ -20,7 +20,6 @@ struct ItemTagListViewModelTest {
         ]
     }
 
-    let sessionController = TestSessionController()
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
     )
@@ -34,7 +33,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -52,7 +50,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -72,7 +69,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -88,7 +84,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -105,7 +100,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -127,7 +121,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -152,7 +145,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -174,7 +166,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -196,7 +187,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -216,7 +206,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -232,7 +221,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -259,7 +247,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -282,7 +269,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 
@@ -305,7 +291,6 @@ struct ItemTagListViewModelTest {
         let viewModel = ItemTagListViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop
         )
 

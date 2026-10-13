@@ -34,12 +34,6 @@ struct Keychain {
         }
     }
 
-    func string(for account: String) throws -> String? {
-        guard let data = try data(for: account) else { return nil }
-        guard let string = String(data: data, encoding: .utf8) else { throw Self.error(errSecDecode) }
-        return string
-    }
-
     func set(_ data: Data, for account: String) throws {
         let attributes: [String: Any] = [
             kSecValueData as String: data,
@@ -59,10 +53,6 @@ struct Keychain {
         default:
             throw Self.error(status)
         }
-    }
-
-    func set(_ string: String, for account: String) throws {
-        try set(Data(string.utf8), for: account)
     }
 
     func remove(_ account: String) throws {

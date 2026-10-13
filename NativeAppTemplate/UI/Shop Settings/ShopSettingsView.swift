@@ -59,7 +59,6 @@ private extension ShopSettingsView {
                     NavigationLink {
                         ShopBasicSettingsView(
                             viewModel: ShopBasicSettingsViewModel(
-                                sessionController: dataManager.sessionController,
                                 shopRepository: dataManager.shopRepository,
                                 messageBus: messageBus,
                                 shopId: viewModel.shopId
@@ -77,7 +76,6 @@ private extension ShopSettingsView {
                             viewModel: ItemTagListViewModel(
                                 itemTagRepository: dataManager.itemTagRepository,
                                 messageBus: messageBus,
-                                sessionController: dataManager.sessionController,
                                 shop: shop
                             )
                         )

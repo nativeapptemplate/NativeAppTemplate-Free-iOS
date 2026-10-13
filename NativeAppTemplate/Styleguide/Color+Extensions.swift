@@ -94,17 +94,6 @@ extension Color {
 
     static let backgroundColor = coolGrey1 // #1F2933 - Page background
     static let cardBackground = coolGrey2 // #323F4B - Card background
-    static let coloredPrimaryBackground = lightBlue10 // #E3F8FF
-    static let coloredSecondaryBackground = coolGrey10 // #F5F7FA
-    static let failureBackground = pink1 // #620042
-    static let successBackground = green1 // #014807
-    static let weekEndBackground = coolGrey2 // #323F4B
-
-    // MARK: Foregrounds (on colored backgrounds)
-
-    static let coloredPrimaryForeground = lightBlue1 // #035388
-    static let coloredSecondaryForeground = coolGrey1 // #1F2933
-    static let successSecondaryForeground = green9 // #C1F2C7
 
     // MARK: Text
 
@@ -112,9 +101,6 @@ extension Color {
     static let contentText = coolGrey7 // #9AA5B1
     static let secondaryText = coolGrey6 // #7B8794
     static let snackText = coolGrey10 // #F5F7FA
-    static let coloredPrimaryFootnoteText = lightBlue1 // #035388
-    static let coloredSecondaryFootnoteText = coolGrey1 // #1F2933
-    static let textButtonText = coolGrey10 // #F5F7FA
 
     // MARK: Buttons
 
@@ -123,49 +109,20 @@ extension Color {
     static let coloredPrimaryButtonForeground = lightBlue9 // #B3ECFF
     static let coloredSecondaryButtonForeground = coolGrey9 // #E4E7EB
     static let destructiveButtonForeground = coolGrey10 // #F5F7FA
-    static let failureSecondaryForeground = pink9 // #FFB8D2
-
-    // MARK: Borders
-
-    static let secondaryBorderColor = coolGrey3 // #3E4C59
-
-    // MARK: Snackbar
-
-    static let snackError = coolGrey1 // #1F2933
-    static let snackWarning = coolGrey1 // #1F2933
-    static let snackSuccess = coolGrey1 // #1F2933
 
     // MARK: Tags - Idled
 
     static let idledTagBackground = coolGrey8 // #CBD2D9
-    static let idledTagBorder = coolGrey10 // #F5F7FA
     static let idledTagForeground = coolGrey2 // #323F4B
 
     // MARK: Tags - Completed
 
     static let completedTagBackground = green9 // #C1F2C7
-    static let completedTagBorder = coolGrey10 // #F5F7FA
     static let completedTagForeground = green1 // #014807
-
-    // MARK: Tags - Personal
-
-    static let personalTagBackground = lightBlue9 // #B3ECFF
-    static let personalTagBorder = coolGrey10 // #F5F7FA
-    static let personalTagForeground = lightBlue1 // #035388
-
-    // MARK: Tags - Current Account
-
-    static let currentAccountTagBackground = pink9 // #FFB8D2
-    static let currentAccountTagBorder = coolGrey10 // #F5F7FA
-    static let currentAccountTagForeground = pink1 // #620042
 
     // MARK: Write to Tag
 
-    static let customerBackground = lightBlue10 // #E3F8FF
     static let customerForeground = lightBlue6 // #40C3F7
-    static let lockBackground = yellow10 // #FFFBEA
-    static let lockForeground = yellow6 // #F7C948
-    static let serverBackground = lightBlue7 // #5ED0FA
     static let serverForeground = red6 // #EF4E4E
 
     // MARK: Validation
@@ -176,7 +133,6 @@ extension Color {
 
     static let glassBorder = coolGrey10 // #F5F7FA
     static let glassShadow = coolGrey1 // #1F2933
-    static let glassForeground = coolGrey10 // #F5F7FA
 
     // MARK: Button Arrow
 
@@ -185,7 +141,6 @@ extension Color {
     // MARK: Accent
 
     static let accent = lightBlue7 // #5ED0FA
-    static let lightestAccent = lightBlue10 // #E3F8FF
     static let alarm = red7 // #F86A6A
 }
 
@@ -199,39 +154,6 @@ extension ShapeStyle where Self == Color {
 
     static var cardBackground: Color {
         Color.cardBackground
-    }
-
-    static var coloredPrimaryBackground: Color {
-        Color.coloredPrimaryBackground
-    }
-
-    static var coloredSecondaryBackground: Color {
-        Color.coloredSecondaryBackground
-    }
-
-    static var failureBackground: Color {
-        Color.failureBackground
-    }
-
-    static var successBackground: Color {
-        Color.successBackground
-    }
-
-    static var weekEndBackground: Color {
-        Color.weekEndBackground
-    }
-
-    /// Foregrounds
-    static var coloredPrimaryForeground: Color {
-        Color.coloredPrimaryForeground
-    }
-
-    static var coloredSecondaryForeground: Color {
-        Color.coloredSecondaryForeground
-    }
-
-    static var successSecondaryForeground: Color {
-        Color.successSecondaryForeground
     }
 
     /// Text
@@ -249,18 +171,6 @@ extension ShapeStyle where Self == Color {
 
     static var snackText: Color {
         Color.snackText
-    }
-
-    static var coloredPrimaryFootnoteText: Color {
-        Color.coloredPrimaryFootnoteText
-    }
-
-    static var coloredSecondaryFootnoteText: Color {
-        Color.coloredSecondaryFootnoteText
-    }
-
-    static var textButtonText: Color {
-        Color.textButtonText
     }
 
     /// Buttons
@@ -284,35 +194,9 @@ extension ShapeStyle where Self == Color {
         Color.destructiveButtonForeground
     }
 
-    static var failureSecondaryForeground: Color {
-        Color.failureSecondaryForeground
-    }
-
-    /// Borders
-    static var secondaryBorderColor: Color {
-        Color.secondaryBorderColor
-    }
-
-    /// Snackbar
-    static var snackError: Color {
-        Color.snackError
-    }
-
-    static var snackWarning: Color {
-        Color.snackWarning
-    }
-
-    static var snackSuccess: Color {
-        Color.snackSuccess
-    }
-
     /// Tags
     static var idledTagBackground: Color {
         Color.idledTagBackground
-    }
-
-    static var idledTagBorder: Color {
-        Color.idledTagBorder
     }
 
     static var idledTagForeground: Color {
@@ -323,57 +207,13 @@ extension ShapeStyle where Self == Color {
         Color.completedTagBackground
     }
 
-    static var completedTagBorder: Color {
-        Color.completedTagBorder
-    }
-
     static var completedTagForeground: Color {
         Color.completedTagForeground
     }
 
-    static var personalTagBackground: Color {
-        Color.personalTagBackground
-    }
-
-    static var personalTagBorder: Color {
-        Color.personalTagBorder
-    }
-
-    static var personalTagForeground: Color {
-        Color.personalTagForeground
-    }
-
-    static var currentAccountTagBackground: Color {
-        Color.currentAccountTagBackground
-    }
-
-    static var currentAccountTagBorder: Color {
-        Color.currentAccountTagBorder
-    }
-
-    static var currentAccountTagForeground: Color {
-        Color.currentAccountTagForeground
-    }
-
     /// Write to Tag
-    static var customerBackground: Color {
-        Color.customerBackground
-    }
-
     static var customerForeground: Color {
         Color.customerForeground
-    }
-
-    static var lockBackground: Color {
-        Color.lockBackground
-    }
-
-    static var lockForeground: Color {
-        Color.lockForeground
-    }
-
-    static var serverBackground: Color {
-        Color.serverBackground
     }
 
     static var serverForeground: Color {
@@ -394,10 +234,6 @@ extension ShapeStyle where Self == Color {
         Color.glassShadow
     }
 
-    static var glassForeground: Color {
-        Color.glassForeground
-    }
-
     /// Button Arrow
     static var arrowBackground: Color {
         Color.arrowBackground
@@ -406,10 +242,6 @@ extension ShapeStyle where Self == Color {
     /// Accent
     static var accent: Color {
         Color.accent
-    }
-
-    static var lightestAccent: Color {
-        Color.lightestAccent
     }
 
     static var alarm: Color {

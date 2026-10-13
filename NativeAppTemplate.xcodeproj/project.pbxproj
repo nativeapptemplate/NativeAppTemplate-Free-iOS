@@ -56,7 +56,6 @@
 		0172046625AA82BF008FD63B /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172045925AA82B4008FD63B /* MessageBarView.swift */; };
 		0172046725AA82BF008FD63B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172045725AA82B4008FD63B /* MainView.swift */; };
 		0172046925AA82BF008FD63B /* PermissionsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */; };
-		0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172046E25AA8325008FD63B /* UIFont+Extensions.swift */; };
 		0172047E25AA8343008FD63B /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047525AA8325008FD63B /* Font+Extensions.swift */; };
 		0172048125AA8343008FD63B /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172047625AA8325008FD63B /* Color+Extensions.swift */; };
 		017204B625AA8467008FD63B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172049225AA8449008FD63B /* DataManager.swift */; };
@@ -215,7 +214,6 @@
 		0172045925AA82B4008FD63B /* MessageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBarView.swift; sourceTree = "<group>"; };
 		0172045C25AA82B4008FD63B /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0172045D25AA82B4008FD63B /* PermissionsLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsLoadingView.swift; sourceTree = "<group>"; };
-		0172046E25AA8325008FD63B /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		0172047525AA8325008FD63B /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
 		0172047625AA8325008FD63B /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		0172049225AA8449008FD63B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -648,7 +646,6 @@
 			children = (
 				0172047625AA8325008FD63B /* Color+Extensions.swift */,
 				0172047525AA8325008FD63B /* Font+Extensions.swift */,
-				0172046E25AA8325008FD63B /* UIFont+Extensions.swift */,
 			);
 			path = Styleguide;
 			sourceTree = "<group>";
@@ -895,7 +892,6 @@
 		011F6DE9259EF16400BED22E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				0172047925AA8335008FD63B /* UIFont+Extensions.swift in Sources */,
 				01E2477029A570D300D4B00D /* SignUp.swift in Sources */,
 				01D85B4A2E07F16900A95798 /* ShopkeeperEditViewModel.swift in Sources */,
 				0172052F25AC41A7008FD63B /* SessionRequest.swift in Sources */,

@@ -29,7 +29,6 @@ private final class NullSessionController: SessionControllerProtocol {
     var shouldUpdateApp: Bool = false
     var shouldUpdatePrivacy: Bool = false
     var shouldUpdateTerms: Bool = false
-    var shopLimitCount: Int = 0
     var shopkeeper: Shopkeeper?
     var isLoggedIn: Bool {
         false
@@ -104,8 +103,6 @@ struct App {
         sessionController = nativeAppTemplateObjects.sessionController
         dataManager = nativeAppTemplateObjects.dataManager
         messageBus = nativeAppTemplateObjects.messageBus
-
-//    Tips.showAllTipsForTesting()
 
         try? Tips.configure()
     }

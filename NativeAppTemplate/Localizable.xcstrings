@@ -227,16 +227,6 @@
         }
       }
     },
-    "Close" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "閉じる"
-          }
-        }
-      }
-    },
     "Complete" : {
       "localizations" : {
         "ja" : {
@@ -314,16 +304,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "お問い合わせ"
-          }
-        }
-      }
-    },
-    "Create Shop" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "店舗を作成"
           }
         }
       }
@@ -589,16 +569,6 @@
         }
       }
     },
-    "Instructions" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "手順"
-          }
-        }
-      }
-    },
     "Item tag created successfully." : {
       "localizations" : {
         "ja" : {
@@ -769,16 +739,6 @@
         }
       }
     },
-    "No" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "いいえ"
-          }
-        }
-      }
-    },
     "No Connection" : {
       "localizations" : {
         "ja" : {
@@ -795,16 +755,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
-          }
-        }
-      }
-    },
-    "Open" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開く"
           }
         }
       }
@@ -985,16 +935,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "確認メールを再送信"
-          }
-        }
-      }
-    },
-    "Role" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "権限"
           }
         }
       }

@@ -11,10 +11,6 @@ import Testing
 final class DemoItemTagRepository: ItemTagRepositoryProtocol {
     var itemTags: [ItemTag] = []
     var state: DataState = .initial
-    var isEmpty: Bool {
-        itemTags.isEmpty
-    }
-
     var paginationMeta: PaginationMeta?
     var isLoadingMore = false
 

@@ -24,12 +24,8 @@ struct ShopListViewModelTest {
     let shopRepository = TestShopRepository(
         shopsService: ShopsService()
     )
-    let itemTagRepository = TestItemTagRepository(
-        itemTagsService: ItemTagsService()
-    )
     let tabViewModel = TabViewModel()
     let mainTab = MainTab.shops
-    let messageBus = MessageBus()
 
     @Test
     func leftInShopSlots() {

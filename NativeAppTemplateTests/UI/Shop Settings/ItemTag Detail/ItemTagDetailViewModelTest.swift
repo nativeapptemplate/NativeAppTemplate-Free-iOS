@@ -10,7 +10,6 @@ import Testing
 @MainActor
 @Suite
 struct ItemTagDetailViewModelTest {
-    let sessionController = TestSessionController()
     let itemTagRepository = TestItemTagRepository(
         itemTagsService: ItemTagsService()
     )
@@ -40,7 +39,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -61,7 +59,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -88,7 +85,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -111,7 +107,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -133,7 +128,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -155,7 +149,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -184,7 +177,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -209,7 +201,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -233,7 +224,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -253,7 +243,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -278,7 +267,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -311,7 +299,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )
@@ -329,7 +316,6 @@ struct ItemTagDetailViewModelTest {
         let viewModel = ItemTagDetailViewModel(
             itemTagRepository: itemTagRepository,
             messageBus: messageBus,
-            sessionController: sessionController,
             shop: shop,
             itemTagId: itemTagId
         )

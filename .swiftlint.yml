@@ -20,13 +20,6 @@ opt_in_rules:
 included:
   - NativeAppTemplate
 
-# Excluded paths
-excluded:
-  - Pods
-  - Carthage
-  - DerivedData
-  - .build
-
 # Configured rules
 line_length:
   warning: 120
@@ -62,6 +55,4 @@ identifier_name:
   max_length:
     warning: 50
   excluded:
-    - by
     - id
-    - db

@@ -90,7 +90,6 @@ final class ShopkeeperEditViewModel {
                     timeZone: selectedTimeZone
                 )
                 let updatedShopkeeper = try await signUpRepository.update(
-                    id: shopkeeper.id,
                     signUp: signUp,
                     networkClient: sessionController.client
                 )

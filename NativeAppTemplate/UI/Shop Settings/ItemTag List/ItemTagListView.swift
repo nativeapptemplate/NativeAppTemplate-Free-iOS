@@ -70,7 +70,6 @@ private extension ItemTagListView {
                                 viewModel: ItemTagDetailViewModel(
                                     itemTagRepository: dataManager.itemTagRepository,
                                     messageBus: messageBus,
-                                    sessionController: dataManager.sessionController,
                                     shop: viewModel.shop,
                                     itemTagId: itemTag.id
                                 )

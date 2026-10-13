@@ -20,20 +20,15 @@ struct ShopBasicSettingsViewModelTest {
         ]
     }
 
-    let sessionController = TestSessionController()
     let shopRepository = TestShopRepository(
         shopsService: ShopsService()
     )
     let messageBus = MessageBus()
     let shopId = "1"
 
-    let tabViewModel = TabViewModel()
-    let mainTab = MainTab.shops
-
     @Test
     func stateIsInitiallyLoading() {
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -48,7 +43,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -66,7 +60,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -82,7 +75,6 @@ struct ShopBasicSettingsViewModelTest {
     @Test
     func maximumNameLength() {
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -94,7 +86,6 @@ struct ShopBasicSettingsViewModelTest {
     @Test
     func maximumDescriptionLength() {
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -114,7 +105,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -138,7 +128,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -157,7 +146,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -177,7 +165,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -197,7 +184,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -221,7 +207,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -239,7 +224,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -278,7 +262,6 @@ struct ShopBasicSettingsViewModelTest {
         shopRepository.setShops(shops: shops)
 
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
@@ -329,7 +312,6 @@ struct ShopBasicSettingsViewModelTest {
     @Test
     func hasInvalidDataBeforeTheShopLoads() {
         let viewModel = ShopBasicSettingsViewModel(
-            sessionController: sessionController,
             shopRepository: shopRepository,
             messageBus: messageBus,
             shopId: shopId
