@@ -97,11 +97,12 @@ import SwiftUI
         }
     }
 
+    /// For the shop detail, which keeps the tags itself. `itemTags` is the item tag
+    /// list's pages, possibly of another shop the user opened while this was loading,
+    /// so it is left alone
     func fetchAll(shopId: String) async throws -> [ItemTag] {
         do {
-            let response = try await itemTagsService.allItemTags(shopId: shopId)
-            itemTags = response.itemTags
-            return itemTags
+            return try await itemTagsService.allItemTags(shopId: shopId).itemTags
         } catch {
             Failure
                 .fetch(from: Self.self, reason: error.codedDescription)
