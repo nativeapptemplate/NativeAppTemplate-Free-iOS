@@ -177,6 +177,31 @@ struct ItemTagRepositoryPaginationTest {
         #expect(repository.state == .hasData)
     }
 
+    /// Shop A's detail screen fetches all of A's tags (fetchAll). When that answer
+    /// arrives after the user went on to shop B's item tag list, B's list must keep
+    /// B's tags; seen on the iPhone against the local API before the fix
+    @Test
+    func previousShopsDetailFetchDoesNotReplaceAnotherShopsList() async throws {
+        let releaseA = DispatchSemaphore(value: 0)
+        let server = try await Self.shopServer(releaseA: releaseA)
+        defer { server.stop() }
+        let repository = makeRepository(server)
+
+        let detailFetch = Task { try await repository.fetchAll(shopId: "shop-A") }
+        await waitUntil { server.requests.count == 1 }
+        repository.reloadPage(shopId: "shop-B", page: 1)
+        await waitUntil(timeout: .seconds(10)) { repository.state == .hasData }
+        releaseA.signal()
+        let shopATags = try await detailFetch.value
+
+        // The detail gets A's page 1 (a1, a2: shopServer's answer without a page)
+        #expect(shopATags.map(\.id) == ["a1", "a2"])
+        // B's list is unchanged: b1 with B's meta
+        #expect(repository.itemTags.map(\.id) == ["b1"])
+        #expect(repository.paginationMeta?.totalPages == 1)
+        #expect(repository.state == .hasData)
+    }
+
     /// Shop A's next page arriving after the user opened shop B must not be
     /// appended to B's list
     @Test
