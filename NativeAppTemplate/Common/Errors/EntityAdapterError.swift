@@ -23,7 +23,16 @@ enum EntityAdapterError: CodedError {
         }
     }
 
+    /// Developer-only errors: the user sees the generic text, the log the case
     nonisolated var errorDescription: String? {
+        Strings.unexpectedError
+    }
+
+    nonisolated var debugDescription: String {
+        "[\(errorCode)] \(detail)"
+    }
+
+    private nonisolated var detail: String {
         let prefix = "EntityAdapterError::"
         switch self {
         case .invalidResourceTypeForAdapter:

@@ -111,6 +111,7 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 
 - New error types must conform to `CodedError` and be placed in `Common/Errors/`
 - Use `error.codedDescription` (not `error.localizedDescription`) in all error messages
+- `errorDescription` is what the user sees, so it is localized (`String(localized:)` in `Constants.swift`): the API's `error_message` as is, or a generic text ("Something went wrong while communicating with the server. Please try again later." when a request fails without one, "An unexpected error occurred." for developer-only errors such as malformed responses or Keychain failures). Developer details (status codes, field names, underlying errors) go to `debugDescription`; log errors with `error.debugCodedDescription`, never show it
 - Use `Message(error: error)` convenience to post errors to `MessageBus`
 - Error code numbers must match across iOS and Android
 
@@ -128,7 +129,8 @@ The app ships in English (development language) and Japanese. **Every new user-f
 - Keep the keys in English: nativeapptemplate-agent renames the English nouns in code and catalog keys together.
 - After building, Xcode adds new keys to `NativeAppTemplate/Localizable.xcstrings` (from the command line: `xcrun xcstringstool sync NativeAppTemplate/Localizable.xcstrings --stringsdata <each .stringsdata in DerivedData>`). Add the `ja` value with state `translated`, keeping every `%@`/`%lld` (use `%1$@`, `%2$@` to reorder). Permission prompts go in `InfoPlist.xcstrings`.
 - Use the API's terms (`config/locales/ja.yml`), the same as the paid NativeAppTemplate-iOS: Shop is **店舗** (never ショップ/店/お店), ItemTag is **アイテムタグ** in full (never タグ or アイテム alone; the agent renames these Japanese nouns as substrings), Idled/Completed 未完了/完了. Don't translate the product name.
-- Keep untranslated: product names, URLs, `NATIVEAPPTEMPLATE-xxxx` error codes and `CodedError` descriptions, log messages, the API's `error_message` (already localized by the server), and text the user typed.
+- User-facing error text is localized, like any other UI text (`CodedError.errorDescription`); developer details go to logs (`debugDescription`).
+- Keep untranslated: product names, URLs, `NATIVEAPPTEMPLATE-xxxx` error codes, log messages, the API's `error_message` (already localized by the server), and text the user typed.
 - Tests run in English (the scheme's test action sets `language = "en"`).
 - The app's language is set in iOS Settings, not in the app. Edit Profile shows it read-only; `SessionController` keeps `shopkeepers.locale` in step with it so emails match.
 

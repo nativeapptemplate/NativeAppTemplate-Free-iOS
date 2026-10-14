@@ -214,7 +214,7 @@ struct ShopBasicSettingsViewModelTest {
         viewModel.reload()
         await waitUntil { viewModel.shouldDismiss }
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(viewModel.shouldDismiss)
     }
 
@@ -286,8 +286,8 @@ struct ShopBasicSettingsViewModelTest {
         await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isUpdating }
 
         // NativeAppTemplateAPIError.requestFailed's codedDescription:
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        // "[NATIVEAPPTEMPLATE-2001] <message>"
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(viewModel.isUpdating == false)
         #expect(viewModel.isBusy == false)
         // A failed save keeps the form open with the user's input so they can retry

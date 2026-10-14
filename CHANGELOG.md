@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Error messages are localized (English and Japanese). A request that fails without the API's `error_message` shows "Something went wrong while communicating with the server. Please try again later." (`NATIVEAPPTEMPLATE-2001`); developer-only errors (`NATIVEAPPTEMPLATE-1001`, `2002`–`2008`, `4001`–`4004`) show "An unexpected error occurred." The API's `error_message` is shown without the " [Status: nnn]" suffix. Error codes are unchanged; status codes, field names and underlying errors go to the log (`CodedError.debugDescription`)
+
 ### Fixed
 - Debug builds lost the local API when launched other than from Xcode, e.g. from the Home Screen or when iOS relaunched the app after its language was changed in Settings: the endpoint came only from the scheme's environment variables, which only Xcode passes. It now comes from `API.xcconfig` (override it in the gitignored `API.local.xcconfig`) and is built into `Info.plist`; `NATIVEAPPTEMPLATE_API_*` environment variables still win. The scheme no longer sets them
 

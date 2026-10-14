@@ -59,7 +59,7 @@ import SwiftUI
 
                 state = .failed
                 Failure
-                    .fetch(from: Self.self, reason: error.codedDescription)
+                    .fetch(from: Self.self, reason: error.debugCodedDescription)
                     .log()
             }
         }
@@ -88,7 +88,7 @@ import SwiftUI
                 paginationMeta = response.paginationMeta
             } catch {
                 Failure
-                    .fetch(from: Self.self, reason: error.codedDescription)
+                    .fetch(from: Self.self, reason: error.debugCodedDescription)
                     .log()
             }
             guard generation == listGeneration else { return }
@@ -105,7 +105,7 @@ import SwiftUI
             return try await itemTagsService.allItemTags(shopId: shopId).itemTags
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .fetch(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -124,7 +124,7 @@ import SwiftUI
             return itemTag
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .fetch(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -135,7 +135,7 @@ import SwiftUI
             return try await itemTagsService.makeItemTag(shopId: shopId, itemTag: itemTag)
         } catch {
             Failure
-                .create(from: Self.self, reason: error.codedDescription)
+                .create(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -152,7 +152,7 @@ import SwiftUI
             return updatedItemTag
         } catch {
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -163,7 +163,7 @@ import SwiftUI
             try await itemTagsService.destroyItemTag(id: id)
         } catch {
             Failure
-                .destroy(from: Self.self, reason: error.codedDescription)
+                .destroy(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -181,7 +181,7 @@ import SwiftUI
         } catch {
             // The caller reports the error; the list's own state is unchanged
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -199,7 +199,7 @@ import SwiftUI
         } catch {
             // The caller reports the error; the list's own state is unchanged
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }

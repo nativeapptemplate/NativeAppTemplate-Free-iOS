@@ -168,8 +168,8 @@ struct ItemTagCreateViewModelTest {
         #expect(viewModel.isBusy == false)
         #expect(viewModel.name == "Buy milk")
         // Message(error:) shows NativeAppTemplateAPIError.requestFailed's codedDescription:
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
-        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        // "[NATIVEAPPTEMPLATE-2001] <message>"
+        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         #expect(itemTagRepository.itemTags.isEmpty)

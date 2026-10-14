@@ -21,7 +21,7 @@ import os
             shopkeeper = try await signUpsService.makeShopkeeper(signUp: signUp)
         } catch {
             Failure
-                .create(from: Self.self, reason: error.codedDescription)
+                .create(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -36,7 +36,7 @@ import os
             shopkeeper = try await signUpsService.updateShopkeeper(signUp: signUp)
         } catch {
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -50,7 +50,7 @@ import os
             removeShopkeeper()
         } catch {
             Failure
-                .destroy(from: Self.self, reason: error.codedDescription)
+                .destroy(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             removeShopkeeper()
 
@@ -70,7 +70,7 @@ import os
             try await signUpsService.sendResetPasswordInstruction(sendResetPassword: sendResetPassword)
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .fetch(from: Self.self, reason: error.debugCodedDescription)
                 .log()
 
             throw error
@@ -89,7 +89,7 @@ import os
             try await signUpsService.sendConfirmationInstruction(sendConfirmation: sendConfirmation)
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .fetch(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }

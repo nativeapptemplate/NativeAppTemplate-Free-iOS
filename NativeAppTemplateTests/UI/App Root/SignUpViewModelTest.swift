@@ -227,6 +227,31 @@ struct SignUpViewModelTest {
         #expect(viewModel.isCreating == false)
     }
 
+    /// A failure without the API's error_message (e.g. a 500 without a JSON body)
+    /// used to show "UNKNOWN"
+    @Test
+    func createShopkeeperErrorWithoutMessageShowsTheGenericCommunicationError() async {
+        signUpRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 500, nil)
+
+        let viewModel = SignUpViewModel(
+            signUpRepository: signUpRepository,
+            messageBus: messageBus
+        )
+
+        viewModel.name = "John Doe"
+        viewModel.email = "john@example.com"
+        viewModel.password = "password123"
+
+        viewModel.createShopkeeper()
+
+        await waitUntil { viewModel.isShowingAlert }
+
+        // requestFailed's codedDescription without a message: the generic communication
+        // error, worded as decided for iOS and Android (2026-10-14)
+        #expect(viewModel.errorMessage == "[NATIVEAPPTEMPLATE-2001] Something went wrong while communicating"
+            + " with the server. Please try again later.")
+    }
+
     @Test
     func createShopkeeperWithInvalidData() {
         let viewModel = SignUpViewModel(

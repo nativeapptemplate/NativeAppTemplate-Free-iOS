@@ -20,13 +20,18 @@ struct KeychainStoreErrorTest {
 
     @Test
     func formattedDescriptions() {
+        // The generic text for developer-only errors, worded as decided for iOS and Android (2026-10-14)
         #expect(
             KeychainStoreError.notFound.formattedDescription
-                == "[NATIVEAPPTEMPLATE-4002] KeychainStoreError::NotFound"
+                == "[NATIVEAPPTEMPLATE-4002] An unexpected error occurred."
         )
         #expect(
             KeychainStoreError.badData.formattedDescription
-                == "[NATIVEAPPTEMPLATE-4003] KeychainStoreError::BadData"
+                == "[NATIVEAPPTEMPLATE-4003] An unexpected error occurred."
+        )
+        #expect(
+            KeychainStoreError.secCallFailed(NSError(domain: "test", code: 1)).formattedDescription
+                == "[NATIVEAPPTEMPLATE-4001] An unexpected error occurred."
         )
     }
 
@@ -34,6 +39,16 @@ struct KeychainStoreErrorTest {
     func codedDescriptionPrependsCode() {
         let error: Error = KeychainStoreError.notFound
 
-        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-4002] KeychainStoreError::NotFound")
+        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-4002] An unexpected error occurred.")
+    }
+
+    /// The log keeps the case and the underlying error
+    @Test
+    func debugDescriptionKeepsTheUnderlyingError() {
+        let error = KeychainStoreError.archiveFailure(NSError(domain: "test", code: 7))
+
+        #expect(error.debugDescription.hasPrefix("[NATIVEAPPTEMPLATE-4004] KeychainStoreError::ArchiveFailure"))
+        // NSError's localizedDescription names the domain and code: "The operation couldn’t be completed. (test error 7.)"
+        #expect(error.debugDescription.contains("test error 7"))
     }
 }

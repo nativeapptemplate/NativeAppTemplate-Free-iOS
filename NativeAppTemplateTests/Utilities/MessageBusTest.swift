@@ -78,7 +78,8 @@ struct MessageBusTest {
         let message = Message(error: error)
 
         #expect(message.level == .error)
-        #expect(message.message == "[NATIVEAPPTEMPLATE-2005] NativeAppTemplateAPIError::NoData")
+        // The generic text for developer-only errors, worded as decided for iOS and Android (2026-10-14)
+        #expect(message.message == "[NATIVEAPPTEMPLATE-2005] An unexpected error occurred.")
         #expect(message.autoDismiss == false)
     }
 

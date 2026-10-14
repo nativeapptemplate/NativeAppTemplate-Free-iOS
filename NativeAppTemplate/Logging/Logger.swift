@@ -32,6 +32,12 @@ struct Failure {
         .init(source: source, action: "destroy", reason: reason)
     }
 
+    /// An API request failed or its response could not be read; `reason` is the
+    /// error's developer details (`debugCodedDescription`), which the user does not see
+    static func request(from source: (some Any).Type, reason: String) -> Self {
+        .init(source: source, action: "request", reason: reason)
+    }
+
     private init<Source>(
         source: Source.Type,
         action: String,

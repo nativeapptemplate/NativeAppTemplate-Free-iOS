@@ -83,7 +83,7 @@ struct ShopSettingsViewModelTest {
         viewModel.reload()
         await waitUntil { !viewModel.isFetching }
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(viewModel.shouldDismiss)
         #expect(viewModel.isFetching == false)
         #expect(viewModel.isBusy == false)
@@ -141,9 +141,9 @@ struct ShopSettingsViewModelTest {
         await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isDeleting }
 
         // "<shopDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
+        // "[NATIVEAPPTEMPLATE-2001] <message>"
         #expect(viewModel.messageBus.currentMessage?.message ==
-            "\(Strings.shopDeletedError) [NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+            "\(Strings.shopDeletedError) [NATIVEAPPTEMPLATE-2001] \(message)")
         // A failed delete leaves the shop and the session as they were, and the
         // user can retry
         #expect(!viewModel.isDeleting)

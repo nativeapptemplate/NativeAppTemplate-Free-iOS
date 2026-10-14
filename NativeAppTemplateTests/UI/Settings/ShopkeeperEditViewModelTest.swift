@@ -391,7 +391,7 @@ struct ShopkeeperEditViewModelTest { // swiftlint:disable:this type_body_length
         #expect(messageBus.currentMessage?.autoDismiss == false)
         // "<shopkeeperDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
         #expect(messageBus.currentMessage?.message ==
-            "\(Strings.shopkeeperDeletedError) [NATIVEAPPTEMPLATE-2001] Delete failed [Status: 500]")
+            "\(Strings.shopkeeperDeletedError) [NATIVEAPPTEMPLATE-2001] Delete failed")
     }
 
     @Test

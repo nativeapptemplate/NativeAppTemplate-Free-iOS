@@ -144,7 +144,7 @@ import Observation
             permissionState = .notLoaded
 
             Failure
-                .login(from: Self.self, reason: error.codedDescription)
+                .login(from: Self.self, reason: error.debugCodedDescription)
                 .log()
 
             throw error
@@ -161,7 +161,7 @@ import Observation
             try await loginRepository.logout(networkClient: client)
         } catch {
             Failure
-                .logout(from: Self.self, reason: error.codedDescription)
+                .logout(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -228,7 +228,7 @@ import Observation
             } catch {
                 enum Permissions {}
                 Failure
-                    .fetch(from: Permissions.self, reason: error.codedDescription)
+                    .fetch(from: Permissions.self, reason: error.debugCodedDescription)
                     .log()
 
                 // An expired session has signed out already; that is not a permissions error
@@ -254,7 +254,7 @@ import Observation
             try updateShopkeeper(shopkeeper: shopkeeper)
         } catch {
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
         }
     }
@@ -270,7 +270,7 @@ import Observation
             shouldUpdatePrivacy = false
         } catch {
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -282,7 +282,7 @@ import Observation
             shouldUpdateTerms = false
         } catch {
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }

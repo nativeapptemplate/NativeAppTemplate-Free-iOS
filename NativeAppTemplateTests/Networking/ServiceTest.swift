@@ -99,8 +99,9 @@ struct ServiceTest {
         }
         #expect(statusCode == 422)
         #expect(message == "Name has already been taken")
-        // NativeAppTemplateAPIError.errorDescription: "\(message) [Status: \(statusCode)]", prefixed with the code
-        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-2001] Name has already been taken [Status: 422]")
+        // The API's error_message as is, prefixed with the code; the status is for the log only
+        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-2001] Name has already been taken")
+        #expect(error.debugDescription.contains("Status: 422"))
     }
 
     @Test
@@ -158,7 +159,7 @@ struct ServiceTest {
 
     /// The HTML page has no error_message to show, so the message is nil and the
     /// user gets the generic text, as for a JSON body without error_message.
-    /// An empty message would read "[NATIVEAPPTEMPLATE-2001]  [Status: 502]".
+    /// An empty message would read "[NATIVEAPPTEMPLATE-2001] ".
     @Test
     func errorStatusWithANonJsonBodyHasNoMessage() async throws {
         let server = try await TestHTTPServer.start { _ in
@@ -175,10 +176,11 @@ struct ServiceTest {
             return
         }
         #expect(message == nil)
-        // NativeAppTemplateAPIError.errorDescription without a message and without an underlying error:
-        // "NativeAppTemplateAPIError::RequestFailed[Status: \(statusCode) | Error: UNKNOWN]", prefixed with the code
+        // Without error_message the user gets the generic communication error, worded as
+        // decided for iOS and Android (2026-10-14); the status goes to the log only
         #expect(error.codedDescription ==
-            "[NATIVEAPPTEMPLATE-2001] NativeAppTemplateAPIError::RequestFailed[Status: 502 | Error: UNKNOWN]")
+            "[NATIVEAPPTEMPLATE-2001] Something went wrong while communicating with the server." + " Please try again later.")
+        #expect(error.debugDescription.contains("Status: 502"))
     }
 
     // MARK: - Expired session

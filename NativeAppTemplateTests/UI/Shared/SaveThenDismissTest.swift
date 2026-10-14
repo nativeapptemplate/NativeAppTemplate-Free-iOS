@@ -47,7 +47,7 @@ struct SaveThenDismissTest {
         #expect(dismissCount == 0)
         #expect(messageBus.currentMessage?.level == .error)
         // Message(error:) shows NativeAppTemplateAPIError.requestFailed's codedDescription:
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
-        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        // "[NATIVEAPPTEMPLATE-2001] <message>"
+        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
     }
 }
