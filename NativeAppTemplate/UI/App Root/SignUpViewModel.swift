@@ -110,8 +110,9 @@ final class SignUpViewModel {
                     autoDismiss: false
                 ))
                 shouldDismiss = true
-            } catch let NativeAppTemplateAPIError.requestFailed(_, _, message) {
-                errorMessage = message ?? "UNKNOWN"
+            } catch let NativeAppTemplateAPIError.requestFailed(_, _, message?) {
+                // The API's error_message as is; without one, the code and the generic text below
+                errorMessage = message
                 isShowingAlert = true
             } catch {
                 errorMessage = error.codedDescription

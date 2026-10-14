@@ -31,7 +31,7 @@ struct SignUpsServiceTest {
     }
 
     /// As in ServiceTest: an HTML error page has no error_message, so the user
-    /// gets the generic text rather than "[NATIVEAPPTEMPLATE-2001]  [Status: 502]"
+    /// gets the generic text rather than "[NATIVEAPPTEMPLATE-2001] "
     @Test
     func errorStatusWithANonJsonBodyHasNoMessage() async throws {
         let server = try await TestHTTPServer.start { _ in
@@ -48,8 +48,10 @@ struct SignUpsServiceTest {
             return
         }
         #expect(message == nil)
-        // NativeAppTemplateAPIError.errorDescription without a message or underlying error
+        // Without error_message the user gets the generic communication error, worded as
+        // decided for iOS and Android (2026-10-14); the status goes to the log only
         #expect(error.codedDescription ==
-            "[NATIVEAPPTEMPLATE-2001] NativeAppTemplateAPIError::RequestFailed[Status: 502 | Error: UNKNOWN]")
+            "[NATIVEAPPTEMPLATE-2001] Something went wrong while communicating with the server." + " Please try again later.")
+        #expect(error.debugDescription.contains("Status: 502"))
     }
 }

@@ -22,8 +22,9 @@ enum AppError: CodedError {
 
     var errorDescription: String? {
         switch self {
-        case let .unexpected(description, _, _, _):
-            "An unexpected error occurred. \(description)"
+        case .unexpected:
+            // The description is developer detail: it is in debugDescription, for the log
+            Strings.unexpectedError
         }
     }
 

@@ -27,15 +27,28 @@ enum NativeAppTemplateAPIError: CodedError {
         }
     }
 
+    /// What the user sees: the API's error_message (already localized) as is, else a
+    /// localized generic text. The status and other developer details are in
+    /// `debugDescription`, for the log.
     nonisolated var errorDescription: String? {
         switch self {
+        case let .requestFailed(_, _, message):
+            message ?? Strings.serverCommunicationError
+        case .processingError, .responseMissingRequiredMeta, .responseHasIncorrectNumberOfElements, .noData:
+            Strings.unexpectedError
+        }
+    }
+
+    nonisolated var debugDescription: String {
+        "[\(errorCode)] \(detail)"
+    }
+
+    private nonisolated var detail: String {
+        switch self {
         case let .requestFailed(error, statusCode, message):
-            if let message {
-                "\(message) [Status: \(statusCode)]"
-            } else {
-                "NativeAppTemplateAPIError::RequestFailed" +
-                    "[Status: \(statusCode) | Error: \(error?.localizedDescription ?? "UNKNOWN")]"
-            }
+            "NativeAppTemplateAPIError::RequestFailed[Status: \(statusCode)"
+                + " | Message: \(message ?? "NONE")"
+                + " | Error: \(error?.localizedDescription ?? "UNKNOWN")]"
         case let .processingError(error):
             "NativeAppTemplateAPIError::ProcessingError[Error: \(error?.localizedDescription ?? "UNKNOWN")]"
         case let .responseMissingRequiredMeta(field: field):

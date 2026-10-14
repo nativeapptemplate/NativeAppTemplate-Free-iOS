@@ -40,55 +40,64 @@ struct NativeAppTemplateAPIErrorTest {
     @Test
     func requestFailedWithMessage() {
         let error = NativeAppTemplateAPIError.requestFailed(nil, 422, "Validation failed")
-        #expect(error.errorDescription == "Validation failed [Status: 422]")
-        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-2001] Validation failed [Status: 422]")
+        // The API's error_message, already localized, as is: the status is for the log only
+        #expect(error.errorDescription == "Validation failed")
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-2001] Validation failed")
+        #expect(error.debugDescription == "[NATIVEAPPTEMPLATE-2001] NativeAppTemplateAPIError::RequestFailed"
+            + "[Status: 422 | Message: Validation failed | Error: UNKNOWN]")
     }
 
     @Test
     func requestFailedWithoutMessage() {
         let error = NativeAppTemplateAPIError.requestFailed(nil, 500, nil)
-        let description = error.errorDescription!
-        #expect(description.contains("RequestFailed"))
-        #expect(description.contains("500"))
-        #expect(description.contains("UNKNOWN"))
+        // The generic communication error, worded as decided for iOS and Android (2026-10-14)
+        #expect(error.errorDescription == "Something went wrong while communicating with the server." + " Please try again later.")
+        #expect(error.debugDescription.contains("RequestFailed"))
+        #expect(error.debugDescription.contains("Status: 500"))
+        #expect(error.debugDescription.contains("UNKNOWN"))
     }
 
     @Test
     func processingErrorDescription() {
         let error = NativeAppTemplateAPIError.processingError(nil)
-        #expect(error.errorDescription!.contains("ProcessingError"))
-        #expect(error.errorDescription!.contains("UNKNOWN"))
+        // The generic text for developer-only errors, worded as decided for iOS and Android (2026-10-14)
+        #expect(error.errorDescription == "An unexpected error occurred.")
+        #expect(error.debugDescription.contains("ProcessingError"))
+        #expect(error.debugDescription.contains("UNKNOWN"))
     }
 
     @Test
     func responseMissingRequiredMetaDescription() {
         let error = NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "count")
-        #expect(error.errorDescription!.contains("ResponseMissingRequiredMeta"))
-        #expect(error.errorDescription!.contains("count"))
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-2003] An unexpected error occurred.")
+        #expect(error.debugDescription.contains("ResponseMissingRequiredMeta"))
+        #expect(error.debugDescription.contains("count"))
     }
 
     @Test
     func responseMissingRequiredMetaDescriptionNilField() {
         let error = NativeAppTemplateAPIError.responseMissingRequiredMeta(field: nil)
-        #expect(error.errorDescription!.contains("UNKNOWN"))
+        #expect(error.debugDescription.contains("UNKNOWN"))
     }
 
     @Test
     func responseHasIncorrectNumberOfElementsDescription() {
         let error = NativeAppTemplateAPIError.responseHasIncorrectNumberOfElements
-        #expect(error.errorDescription!.contains("ResponseHasIncorrectNumberOfElements"))
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-2004] An unexpected error occurred.")
+        #expect(error.debugDescription.contains("ResponseHasIncorrectNumberOfElements"))
     }
 
     @Test
     func noDataDescription() {
         let error = NativeAppTemplateAPIError.noData
-        #expect(error.errorDescription == "NativeAppTemplateAPIError::NoData")
-        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-2005] NativeAppTemplateAPIError::NoData")
+        #expect(error.errorDescription == "An unexpected error occurred.")
+        #expect(error.formattedDescription == "[NATIVEAPPTEMPLATE-2005] An unexpected error occurred.")
+        #expect(error.debugDescription == "[NATIVEAPPTEMPLATE-2005] NativeAppTemplateAPIError::NoData")
     }
 
     @Test
     func codedDescriptionViaErrorExtension() {
         let error: Error = NativeAppTemplateAPIError.requestFailed(nil, 404, "Not found")
-        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-2001] Not found [Status: 404]")
+        #expect(error.codedDescription == "[NATIVEAPPTEMPLATE-2001] Not found")
     }
 }

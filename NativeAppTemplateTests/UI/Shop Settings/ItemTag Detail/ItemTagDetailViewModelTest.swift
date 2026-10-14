@@ -287,9 +287,9 @@ struct ItemTagDetailViewModelTest {
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
         // "<itemTagDeletedError> " + NativeAppTemplateAPIError.requestFailed's codedDescription
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]" (ItemTagDetailViewModel.destroyItemTag)
+        // "[NATIVEAPPTEMPLATE-2001] <message>" (ItemTagDetailViewModel.destroyItemTag)
         #expect(messageBus.currentMessage?.message ==
-            "\(Strings.itemTagDeletedError) [NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+            "\(Strings.itemTagDeletedError) [NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(itemTagRepository.itemTags.count == 1)
     }
 

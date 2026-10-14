@@ -131,6 +131,16 @@
         }
       }
     },
+    "An unexpected error occurred." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "予期しないエラーが発生しました。"
+          }
+        }
+      }
+    },
     "App" : {
       "localizations" : {
         "ja" : {
@@ -1115,6 +1125,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サインアウトしました。"
+          }
+        }
+      }
+    },
+    "Something went wrong while communicating with the server. Please try again later." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーとの通信中に問題が発生しました。しばらくしてからもう一度お試しください。"
           }
         }
       }

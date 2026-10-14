@@ -26,7 +26,17 @@ enum KeychainStoreError: CodedError {
         }
     }
 
+    /// Developer-only errors: the user sees the generic text, the log the case and the
+    /// underlying error
     nonisolated var errorDescription: String? {
+        Strings.unexpectedError
+    }
+
+    nonisolated var debugDescription: String {
+        "[\(errorCode)] \(detail)"
+    }
+
+    private nonisolated var detail: String {
         switch self {
         case let .secCallFailed(error):
             "KeychainStoreError::SecCallFailed[Error: \(error.localizedDescription)]"

@@ -163,7 +163,7 @@ struct ShopCreateViewModelTest {
         viewModel.createShop()
         await waitUntil { messageBus.currentMessage != nil }
 
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(viewModel.isCreating)
         #expect(shopRepository.shops.count == createdShopsCount)
         #expect(viewModel.shouldDismiss)
@@ -195,8 +195,8 @@ struct ShopCreateViewModelTest {
         await waitUntil { viewModel.messageBus.currentMessage != nil && !viewModel.isCreating }
 
         // NativeAppTemplateAPIError.requestFailed's codedDescription:
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
-        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        // "[NATIVEAPPTEMPLATE-2001] <message>"
+        #expect(viewModel.messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         // A server or network error keeps the form open, so the user can retry.
         // ShopCreateViewModel no longer holds the session, so it can't sign the user out.
         #expect(!viewModel.isCreating)

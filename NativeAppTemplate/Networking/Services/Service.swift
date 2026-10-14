@@ -107,10 +107,18 @@ extension URLSession {
                 )
             }
 
-            throw NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, errorMessage)
+            let error = NativeAppTemplateAPIError.requestFailed(nil, statusCode ?? 0, errorMessage)
+            // The status is developer detail: the log gets it, the user the message
+            Failure.request(from: Request.self, reason: error.debugCodedDescription).log()
+            throw error
         }
 
-        return try request.handle(response: data)
+        do {
+            return try request.handle(response: data)
+        } catch {
+            Failure.request(from: Request.self, reason: error.debugCodedDescription).log()
+            throw error
+        }
     }
 }
 

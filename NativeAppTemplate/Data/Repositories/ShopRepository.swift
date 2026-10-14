@@ -41,7 +41,7 @@ import SwiftUI
             } catch {
                 state = .failed
                 Failure
-                    .fetch(from: Self.self, reason: error.codedDescription)
+                    .fetch(from: Self.self, reason: error.debugCodedDescription)
                     .log()
             }
         }
@@ -60,7 +60,7 @@ import SwiftUI
             return shop
         } catch {
             Failure
-                .fetch(from: Self.self, reason: error.codedDescription)
+                .fetch(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -71,7 +71,7 @@ import SwiftUI
             return try await shopsService.makeShop(shop: shop)
         } catch {
             Failure
-                .create(from: Self.self, reason: error.codedDescription)
+                .create(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -88,7 +88,7 @@ import SwiftUI
             return updatedShop
         } catch {
             Failure
-                .update(from: Self.self, reason: error.codedDescription)
+                .update(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }
@@ -99,7 +99,7 @@ import SwiftUI
             try await shopsService.destroyShop(id: id)
         } catch {
             Failure
-                .destroy(from: Self.self, reason: error.codedDescription)
+                .destroy(from: Self.self, reason: error.debugCodedDescription)
                 .log()
             throw error
         }

@@ -35,6 +35,30 @@ struct CodedErrorTest {
         #expect(error.codedDescription == "Plain error")
     }
 
+    /// The log gets the developer detail the user no longer sees
+    @Test
+    func debugCodedDescriptionForCodedError() {
+        let error: Error = NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "limit_count")
+        #expect(error.debugCodedDescription.hasPrefix("[NATIVEAPPTEMPLATE-2003]"))
+        #expect(error.debugCodedDescription.contains("limit_count"))
+    }
+
+    /// A CodedError without developer details logs what the user sees
+    @Test
+    func debugDescriptionDefaultsToFormattedDescription() {
+        #expect(TestCodedError().debugDescription == "[NATIVEAPPTEMPLATE-9999] Test error description")
+    }
+
+    @Test
+    func debugCodedDescriptionWithNonCodedError() {
+        let error: Error = NSError(
+            domain: "TestDomain",
+            code: 1,
+            userInfo: [NSLocalizedDescriptionKey: "Plain error"]
+        )
+        #expect(error.debugCodedDescription == "Plain error")
+    }
+
     struct NilDescriptionError: CodedError {
         var errorCode: String { "NATIVEAPPTEMPLATE-0000" }
         var errorDescription: String? { nil }

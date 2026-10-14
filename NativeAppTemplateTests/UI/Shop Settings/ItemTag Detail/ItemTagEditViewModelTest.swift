@@ -299,8 +299,8 @@ struct ItemTagEditViewModelTest {
         #expect(viewModel.shouldDismiss == false)
         #expect(viewModel.name == "Updated")
         // Message(error:) shows NativeAppTemplateAPIError.requestFailed's codedDescription:
-        // "[NATIVEAPPTEMPLATE-2001] <message> [Status: <code>]"
-        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message) [Status: \(httpResponseCode)]")
+        // "[NATIVEAPPTEMPLATE-2001] <message>"
+        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] \(message)")
         #expect(messageBus.currentMessage?.level == .error)
         #expect(messageBus.currentMessage?.autoDismiss == false)
     }
