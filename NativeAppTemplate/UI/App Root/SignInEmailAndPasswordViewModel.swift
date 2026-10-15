@@ -66,6 +66,10 @@ final class SignInEmailAndPasswordViewModel {
             let theEmail = email.trimmingCharacters(in: whitespacesAndNewlines)
             let thePassword = password.trimmingCharacters(in: whitespacesAndNewlines)
 
+            // The previous attempt's error no longer applies, and would stay over the
+            // shops after this attempt signs in
+            messageBus.dismiss()
+
             do {
                 isLoggingIn = true
                 try await sessionController.login(email: theEmail, password: thePassword)

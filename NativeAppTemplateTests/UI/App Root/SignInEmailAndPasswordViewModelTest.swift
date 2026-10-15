@@ -160,6 +160,25 @@ struct SignInEmailAndPasswordViewModelTest {
         #expect(viewModel.isLoggingIn == false)
     }
 
+    @Test("A new attempt dismisses the previous attempt's error")
+    func signInDismissesPreviousError() async {
+        let viewModel = SignInEmailAndPasswordViewModel(
+            sessionController: sessionController,
+            messageBus: messageBus
+        )
+        // TestSessionController starts signed in; the wait below must see this sign-in
+        sessionController.userState = .notLoggedIn
+        messageBus.post(message: Message(error: NativeAppTemplateAPIError.requestFailed(nil, 401, "Invalid email or password.")))
+
+        viewModel.email = "test@example.com"
+        viewModel.password = "password123"
+        viewModel.signIn()
+
+        await waitUntil { sessionController.userState == .loggedIn && !viewModel.isLoggingIn }
+
+        #expect(messageBus.messageVisible == false)
+    }
+
     @Test
     func signInError() async {
         // Simulate an error by setting the sessionController to throw an error
