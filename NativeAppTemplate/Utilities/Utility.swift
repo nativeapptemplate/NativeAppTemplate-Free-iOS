@@ -26,7 +26,8 @@ enum Utility {
         guard !city.isEmpty else { return firstZoneWithOffset.key }
 
         // The whole name, at any offset: the table's offset for a city can differ
-        // from the system's (Dublin, Casablanca), and the city still names the zone
+        // from the system's when tzdata changes it before Rails does, and the city
+        // still names the zone
         if let zone = timeZones.first(where: { $0.key == city }) {
             return zone.key
         }
