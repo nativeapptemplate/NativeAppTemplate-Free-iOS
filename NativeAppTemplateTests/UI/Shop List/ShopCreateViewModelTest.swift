@@ -158,7 +158,7 @@ struct ShopCreateViewModelTest {
         let message = "You can create up to 99 shops across all organizations."
         let httpResponseCode = 422
 
-        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, 422, message)
+        shopRepository.error = NativeAppTemplateAPIError.requestFailed(nil, httpResponseCode, message)
 
         viewModel.createShop()
         await waitUntil { messageBus.currentMessage != nil }
