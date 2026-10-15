@@ -57,7 +57,7 @@ private extension ItemTagEditView {
                             .font(.uiFootnote)
                         Text(Strings.itemTagNameIsInvalid)
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
+                            .validationMessage(isShown: viewModel.hasInvalidDataName)
                     }
                 }
 
@@ -75,7 +75,7 @@ private extension ItemTagEditView {
                             .font(.uiFootnote)
                         Text(Strings.itemTagDescriptionIsInvalid)
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
+                            .validationMessage(isShown: viewModel.hasInvalidDataDescription)
                     }
                 }
             }

@@ -50,7 +50,7 @@ private extension SignUpView {
                 } footer: {
                     Text(Strings.fullNameIsRequired)
                         .font(.caption)
-                        .foregroundStyle(viewModel.isNameBlank ? .validationError : .clear)
+                        .validationMessage(isShown: viewModel.isNameBlank)
                 }
 
                 Section {

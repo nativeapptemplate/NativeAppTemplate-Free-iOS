@@ -52,7 +52,7 @@ private extension PasswordEditView {
                     Text(Strings.weNeedYourCurrentPassword)
                         .font(.uiFootnote)
                     Text(Strings.currentPasswordIsRequired)
-                        .foregroundStyle(viewModel.currentPassword.isBlank ? .validationError : .clear)
+                        .validationMessage(isShown: viewModel.currentPassword.isBlank)
                         .font(.uiFootnote)
                 }
             }
@@ -91,10 +91,8 @@ private extension PasswordEditView {
                     ? Strings.passwordsDoNotMatch
                     : Strings.confirmNewPasswordIsRequired)
                     .font(.uiFootnote)
-                    .foregroundStyle(
-                        viewModel.passwordConfirmation.isBlank || viewModel.hasPasswordConfirmationMismatch
-                            ? .validationError
-                            : .clear
+                    .validationMessage(
+                        isShown: viewModel.passwordConfirmation.isBlank || viewModel.hasPasswordConfirmationMismatch
                     )
             }
         }

@@ -47,7 +47,7 @@ struct ShopCreateView: View {
                             .font(.uiFootnote)
                         Text(Strings.shopNameIsInvalid)
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataName ? .validationError : .clear)
+                            .validationMessage(isShown: viewModel.hasInvalidDataName)
                     }
                 }
 
@@ -65,7 +65,7 @@ struct ShopCreateView: View {
                             .font(.uiFootnote)
                         Text(Strings.shopDescriptionIsInvalid)
                             .font(.uiFootnote)
-                            .foregroundStyle(viewModel.hasInvalidDataDescription ? .validationError : .clear)
+                            .validationMessage(isShown: viewModel.hasInvalidDataDescription)
                     }
                 }
 

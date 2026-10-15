@@ -47,7 +47,7 @@ private extension ShopkeeperEditView {
                 Text(Strings.fullName)
             } footer: {
                 Text(Strings.fullNameIsRequired)
-                    .foregroundStyle(viewModel.name.isBlank ? .validationError : .clear)
+                    .validationMessage(isShown: viewModel.name.isBlank)
             }
 
             Section {
