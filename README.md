@@ -59,6 +59,8 @@ The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/
 - Role-Based Permissions and Access Control
 - Organization Switching UI
 - Push Notifications via APNs
+- Subscriptions via RevenueCat, off until you add an API key
+- Crash and error monitoring via Sentry, off until you add a DSN
 
 ## Supported Devices
 
