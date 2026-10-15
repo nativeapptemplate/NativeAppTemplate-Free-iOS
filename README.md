@@ -1,7 +1,8 @@
 # NativeAppTemplate-Free-iOS
 
 NativeAppTemplate-Free-iOS is a modern, comprehensive, and production-ready native iOS app with user authentication and a full CRUD example.  
-This iOS app is a free version of  [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team).  
+It is a complete, working app on its own, not a demo or a trimmed-down preview: build on it and ship it as is, under the MIT License.  
+The paid editions, [NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team), are for apps in which several people work in a shared organization; they add the features listed in [Paid Edition Extras](#paid-edition-extras).  
 
 The Android version is available here: [NativeAppTemplate-Free-Android](https://github.com/nativeapptemplate/NativeAppTemplate-Free-Android).  
 
@@ -49,11 +50,11 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 
 NFC tag writing and background tag reading were part of v1 and have been removed from the current version. The full NFC implementation remains available in the [`v1-with-nfc`](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/tree/v1-with-nfc) branch.
 
-## Not Included in the Free Version
+## Paid Edition Extras
 
 ![Gif showing Switching organization](https://github.com/nativeapptemplate/NativeAppTemplate-Free-iOS/blob/main/docs/images/organization.gif "Showing Switching organization")  
 
-The full versions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team)) include additional advanced features:
+The free version is complete for apps used by individuals. The paid editions ([NativeAppTemplate-iOS (Solo)](https://nativeapptemplate.com/products/ios-solo) and [NativeAppTemplate-iOS (Team)](https://nativeapptemplate.com/products/ios-team)) add what apps for teams need:
 
 - URL Path-Based Multitenancy (prepends `/:account_id/` to URLs)
 - User Invitation to Organizations
