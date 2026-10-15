@@ -48,7 +48,11 @@ struct ValidationMessageTest {
                 .validationMessage(isShown: isShown)
         }
         let controller = UIHostingController(rootView: view)
-        let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
+        // Tests run inside the app, so its window scene hosts the test window.
+        let scene = try #require(
+            UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first
+        )
+        let window = UIWindow(windowScene: scene)
         window.rootViewController = controller
         window.makeKeyAndVisible()
         controller.view.setNeedsLayout()
