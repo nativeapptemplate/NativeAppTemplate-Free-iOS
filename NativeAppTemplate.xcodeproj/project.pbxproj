@@ -139,6 +139,7 @@
 		4A8DA0DEF6F142C3A127058A /* PaginationMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE8A6D1D27C458389C4F61A /* PaginationMeta.swift */; };
 		7249A60C06FE44338E16BC50 /* APISessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597C0551370446BB931F19B /* APISessionDelegate.swift */; };
 		A1B2C3D401000003 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D401000004 /* GlassCard.swift */; };
+		A1B2C3D40F000002 /* ValidationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40F000001 /* ValidationMessage.swift */; };
 		A1B2C3D4E5F6A7B8C9D0E1F2 /* KeychainReinstallCleanup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F3 /* KeychainReinstallCleanup.swift */; };
 		A2B3C4D500000002 /* CodedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000001 /* CodedError.swift */; };
 		A2B3C4D500000004 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D500000003 /* AppError.swift */; };
@@ -297,6 +298,7 @@
 		412B1F0A34D186286A11F085 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		99D40C223000EA09B764706B /* SaveThenDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveThenDismiss.swift; sourceTree = "<group>"; };
 		A1B2C3D401000004 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		A1B2C3D40F000001 /* ValidationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationMessage.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6A7B8C9D0E1F3 /* KeychainReinstallCleanup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainReinstallCleanup.swift; sourceTree = "<group>"; };
 		A2B3C4D500000001 /* CodedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodedError.swift; sourceTree = "<group>"; };
 		A2B3C4D500000003 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				A1B2C3D401000004 /* GlassCard.swift */,
 				01E0A5F925BD148800298D35 /* MainButtonView.swift */,
 				99D40C223000EA09B764706B /* SaveThenDismiss.swift */,
+				A1B2C3D40F000001 /* ValidationMessage.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -948,6 +951,7 @@
 				01D8AE8B2AB453C1009AFFBA /* ShopBasicSettingsView.swift in Sources */,
 				01E0A60125BD149200298D35 /* MainButtonView.swift in Sources */,
 				E6D6F71FD22DECE8CC643108 /* SaveThenDismiss.swift in Sources */,
+				A1B2C3D40F000002 /* ValidationMessage.swift in Sources */,
 				A1B2C3D401000003 /* GlassCard.swift in Sources */,
 				0182D39A25B4424B001E881D /* LoggedInShopkeeperKeychainStore.swift in Sources */,
 				01ED197B2A037B9E00CD4735 /* AppTabView.swift in Sources */,
