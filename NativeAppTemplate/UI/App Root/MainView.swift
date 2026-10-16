@@ -18,7 +18,11 @@ struct MainView: View {
         ZStack {
             contentView
                 .background(Color.backgroundColor)
-                .overlay(MessageBarView(messageBus: messageBus), alignment: .bottom)
+                .overlay(alignment: .bottom) {
+                    if !content.hasTabBar {
+                        MessageBarView(messageBus: messageBus)
+                    }
+                }
                 .alert(Strings.sessionExpired, isPresented: sessionExpiredAlertBinding) {
                     Button(Strings.ok) {}
                 } message: {
@@ -53,11 +57,15 @@ private extension MainView {
         )
     }
 
-    @ViewBuilder var contentView: some View {
-        switch MainViewModel.content(
+    var content: MainContent {
+        MainViewModel.content(
             sessionController: sessionController,
             isRebuildingRepositories: dataManager.isRebuildingRepositories
-        ) {
+        )
+    }
+
+    @ViewBuilder var contentView: some View {
+        switch content {
         case .onboarding:
             OnboardingView()
         case .acceptPrivacy:

@@ -306,6 +306,7 @@ enum Strings {
 
     static let ok = String(localized: "OK")
     static let cancel = String(localized: "Cancel")
+    static let close = String(localized: "Close")
     static let save = String(localized: "Save")
     static let edit = String(localized: "Edit")
     static let delete = String(localized: "Delete")

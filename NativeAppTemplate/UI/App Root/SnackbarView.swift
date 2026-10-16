@@ -35,8 +35,12 @@ struct SnackbarView: View {
                 Image(systemName: "xmark")
                     .resizable()
                     .frame(width: NativeAppTemplateConstants.Spacing.sm, height: NativeAppTemplateConstants.Spacing.sm)
+                    // The symbol stays small; the area to tap is larger
+                    .frame(width: NativeAppTemplateConstants.Spacing.lg, height: NativeAppTemplateConstants.Spacing.lg)
+                    .contentShape(.rect)
             }
             .foregroundStyle(.snackText)
+            .accessibilityLabel(Strings.close)
         }
         .padding(.vertical, NativeAppTemplateConstants.Spacing.sm)
         .padding(.horizontal, NativeAppTemplateConstants.Spacing.md)
