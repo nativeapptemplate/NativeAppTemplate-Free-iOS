@@ -30,18 +30,10 @@ private extension ItemTagListView {
             if viewModel.isBusy {
                 LoadingView()
             } else {
-                switch viewModel.state {
-                case .initial:
-                    LoadingView()
+                switch viewModel.state.listContent(isEmpty: viewModel.isEmpty) {
                 case .loading:
-                    // Keep showing the existing list while refreshing so re-appearance
-                    // reloads don't blink a full-screen LoadingView over loaded data.
-                    if viewModel.isEmpty {
-                        LoadingView()
-                    } else {
-                        itemTagListView
-                    }
-                case .hasData:
+                    LoadingView()
+                case .list:
                     itemTagListView
                 case .failed:
                     reloadView
