@@ -117,4 +117,19 @@ struct MainContentTest {
 
         #expect(content() == .needsAppUpdate)
     }
+
+    /// MainView shows the message bar over the whole screen only without a tab bar;
+    /// with one, each tab shows it above the tab bar (it covered the tab bar and
+    /// blocked tab taps until closed). The cases with a tab bar are the ones
+    /// MainView.contentView shows in AppTabView.
+    @Test
+    func contentInAppTabViewHasATabBar() {
+        let withTabBar: [MainContent] = [.offline, .rebuildingRepositories, .needsAppUpdate, .tabs]
+        let withoutTabBar: [MainContent] = [
+            .onboarding, .acceptPrivacy, .acceptTerms, .permissionsLoading, .permissionsError, .sessionLoading
+        ]
+
+        #expect(withTabBar.allSatisfy { $0.hasTabBar })
+        #expect(!withoutTabBar.contains { $0.hasTabBar })
+    }
 }

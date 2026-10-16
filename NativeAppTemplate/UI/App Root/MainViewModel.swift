@@ -19,6 +19,17 @@ enum MainContent: Equatable {
     case rebuildingRepositories
     case needsAppUpdate
     case tabs
+
+    /// Shown in `AppTabView`. Its tabs show the message bar themselves, above the tab
+    /// bar, so a message doesn't cover the tabs until it is closed.
+    var hasTabBar: Bool {
+        switch self {
+        case .offline, .rebuildingRepositories, .needsAppUpdate, .tabs:
+            true
+        case .onboarding, .acceptPrivacy, .acceptTerms, .permissionsLoading, .permissionsError, .sessionLoading:
+            false
+        }
+    }
 }
 
 @Observable
