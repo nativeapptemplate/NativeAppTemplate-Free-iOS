@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- List screens switch on `DataState.listContent(isEmpty:)`, where a reload with data on screen is the same `.list` case as loaded data instead of a `switch` branch of its own. A separate branch makes SwiftUI rebuild the list on every reload, re-register its `navigationDestination` and re-run its `.task`; in MyTurnTagCreator that turned a reload after each tag change into a loop that hit the API's rate limit. Nothing here reloads that way yet, so this removes the trap rather than a live bug (Shops, number tags)
 - Error messages are localized (English and Japanese). A request that fails without the API's `error_message` shows "Something went wrong while communicating with the server. Please try again later." (`NATIVEAPPTEMPLATE-2001`); developer-only errors (`NATIVEAPPTEMPLATE-1001`, `2002`–`2008`, `4001`–`4004`) show "An unexpected error occurred." The API's `error_message` is shown without the " [Status: nnn]" suffix. Error codes are unchanged; status codes, field names and underlying errors go to the log (`CodedError.debugDescription`)
 
 ### Fixed
