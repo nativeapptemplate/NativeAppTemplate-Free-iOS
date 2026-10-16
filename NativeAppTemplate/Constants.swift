@@ -271,7 +271,7 @@ enum Strings {
     static let sentResetPasswordInstructionError = String(localized: "Unable to find user with the email.")
 
     static let sentConfirmationInstruction = String(
-        localized: "An email has been sent the email containing instructions for confirming your email address."
+        localized: "An email with instructions for confirming your email address has been sent."
     )
     static let sentConfirmationInstructionError = String(localized: "Unable to find user with the email.")
 

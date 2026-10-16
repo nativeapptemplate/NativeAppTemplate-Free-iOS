@@ -126,6 +126,28 @@ struct LocalizationTest {
         #expect(Strings.appLanguage == "App Language")
     }
 
+    // MARK: - English copy matches Android
+
+    /// The alert read "An email has been sent the email containing instructions ...".
+    /// Expected English is NativeAppTemplate-Free-Android's sent_confirmation_instruction
+    /// (values/strings.xml, fixed in 2a3e764); the Japanese is its values-ja text, which
+    /// is also the translation the old key had here.
+    @Test
+    func confirmationInstructionSentMessage() throws {
+        let english = "An email with instructions for confirming your email address has been sent."
+        #expect(Strings.sentConfirmationInstruction == english)
+        #expect(try Self.japaneseBundle().localizedString(forKey: english, value: nil, table: nil)
+            == "メールアドレスの確認方法を記載したメールを送信しました。")
+    }
+
+    /// The ungrammatical wording is gone from the catalog, so no view still uses it.
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
+    func noUngrammaticalEnglishKeys() throws {
+        let catalog = try StringCatalog(named: "Localizable.xcstrings")
+        let ungrammatical = catalog.strings.keys.filter { $0.contains("sent the email") || $0.contains("must be a 2-") }
+        #expect(ungrammatical.isEmpty, "Ungrammatical: \(ungrammatical)")
+    }
+
     // MARK: - Helpers
 
     private static func japaneseBundle() throws -> Bundle {

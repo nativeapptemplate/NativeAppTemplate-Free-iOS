@@ -121,7 +121,7 @@
         }
       }
     },
-    "An email has been sent the email containing instructions for confirming your email address." : {
+    "An email with instructions for confirming your email address has been sent." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
