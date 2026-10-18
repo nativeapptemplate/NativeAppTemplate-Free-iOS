@@ -96,3 +96,5 @@ docs-private/
 
 # Local API endpoint for Debug builds (see API.xcconfig)
 API.local.xcconfig
+# Local App Store ID (see AppStore.xcconfig)
+AppStore.local.xcconfig

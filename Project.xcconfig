@@ -1,0 +1,7 @@
+//
+// Project.xcconfig
+//
+// The project-level base configuration of Debug and Release. Each setting keeps
+// to its own file; see the comments there.
+
+#include "AppStore.xcconfig"

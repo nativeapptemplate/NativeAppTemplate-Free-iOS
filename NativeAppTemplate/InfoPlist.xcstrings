@@ -44,7 +44,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connects to a NativeAppTemplate API server running on your local network during development."
+            "value" : "Connects to the app's API server running on your local network during development."
           }
         },
         "ja" : {

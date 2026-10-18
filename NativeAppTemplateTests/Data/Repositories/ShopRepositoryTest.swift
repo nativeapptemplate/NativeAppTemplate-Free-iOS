@@ -71,7 +71,7 @@ struct ShopRepositoryTest {
         #expect(repository.shops.isEmpty)
     }
 
-    /// fetchDetail upserts: appends a shop it does not have, replaces one it has
+    /// fetchDetail upserts: appends what it does not have, replaces what it has
     @Test
     func fetchDetailAppendsOrReplaces() async throws {
         let server = try await TestHTTPServer.start { request in
