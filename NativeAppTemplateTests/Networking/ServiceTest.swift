@@ -249,7 +249,7 @@ func requestFailed(_ body: () async throws -> Void) async throws -> NativeAppTem
     } catch let error as NativeAppTemplateAPIError {
         return error
     }
-    Issue.record("Expected a NativeAppTemplateAPIError")
+    Issue.record("Expected NativeAppTemplateAPIError")
     throw CancellationError()
 }
 
