@@ -63,8 +63,8 @@ struct LocalizationTest {
         }
     }
 
-    /// Shop is 店舗 throughout, as in the API's ja.yml (店舗名). nativeapptemplate-agent
-    /// renames 店舗 as a substring, so ショップ, 店 or お店 would survive a rename.
+    /// Shop is 店舗 throughout, as in the API's ja.yml (店舗名). The agent renames
+    /// 店舗 as a substring, so ショップ, 店 or お店 would survive a rename.
     @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func shopIsAlways店舗() throws {
         let catalog = try StringCatalog(named: "Localizable.xcstrings")
@@ -74,8 +74,8 @@ struct LocalizationTest {
         #expect(offenders.isEmpty, "Use 店舗: \(offenders)")
     }
 
-    /// An ItemTag is アイテムタグ in full: nativeapptemplate-agent renames アイテムタグ
-    /// as a substring, so a shortened タグ or アイテム would survive a rename.
+    /// ItemTag is アイテムタグ in full: the agent renames アイテムタグ as a substring,
+    /// so a shortened タグ or アイテム would survive a rename.
     @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
     func itemTagIsAlwaysアイテムタグInFull() throws {
         let catalog = try StringCatalog(named: "Localizable.xcstrings")
@@ -84,6 +84,28 @@ struct LocalizationTest {
             return rest.contains("タグ") || rest.contains("アイテム")
         }
         #expect(offenders.isEmpty, "Use アイテムタグ: \(offenders)")
+    }
+
+    // MARK: - Rename safety
+
+    /// No "a" or "an" right before a word the agent renames (SUBSTRATE-CONTRACT rule 1), which
+    /// would read "a OrangeBaton" or "an patient" after a rename. The Local Network prompt
+    /// (NSLocalNetworkUsageDescription) had one before the product name.
+    @Test(.enabled(if: canReadSourceCatalogs, "Reads the .xcstrings sources on the Mac"))
+    func noArticleBeforeARenamedWord() throws {
+        let localizable = try StringCatalog(named: "Localizable.xcstrings")
+        let infoPlist = try StringCatalog(named: "InfoPlist.xcstrings")
+        let info = try #require(Bundle.main.infoDictionary)
+        let usageDescriptions = info.filter { $0.key.hasSuffix("UsageDescription") }.compactMap { $0.value as? String }
+        let english = Array(localizable.strings.keys) + localizable.englishValues + infoPlist.englishValues
+            + usageDescriptions
+        #expect(english.count > 100) // guards against reading nothing
+
+        let articleBeforeRenamedWord =
+            /\b(?:a|an) (?:shops?|shopkeepers?|item tags?|itemtags?|nativeapptemplate|native app template)\b/
+                .ignoresCase()
+        let offenders = english.filter { $0.contains(articleBeforeRenamedWord) }
+        #expect(offenders.isEmpty, "Drop the article: \(offenders)")
     }
 
     // MARK: - The built app carries Japanese
@@ -189,6 +211,14 @@ private struct StringCatalog {
             guard let unit = Self.japanese(of: entry)?["stringUnit"] as? [String: Any],
                   let value = unit["value"] as? String else { return nil }
             return (key, value)
+        }
+    }
+
+    /// English values, where the catalog has them (InfoPlist.xcstrings's keys are Info.plist keys)
+    var englishValues: [String] {
+        strings.values.compactMap { entry in
+            let english = (entry["localizations"] as? [String: Any])?["en"] as? [String: Any]
+            return (english?["stringUnit"] as? [String: Any])?["value"] as? String
         }
     }
 

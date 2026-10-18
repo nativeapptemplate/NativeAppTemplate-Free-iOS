@@ -102,6 +102,16 @@ The values are built into the app's `Info.plist`, so a Debug build reaches the s
 
 Release builds always use the code default (`https://api.nativeapptemplate.com`, which has been shut down), so change `APIEndpoint.production` to your own API server before shipping a Release build.
 
+## App Store page
+
+When the API says this version must be updated (an `AppVersion` with `forced_update`), the app shows the update screen, whose **Update App** button opens your app's App Store page. Set `APP_STORE_ID` in `AppStore.xcconfig` to your app's Apple ID, the number at the end of its App Store URL (App Store Connect → your app → **App Information** → **Apple ID**), or put it in `AppStore.local.xcconfig` next to it (gitignored):
+
+```
+APP_STORE_ID = 1234567890
+```
+
+It is empty as committed, which hides the button: the screen still asks users to install the new version, which they get from the App Store app. The ID is built into `Info.plist` as `AppStoreID` and read at launch (`Strings.appStoreUrl`, `https://apps.apple.com/app/id<Apple ID>`). A value that is not all digits also hides the button, and `InfoPlistTest` fails on it.
+
 ## SwiftLint
 
 SwiftLint runs as part of the build process in Xcode, and errors/warnings are surfaced in Xcode as well. Please ensure that you run SwiftLint before submitting a pull request.

@@ -258,6 +258,8 @@
 		01A133A42E08BB1B000AD24A /* SignInEmailAndPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailAndPasswordViewModel.swift; sourceTree = "<group>"; };
 		01A133A62E08BB66000AD24A /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		01A9E1F02EA0000100000001 /* API.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = API.xcconfig; sourceTree = "<group>"; };
+		A99570000000000000000001 /* AppStore.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppStore.xcconfig; sourceTree = "<group>"; };
+		5E7A10000000000000000105 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		01B37C7529B0960700BF5B2D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		01B526532AF4E36400655131 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		01B526552AF4E82A00655131 /* ScrollToTopID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToTopID.swift; sourceTree = "<group>"; };
@@ -408,6 +410,8 @@
 			isa = PBXGroup;
 			children = (
 				01A9E1F02EA0000100000001 /* API.xcconfig */,
+				A99570000000000000000001 /* AppStore.xcconfig */,
+				5E7A10000000000000000105 /* Project.xcconfig */,
 				0135E8E22D7E4478004AD8FA /* SampleCode.xcconfig */,
 			);
 			name = Configuration;
@@ -1044,6 +1048,7 @@
 /* Begin XCBuildConfiguration section */
 		011F6E10259EF16600BED22E /* Debug configuration for PBXProject "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E7A10000000000000000105 /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1114,6 +1119,7 @@
 		};
 		011F6E11259EF16600BED22E /* Release configuration for PBXProject "NativeAppTemplate" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E7A10000000000000000105 /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

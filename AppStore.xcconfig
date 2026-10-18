@@ -1,0 +1,24 @@
+//
+// AppStore.xcconfig
+//
+// Your app's App Store page, which the forced-update screen (NeedAppUpdatesView)
+// opens from its Update App button. APP_STORE_ID is your app's Apple ID, the
+// number at the end of its App Store URL (https://apps.apple.com/app/id<Apple ID>;
+// App Store Connect > your app > App Information > Apple ID). It is built into
+// Info.plist (AppStoreID) and read at launch.
+//
+// Empty, as committed, hides the Update App button: the screen still asks users
+// to install the new version, which they get from the App Store app. A value
+// that is not all digits also hides it, and InfoPlistTest fails on it.
+//
+// Set it here in your own app's repository, or in AppStore.local.xcconfig
+// (gitignored), e.g.
+//
+//   APP_STORE_ID = 1234567890
+//
+// Applies to both Debug and Release (the project-level base configuration,
+// through Project.xcconfig).
+
+APP_STORE_ID =
+
+#include? "AppStore.local.xcconfig"

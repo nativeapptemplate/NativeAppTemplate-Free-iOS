@@ -24,7 +24,7 @@ struct APIEndpointTest {
         #expect(endpoint == APIEndpoint(scheme: "http", domain: "192.168.1.21", port: "3000"))
     }
 
-    /// nativeapptemplate-agent passes the endpoint through `simctl launch`
+    /// The agent passes the endpoint through `simctl launch`
     /// (SIMCTL_CHILD_*), which must keep working
     @Test
     func environmentVariablesWinOverInfoPlist() {

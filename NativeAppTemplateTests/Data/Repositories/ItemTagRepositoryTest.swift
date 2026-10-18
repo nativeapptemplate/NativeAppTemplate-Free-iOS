@@ -87,7 +87,7 @@ struct ItemTagRepositoryTest {
         #expect(repository.state == .hasData)
     }
 
-    /// An item tag resource as the API's ItemTagSerializer writes it (ItemTagAdapter's attributes)
+    /// Item tag resource as the API's ItemTagSerializer writes it (ItemTagAdapter's attributes)
     private nonisolated static func itemTagResource(id: String, shopId: String = "A") -> [String: Any] {
         [
             "id": id,

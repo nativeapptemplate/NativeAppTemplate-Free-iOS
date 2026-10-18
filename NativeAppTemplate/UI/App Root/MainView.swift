@@ -95,8 +95,8 @@ private extension MainView {
             .environment(tabViewModel)
         case .needsAppUpdate:
             AppTabView(
-                shopListView: NeedAppUpdatesView.init,
-                settingsView: NeedAppUpdatesView.init
+                shopListView: { NeedAppUpdatesView() },
+                settingsView: { NeedAppUpdatesView() }
             )
             .environment(tabViewModel)
         case .tabs:

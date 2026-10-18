@@ -8,6 +8,14 @@ import SwiftUI
 struct NeedAppUpdatesView: View {
     @Environment(\.openURL) var openURL
 
+    /// The app's App Store page (APP_STORE_ID in AppStore.xcconfig). nil, as committed, hides
+    /// the Update App button; the text still asks users to install the new version.
+    private let appStoreUrl: URL?
+
+    init(appStoreUrl: URL? = Strings.appStoreUrl) {
+        self.appStoreUrl = appStoreUrl
+    }
+
     var body: some View {
         VStack {
             Spacer()
@@ -27,12 +35,14 @@ struct NeedAppUpdatesView: View {
                     Text(Strings.installNewVersionApp)
                         .foregroundStyle(.contentText)
                         .padding(.top, NativeAppTemplateConstants.Spacing.xxxs)
-                    Button {
-                        openURL(URL(string: Strings.appStoreUrl)!)
-                    } label: {
-                        Text(Strings.updateApp)
+                    if let appStoreUrl {
+                        Button {
+                            openURL(appStoreUrl)
+                        } label: {
+                            Text(Strings.updateApp)
+                        }
+                        .padding(.top)
                     }
-                    .padding(.top)
                 }
             }
             .padding(.horizontal, NativeAppTemplateConstants.Spacing.lg)

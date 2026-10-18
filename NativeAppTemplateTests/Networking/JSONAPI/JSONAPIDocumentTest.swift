@@ -79,9 +79,11 @@ struct JSONAPIDocumentTest {
         #expect(resource.id == "7")
     }
 
-    /// Only those exact names: camelCase, capitalized, or a type EntityType does not
-    /// list (the paid app's account) has none
-    @Test(arguments: ["itemTag", "Shop", "account"])
+    /// Only those exact names: a type EntityType does not list (the paid app's account),
+    /// camelCase, or capitalized has none. The camelCase one keeps a part the agent does
+    /// not rename: it renames item_tag and itemTag to the same word, so a camelCase
+    /// item tag type would become a known one in the generated app.
+    @Test(arguments: ["account", "shopkeeperSignIn", "Shop"])
     func otherTypeNamesHaveNoEntityType(type: String) throws {
         let doc = try document(#"{"data": {"id": "1", "type": "\#(type)"}}"#)
 

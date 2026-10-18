@@ -9,7 +9,7 @@ import Testing
 /// List screens switch on `listContent(isEmpty:)`. A reload of a list already on screen
 /// must stay `.list`, the same case as `.hasData`: as a branch of its own, SwiftUI rebuilds
 /// the list on every reload and re-runs its `.task`. In MyTurnTagCreator 2.1.0 that made the
-/// Shops tab reload about twice a second while a shop was open.
+/// Shops tab reload about twice a second while shop detail was open.
 @Suite
 struct DataStateListContentTest {
     @Test

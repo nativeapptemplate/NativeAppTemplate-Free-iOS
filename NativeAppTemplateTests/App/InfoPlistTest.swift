@@ -45,6 +45,26 @@ struct InfoPlistTest {
         #expect(info["UIUserInterfaceStyle"] as? String == "Dark")
     }
 
+    /// AppStore.xcconfig's APP_STORE_ID reaches the app through Info.plist; an empty value (as
+    /// committed) hides the forced-update screen's Update App button. A missing entry would hide
+    /// it even with an ID.
+    @Test
+    func declaresTheAppStoreID() throws {
+        let info = try #require(Bundle.main.infoDictionary)
+
+        #expect(info["AppStoreID"] is String)
+    }
+
+    /// Empty (as committed) or an Apple ID (digits only), which makes an App Store page. Anything
+    /// else, e.g. the whole App Store URL, would hide the Update App button without a word.
+    @Test
+    func theAppStoreIDIsEmptyOrAnAppleID() {
+        #expect(
+            Strings.appStoreId.isEmpty || Strings.appStoreUrl != nil,
+            "APP_STORE_ID is \"\(Strings.appStoreId)\"; see AppStore.xcconfig"
+        )
+    }
+
     /// iOS local network privacy identifies an app by its main executable's
     /// LC_UUID (Apple TN3179). With ENABLE_DEBUG_DYLIB the Debug main executable
     /// is a tiny stub that depends only on the product name, so this app and the

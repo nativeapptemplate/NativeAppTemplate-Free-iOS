@@ -106,8 +106,21 @@ enum Strings {
 
     static let appName: String = "Native App Template"
 
-    /// This is for MyTurnTag Creator. Replace this.
-    static let appStoreUrl: String = "https://apps.apple.com/app/myturntag-creator/id1516198303"
+    // MARK: App Store page
+
+    /// APP_STORE_ID from AppStore.xcconfig (built into Info.plist): the app's Apple ID, the
+    /// number in its App Store URL. Empty, as committed, hides NeedAppUpdatesView's Update App
+    /// button. See README "App Store page".
+    static let appStoreId: String = Bundle.main.object(forInfoDictionaryKey: "AppStoreID") as? String ?? ""
+    /// The page NeedAppUpdatesView's Update App button opens; nil while APP_STORE_ID is empty
+    static let appStoreUrl: URL? = appStorePage(appStoreId: appStoreId)
+
+    /// https://apps.apple.com/app/id<Apple ID>, or nil unless `appStoreId` is all digits
+    /// (an Apple ID is a number; anything else, e.g. a pasted URL, would open a wrong page)
+    static func appStorePage(appStoreId: String) -> URL? {
+        guard !appStoreId.isEmpty, appStoreId.allSatisfy({ ("0"..."9").contains($0) }) else { return nil }
+        return URL(string: "https://apps.apple.com/app/id\(appStoreId)")
+    }
 
     static let placeholderFullName: String = .init(localized: "John Smith")
     static let placeholderEmail: String = "you@example.com"
