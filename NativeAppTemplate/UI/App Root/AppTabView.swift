@@ -135,6 +135,8 @@ struct AppTabView_Previews: PreviewProvider {
 
 // MARK: - private
 
+/// MainActor like the View conformance: Xcode 26 does not infer it for this extension
+@MainActor
 private extension AppTabView {
     @ViewBuilder
     func navigationStack(_ appTab: AppTab) -> some View {
