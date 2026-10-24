@@ -34,6 +34,48 @@ struct ValidationMessageTest {
         #expect(labels.contains(messageText))
     }
 
+    /// A new form opened with "Name is required." before anything was typed. The message
+    /// waits until its field is first edited (`untilEdited`), from VoiceOver too
+    @Test
+    func messageIsHiddenUntilTheFieldIsEdited() throws {
+        let labels = try AccessibilityElements.of(Form(edited: false, siblingLabel: siblingLabel, messageText: messageText))
+            .map(\.label)
+
+        #expect(labels.contains(siblingLabel))
+        #expect(!labels.contains(messageText))
+    }
+
+    @Test
+    func messageShowsOnceTheFieldIsEdited() throws {
+        let labels = try AccessibilityElements.of(Form(edited: true, siblingLabel: siblingLabel, messageText: messageText))
+            .map(\.label)
+
+        #expect(labels.contains(siblingLabel))
+        #expect(labels.contains(messageText))
+    }
+
+    /// A field's text and its required-field message; `edited` types into it on appear
+    private struct Form: View {
+        let edited: Bool
+        let siblingLabel: String
+        let messageText: String
+        @State private var text = ""
+
+        var body: some View {
+            VStack {
+                Text(siblingLabel)
+                Text(messageText)
+                    .validationMessage(isShown: true)
+                    .untilEdited(text)
+            }
+            .onAppear {
+                if edited {
+                    text = "Typed"
+                }
+            }
+        }
+    }
+
     // MARK: - Helpers
 
     /// The labels of every accessibility element next to the message and in it

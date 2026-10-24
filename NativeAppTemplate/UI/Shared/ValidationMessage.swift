@@ -20,10 +20,32 @@ struct ValidationMessageModifier: ViewModifier {
     }
 }
 
+/// Keeps a field's error hidden until the field is first edited. A new form opened with
+/// "Name is required." in red before anything was typed; the save button stays disabled
+/// meanwhile, so nothing is lost by waiting.
+struct UntilEditedModifier<Value: Equatable>: ViewModifier {
+    let value: Value
+    @State private var isEdited = false
+
+    func body(content: Content) -> some View {
+        content
+            .opacity(isEdited ? 1 : 0)
+            .accessibilityHidden(!isEdited)
+            .onChange(of: value) {
+                isEdited = true
+            }
+    }
+}
+
 extension View {
     /// Shows this text as a validation error when `isShown`; otherwise keeps its
     /// space but hides it, from VoiceOver too.
     func validationMessage(isShown: Bool) -> some View {
         modifier(ValidationMessageModifier(isShown: isShown))
+    }
+
+    /// Hides this field error until `value`, the field's text, first changes.
+    func untilEdited(_ value: some Equatable) -> some View {
+        modifier(UntilEditedModifier(value: value))
     }
 }

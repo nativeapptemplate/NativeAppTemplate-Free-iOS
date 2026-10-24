@@ -48,6 +48,7 @@ struct ShopCreateView: View {
                         Text(Strings.shopNameIsInvalid)
                             .font(.uiFootnote)
                             .validationMessage(isShown: viewModel.hasInvalidDataName)
+                            .untilEdited(viewModel.name)
                     }
                 }
 

@@ -54,6 +54,7 @@ private extension PasswordEditView {
                     Text(Strings.currentPasswordIsRequired)
                         .validationMessage(isShown: viewModel.currentPassword.isBlank)
                         .font(.uiFootnote)
+                        .untilEdited(viewModel.currentPassword)
                 }
             }
             Section {
@@ -68,15 +69,18 @@ private extension PasswordEditView {
                     Text("\(viewModel.minimumPasswordLength) characters minimum.")
                         .font(.uiFootnote)
 
-                    if viewModel.password.isBlank {
-                        Text(Strings.newPasswordIsRequired)
-                            .foregroundStyle(.validationError)
-                            .font(.uiFootnote)
-                    } else if viewModel.hasInvalidDataPassword {
-                        Text(Strings.passwordIsInvalid)
-                            .foregroundStyle(.validationError)
-                            .font(.uiFootnote)
+                    Group {
+                        if viewModel.password.isBlank {
+                            Text(Strings.newPasswordIsRequired)
+                                .foregroundStyle(.validationError)
+                                .font(.uiFootnote)
+                        } else if viewModel.hasInvalidDataPassword {
+                            Text(Strings.passwordIsInvalid)
+                                .foregroundStyle(.validationError)
+                                .font(.uiFootnote)
+                        }
                     }
+                    .untilEdited(viewModel.password)
                 }
             }
             Section {
@@ -94,6 +98,7 @@ private extension PasswordEditView {
                     .validationMessage(
                         isShown: viewModel.passwordConfirmation.isBlank || viewModel.hasPasswordConfirmationMismatch
                     )
+                    .untilEdited(viewModel.passwordConfirmation)
             }
         }
         .navigationTitle(Strings.updatePassword)
