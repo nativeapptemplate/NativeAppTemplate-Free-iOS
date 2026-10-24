@@ -33,9 +33,11 @@ private extension OnboardingView {
                     .padding([.top, .horizontal])
                     .accessibilityIdentifier("OnboardingView_welcome_staticText")
             }
-            .background(Color.backgroundColor)
             .frame(maxWidth: .infinity, maxHeight: 192, alignment: .top)
         }
+        // The whole screen, as SignUpOrSignInView: only behind the title, it was a
+        // block of backgroundColor on the system background
+        .background(Color.backgroundColor)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Link(Strings.supportWebsite, destination: URL(string: Strings.supportWebsiteUrl)!)
