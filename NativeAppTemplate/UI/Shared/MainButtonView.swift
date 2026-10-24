@@ -33,6 +33,17 @@ enum MainButtonType {
         }
     }
 
+    /// Primary buttons are filled, so their white text shows on any background; the others
+    /// are outlined in their foreground color
+    var fill: Color? {
+        switch self {
+        case .primary, .coloredPrimary:
+            .primaryButtonBackground
+        case .secondary, .coloredSecondary, .destructive, .server, .customer:
+            nil
+        }
+    }
+
     var hasArrow: Bool {
         switch self {
         case
@@ -89,7 +100,8 @@ struct MainButtonView: View {
                 }
                 .background(
                     RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.sm)
-                        .stroke(type.color, lineWidth: 2)
+                        .fill(type.fill ?? .clear)
+                        .stroke(type.fill ?? type.color, lineWidth: 2)
                 )
             }
         }
@@ -144,7 +156,8 @@ struct MainButtonImageView: View {
             .frame(height: height)
             .background(
                 RoundedRectangle(cornerRadius: NativeAppTemplateConstants.CornerRadius.sm)
-                    .stroke(type.color, lineWidth: 2)
+                    .fill(type.fill ?? .clear)
+                    .stroke(type.fill ?? type.color, lineWidth: 2)
             )
             .onPreferenceChange(SizeKey.self) { size in
                 Task { @MainActor in
