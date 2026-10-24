@@ -42,9 +42,6 @@ enum NativeAppTemplateConstants {
 
         /// 96pt - Dramatic spacing, large separations
         static let xxxl: CGFloat = 96
-
-        /// 128pt - Massive spacing, hero sections
-        static let xxxxl: CGFloat = 128
     }
 
     // MARK: - Glass
