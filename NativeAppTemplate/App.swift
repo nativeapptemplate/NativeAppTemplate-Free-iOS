@@ -118,7 +118,6 @@ extension App: SwiftUI.App {
                     .fill(Color.backgroundColor)
                     .edgesIgnoringSafeArea(.all)
                 MainView()
-                    .preferredColorScheme(.dark) // Dark mode only
                     .environment(loginRepository)
                     .environment(\.sessionController, sessionController)
                     .environment(dataManager)

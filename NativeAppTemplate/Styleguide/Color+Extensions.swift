@@ -87,28 +87,34 @@ extension Color {
     static let green10 = Color(hex: "#E3F9E5")
 }
 
-// MARK: - Semantic Colors (Dark Mode)
+// MARK: - Semantic Colors (Light and Dark)
 
+/// Every color a screen uses has a light and a dark value, resolved by the system's
+/// appearance; screens use these names only. `SemanticColorContrastTest` checks each pair of
+/// a color and what it is drawn on, in both appearances.
 extension Color {
     // MARK: Backgrounds
 
-    static let backgroundColor = coolGrey1 // #1F2933 - Page background
-    static let cardBackground = coolGrey2 // #323F4B - Card background
+    static let backgroundColor = Color(light: coolGrey10, dark: coolGrey1) // Page background
+    static let cardBackground = Color(light: .white, dark: coolGrey2) // Card background
 
     // MARK: Text
 
-    static let titleText = coolGrey10 // #F5F7FA
-    static let contentText = coolGrey7 // #9AA5B1
-    static let secondaryText = coolGrey6 // #7B8794
-    static let snackText = coolGrey10 // #F5F7FA
+    static let titleText = Color(light: coolGrey1, dark: coolGrey10)
+    static let contentText = Color(light: coolGrey3, dark: coolGrey9)
+    static let secondaryText = Color(light: coolGrey4, dark: coolGrey8)
+    static let snackText = Color(light: coolGrey1, dark: coolGrey10)
 
     // MARK: Buttons
 
-    static let primaryButtonForeground = coolGrey10 // #F5F7FA
-    static let secondaryButtonForeground = coolGrey10 // #F5F7FA
-    static let coloredPrimaryButtonForeground = lightBlue9 // #B3ECFF
-    static let coloredSecondaryButtonForeground = coolGrey9 // #E4E7EB
-    static let destructiveButtonForeground = coolGrey10 // #F5F7FA
+    /// Primary buttons are filled with `primaryButtonBackground`; the others are outlined in
+    /// their foreground color
+    static let primaryButtonForeground = Color.white
+    static let primaryButtonBackground = lightBlue2 // #0B69A3, white on it is 5.89:1
+    static let secondaryButtonForeground = Color(light: coolGrey1, dark: coolGrey10)
+    static let coloredPrimaryButtonForeground = Color.white
+    static let coloredSecondaryButtonForeground = Color(light: coolGrey3, dark: coolGrey9)
+    static let destructiveButtonForeground = Color(light: coolGrey1, dark: coolGrey10)
 
     // MARK: Tags - Idled
 
@@ -122,26 +128,26 @@ extension Color {
 
     // MARK: Write to Tag
 
-    static let customerForeground = lightBlue6 // #40C3F7
-    static let serverForeground = red6 // #EF4E4E
+    static let customerForeground = Color(light: lightBlue2, dark: lightBlue6)
+    static let serverForeground = Color(light: red4, dark: red6)
 
     // MARK: Validation
 
-    static let validationError = red5 // #E12D39
+    static let validationError = Color(light: red4, dark: red8)
 
     // MARK: Glass
 
-    static let glassBorder = coolGrey10 // #F5F7FA
+    static let glassBorder = Color(light: coolGrey8, dark: coolGrey10)
     static let glassShadow = coolGrey1 // #1F2933
 
     // MARK: Button Arrow
 
-    static let arrowBackground = coolGrey10 // #F5F7FA
+    static let arrowBackground = Color(light: coolGrey1, dark: coolGrey10)
 
     // MARK: Accent
 
-    static let accent = lightBlue7 // #5ED0FA
-    static let alarm = red7 // #F86A6A
+    static let accent = Color(light: lightBlue2, dark: lightBlue7)
+    static let alarm = Color(light: red4, dark: red7)
 }
 
 // MARK: - ShapeStyle Conformance
@@ -246,6 +252,17 @@ extension ShapeStyle where Self == Color {
 
     static var alarm: Color {
         Color.alarm
+    }
+}
+
+// MARK: - Light and Dark
+
+extension Color {
+    /// `light` in the light appearance and `dark` in the dark one, resolved by the system
+    init(light: Color, dark: Color) {
+        self.init(UIColor { traits in
+            UIColor(traits.userInterfaceStyle == .dark ? dark : light)
+        })
     }
 }
 

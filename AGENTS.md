@@ -33,6 +33,12 @@ xcodebuild -project NativeAppTemplate.xcodeproj \
   test
 ```
 
+When the simulator is slow, run the tests on a connected iPhone instead (Developer Mode on, signed with your team); it counts the same as a simulator run:
+```bash
+xcrun devicectl list devices    # the iPhone's Identifier
+xcodebuild -project NativeAppTemplate.xcodeproj -scheme "NativeAppTemplate" -destination 'platform=iOS,id=<Identifier>' test
+```
+
 ### Linting
 ```bash
 # Run SwiftLint (must be installed via: brew install swiftlint)

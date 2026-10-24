@@ -35,14 +35,14 @@ struct InfoPlistTest {
         }
     }
 
-    /// The app is dark mode only (App.swift applies .preferredColorScheme(.dark)), but
-    /// that only takes effect once SwiftUI is on screen. UIUserInterfaceStyle = Dark
-    /// keeps the launch screen's system background dark in light mode too.
+    /// The app follows the system's appearance, light or dark (every color in
+    /// Color+Extensions.swift has both values). UIUserInterfaceStyle would pin it, as the
+    /// template's Dark once did together with .preferredColorScheme(.dark) in App.swift.
     @Test
-    func launchesInDarkMode() throws {
+    func followsTheSystemAppearance() throws {
         let info = try #require(Bundle.main.infoDictionary)
 
-        #expect(info["UIUserInterfaceStyle"] as? String == "Dark")
+        #expect(info["UIUserInterfaceStyle"] == nil)
     }
 
     /// AppStore.xcconfig's APP_STORE_ID reaches the app through Info.plist; an empty value (as
