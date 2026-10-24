@@ -130,9 +130,10 @@ extension App: SwiftUI.App {
 
 // MARK: - internal
 
+@MainActor
 extension App {
     /// Initialise the database
-    @MainActor static var objects: Objects {
+    static var objects: Objects {
         let loginRepository = LoginRepository()
         let sessionController = SessionController(loginRepository: loginRepository)
         let messageBus = MessageBus()

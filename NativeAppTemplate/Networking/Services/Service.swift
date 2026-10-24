@@ -73,6 +73,7 @@ extension URLRequest {
     }
 }
 
+@MainActor
 extension URLSession {
     /// Sends `urlRequest` and hands a 2xx body to `request.handle(response:)`. Any
     /// other status throws `requestFailed` with the status and the API's
@@ -81,7 +82,7 @@ extension URLSession {
     /// - Parameter authToken: The token `urlRequest` was sent with, to announce as
     ///   rejected (`.apiSessionDidExpire`) when devise_token_auth answers with its 401.
     ///   `nil` never announces anything.
-    @MainActor func apiResponse<Request: NativeAppTemplate.Request>(
+    func apiResponse<Request: NativeAppTemplate.Request>(
         to request: Request,
         sending urlRequest: URLRequest,
         announcingRejectionOf authToken: String?
