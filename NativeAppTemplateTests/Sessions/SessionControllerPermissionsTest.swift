@@ -34,8 +34,7 @@ struct SessionControllerPermissionsTest {
     private nonisolated(unsafe) static let meta: [String: Any] = [
         "ios_app_version": 1,
         "should_update_privacy": true,
-        "should_update_terms": false,
-        "shop_limit_count": 3
+        "should_update_terms": false
     ]
 
     private func makeSessionController(server: TestHTTPServer) -> SessionController {
@@ -69,11 +68,10 @@ struct SessionControllerPermissionsTest {
         // The values in meta above
         #expect(sessionController.shouldUpdatePrivacy)
         #expect(!sessionController.shouldUpdateTerms)
-        #expect(sessionController.shopLimitCount == 3)
     }
 
     /// Going online asks for the permissions once. The response used to be applied
-    /// by reassigning shopkeeper, whose didSet still saw shopLimitCount 0 and sent
+    /// by reassigning shopkeeper, whose didSet still saw them unfetched and sent
     /// a second request (and synced the locale twice).
     @Test
     func permissionsAreFetchedOnce() async throws {
@@ -94,7 +92,7 @@ struct SessionControllerPermissionsTest {
     }
 
     /// Signing out forgets the permissions of the shopkeeper who left. Otherwise the
-    /// next sign-in starts with them: its didSet saw shopLimitCount 3 and marked the
+    /// next sign-in starts with them: its didSet saw them fetched and marked the
     /// permissions loaded, so the previous shopkeeper's privacy prompt showed.
     @Test
     func signingOutForgetsThePermissions() async throws {
@@ -116,7 +114,6 @@ struct SessionControllerPermissionsTest {
         #expect(!sessionController.shouldUpdatePrivacy)
         #expect(!sessionController.shouldUpdateTerms)
         #expect(!sessionController.shouldUpdateApp)
-        #expect(sessionController.shopLimitCount == 0)
         #expect(!sessionController.didFetchPermissions)
     }
 

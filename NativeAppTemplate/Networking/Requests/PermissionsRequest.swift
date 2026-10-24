@@ -9,7 +9,6 @@ struct PermissionsResponse: Sendable {
     var iosAppVersion: Int
     var shouldUpdatePrivacy: Bool
     var shouldUpdateTerms: Bool
-    var shopLimitCount: Int
 }
 
 struct PermissionsRequest: Request {
@@ -47,15 +46,13 @@ struct PermissionsRequest: Request {
             throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "should_update_terms")
         }
 
-        guard let shopLimitCount = doc.meta["shop_limit_count"] as? Int else {
-            throw NativeAppTemplateAPIError.responseMissingRequiredMeta(field: "shop_limit_count")
-        }
+        // shop_limit_count in the meta is not read: the shop list's meta carries the limit
+        // the app shows
 
         return PermissionsResponse(
             iosAppVersion: iosAppVersion,
             shouldUpdatePrivacy: shouldUpdatePrivacy,
-            shouldUpdateTerms: shouldUpdateTerms,
-            shopLimitCount: shopLimitCount
+            shouldUpdateTerms: shouldUpdateTerms
         )
     }
 }

@@ -17,8 +17,7 @@ struct PermissionsRequestTest {
         [
             "ios_app_version": 21,
             "should_update_privacy": shouldUpdatePrivacy,
-            "should_update_terms": shouldUpdateTerms,
-            "shop_limit_count": 3
+            "should_update_terms": shouldUpdateTerms
         ]
     }
 
@@ -35,13 +34,16 @@ struct PermissionsRequestTest {
         #expect(response.shouldUpdateTerms == terms)
     }
 
+    /// The API also sends shop_limit_count, but the app reads the limit from the shop
+    /// list's meta; it only stood in as the "permissions loaded" mark, which is
+    /// SessionController.didFetchPermissions now. Requiring it failed every permissions
+    /// load in an app whose API dropped it
     @Test
-    func limitsAndVersionComeFromTheMeta() throws {
+    func limitCountIsNotRequired() throws {
         let response = try handle(meta: Self.meta())
 
-        // The values in meta() above
+        // The value in meta() above, which has no limit count
         #expect(response.iosAppVersion == 21)
-        #expect(response.shopLimitCount == 3)
     }
 
     /// A response without a flag must not quietly skip the privacy or terms
@@ -49,8 +51,7 @@ struct PermissionsRequestTest {
     @Test(arguments: [
         "ios_app_version",
         "should_update_privacy",
-        "should_update_terms",
-        "shop_limit_count"
+        "should_update_terms"
     ])
     func missingMetaFieldThrowsNamingIt(field: String) throws {
         var meta = Self.meta()
