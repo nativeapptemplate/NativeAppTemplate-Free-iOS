@@ -8,11 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Keychain items are written `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, so a backup restored onto another device does not carry the signed-in session; items written earlier move over on the next save. Found while building Orange Baton from the template
-- The delete-account confirmation says that the shops and item tags are deleted with the account. Found while building Orange Baton from the template
-- A form field's error stays hidden until the field is first edited (`untilEdited(_:)`), so new forms (shop, item tag, sign-up, password) no longer open in red. Found while building Orange Baton from the template
-- Text can grow past AX1: the shop card and the onboarding title no longer cap Dynamic Type, and the onboarding art shrinks to make room. Icon-only buttons (+, trash, the shop settings gear) have accessibility labels; decorative images are hidden from VoiceOver. Tags are 13 pt (`uiFootnote`) instead of 10 pt. Found while building Orange Baton from the template
-- The settings rows are value links (`SettingsDestination`), so screens pushed from them can push their own value links. The initial tab is named once (`MainTab.initial`). The onboarding background covers the whole screen. `Strings` is split into one extension per screen in `NativeAppTemplate/Strings/`. Found while building Orange Baton from the template
+- Keychain items are written `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, so a backup restored onto another device does not carry the signed-in session; items written earlier move over on the next save. Found while building Orange Baton from the template (#115)
+- The delete-account confirmation says that the shops and item tags are deleted with the account. Found while building Orange Baton from the template (#115)
+- A form field's error stays hidden until the field is first edited (`untilEdited(_:)`), so new forms (shop, item tag, sign-up, password) no longer open in red. Found while building Orange Baton from the template (#115)
+- Text can grow past AX1: the shop card and the onboarding title no longer cap Dynamic Type, and the onboarding art shrinks to make room. Icon-only buttons (+, trash, the shop settings gear) have accessibility labels; decorative images are hidden from VoiceOver. Tags are 13 pt (`uiFootnote`) instead of 10 pt. Found while building Orange Baton from the template (#115)
+- The settings rows are value links (`SettingsDestination`), so screens pushed from them can push their own value links. The initial tab is named once (`MainTab.initial`). The onboarding background covers the whole screen. `Strings` is split into one extension per screen in `NativeAppTemplate/Strings/`. Found while building Orange Baton from the template (#115)
 - List screens switch on `DataState.listContent(isEmpty:)`, where a reload with data on screen is the same `.list` case as loaded data instead of a `switch` branch of its own. A separate branch makes SwiftUI rebuild the list on every reload, re-register its `navigationDestination` and re-run its `.task`; in MyTurnTagCreator that turned a reload after each tag change into a loop that hit the API's rate limit. Nothing here reloads that way yet, so this removes the trap rather than a live bug (Shops, number tags)
 - Error messages are localized (English and Japanese). A request that fails without the API's `error_message` shows "Something went wrong while communicating with the server. Please try again later." (`NATIVEAPPTEMPLATE-2001`); developer-only errors (`NATIVEAPPTEMPLATE-1001`, `2002`–`2008`, `4001`–`4004`) show "An unexpected error occurred." The API's `error_message` is shown without the " [Status: nnn]" suffix. Error codes are unchanged; status codes, field names and underlying errors go to the log (`CodedError.debugDescription`)
 
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Shopkeeper.locale`, read from the sign-in, sign-up and profile responses and kept with the saved session. A session saved by an earlier version reads as `en`, the API's default
 
 ### Removed
-- `PermissionsRequest` no longer requires `shop_limit_count`; `SessionController` used it only as the "permissions loaded" mark, which is `didFetchPermissions` now. Unused `Spacing.xxxxl` and `uiUppercaseTag`. Found while building Orange Baton from the template
+- `PermissionsRequest` no longer requires `shop_limit_count`; `SessionController` used it only as the "permissions loaded" mark, which is `didFetchPermissions` now. Unused `Spacing.xxxxl` and `uiUppercaseTag`. Found while building Orange Baton from the template (#115)
 - TLS certificate pinning for the API. `URLSession.api` (formerly `URLSession.pinned`) relies on the system's default trust evaluation; the leaf pin had gone stale, and any CA or intermediate change risked an outage. Session headers are still dropped on redirects that leave the API host
 
 ### Changed
