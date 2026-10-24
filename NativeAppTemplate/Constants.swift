@@ -216,6 +216,10 @@ enum Strings {
     static let termsOfUse = String(localized: "Terms of Use")
     static let editProfile = String(localized: "Edit Profile")
     static let deleteMyAccount = String(localized: "Delete My Account")
+    /// The API deletes the shopkeeper's organization, with its shops, with the account
+    static let deleteMyAccountDescription = String(
+        localized: "Your shops and item tags are deleted with your account. This cannot be undone."
+    )
     static let updatePassword = String(localized: "Update Password")
     static let currentPassword = String(localized: "Current Password")
     static let newPassword = String(localized: "New Password")
