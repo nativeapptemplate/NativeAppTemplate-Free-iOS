@@ -118,6 +118,9 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 ### Dependencies
 - No third-party Swift packages. Keychain access goes through `Persistence/KeychainStore/Keychain.swift`, a small wrapper over the Security framework
 
+### Project file
+Both targets are folder-synchronized groups: a file added under `NativeAppTemplate/` or `NativeAppTemplateTests/` joins its target without touching `project.pbxproj`. `Info.plist` is the app folder's exception (the build settings point at it; it is not copied into the app).
+
 ### Testing
 Uses Swift Testing framework with `@Test` attribute. Tests are organized by component type (models, adapters, networking).
 
@@ -127,7 +130,7 @@ The app ships in English (development language) and Japanese. **Every new user-f
 
 - Put shared text in `Strings` as `static let x = String(localized: "...")`: a screen's text in its extension in `Strings/` (`Strings+Shops.swift` and so on; a new screen gets a new file), text used across screens in `Constants.swift`. A literal in `Text("...")`, `Button("...")`, `Label("...", systemImage:)` etc. is localized automatically, but a `String` variable passed to `Text(_:)` is shown verbatim, so build it with `String(localized:)`. Never build a sentence with `+`; interpolate inside one localized literal (`String(localized: "Welcome to \(appName)")`) so the translation can reorder it.
 - Keep the keys in English: nativeapptemplate-agent renames the English nouns in code and catalog keys together.
-- After building, Xcode adds new keys to `NativeAppTemplate/Localizable.xcstrings` (from the command line: `xcrun xcstringstool sync NativeAppTemplate/Localizable.xcstrings --stringsdata <each .stringsdata in DerivedData>`). Add the `ja` value with state `translated`, keeping every `%@`/`%lld` (use `%1$@`, `%2$@` to reorder). Permission prompts go in `InfoPlist.xcstrings`.
+- After building, Xcode adds new keys to `NativeAppTemplate/Localizable.xcstrings`; from the command line, `make strings` does the same (it builds into `build/strings` and syncs the catalog with that build's `.stringsdata`). Add the `ja` value with state `translated`, keeping every `%@`/`%lld` (use `%1$@`, `%2$@` to reorder). Permission prompts go in `InfoPlist.xcstrings`.
 - Use the API's terms (`config/locales/ja.yml`), the same as the paid NativeAppTemplate-iOS: Shop is **店舗** (never ショップ/店/お店), ItemTag is **アイテムタグ** in full (never タグ or アイテム alone; the agent renames these Japanese nouns as substrings), Idled/Completed 未完了/完了. Don't translate the product name.
 - User-facing error text is localized, like any other UI text (`CodedError.errorDescription`); developer details go to logs (`debugDescription`).
 - Keep untranslated: product names, URLs, `NATIVEAPPTEMPLATE-xxxx` error codes, log messages, the API's `error_message` (already localized by the server), and text the user typed.

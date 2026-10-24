@@ -132,4 +132,18 @@ struct MainContentTest {
         #expect(withTabBar.allSatisfy { $0.hasTabBar })
         #expect(!withoutTabBar.contains { $0.hasTabBar })
     }
+
+    /// Offline keeps the screens under OfflineView: replacing them closed the sheet a
+    /// screen had open, with what was typed in it. Loading and needing an update still
+    /// replace them; without a tab bar there is nothing to cover
+    @Test
+    func tabCoverFollowsTheContent() {
+        #expect(MainContent.tabs.tabCover == .uncovered)
+        #expect(MainContent.offline.tabCover == .offline)
+        #expect(MainContent.rebuildingRepositories.tabCover == .loading)
+        #expect(MainContent.needsAppUpdate.tabCover == .needsAppUpdate)
+        #expect(MainContent.offline.tabCover?.keepsScreens == true)
+        #expect(MainContent.rebuildingRepositories.tabCover?.keepsScreens == false)
+        #expect(MainContent.onboarding.tabCover == nil)
+    }
 }

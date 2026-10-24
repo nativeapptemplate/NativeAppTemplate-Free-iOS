@@ -30,6 +30,23 @@ enum MainContent: Equatable {
             false
         }
     }
+
+    /// What `AppTabView` shows besides the tabs' screens; nil without a tab bar. Offline keeps
+    /// the screens under `OfflineView`, so a sheet open on one stays open
+    var tabCover: AppTabCover? {
+        switch self {
+        case .tabs:
+            .uncovered
+        case .offline:
+            .offline
+        case .rebuildingRepositories:
+            .loading
+        case .needsAppUpdate:
+            .needsAppUpdate
+        case .onboarding, .acceptPrivacy, .acceptTerms, .permissionsLoading, .permissionsError, .sessionLoading:
+            nil
+        }
+    }
 }
 
 @Observable

@@ -18,8 +18,12 @@ enum AccessibilityElements {
     }
 
     /// Hosts `view` in a window, lays it out and returns every accessibility element
-    /// with a label
-    static func of(_ view: some View) throws -> [Element] {
+    /// with a label. `until` keeps letting SwiftUI publish, for up to 5 seconds, until the
+    /// elements satisfy it: on a slow machine (CI) a TabView's tab bar comes after the first pass.
+    static func of(
+        _ view: some View,
+        until isReady: ([Element]) -> Bool = { _ in true }
+    ) throws -> [Element] {
         try beginAccessibility()
         defer { try? endAccessibility() }
         let controller = UIHostingController(rootView: view)
@@ -38,6 +42,12 @@ enum AccessibilityElements {
 
         var elements: [Element] = []
         collect(from: controller.view, into: &elements)
+        let deadline = Date().addingTimeInterval(5)
+        while !isReady(elements), Date() < deadline {
+            RunLoop.main.run(until: Date().addingTimeInterval(0.1))
+            elements = []
+            collect(from: controller.view, into: &elements)
+        }
         return elements
     }
 
