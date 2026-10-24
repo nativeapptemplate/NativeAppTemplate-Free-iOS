@@ -112,6 +112,17 @@ APP_STORE_ID = 1234567890
 
 It is empty as committed, which hides the button: the screen still asks users to install the new version, which they get from the App Store app. The ID is built into `Info.plist` as `AppStoreID` and read at launch (`Strings.appStoreUrl`, `https://apps.apple.com/app/id<Apple ID>`). A value that is not all digits also hides the button, and `InfoPlistTest` fails on it.
 
+## Manual walkthrough
+
+The unit tests do not drive the screens, so before a release go through the app once by hand, against a local API (`bin/dev` in [`nativeapptemplateapi`](https://github.com/nativeapptemplate/nativeapptemplateapi); its mails are at `http://<HOST>:3000/mailbin`, and its development seeds sign in as `shopkeeper1@example.com` … `shopkeeper10@example.com` with the password `password`). Do it once in the light and once in the dark appearance, and once with the largest text size (Settings → Accessibility → Display & Text Size → Larger Text).
+
+1. **Sign up** with a new address, confirm it from the mail in Mailbin, and sign in. Accept the privacy policy and the terms if asked.
+2. **Shops**: create a shop, open it, change its name and time zone in Shop Settings, and go back.
+3. **Item tags**: in Shop Settings → Manage Item Tags, add two item tags, edit one and delete the other. On the shop's screen, swipe an item tag to complete it and back to idle.
+4. **Profile**: in Settings, change the name, then the password (sign out and in with the new one).
+5. **Offline**: with a sheet open (for example, adding an item tag), turn the network off: the tab shows that there is no connection, and the sheet stays with what was typed. Turn it back on.
+6. **Delete the account** created in step 1 from the Profile screen; the confirmation says its shops go too.
+
 ## SwiftLint
 
 SwiftLint runs as part of the build process in Xcode, and errors/warnings are surfaced in Xcode as well. Please ensure that you run SwiftLint before submitting a pull request.
