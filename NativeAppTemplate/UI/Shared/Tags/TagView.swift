@@ -23,7 +23,8 @@ struct TagView: View {
 
             Text(text.uppercased())
                 .foregroundStyle(textColor)
-                .font(.uiUppercaseTag)
+                // 13 pt: 10 pt was under the 11 pt Apple suggests, and hard to read in Japanese
+                .font(.uiFootnote)
                 .kerning(0.5)
         }
         .padding([.vertical], NativeAppTemplateConstants.Spacing.xxxs)
