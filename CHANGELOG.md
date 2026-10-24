@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Going offline lays `OfflineView` over the tabs' screens instead of replacing them, so a sheet open on a screen stays open with what was typed in it. `AppTabView` takes `[AppTab]` and an `AppTabCover`, so a new tab is one `AppTab` in `MainView.tabs`. Found while building Orange Baton from the template
+- The app target is a folder-synchronized group like the test target: a file added under `NativeAppTemplate/` joins the target without editing `project.pbxproj` (`Info.plist` is its exception). Found while building Orange Baton from the template
 - Keychain items are written `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, so a backup restored onto another device does not carry the signed-in session; items written earlier move over on the next save. Found while building Orange Baton from the template (#115)
 - The delete-account confirmation says that the shops and item tags are deleted with the account. Found while building Orange Baton from the template (#115)
 - A form field's error stays hidden until the field is first edited (`untilEdited(_:)`), so new forms (shop, item tag, sign-up, password) no longer open in red. Found while building Orange Baton from the template (#115)
@@ -27,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Debug builds lost the local API when launched other than from Xcode, e.g. from the Home Screen or when iOS relaunched the app after its language was changed in Settings: the endpoint came only from the scheme's environment variables, which only Xcode passes. It now comes from `API.xcconfig` (override it in the gitignored `API.local.xcconfig`) and is built into `Info.plist`; `NATIVEAPPTEMPLATE_API_*` environment variables still win. The scheme no longer sets them
 
 ### Added
+- `CodableKeychainStore` keeps a `Codable` value in the Keychain as JSON, so a new item needs no NSCoding class. `make strings` syncs `Localizable.xcstrings` from the command line. Found while building Orange Baton from the template
 - Japanese localization, ported from NativeAppTemplate-iOS #102 with the same Japanese for every shared string. Every user-facing string goes through `Localizable.xcstrings` (`String(localized:)` in `Constants.swift`), with Japanese for all keys using the API's terms (店舗, アイテムタグ). `InfoPlist.xcstrings` keeps the app name as is. `LocalizationTest` fails on a key without Japanese, a translation with different format specifiers, ショップ, or ItemTag not written as アイテムタグ in full
 - "App Language" on Edit Profile shows the language the app is shown in, with a button to change it in iOS Settings; emails follow it. Sign-up sends that language as `locale`, and after permissions are fetched (every launch and sign-in) the app sends `PATCH /shopkeeper_auth {locale}` when `shopkeepers.locale` differs (nativeapptemplateapi #150)
 - `Shopkeeper.locale`, read from the sign-in, sign-up and profile responses and kept with the saved session. A session saved by an earlier version reads as `en`, the API's default
