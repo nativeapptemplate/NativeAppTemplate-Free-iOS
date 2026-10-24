@@ -50,8 +50,8 @@ struct KeychainStoreTest {
         let item = try #require(KeychainOracle.item(service: store.service, account: store.account))
         let unarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSString.self, from: item.data)
         #expect(unarchived == "token-1")
-        // KeychainAccess default: Options.accessibility = .afterFirstUnlock
-        #expect(item.accessible == kSecAttrAccessibleAfterFirstUnlock as String)
+        // This device only, so a restored backup on another device carries no session
+        #expect(item.accessible == kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly as String)
         // KeychainAccess default: Options.synchronizable = false
         #expect(item.synchronizable == false)
     }
@@ -72,7 +72,8 @@ struct KeychainStoreTest {
         #expect(try store.retrieve() == "token-2")
         #expect(KeychainOracle.count(service: store.service, account: store.account) == 1)
         let item = try #require(KeychainOracle.item(service: store.service, account: store.account))
-        #expect(item.accessible == kSecAttrAccessibleAfterFirstUnlock as String)
+        // Saving again moves an item KeychainAccess wrote to this device only
+        #expect(item.accessible == kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly as String)
     }
 
     @Test
