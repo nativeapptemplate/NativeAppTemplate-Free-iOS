@@ -98,6 +98,7 @@ private extension ItemTagListView {
                 } label: {
                     Image(systemName: "plus")
                 }
+                .accessibilityLabel(Strings.addItemTag)
             }
         }
         .sheet(
@@ -137,6 +138,7 @@ private extension ItemTagListView {
                 .scaledToFit()
                 .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                 .padding()
+                .accessibilityHidden(true)
             Text(Strings.addItemTagDescription)
                 .foregroundStyle(.contentText)
                 .padding()

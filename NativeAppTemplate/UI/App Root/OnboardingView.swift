@@ -17,24 +17,25 @@ struct OnboardingView: View {
 
 private extension OnboardingView {
     var contentView: some View {
-        ZStack(alignment: .bottom) {
+        VStack {
             Image(systemName: "sparkles")
                 .resizable()
                 .scaledToFit()
                 .padding(.top, NativeAppTemplateConstants.Spacing.md)
-                .padding(.bottom, 192)
+                .accessibilityHidden(true)
 
-            VStack {
-                Text(Strings.welcomeToApp)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .dynamicTypeSize(DynamicTypeSize.accessibility1)
-                    .padding([.top, .horizontal])
-                    .accessibilityIdentifier("OnboardingView_welcome_staticText")
-            }
-            .frame(maxWidth: .infinity, maxHeight: 192, alignment: .top)
+            // The title takes the room it needs at any text size and the art shrinks; at
+            // the accessibility sizes a fixed-height title was cut off
+            Text(Strings.welcomeToApp)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding([.top, .horizontal])
+                .frame(maxWidth: .infinity, minHeight: 192, alignment: .top)
+                .accessibilityIdentifier("OnboardingView_welcome_staticText")
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         // The whole screen, as SignUpOrSignInView: only behind the title, it was a
         // block of backgroundColor on the system background
         .background(Color.backgroundColor)

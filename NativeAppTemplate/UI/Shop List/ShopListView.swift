@@ -139,6 +139,7 @@ private extension ShopListView {
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .accessibilityLabel(Strings.addShop)
                 }
             }
         }
@@ -170,6 +171,7 @@ private extension ShopListView {
                     .scaledToFit()
                     .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
+                    .accessibilityHidden(true)
 
                 Text(Strings.addShopDescription)
                     .foregroundStyle(.contentText)
@@ -187,6 +189,7 @@ private extension ShopListView {
                     .scaledToFit()
                     .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                     .padding()
+                    .accessibilityHidden(true)
 
                 HStack(alignment: .firstTextBaseline) {
                     Text(String(leftInShopSlots))

@@ -76,7 +76,8 @@ struct MainButtonView: View {
                             Spacer()
 
                             Image(systemName: "arrow.right")
-                                .font(.system(size: 14, weight: .bold))
+                                .font(.uiCaption.bold())
+                                .accessibilityHidden(true)
                                 .foregroundStyle(type.color)
                                 .background(
                                     Color.arrowBackground
@@ -128,7 +129,8 @@ struct MainButtonImageView: View {
                         Spacer()
 
                         Image(systemName: "arrow.right")
-                            .font(.system(size: 14, weight: .bold))
+                            .font(.uiCaption.bold())
+                            .accessibilityHidden(true)
                             .frame(width: height, height: height)
                             .foregroundStyle(type.color)
                             .background(

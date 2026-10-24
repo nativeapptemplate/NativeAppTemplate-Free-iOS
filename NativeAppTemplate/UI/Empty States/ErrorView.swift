@@ -39,6 +39,7 @@ extension ErrorView: View {
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .padding()
                         .foregroundStyle(.titleText)
+                        .accessibilityHidden(true)
 
                     Text(titleText)
                         .font(.uiTitle1)

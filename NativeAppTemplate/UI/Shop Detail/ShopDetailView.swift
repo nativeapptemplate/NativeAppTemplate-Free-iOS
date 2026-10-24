@@ -106,6 +106,7 @@ private extension ShopDetailView {
                 ) {
                     Image(systemName: "gearshape.fill")
                 }
+                .accessibilityLabel(Strings.shopSettingsLabel)
             }
         }
     }

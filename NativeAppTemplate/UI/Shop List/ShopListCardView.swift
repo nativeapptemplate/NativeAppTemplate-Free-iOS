@@ -25,6 +25,7 @@ struct ShopListCardView: View {
                     Image(systemName: "flag.checkered")
                         .frame(width: statImageSize, height: statImageSize)
                         .foregroundStyle(.secondaryText)
+                        .accessibilityHidden(true)
                     Text(String(shop.completedItemTagsCount))
                         .font(.uiLabelBold)
                     Text("completed item tags")
@@ -36,6 +37,7 @@ struct ShopListCardView: View {
                     Image(systemName: "rectangle.stack")
                         .frame(width: statImageSize, height: statImageSize)
                         .foregroundStyle(.secondaryText)
+                        .accessibilityHidden(true)
                     Text(String(shop.itemTagsCount))
                         .font(.uiLabelBold)
                     Text("all item tags")
@@ -51,6 +53,5 @@ struct ShopListCardView: View {
                 .padding(.top)
         }
         .padding()
-        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
     }
 }
