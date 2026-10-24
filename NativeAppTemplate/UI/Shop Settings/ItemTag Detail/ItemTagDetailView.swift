@@ -162,6 +162,7 @@ private extension ItemTagDetailView {
             } label: {
                 Image(systemName: "trash")
             }
+            .accessibilityLabel(Strings.delete)
         }
     }
 }

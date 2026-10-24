@@ -1418,6 +1418,16 @@
           }
         }
       }
+    },
+    "Your shops and item tags are deleted with your account. This cannot be undone." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントと一緒に、店舗とアイテムタグもすべて削除されます。元に戻せません。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

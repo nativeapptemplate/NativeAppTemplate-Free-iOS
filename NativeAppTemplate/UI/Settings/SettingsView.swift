@@ -6,6 +6,14 @@
 import StoreKit
 import SwiftUI
 
+/// Where a settings row leads. Value links, like the shop list, so a screen pushed from
+/// here can push its own value links (`navigationDestination(for:)`); under a
+/// `NavigationLink(destination:)` they did not resolve
+enum SettingsDestination: Hashable {
+    case profile
+    case password
+}
+
 struct SettingsView: View {
     @Environment(DataManager.self) private var dataManager
     @Environment(MessageBus.self) private var messageBus
@@ -23,30 +31,13 @@ struct SettingsView: View {
         VStack(spacing: 0) {
             List {
                 Section(header: Text(Strings.myAccount)) {
-                    if let shopkeeper = viewModel.shopkeeper {
-                        NavigationLink(
-                            destination: ShopkeeperEditView(
-                                viewModel: ShopkeeperEditViewModel(
-                                    signUpRepository: dataManager.signUpRepository,
-                                    sessionController: dataManager.sessionController,
-                                    messageBus: messageBus,
-                                    tabViewModel: tabViewModel,
-                                    shopkeeper: shopkeeper
-                                )
-                            )
-                        ) {
+                    if viewModel.shopkeeper != nil {
+                        NavigationLink(value: SettingsDestination.profile) {
                             Label(Strings.profile, systemImage: "person")
                         }
                     }
 
-                    NavigationLink(
-                        destination: PasswordEditView(
-                            viewModel: PasswordEditViewModel(
-                                accountPasswordRepository: dataManager.accountPasswordRepository,
-                                messageBus: messageBus
-                            )
-                        )
-                    ) {
+                    NavigationLink(value: SettingsDestination.password) {
                         Label(Strings.password, systemImage: "key")
                     }
                 }
@@ -115,6 +106,34 @@ struct SettingsView: View {
         }
         .navigationTitle(Strings.settings)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(for: SettingsDestination.self) { destination in
+            destinationView(destination)
+        }
+    }
+
+    @ViewBuilder
+    private func destinationView(_ destination: SettingsDestination) -> some View {
+        switch destination {
+        case .profile:
+            if let shopkeeper = viewModel.shopkeeper {
+                ShopkeeperEditView(
+                    viewModel: ShopkeeperEditViewModel(
+                        signUpRepository: dataManager.signUpRepository,
+                        sessionController: dataManager.sessionController,
+                        messageBus: messageBus,
+                        tabViewModel: tabViewModel,
+                        shopkeeper: shopkeeper
+                    )
+                )
+            }
+        case .password:
+            PasswordEditView(
+                viewModel: PasswordEditViewModel(
+                    accountPasswordRepository: dataManager.accountPasswordRepository,
+                    messageBus: messageBus
+                )
+            )
+        }
     }
 
     private var appVersion: String {

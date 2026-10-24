@@ -20,7 +20,6 @@ import Observation
     var shouldUpdateApp = false
     var shouldUpdatePrivacy = false
     var shouldUpdateTerms = false
-    var shopLimitCount = 0
 
     var shopkeeper: Shopkeeper? {
         didSet {
@@ -29,7 +28,7 @@ import Observation
             if shopkeeper != nil {
                 userState = .loggedIn
 
-                if shopLimitCount == 0 {
+                if !didFetchPermissions {
                     permissionState = .notLoaded
                     fetchPermissions()
                 } else {
@@ -44,7 +43,6 @@ import Observation
                 shouldUpdateApp = false
                 shouldUpdatePrivacy = false
                 shouldUpdateTerms = false
-                shopLimitCount = 0
                 // URLSession.api keeps no cache, but versions before it used
                 // URLCache.shared, which holds their API responses on disk
                 urlCache.removeAllCachedResponses()
@@ -217,9 +215,8 @@ import Observation
                 shouldUpdateApp = Int(Bundle.main.appBuild)! < permissionsResponse.iosAppVersion
                 shouldUpdatePrivacy = permissionsResponse.shouldUpdatePrivacy
                 shouldUpdateTerms = permissionsResponse.shouldUpdateTerms
-                shopLimitCount = permissionsResponse.shopLimitCount
-                // Set here, not by reassigning shopkeeper: its didSet saw the old
-                // shopLimitCount (0 on the first fetch) and requested them again
+                // Set here, not by reassigning shopkeeper: its didSet saw
+                // didFetchPermissions still false and requested them again
                 permissionState = .loaded
 
                 didFetchPermissions = true

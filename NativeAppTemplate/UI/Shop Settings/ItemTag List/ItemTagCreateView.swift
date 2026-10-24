@@ -55,6 +55,7 @@ private extension ItemTagCreateView {
                         Text(Strings.itemTagNameIsInvalid)
                             .font(.uiFootnote)
                             .validationMessage(isShown: viewModel.hasInvalidDataName)
+                            .untilEdited(viewModel.name)
                     }
                 }
 

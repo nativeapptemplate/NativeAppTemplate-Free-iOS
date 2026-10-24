@@ -26,7 +26,7 @@ struct SettingsViewModelTest {
 
     @Test
     func shopkeeperPropertyReflectsSessionController() throws {
-        let mockShopkeeper = try #require(Shopkeeper(
+        let mockShopkeeper = Shopkeeper(
             id: "test-id",
             accountId: "test-account-id",
             personalAccountId: "test-personal-id",
@@ -39,7 +39,7 @@ struct SettingsViewModelTest {
             token: "test-token",
             client: "test-client",
             expiry: "test-expiry"
-        ))
+        )
 
         sessionController.shopkeeper = mockShopkeeper
 

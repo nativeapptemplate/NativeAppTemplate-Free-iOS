@@ -19,6 +19,14 @@ struct TabViewModelTest {
         }
     }
 
+    /// The app opens on one tab, named once (`MainTab.initial`): the selected tab and
+    /// the environment default must not drift apart
+    @Test
+    func initialTabIsTheEnvironmentDefault() {
+        #expect(TabViewModel().selectedTab == MainTab.initial)
+        #expect(MainTab.defaultValue == MainTab.initial)
+    }
+
     @Test
     func showingDetailView() {
         let viewModel = TabViewModel()

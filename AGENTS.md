@@ -82,7 +82,7 @@ The app uses iOS 17's `@Observable` macro for state management with clean separa
 - Keychain storage for secure data persistence
 
 **Configuration**:
-- Central configuration in `Constants.swift`
+- Central configuration in `Constants.swift`; the app's text in `Strings/`, one extension per screen
 - API endpoints, UI strings, and app constants
 - Environment-specific settings (scheme, domain, port)
 
@@ -111,7 +111,7 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 
 - New error types must conform to `CodedError` and be placed in `Common/Errors/`
 - Use `error.codedDescription` (not `error.localizedDescription`) in all error messages
-- `errorDescription` is what the user sees, so it is localized (`String(localized:)` in `Constants.swift`): the API's `error_message` as is, or a generic text ("Something went wrong while communicating with the server. Please try again later." when a request fails without one, "An unexpected error occurred." for developer-only errors such as malformed responses or Keychain failures). Developer details (status codes, field names, underlying errors) go to `debugDescription`; log errors with `error.debugCodedDescription`, never show it
+- `errorDescription` is what the user sees, so it is localized (`String(localized:)` in `Strings/Strings+Errors.swift`): the API's `error_message` as is, or a generic text ("Something went wrong while communicating with the server. Please try again later." when a request fails without one, "An unexpected error occurred." for developer-only errors such as malformed responses or Keychain failures). Developer details (status codes, field names, underlying errors) go to `debugDescription`; log errors with `error.debugCodedDescription`, never show it
 - Use `Message(error: error)` convenience to post errors to `MessageBus`
 - Error code numbers must match across iOS and Android
 
@@ -125,7 +125,7 @@ Uses Swift Testing framework with `@Test` attribute. Tests are organized by comp
 
 The app ships in English (development language) and Japanese. **Every new user-facing string needs a Japanese translation**; `NativeAppTemplateTests/App/LocalizationTest.swift` fails otherwise.
 
-- Put shared text in `Constants.swift` as `static let x = String(localized: "...")`. A literal in `Text("...")`, `Button("...")`, `Label("...", systemImage:)` etc. is localized automatically, but a `String` variable passed to `Text(_:)` is shown verbatim, so build it with `String(localized:)`. Never build a sentence with `+`; interpolate inside one localized literal (`String(localized: "Welcome to \(appName)")`) so the translation can reorder it.
+- Put shared text in `Strings` as `static let x = String(localized: "...")`: a screen's text in its extension in `Strings/` (`Strings+Shops.swift` and so on; a new screen gets a new file), text used across screens in `Constants.swift`. A literal in `Text("...")`, `Button("...")`, `Label("...", systemImage:)` etc. is localized automatically, but a `String` variable passed to `Text(_:)` is shown verbatim, so build it with `String(localized:)`. Never build a sentence with `+`; interpolate inside one localized literal (`String(localized: "Welcome to \(appName)")`) so the translation can reorder it.
 - Keep the keys in English: nativeapptemplate-agent renames the English nouns in code and catalog keys together.
 - After building, Xcode adds new keys to `NativeAppTemplate/Localizable.xcstrings` (from the command line: `xcrun xcstringstool sync NativeAppTemplate/Localizable.xcstrings --stringsdata <each .stringsdata in DerivedData>`). Add the `ja` value with state `translated`, keeping every `%@`/`%lld` (use `%1$@`, `%2$@` to reorder). Permission prompts go in `InfoPlist.xcstrings`.
 - Use the API's terms (`config/locales/ja.yml`), the same as the paid NativeAppTemplate-iOS: Shop is **店舗** (never ショップ/店/お店), ItemTag is **アイテムタグ** in full (never タグ or アイテム alone; the agent renames these Japanese nouns as substrings), Idled/Completed 未完了/完了. Don't translate the product name.

@@ -18,6 +18,7 @@ struct OfflineView: View {
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .padding()
                         .foregroundStyle(.titleText)
+                        .accessibilityHidden(true)
 
                     Text(Strings.noConnection)
                         .font(.uiTitle1)

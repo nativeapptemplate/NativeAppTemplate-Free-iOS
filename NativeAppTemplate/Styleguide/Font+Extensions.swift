@@ -46,8 +46,4 @@ extension Font {
     static var uiCaption: Font {
         .system(size: UIFontMetrics.default.scaledValue(for: 14.0))
     }
-
-    static var uiUppercaseTag: Font {
-        .system(size: UIFontMetrics.default.scaledValue(for: 10.0)).weight(.semibold)
-    }
 }

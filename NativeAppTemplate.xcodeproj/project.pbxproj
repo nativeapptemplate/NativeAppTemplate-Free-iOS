@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DC22468D3A61008B8A0B924 /* Strings+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B04800AD95D7C76A8A69BD /* Strings+Errors.swift */; };
+		A80AA964C0B0FFF9D4FB90D0 /* Strings+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F315978567BF0F11126F98 /* Strings+Messaging.swift */; };
+		1ED792BFF98A29C71FB53198 /* Strings+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6A155480AE8C0DF0148E1F /* Strings+Onboarding.swift */; };
+		09F5A663B48F22BB5F3BF979 /* Strings+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A839FCBD44FCBBF9A18AFC /* Strings+Settings.swift */; };
+		6B189F9B7E082A4A8FCD90A5 /* Strings+ShopSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E32AF7B2015647D72CED3A /* Strings+ShopSettings.swift */; };
+		1867C4A9EED18B2677A34983 /* Strings+Shops.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73D895EA9A6931A67DFD63C /* Strings+Shops.swift */; };
+		B4DD8AB8174DD6E9979B4135 /* Strings+SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD14B32DA03091BF09BC829 /* Strings+SignIn.swift */; };
 		0106413C29A9EDFF00B46FED /* AccountPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106413B29A9EDFF00B46FED /* AccountPasswordRequest.swift */; };
 		0106413E29A9F1C300B46FED /* UpdatePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106413D29A9F1C300B46FED /* UpdatePassword.swift */; };
 		0106414029A9F2EC00B46FED /* AccountPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106413F29A9F2EC00B46FED /* AccountPasswordService.swift */; };
@@ -161,6 +168,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F6B04800AD95D7C76A8A69BD /* Strings+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Errors.swift"; sourceTree = "<group>"; };
+		96F315978567BF0F11126F98 /* Strings+Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Messaging.swift"; sourceTree = "<group>"; };
+		2D6A155480AE8C0DF0148E1F /* Strings+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Onboarding.swift"; sourceTree = "<group>"; };
+		C7A839FCBD44FCBBF9A18AFC /* Strings+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Settings.swift"; sourceTree = "<group>"; };
+		40E32AF7B2015647D72CED3A /* Strings+ShopSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+ShopSettings.swift"; sourceTree = "<group>"; };
+		B73D895EA9A6931A67DFD63C /* Strings+Shops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Shops.swift"; sourceTree = "<group>"; };
+		3DD14B32DA03091BF09BC829 /* Strings+SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+SignIn.swift"; sourceTree = "<group>"; };
 		0106413B29A9EDFF00B46FED /* AccountPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordRequest.swift; sourceTree = "<group>"; };
 		0106413D29A9F1C300B46FED /* UpdatePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePassword.swift; sourceTree = "<group>"; };
 		0106413F29A9F2EC00B46FED /* AccountPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordService.swift; sourceTree = "<group>"; };
@@ -333,6 +347,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		87295EB5D17BE2FD56108118 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				F6B04800AD95D7C76A8A69BD /* Strings+Errors.swift */,
+				96F315978567BF0F11126F98 /* Strings+Messaging.swift */,
+				2D6A155480AE8C0DF0148E1F /* Strings+Onboarding.swift */,
+				C7A839FCBD44FCBBF9A18AFC /* Strings+Settings.swift */,
+				40E32AF7B2015647D72CED3A /* Strings+ShopSettings.swift */,
+				B73D895EA9A6931A67DFD63C /* Strings+Shops.swift */,
+				3DD14B32DA03091BF09BC829 /* Strings+SignIn.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		01011B542864434900B70D04 /* Shop Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +396,7 @@
 			children = (
 				011F6DF0259EF16400BED22E /* App.swift */,
 				017203A225A96F7A008FD63B /* Constants.swift */,
+				87295EB5D17BE2FD56108118 /* Strings */,
 				01BE4F1C29CA6F8C002008BE /* TimeZoneData.swift */,
 				011F6DF9259EF16600BED22E /* Info.plist */,
 				015C78042B72DA2C00B6523C /* PrivacyInfo.xcprivacy */,
@@ -936,6 +965,13 @@
 				01E1CECC287787A700E724FC /* SignUpView.swift in Sources */,
 				017204FA25AA860F008FD63B /* MessageBus.swift in Sources */,
 				017203A325A96F7B008FD63B /* Constants.swift in Sources */,
+				4DC22468D3A61008B8A0B924 /* Strings+Errors.swift in Sources */,
+				A80AA964C0B0FFF9D4FB90D0 /* Strings+Messaging.swift in Sources */,
+				1ED792BFF98A29C71FB53198 /* Strings+Onboarding.swift in Sources */,
+				09F5A663B48F22BB5F3BF979 /* Strings+Settings.swift in Sources */,
+				6B189F9B7E082A4A8FCD90A5 /* Strings+ShopSettings.swift in Sources */,
+				1867C4A9EED18B2677A34983 /* Strings+Shops.swift in Sources */,
+				B4DD8AB8174DD6E9979B4135 /* Strings+SignIn.swift in Sources */,
 				0158BA0125C174E0008EC9D5 /* ShopsRequest.swift in Sources */,
 				011DDC21287669EA00C6C21F /* SignUpRepository.swift in Sources */,
 				0172035B25A9642E008FD63B /* Service.swift in Sources */,

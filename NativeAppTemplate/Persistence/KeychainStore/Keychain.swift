@@ -8,10 +8,11 @@ import Security
 
 /// Minimal generic-password keychain wrapper over the Security framework.
 ///
-/// Items use the same attributes KeychainAccess v4.2.2 used with `Keychain(service:)`,
+/// Items are keyed like KeychainAccess v4.2.2 keyed them with `Keychain(service:)`,
 /// so items written by earlier app versions stay readable:
 /// - `kSecClassGenericPassword`, keyed by `kSecAttrService` + `kSecAttrAccount`
-/// - written with `kSecAttrAccessibleAfterFirstUnlock` and `kSecAttrSynchronizable = false`
+/// - written with `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` (KeychainAccess used
+///   `kSecAttrAccessibleAfterFirstUnlock`) and `kSecAttrSynchronizable = false`
 /// - read/deleted with `kSecAttrSynchronizableAny`
 struct Keychain {
     let service: String
@@ -37,7 +38,9 @@ struct Keychain {
     func set(_ data: Data, for account: String) throws {
         let attributes: [String: Any] = [
             kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+            // A backup restored onto another device must not carry the session. SecItemUpdate
+            // rewrites it, so items KeychainAccess wrote move over on the next save
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
             kSecAttrSynchronizable as String: false
         ]
 

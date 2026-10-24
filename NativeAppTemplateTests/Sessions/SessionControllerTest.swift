@@ -195,7 +195,7 @@ struct SessionControllerTest {
     }
 
     /// A saved shopkeeper is signed in, and the client carries its session. The
-    /// permissions are not loaded (shopLimitCount is still 0), and the fetch waits
+    /// permissions are not loaded (didFetchPermissions is still false), and the fetch waits
     /// for the connection (sessionState is .unknown until connectionChanged).
     @Test
     func savedShopkeeperIsSignedInAndWaitsForThePermissions() throws {

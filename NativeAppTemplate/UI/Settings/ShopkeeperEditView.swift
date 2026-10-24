@@ -109,7 +109,7 @@ private extension ShopkeeperEditView {
                 viewModel.isShowingDeleteConfirmationDialog = false
             }
         } message: {
-            Text(Strings.areYouSure)
+            Text(Strings.deleteMyAccountDescription)
         }
         .navigationTitle(Strings.editProfile)
         .toolbar {

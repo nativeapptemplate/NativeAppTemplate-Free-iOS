@@ -32,6 +32,7 @@ private extension SignUpOrSignInView {
                         .scaledToFit()
                         .frame(height: 256)
                         .padding()
+                        .accessibilityHidden(true)
 
                     let terms = "[\(Strings.termsOfUse)](\(Strings.termsOfUseUrl))"
                     let privacy = "[\(Strings.privacyPolicy)](\(Strings.privacyPolicyUrl))"

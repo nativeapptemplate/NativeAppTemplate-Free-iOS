@@ -28,6 +28,7 @@ struct NeedAppUpdatesView: View {
                         .frame(width: NativeAppTemplateConstants.Spacing.xxxl)
                         .foregroundStyle(.titleText)
                         .padding()
+                        .accessibilityHidden(true)
                     Text(Strings.updateApp)
                         .font(.uiTitle1)
                         .foregroundStyle(.titleText)
