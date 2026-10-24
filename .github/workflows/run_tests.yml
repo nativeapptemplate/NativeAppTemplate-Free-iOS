@@ -1,4 +1,4 @@
-name: Run tests
+name: SwiftFormat
 on:
   pull_request:
 
@@ -11,25 +11,17 @@ permissions:
 
 jobs:
   build:
+    # SwiftFormat only. The project is in the Xcode 27.0 format and GitHub's macOS runners
+    # have Xcode 26 at most, which cannot open it, so the tests run locally before merging
+    # (AGENTS.md "Testing"). Put the Xcode selection and the test step back once a runner
+    # has Xcode 27.
     runs-on: macos-26
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '26.6'
-      - name: Install SwiftLint and SwiftFormat
+      - name: Install SwiftFormat
         run: |
-          brew install swiftlint swiftformat
+          brew install swiftformat
       - name: SwiftFormat Lint
         run: |
           swiftformat --lint NativeAppTemplate
-      - name: Unit Tests
-        run: |
-          xcodebuild -project NativeAppTemplate.xcodeproj \
-            -scheme "NativeAppTemplate" \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest' \
-            -skipMacroValidation \
-            -quiet \
-            test

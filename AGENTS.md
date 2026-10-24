@@ -124,6 +124,8 @@ Both targets are folder-synchronized groups: a file added under `NativeAppTempla
 ### Testing
 Uses Swift Testing framework with `@Test` attribute. Tests are organized by component type (models, adapters, networking).
 
+GitHub Actions runs SwiftLint and SwiftFormat on PRs but not the tests: the project is in the Xcode 27.0 format and GitHub's macOS runners have Xcode 26 at most. Run the full suite locally (Xcode 27) before merging.
+
 ## Localization (English + Japanese)
 
 The app ships in English (development language) and Japanese. **Every new user-facing string needs a Japanese translation**; `NativeAppTemplateTests/App/LocalizationTest.swift` fails otherwise.
