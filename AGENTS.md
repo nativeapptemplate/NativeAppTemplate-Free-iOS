@@ -118,6 +118,9 @@ All errors use the `CodedError` protocol in `NativeAppTemplate/Common/Errors/`. 
 ### Dependencies
 - No third-party Swift packages. Keychain access goes through `Persistence/KeychainStore/Keychain.swift`, a small wrapper over the Security framework
 
+### Project file
+Both targets are folder-synchronized groups: a file added under `NativeAppTemplate/` or `NativeAppTemplateTests/` joins its target without touching `project.pbxproj`. `Info.plist` is the app folder's exception (the build settings point at it; it is not copied into the app).
+
 ### Testing
 Uses Swift Testing framework with `@Test` attribute. Tests are organized by component type (models, adapters, networking).
 
