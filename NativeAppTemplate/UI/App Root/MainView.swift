@@ -81,30 +81,10 @@ private extension MainView {
             )
         case .sessionLoading:
             LoadingView()
-        case .offline:
-            AppTabView(
-                shopListView: OfflineView.init,
-                settingsView: OfflineView.init
-            )
-            .environment(tabViewModel)
-        case .rebuildingRepositories:
-            AppTabView(
-                shopListView: LoadingView.init,
-                settingsView: LoadingView.init
-            )
-            .environment(tabViewModel)
-        case .needsAppUpdate:
-            AppTabView(
-                shopListView: { NeedAppUpdatesView() },
-                settingsView: { NeedAppUpdatesView() }
-            )
-            .environment(tabViewModel)
-        case .tabs:
-            AppTabView(
-                shopListView: shopListView,
-                settingsView: settingsView
-            )
-            .environment(tabViewModel)
+        case .offline, .rebuildingRepositories, .needsAppUpdate, .tabs:
+            // One AppTabView for all four, so going offline and back keeps the screens
+            AppTabView(tabs: tabs, cover: content.tabCover ?? .uncovered)
+                .environment(tabViewModel)
         }
     }
 
@@ -128,6 +108,18 @@ private extension MainView {
                 )
             )
         }
+    }
+
+    /// The app's tabs, in order
+    var tabs: [AppTab] {
+        [
+            AppTab(.shops, title: Strings.shops, systemImage: "storefront.fill", keepsNavigationPath: true) {
+                shopListView()
+            },
+            AppTab(.settings, title: Strings.settings, systemImage: "gearshape.fill") {
+                settingsView()
+            }
+        ]
     }
 
     func shopListView() -> ShopListView {
