@@ -12,7 +12,7 @@ Want this template adapted to your own domain? [nativeapptemplate-agent](https:/
 
 NativeAppTemplate-Free-iOS connects to a Rails 8.1 API backend that **you run yourself**. The backend is open source (MIT) — run it locally on your Wi-Fi or deploy your own, then point the app at it (see [Running with the NativeAppTemplate-API on localhost](#running-with-the-nativeapptemplate-api-on-localhost)).
 
-> **Note:** There is no shared hosted API. The app still ships with a built-in default of `https://api.nativeapptemplate.com`, but that endpoint has been shut down — you must run your own API server and point the app at it.
+> **Note:** There is no shared hosted API: run your own API server and point the app at it. The built-in default, `https://api.nativeapptemplate.com`, stands for your own production API's host.
 
 - [nativeapptemplateapi](https://github.com/nativeapptemplate/nativeapptemplateapi) &middot; [API Docs](https://nativeapptemplate.com/api-docs/index.html)
 
@@ -100,7 +100,7 @@ Only the keys you set override `API.xcconfig`, whose committed values are exampl
 
 The values are built into the app's `Info.plist`, so a Debug build reaches the same API however it is launched: from Xcode, from the Home Screen, on a device after Xcode disconnects, and after iOS relaunches the app because its language was changed in Settings. Environment variables with the same names (`NATIVEAPPTEMPLATE_API_*`, e.g. set by `simctl launch` via `SIMCTL_CHILD_*`) still take precedence; see `APIEndpoint` in `NativeAppTemplateEnvironment.swift`.
 
-Release builds always use the code default (`https://api.nativeapptemplate.com`, which has been shut down), so change `APIEndpoint.production` to your own API server before shipping a Release build.
+Release builds always use the code default (`https://api.nativeapptemplate.com`), so set `APIEndpoint.production` to your own API server before shipping a Release build.
 
 ## App Store page
 
