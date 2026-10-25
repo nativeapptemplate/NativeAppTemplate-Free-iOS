@@ -12,7 +12,7 @@ Want this template adapted to your own domain? [nativeapptemplate-agent](https:/
 
 NativeAppTemplate-Free-iOS connects to a Rails 8.1 API backend that **you run yourself**. The backend is open source (MIT) — run it locally on your Wi-Fi or deploy your own, then point the app at it (see [Running with the NativeAppTemplate-API on localhost](#running-with-the-nativeapptemplate-api-on-localhost)).
 
-> **Note:** There is no shared hosted API: run your own API server and point the app at it. The built-in default, `https://api.nativeapptemplate.com`, stands for your own production API's host.
+> **Note:** The built-in default, `https://api.nativeapptemplate.com`, stands for your own production API's host: run your own API server and point the app at it. In the template itself it is a public demo, where anyone can sign up and the data may be reset at any time.
 
 - [nativeapptemplateapi](https://github.com/nativeapptemplate/nativeapptemplateapi) &middot; [API Docs](https://nativeapptemplate.com/api-docs/index.html)
 
