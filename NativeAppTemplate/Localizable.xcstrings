@@ -1339,16 +1339,6 @@
         }
       }
     },
-    "Unable to find user with the email." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このメールアドレスのユーザーが見つかりません。"
-          }
-        }
-      }
-    },
     "Update App" : {
       "localizations" : {
         "ja" : {

@@ -62,11 +62,8 @@ final class ResendConfirmationInstructionsViewModel {
                 shouldDismiss = true
             } catch {
                 UIApplication.dismissKeyboard()
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: Strings.sentConfirmationInstructionError,
-                    autoDismiss: false
-                ))
+                // The API's error_message (e.g. the 429 for too many requests), not a fixed text
+                messageBus.post(message: Message(error: error))
             }
 
             isSendingConfirmationInstructions = false

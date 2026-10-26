@@ -49,7 +49,7 @@ struct ForgotPasswordViewModelTest {
         #expect(messageBus.currentMessage?.autoDismiss == false)
     }
 
-    /// The error shown is the fixed Strings.sentResetPasswordInstructionError, not the API's message
+    /// The error shown is the API's error_message, not a fixed text
     @Test
     func failedSendStaysWithAnErrorMessage() async {
         signUpRepository.error = .requestFailed(nil, 404, "Not found")
@@ -60,7 +60,26 @@ struct ForgotPasswordViewModelTest {
 
         #expect(!viewModel.shouldDismiss)
         #expect(messageBus.currentMessage?.level == .error)
-        #expect(messageBus.currentMessage?.message == Strings.sentResetPasswordInstructionError)
+        // CodedError.formattedDescription: "[<errorCode>] <errorDescription>"
+        #expect(messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] Not found")
+        #expect(messageBus.currentMessage?.autoDismiss == false)
+    }
+
+    /// The API answers 429 when mail requests for one address come too often
+    /// (the API's `ThrottleMailRequests`); its error_message is what the user must
+    /// read, not "Unable to find user with the email."
+    @Test
+    func sendMeResetPasswordInstructionsTappedShowsAPIMessage() async {
+        signUpRepository.error = .requestFailed(nil, 429, "Too many requests. Please try again later.")
+        let viewModel = makeViewModel(email: "a@example.com")
+
+        viewModel.sendMeResetPasswordInstructionsTapped()
+        await waitUntil { messageBus.currentMessage != nil }
+
+        // CodedError.formattedDescription: "[<errorCode>] <errorDescription>"
+        #expect(
+            messageBus.currentMessage?.message == "[NATIVEAPPTEMPLATE-2001] Too many requests. Please try again later."
+        )
         #expect(messageBus.currentMessage?.autoDismiss == false)
     }
 }
