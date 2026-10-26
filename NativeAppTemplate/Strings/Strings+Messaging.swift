@@ -51,12 +51,10 @@ extension Strings {
         at your email address in a few minutes.
         """
     )
-    static let sentResetPasswordInstructionError = String(localized: "Unable to find user with the email.")
 
     static let sentConfirmationInstruction = String(
         localized: "An email with instructions for confirming your email address has been sent."
     )
-    static let sentConfirmationInstructionError = String(localized: "Unable to find user with the email.")
 
     static let updateApp = String(localized: "Update App")
     static let installNewVersionApp = String(localized: "Please install new version app.")

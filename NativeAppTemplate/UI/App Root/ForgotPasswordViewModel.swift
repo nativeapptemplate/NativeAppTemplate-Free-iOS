@@ -62,11 +62,8 @@ final class ForgotPasswordViewModel {
                 shouldDismiss = true
             } catch {
                 UIApplication.dismissKeyboard()
-                messageBus.post(message: Message(
-                    level: .error,
-                    message: Strings.sentResetPasswordInstructionError,
-                    autoDismiss: false
-                ))
+                // The API's error_message (e.g. the 429 for too many requests), not a fixed text
+                messageBus.post(message: Message(error: error))
             }
 
             isSendingResetPasswordInstructions = false
