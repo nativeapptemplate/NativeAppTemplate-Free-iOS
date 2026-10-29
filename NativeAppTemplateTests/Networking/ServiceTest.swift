@@ -239,6 +239,55 @@ struct ServiceTest {
 
         #expect(!tokens.contains(token))
     }
+
+    /// The API looks up the organization in the path before the token. A free account
+    /// has only its personal organization, which goes with the account (deleted by the
+    /// user, or by the public demo after 30 unused days), so a saved session for it gets
+    /// this 404, never devise_token_auth's 401. Found on 2026-10-28 with the paid app: a
+    /// launch with such a session stopped at the generic error screen. The body is what
+    /// `curl https://api.nativeapptemplate.com/<unknown id>/api/v1/shopkeeper/permissions`
+    /// answered (AccountNotFoundController)
+    @Test
+    func deletedAccountIsAnnouncedAsAnExpiredSession() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(
+                status: 404,
+                [
+                    "code": 404,
+                    "error_code": "account_not_found",
+                    "error_message": "This organization no longer exists."
+                ]
+            )
+        }
+        defer { server.stop() }
+        let token = "deleted-\(UUID().uuidString)"
+
+        let tokens = await expiredSessionTokens {
+            _ = try? await requestFailed {
+                _ = try await ItemTagsService(networkClient: server.client(authToken: token)).itemTagDetail(id: "t1")
+            }
+        }
+
+        #expect(tokens.filter { $0 == token }.count == 1)
+    }
+
+    /// Any other 404 (a deleted shop or item tag) keeps the session
+    @Test
+    func notFoundWithoutTheAccountErrorCodeIsNotAnExpiredSession() async throws {
+        let server = try await TestHTTPServer.start { _ in
+            TestHTTPServer.json(status: 404, ["code": 404, "error_message": "Not found."])
+        }
+        defer { server.stop() }
+        let token = "valid-\(UUID().uuidString)"
+
+        let tokens = await expiredSessionTokens {
+            _ = try? await requestFailed {
+                _ = try await ItemTagsService(networkClient: server.client(authToken: token)).itemTagDetail(id: "t1")
+            }
+        }
+
+        #expect(!tokens.contains(token))
+    }
 }
 
 /// Runs `body` and returns the NativeAppTemplateAPIError it throws
