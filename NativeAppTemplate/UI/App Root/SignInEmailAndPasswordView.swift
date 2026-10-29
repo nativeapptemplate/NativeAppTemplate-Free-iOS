@@ -47,13 +47,16 @@ private extension SignInEmailAndPasswordView {
                 } header: {
                     Text(Strings.email)
                 } footer: {
-                    if viewModel.isEmailBlank {
-                        Text(Strings.emailIsRequired)
-                            .foregroundStyle(.validationError)
-                    } else if viewModel.isEmailInvalid {
-                        Text(Strings.emailIsInvalid)
-                            .foregroundStyle(.validationError)
+                    Group {
+                        if viewModel.isEmailBlank {
+                            Text(Strings.emailIsRequired)
+                                .foregroundStyle(.validationError)
+                        } else if viewModel.isEmailInvalid {
+                            Text(Strings.emailIsInvalid)
+                                .foregroundStyle(.validationError)
+                        }
                     }
+                    .untilEdited(viewModel.email)
                 }
                 Section {
                     SecureField(Strings.placeholderPassword, text: $viewModel.password)
@@ -64,13 +67,16 @@ private extension SignInEmailAndPasswordView {
                 } header: {
                     Text(Strings.password)
                 } footer: {
-                    if viewModel.isPasswordBlank {
-                        Text(Strings.passwordIsRequired)
-                            .foregroundStyle(.validationError)
-                    } else if viewModel.hasInvalidDataPassword {
-                        Text(Strings.passwordIsInvalid)
-                            .foregroundStyle(.validationError)
+                    Group {
+                        if viewModel.isPasswordBlank {
+                            Text(Strings.passwordIsRequired)
+                                .foregroundStyle(.validationError)
+                        } else if viewModel.hasInvalidDataPassword {
+                            Text(Strings.passwordIsInvalid)
+                                .foregroundStyle(.validationError)
+                        }
                     }
+                    .untilEdited(viewModel.password)
                 }
 
                 Section {

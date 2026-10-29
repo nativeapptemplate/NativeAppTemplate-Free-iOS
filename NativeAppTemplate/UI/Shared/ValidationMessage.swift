@@ -28,12 +28,21 @@ struct UntilEditedModifier<Value: Equatable>: ViewModifier {
     @State private var isEdited = false
 
     func body(content: Content) -> some View {
-        content
-            .opacity(isEdited ? 1 : 0)
-            .accessibilityHidden(!isEdited)
-            .onChange(of: value) {
-                isEdited = true
+        Group {
+            if isEdited {
+                // Edited, so validationMessage(isShown:) or the caller alone decides; an outer
+                // accessibilityHidden(false) here undid its accessibilityHidden(true), and
+                // VoiceOver read a message for an edited field that had none
+                content
+            } else {
+                content
+                    .hidden()
+                    .accessibilityHidden(true)
             }
+        }
+        .onChange(of: value) {
+            isEdited = true
+        }
     }
 }
 

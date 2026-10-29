@@ -54,9 +54,25 @@ struct ValidationMessageTest {
         #expect(labels.contains(messageText))
     }
 
+    /// An edited field with valid text has no message, for VoiceOver too. untilEdited's
+    /// accessibilityHidden(false) undid validationMessage's accessibilityHidden(true), so
+    /// VoiceOver read "Name is required." under a filled-in name. Found on 2026-10-29 on a
+    /// device (the free app's sign-up, through WebDriverAgent's accessibility snapshot)
+    @Test
+    func editedFieldWithoutAnErrorHasNoMessage() throws {
+        let labels = try AccessibilityElements.of(
+            Form(edited: true, isShown: false, siblingLabel: siblingLabel, messageText: messageText)
+        )
+        .map(\.label)
+
+        #expect(labels.contains(siblingLabel))
+        #expect(!labels.contains(messageText))
+    }
+
     /// A field's text and its required-field message; `edited` types into it on appear
     private struct Form: View {
         let edited: Bool
+        var isShown = true
         let siblingLabel: String
         let messageText: String
         @State private var text = ""
@@ -65,7 +81,7 @@ struct ValidationMessageTest {
             VStack {
                 Text(siblingLabel)
                 Text(messageText)
-                    .validationMessage(isShown: true)
+                    .validationMessage(isShown: isShown)
                     .untilEdited(text)
             }
             .onAppear {
