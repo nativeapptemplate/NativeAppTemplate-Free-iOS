@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Sign in, Forgot Password and Resend Confirmation Instructions show a field's validation message only once that field is edited, like the other forms; they showed "Email is required." and "Password is required." as soon as they opened (`untilEdited`, `SignInFormErrorsTest`). VoiceOver no longer reads a validation message that is not shown: on an edited field, `untilEdited` made the message visible to accessibility again and undid `validationMessage`'s hiding, so a filled-in name still read "Name is required.". Found while checking the release on a device against the public demo
+
 ### Changed
 - The app follows the system's light or dark appearance instead of being dark only: every semantic color has a light and a dark value (`Color(light:dark:)`), and the dark pins in `App.swift` and `Info.plist` are removed. Primary buttons are filled (white on `primaryButtonBackground`). `SemanticColorContrastTest` checks each color against what it is drawn on in both appearances; three dark pairs under 4.5:1 (secondary text, content text and the validation error on cards) are raised. Found while building Orange Baton from the template (#118)
 - Going offline lays `OfflineView` over the tabs' screens instead of replacing them, so a sheet open on a screen stays open with what was typed in it. `AppTabView` takes `[AppTab]` and an `AppTabCover`, so a new tab is one `AppTab` in `MainView.tabs`. Found while building Orange Baton from the template (#116)
