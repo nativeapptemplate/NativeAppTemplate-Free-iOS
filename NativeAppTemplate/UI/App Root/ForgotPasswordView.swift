@@ -51,13 +51,16 @@ private extension ForgotPasswordView {
             } header: {
                 Text(Strings.email)
             } footer: {
-                if viewModel.isEmailBlank {
-                    Text(Strings.emailIsRequired)
-                        .foregroundStyle(.validationError)
-                } else if viewModel.isEmailInvalid {
-                    Text(Strings.emailIsInvalid)
-                        .foregroundStyle(.validationError)
+                Group {
+                    if viewModel.isEmailBlank {
+                        Text(Strings.emailIsRequired)
+                            .foregroundStyle(.validationError)
+                    } else if viewModel.isEmailInvalid {
+                        Text(Strings.emailIsInvalid)
+                            .foregroundStyle(.validationError)
+                    }
                 }
+                .untilEdited(viewModel.email)
             }
 
             MainButtonView(title: Strings.buttonSendMeResetPasswordInstructions, type: .primary(withArrow: false)) {
