@@ -44,6 +44,7 @@ NativeAppTemplate-Free-iOS uses modern iOS development tools and practices, incl
 - Force Privacy Policy Version Update
 - Force Terms of Use Version Update
 - English and Japanese Localization (String Catalogs)
+- Light and Dark Appearance (follows the system setting)
 - And more!
 
 ## NFC Tag Operations
