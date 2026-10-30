@@ -155,6 +155,7 @@ private extension ShopListView {
                         messageBus: messageBus
                     )
                 )
+                .sheetMessageBar(messageBus)
             }
         )
     }

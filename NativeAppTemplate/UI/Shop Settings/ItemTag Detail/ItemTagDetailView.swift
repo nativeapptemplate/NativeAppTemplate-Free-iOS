@@ -64,6 +64,7 @@ private extension ItemTagDetailView {
                         itemTagId: viewModel.itemTagId
                     )
                 )
+                .sheetMessageBar(messageBus)
             }
         )
         .alert(
