@@ -88,7 +88,6 @@ private extension ShopListCardView {
         Text(label)
             .font(.uiFootnote)
             .foregroundStyle(.contentText)
-            .fixedSize(horizontal: false, vertical: true)
     }
 
     func stackedStat(image: String, count: Int, label: LocalizedStringKey) -> some View {
@@ -97,7 +96,11 @@ private extension ShopListCardView {
                 statImage(image)
                 statCount(count)
             }
+            // Grows to its full height: in the list row it was cut off at the
+            // accessibility sizes. Only here: in the grid it narrowed the label column
+            // and cut off the description at the standard sizes
             statLabel(label)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
