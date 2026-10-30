@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- At the accessibility text sizes, a shop card's counts put each label under its number at the card's full width; in the grid's narrow label column the labels were cut off ("completed ite…") (same fix in NativeAppTemplate-iOS)
 - A save that fails on a sheet now says why on the sheet. The message bar is under a sheet, so an error there could not be seen. Add Shop and Add and Edit Item Tag put the bar on their own content (`sheetMessageBar`) (same fix in NativeAppTemplate-iOS)
 
 ## [3.3.0] - 2026-10-29
