@@ -29,6 +29,16 @@ struct MessageBarView: View {
     }
 }
 
+extension View {
+    /// The message bar on a sheet's content. The app's own bar (in the tab, or on MainView)
+    /// is under the sheet, where a failed save's error would not be seen
+    func sheetMessageBar(_ messageBus: MessageBus) -> some View {
+        overlay(alignment: .bottom) {
+            MessageBarView(messageBus: messageBus)
+        }
+    }
+}
+
 struct MessageBarView_Previews: PreviewProvider {
     static var previews: some View {
         let messageBus = MessageBus()

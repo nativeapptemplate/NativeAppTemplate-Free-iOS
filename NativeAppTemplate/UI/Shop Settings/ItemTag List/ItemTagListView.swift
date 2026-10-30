@@ -114,6 +114,7 @@ private extension ItemTagListView {
                         shopId: viewModel.shop.id
                     )
                 )
+                .sheetMessageBar(messageBus)
             }
         )
     }
